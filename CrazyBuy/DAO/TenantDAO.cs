@@ -1,22 +1,13 @@
-﻿using CrazyBuy.Models;
-using CrazyBuy.Common;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Linq;
-
-namespace CrazyBuy
+using CrazyBuy.Models;
+namespace CrazyBuy.DAO
 {
-    public class PlusOneRerpository
+    public class TenantDAO : CrazyBuyRerpository
     {
-        public PlusOneDbContext ContextInit()
-        {
-            //通常連線字串會放在config中
-            return new PlusOneDbContext(Utils.GetConfiguration("DataBase"));
-        }
-
         public List<Tenant> GetTable(int limit)
         {
-            using (PlusOneDbContext dbContext = ContextInit())
+            using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 IQueryable<Tenant> result = dbContext.getTenant;
                 result = result.Take(limit);
@@ -26,7 +17,7 @@ namespace CrazyBuy
 
         public void addTenant(Tenant tenant)
         {
-            using (PlusOneDbContext dbContext = ContextInit())
+            using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 dbContext.getTenant.Add(tenant);
                 dbContext.SaveChanges();
@@ -35,11 +26,11 @@ namespace CrazyBuy
 
         public void removeTenant(Tenant tenant)
         {
-            using (PlusOneDbContext dbContext = ContextInit())
+            using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 Tenant model = dbContext.getTenant.Where(
                 m => m.tenantId == tenant.tenantId).SingleOrDefault();
-           
+
                 if (model != null)
                 {
                     dbContext.getTenant.Attach(model);
@@ -51,7 +42,7 @@ namespace CrazyBuy
 
         public void updateTenant(Tenant tenant)
         {
-            using (PlusOneDbContext dbContext = ContextInit())
+            using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 Tenant model = dbContext.getTenant.Where(
                 m => m.tenantId == tenant.tenantId).SingleOrDefault();
@@ -62,6 +53,5 @@ namespace CrazyBuy
                 }
             }
         }
-
     }
 }

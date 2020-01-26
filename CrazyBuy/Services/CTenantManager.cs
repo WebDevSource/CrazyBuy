@@ -1,12 +1,12 @@
-﻿using CrazyBuy;
+﻿using System.Collections.Generic;
+using CrazyBuy.DAO;
 using CrazyBuy.Models;
-using System.Collections.Generic;
 
 namespace CrazyBuy
 {
     public class TenantManager
     {
-        private static PlusOneRerpository rerpos = new PlusOneRerpository();
+        private static TenantDAO rerpos = new TenantDAO();
 
         public static List<Tenant> getTenantTop(int limit)
         {

@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "CrezyBuy": {
+    "CrazyBuy": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

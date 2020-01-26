@@ -5,12 +5,12 @@ using System.Data.SqlClient;
 
 namespace CrazyBuy
 {
-    public class PlusOneDbContext : DbContext
+    public class CrazyBuyDbContext : DbContext
     {
         public DbSet<Tenant> getTenant { get; set; }
-        public PlusOneDbContext(string connStr) : base(new SqlConnection(connStr), true)
+        public CrazyBuyDbContext(string connStr) : base(new SqlConnection(connStr), true)
         {
-            Database.SetInitializer<PlusOneDbContext>(null);
+            Database.SetInitializer<CrazyBuyDbContext>(null);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
