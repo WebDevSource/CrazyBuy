@@ -17,7 +17,7 @@ namespace CrazyBuy.Controllers
         public IActionResult Anonymous()
         {
             GetAuthorizeInfo();
-            Debug.WriteLine("anonymous");
+            Debug.WriteLine("Authorize");
             return Ok();
         }
 
