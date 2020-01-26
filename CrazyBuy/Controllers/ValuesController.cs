@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CrazyBuy.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class ValuesController : RootController
     {
         // GET api/values/anonymous
@@ -14,21 +15,13 @@ namespace CrazyBuy.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Anonymous()
+        public IActionResult authorize()
         {
             GetAuthorizeInfo();
-            Debug.WriteLine("Authorize");
-            return Ok();
-        }
-
-        // GET api/values/authorize
-        /// <summary>使用身分驗證，HTTP 的 Authorization Header 必須設定合法的 JWT Bearer Token 才能使用</summary>
-        [Authorize]
-        [HttpGet("{function}")]
-        public IActionResult All(string function)
-        {
-            Debug.WriteLine("authorize");
-            return new ContentResult() { Content = "For all client who authorize." };
+            var name = User.Identity.Name;
+            var jwt_id = User.Claims.FirstOrDefault(p => p.Type == "CustomClaim").Value;
+            var all_Data = User.Claims.Select(p => new { p.Type, p.Value });
+            return Ok(all_Data);
         }
     }
 }
