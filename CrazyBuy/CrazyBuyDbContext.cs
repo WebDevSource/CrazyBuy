@@ -7,7 +7,9 @@ namespace CrazyBuy
 {
     public class CrazyBuyDbContext : DbContext
     {
-        public DbSet<Tenant> getTenant { get; set; }
+        public DbSet<Tenant> Tenant { get; set; }
+        public DbSet<Member> Member { get; set; }
+
         public CrazyBuyDbContext(string connStr) : base(new SqlConnection(connStr), true)
         {
             Database.SetInitializer<CrazyBuyDbContext>(null);
@@ -15,8 +17,7 @@ namespace CrazyBuy
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();  //取消自動轉換 Table Name 單複數
-
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();  //取消自動轉換 Table Name 單複數            
             var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
     }

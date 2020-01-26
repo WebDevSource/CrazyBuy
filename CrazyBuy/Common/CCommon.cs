@@ -1,6 +1,11 @@
-﻿using System;
-namespace CrazyBuy
+﻿namespace CrazyBuy
 {
+    public class MessageCode
+    {
+        public readonly static int SUCCESS = 1;
+        public readonly static int ERROR = -1;
+    }
+
     public class ReturnMessage
     {
         public int code { get; set; }

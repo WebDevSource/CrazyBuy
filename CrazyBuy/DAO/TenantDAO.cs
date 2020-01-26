@@ -9,7 +9,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                IQueryable<Tenant> result = dbContext.getTenant;
+                IQueryable<Tenant> result = dbContext.Tenant;
                 result = result.Take(limit);
                 return result.ToList();
             }
@@ -19,7 +19,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                dbContext.getTenant.Add(tenant);
+                dbContext.Tenant.Add(tenant);
                 dbContext.SaveChanges();
             }
         }
@@ -28,13 +28,13 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                Tenant model = dbContext.getTenant.Where(
+                Tenant model = dbContext.Tenant.Where(
                 m => m.tenantId == tenant.tenantId).SingleOrDefault();
 
                 if (model != null)
                 {
-                    dbContext.getTenant.Attach(model);
-                    dbContext.getTenant.Remove(model);
+                    dbContext.Tenant.Attach(model);
+                    dbContext.Tenant.Remove(model);
                     dbContext.SaveChanges();
                 }
             }
@@ -44,7 +44,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                Tenant model = dbContext.getTenant.Where(
+                Tenant model = dbContext.Tenant.Where(
                 m => m.tenantId == tenant.tenantId).SingleOrDefault();
                 if (model != null)
                 {

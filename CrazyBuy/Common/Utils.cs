@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Configuration;
+﻿using System;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace CrazyBuy.Common
 {
-	public class Utils
+    public class Utils
     {
 		public static IConfigurationRoot Configuration { get; set; }
 		public static string GetConfiguration(string configurationKey)
