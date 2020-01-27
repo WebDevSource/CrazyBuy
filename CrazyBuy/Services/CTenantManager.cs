@@ -5,27 +5,26 @@ using CrazyBuy.Models;
 namespace CrazyBuy
 {
     public class TenantManager
-    {
-        private static TenantDAO rerpos = new TenantDAO();
+    {        
 
         public static List<Tenant> getTenantTop(int limit)
         {
-           return rerpos.GetTable(limit);
+           return DataManager.tenantDao.GetTable(limit);
         }
 
         public static void saveTenant(Tenant tenant)
         {
-            rerpos.addTenant(tenant);
+            DataManager.tenantDao.addTenant(tenant);
         }
 
         public static void removeTenant(Tenant tenant)
         {
-            rerpos.removeTenant(tenant);
+            DataManager.tenantDao.removeTenant(tenant);
         }
 
         public static void updateTenant(Tenant tenant)
         {
-            rerpos.updateTenant(tenant);
+            DataManager.tenantDao.updateTenant(tenant);
         }
     }
 }

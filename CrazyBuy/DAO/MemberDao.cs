@@ -1,18 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using CrazyBuy.Models;
 
 namespace CrazyBuy.DAO
 {
-    public class MemberDao : CrazyBuyRerpository
+    public class MemberDAO : CrazyBuyRerpository
     {
-        public List<Member> GetTable(int limit)
+        public Member getMember(string userId, string pwd, Guid tenantId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                IQueryable<Member> result = dbContext.Member;
-                result = result.Take(limit);
-                return result.ToList();
+                Member model = dbContext.Member.Where(
+                 m => m.userId == userId && m.userPassword == pwd
+                 && m.tenantId == tenantId).SingleOrDefault();
+                return model;
+            }
+        }
+
+        public void addMember(Member member)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                dbContext.Member.Add(member);
+                dbContext.SaveChanges();
             }
         }
     }
