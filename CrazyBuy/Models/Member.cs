@@ -1,27 +1,32 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace CrazyBuy.Models
 {
     public class Member
     {
-        public Guid id { get; set; }
-        public Guid tenantId { get; set; }
-        public string userId { get; set; }
-        public string userPassword { get; set; }
-        public string userName { get; set; }
-        public string mobilePhone { get; set; }
-        public string FAX { get; set; }
-        public string mail { get; set; }
-        public string lineID { get; set; }
-        public string Address { get; set; }
-        public int userGender { get; set; }
-        public DateTime userBirthday { get; set; }
-        public string userPortraitUrl { get; set; }
-        public string MemberType { get; set; }
-        public string ShopName { get; set; }
-        public string Note { get; set; }
-        public string PriceGrade { get; set; }
+        [Key]
+        public string memberCode { get; set; }
+        public int memberId { get; set; }        
+        public string account { get; set; }
+        public string password { get; set; }
+        public string name { get; set; }
+        public string cellphone { get; set; }
+        public string email { get; set; }
+        public string address { get; set; }
+        public string gender { get; set; }
+        public DateTime? birthday { get; set; }
+        public string tel { get; set; }
+        public string fax { get; set; }
+        public string lineId { get; set; }
+        public string fbId { get; set; }
+        public string tenantType { get; set; }
+        public string notes { get; set; }
+        public DateTime? dLastLogin { get; set; }
         public string status { get; set; }
-        public string LastestLoginTime { get; set; }
-        public string LastestOrderTime { get; set; }
+        public DateTime createTime { get; set; }
+        public DateTime updateTime { get; set; }
+        public int creator { get; set; }
+        public int updater { get; set; }
     }
 }

@@ -9,9 +9,13 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                IQueryable<Tenant> result = dbContext.Tenant;
-                result = result.Take(limit);
-                return result.ToList();
+                //IQueryable<Tenant> result = dbContext.Tenant;
+                //result = result.Take(limit);
+                //return result.ToList();
+
+                var sql = @"SELECT TOP (10) [tenantId],[tenantCode] FROM [dbo].[Tenant]";
+
+                return dbContext.Database.SqlQuery<Tenant>(sql).ToList();
             }
         }
 

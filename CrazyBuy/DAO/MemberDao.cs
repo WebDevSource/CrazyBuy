@@ -1,18 +1,16 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using CrazyBuy.Models;
 
 namespace CrazyBuy.DAO
 {
     public class MemberDAO : CrazyBuyRerpository
     {
-        public Member getMember(string userId, string pwd, Guid tenantId)
+        public Member getMember(string account, string pwd)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 Member model = dbContext.Member.Where(
-                 m => m.userId == userId && m.userPassword == pwd
-                 && m.tenantId == tenantId).SingleOrDefault();
+                 m => m.account == account && m.password == pwd).SingleOrDefault();
                 return model;
             }
         }
@@ -23,6 +21,29 @@ namespace CrazyBuy.DAO
             {
                 dbContext.Member.Add(member);
                 dbContext.SaveChanges();
+            }
+        }
+
+        public int getMemberId()
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                int size = dbContext.Member.Count();
+                return size++;
+            }
+        }
+
+        public void updateMember(Member member)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                Member model = dbContext.Member.Where(
+                m => m.memberCode == member.memberCode).SingleOrDefault();
+                if (model != null)
+                {
+                    dbContext.Entry(model).CurrentValues.SetValues(member);
+                    dbContext.SaveChanges();
+                }
             }
         }
     }

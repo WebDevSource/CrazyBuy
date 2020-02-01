@@ -16,7 +16,7 @@ namespace CrazyBuy.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController : Controller
-    {       
+    {
         private readonly IConfiguration _config;
 
         public AuthController(IConfiguration configuration)
@@ -28,57 +28,77 @@ namespace CrazyBuy.Controllers
         [HttpPost]
         public ActionResult Login([FromBody]Dictionary<string, string> data)
         {
-            ReturnMessage rm = new ReturnMessage();            
+            Dictionary<string, string> rm = new Dictionary<string, string>();
             // STEP0: 在產生 JWT Token 之前，可以依需求做身分驗證
-            if (data.ContainsKey("userId") && data.ContainsKey("pwd") && data.ContainsKey("tenantId"))
+            if (data.ContainsKey("account") && data.ContainsKey("pwd"))
             {
 
-                string userId = data.GetValueOrDefault("userId");
+                string userId = data.GetValueOrDefault("account");
                 string pwd = data.GetValueOrDefault("pwd");
-                Guid tenantId = Guid.Parse(data.GetValueOrDefault("tenantId"));
+                string userName;
+                string userUuid;
+                string tenantType;
+                string type;
+                int userNameId;
 
-                Member member = DataManager.memberDao.getMember(userId, pwd, tenantId);
+                Member member = DataManager.memberDao.getMember(userId, pwd);
                 if (member != null)
                 {
-                    // STEP1: 建立使用者的 Claims 聲明，這會是 JWT Payload 的一部分
-                    var userClaims = new ClaimsIdentity(new[] {
-                    new Claim(JwtRegisteredClaimNames.NameId, member.userId),
-                    new Claim(JwtRegisteredClaimNames.Jti, member.id.ToString()),
-                    new Claim("MemberTenant", member.tenantId.ToString()),
-                    new Claim("MemberName", member.userName)                    
-                    });
+                    // login
+                    userName = member.name;
+                    userUuid = member.memberCode.ToString();
+                    userNameId = member.memberId;
+                    tenantType = member.tenantType;
+                    type = "loginUser";
 
-                    // STEP2: 取得對稱式加密 JWT Signature 的金鑰
-                    // 這部分是選用，但此範例在 Startup.cs 中有設定 ValidateIssuerSigningKey = true 所以這裡必填
-                    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-                    // STEP3: 建立 JWT TokenHandler 以及用於描述 JWT 的 TokenDescriptor
-                    var tokenHandler = new JwtSecurityTokenHandler();
-                    var tokenDescriptor = new SecurityTokenDescriptor
-                    {
-                        Issuer = _config["Jwt:Issuer"],
-                        Audience = _config["Jwt:Issuer"],
-                        Subject = userClaims,
-                        Expires = DateTime.Now.AddMinutes(30),
-                        SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
-                    };
-                    // 產出所需要的 JWT Token 物件
-                    var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                    // 產出序列化的 JWT Token 字串
-                    var serializeToken = tokenHandler.WriteToken(securityToken);
-                    rm.code = MessageCode.SUCCESS;
-                    rm.data = serializeToken;
+                    // updateLoginTime
+                    member.dLastLogin = DateTime.Now;
+                    DataManager.memberDao.updateMember(member);
                 }
                 else
                 {
-                    rm.code = MessageCode.ERROR;
-                    rm.data = "user member not found.";
+                    // not login for guest
+                    userName = "guest";
+                    userUuid = Guid.NewGuid().ToString();
+                    userNameId = 0;
+                    tenantType = "";
+                    type = "guest";
                 }
+
+                // STEP1: 建立使用者的 Claims 聲明，這會是 JWT Payload 的一部分
+                var userClaims = new ClaimsIdentity(new[] {
+                    new Claim(JwtRegisteredClaimNames.NameId, userNameId.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Jti, userUuid),                    
+                    new Claim("MemberName", userName),
+                    new Claim("MemberTenantType", tenantType)                    
+                    });
+
+                // STEP2: 取得對稱式加密 JWT Signature 的金鑰
+                // 這部分是選用，但此範例在 Startup.cs 中有設定 ValidateIssuerSigningKey = true 所以這裡必填
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                // STEP3: 建立 JWT TokenHandler 以及用於描述 JWT 的 TokenDescriptor
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Issuer = _config["Jwt:Issuer"],
+                    Audience = _config["Jwt:Issuer"],
+                    Subject = userClaims,
+                    Expires = DateTime.Now.AddMinutes(30),
+                    SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
+                };
+                // 產出所需要的 JWT Token 物件
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                // 產出序列化的 JWT Token 字串
+                var serializeToken = tokenHandler.WriteToken(securityToken);                
+                rm.Add("code", MessageCode.SUCCESS.ToString());
+                rm.Add("token", serializeToken);
+                rm.Add("type", type);
                 return Ok(rm);
             }
             else
             {
-                rm.code = MessageCode.ERROR;
-                rm.data = "input data error.";
+                rm.Add("code", MessageCode.ERROR.ToString());                
+                rm.Add("message", "data input error.");
                 return BadRequest(rm);
             }
         }

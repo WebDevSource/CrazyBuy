@@ -15,15 +15,16 @@ namespace CrazyBuy.Controllers
         public ActionResult Add([FromBody]Member member)
         {
             ReturnMessage rm = new ReturnMessage();
+            string account = member.account;
+            string pwd = member.password;
 
-            Guid tenantId = member.tenantId;
-            string userId = member.userId;
-            string pwd = member.userPassword;
-
-            Member saveMember = DataManager.memberDao.getMember(userId, pwd, tenantId);
+            Member saveMember = DataManager.memberDao.getMember(account, pwd);
             if (saveMember == null)
             {
-                member.id = Guid.NewGuid();
+                member.memberId = DataManager.memberDao.getMemberId();
+                member.memberCode = Guid.NewGuid().ToString();
+                member.createTime = DateTime.Now;
+                member.updateTime = DateTime.Now;
                 DataManager.memberDao.addMember(member);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = "member add success.";

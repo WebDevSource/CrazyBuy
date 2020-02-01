@@ -6,11 +6,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'CrazyBuy' ">
     <StartAction>Project</StartAction>
-    <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
-    <StartAction>Project</StartAction>
-    <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.0" />
