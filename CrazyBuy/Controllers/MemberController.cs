@@ -21,8 +21,9 @@ namespace CrazyBuy.Controllers
             Member saveMember = DataManager.memberDao.getMember(account, pwd);
             if (saveMember == null)
             {
-                member.memberId = DataManager.memberDao.getMemberId();
-                member.memberCode = Guid.NewGuid().ToString();
+                Guid id = Guid.NewGuid();
+                member.memberId = id;
+                member.memberCode = id.ToString();
                 member.createTime = DateTime.Now;
                 member.updateTime = DateTime.Now;
                 DataManager.memberDao.addMember(member);

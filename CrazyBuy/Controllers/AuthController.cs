@@ -39,7 +39,7 @@ namespace CrazyBuy.Controllers
                 string userUuid;
                 string tenantType;
                 string type;
-                int userNameId;
+                string userNameId;
 
                 Member member = DataManager.memberDao.getMember(userId, pwd);
                 if (member != null)
@@ -47,7 +47,7 @@ namespace CrazyBuy.Controllers
                     // login
                     userName = member.name;
                     userUuid = member.memberCode.ToString();
-                    userNameId = member.memberId;
+                    userNameId = member.memberId.ToString();
                     tenantType = member.tenantType;
                     type = "loginUser";
 
@@ -58,9 +58,10 @@ namespace CrazyBuy.Controllers
                 else
                 {
                     // not login for guest
+                    string id = Guid.NewGuid().ToString();
                     userName = "guest";
-                    userUuid = Guid.NewGuid().ToString();
-                    userNameId = 0;
+                    userUuid = id;
+                    userNameId = id;
                     tenantType = "";
                     type = "guest";
                 }
