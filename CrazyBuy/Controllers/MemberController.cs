@@ -1,6 +1,7 @@
 ﻿using System;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
+using CrazyBuy.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,8 +12,8 @@ namespace CrazyBuy.Controllers
     public class MemberController : Controller
     {
         // POST api/values
-        [HttpPost]
-        public ActionResult Add([FromBody]Member member)
+        [HttpPost("{tenantId}")]
+        public ActionResult Add([FromBody]Member member,string tenantId)
         {
             ReturnMessage rm = new ReturnMessage();
             string account = member.account;
@@ -21,14 +22,17 @@ namespace CrazyBuy.Controllers
             Member saveMember = DataManager.memberDao.getMember(account, pwd);
             if (saveMember == null)
             {
-                Guid id = Guid.NewGuid();
-                member.memberId = id;
-                member.memberCode = id.ToString();
-                member.createTime = DateTime.Now;
-                member.updateTime = DateTime.Now;
-                DataManager.memberDao.addMember(member);
-                rm.code = MessageCode.SUCCESS;
-                rm.data = "member add success.";
+                bool isV = CMemberManager.addMember(member,Guid.Parse(tenantId));
+                if (isV)
+                {
+                    rm.code = MessageCode.SUCCESS;
+                    rm.data = "member add success.";
+                }
+                else
+                {
+                    rm.code = MessageCode.ERROR;
+                    rm.data = "service error.";
+                }
             }
             else
             {

@@ -27,6 +27,6 @@ namespace CrazyBuy.Models
         public DateTime createTime { get; set; }
         public DateTime updateTime { get; set; }
         public int creator { get; set; }
-        public int updater { get; set; }
+        public int updater { get; set; }        
     }
 }

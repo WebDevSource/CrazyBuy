@@ -40,3 +40,5 @@ CrazyBuy/appsettings.json
 CrazyBuy/obj
 
 CrazyBuy/bin
+
+*.blob
