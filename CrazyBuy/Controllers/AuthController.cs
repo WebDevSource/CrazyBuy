@@ -71,7 +71,8 @@ namespace CrazyBuy.Controllers
                     new Claim(JwtRegisteredClaimNames.NameId, userNameId.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, userUuid),                    
                     new Claim("MemberName", userName),
-                    new Claim("MemberTenantType", tenantType)                    
+                    new Claim("MemberTenantType", tenantType),
+                    new Claim("type", type)
                     });
 
                 // STEP2: 取得對稱式加密 JWT Signature 的金鑰
