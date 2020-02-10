@@ -16,21 +16,43 @@ namespace CrazyBuy.Controllers
     {
         [HttpGet("{tenantId}")]
         [Authorize]
-        public IEnumerable<Dictionary<string, object>> getHomePrdList(string tenantId)
+        public ActionResult getHomePrdList(string tenantId)
         {
-            string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
-            List<TenantPrd> data = DataManager.tenantPrdDao.getHomePrds(Guid.Parse(tenantId));
-            IEnumerable<Dictionary<string, object>> prds = CTenantPrdManager.getPrdList(data, type);
-            return prds;
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+                List<TenantPrd> data = DataManager.tenantPrdDao.getHomePrds(Guid.Parse(tenantId));
+                IEnumerable<Dictionary<string, object>> prds = CTenantPrdManager.getPrdList(data, type);
+                rm.code = MessageCode.SUCCESS;
+                rm.data = prds;
+            }
+            catch(Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }            
+            return Ok(rm);
         }
 
         [HttpGet("{prdId}")]
         [Authorize]
-        public Dictionary<string, object> getHomePrdItem(string prdId)
+        public ActionResult getHomePrdItem(string prdId)
         {
-            string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
-            TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(Guid.Parse(prdId));
-            return CTenantPrdManager.getPrdItem(prd, type);
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+                TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(Guid.Parse(prdId));
+                rm.code = MessageCode.SUCCESS;
+                rm.data = CTenantPrdManager.getPrdItem(prd, type);
+            }
+            catch(Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }           
+            return Ok(rm);
         }
     }
 }

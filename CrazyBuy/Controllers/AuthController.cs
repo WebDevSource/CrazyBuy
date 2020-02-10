@@ -32,7 +32,6 @@ namespace CrazyBuy.Controllers
             // STEP0: 在產生 JWT Token 之前，可以依需求做身分驗證
             if (data.ContainsKey("account") && data.ContainsKey("pwd"))
             {
-
                 string userId = data.GetValueOrDefault("account");
                 string pwd = data.GetValueOrDefault("pwd");
                 string userName;
@@ -40,6 +39,7 @@ namespace CrazyBuy.Controllers
                 string tenantType;
                 string type;
                 string userNameId;
+                string userType = UserType.GUEST;
 
                 Member member = DataManager.memberDao.getMember(userId, pwd);
                 if (member != null)
@@ -50,6 +50,7 @@ namespace CrazyBuy.Controllers
                     userNameId = member.memberId.ToString();
                     tenantType = member.tenantType;
                     type = "loginUser";
+                    userType = CTenantManager.isOwner(userNameId)? UserType.ADMIN : UserType.NORMAL;
 
                     // updateLoginTime
                     member.dLastLogin = DateTime.Now;
@@ -72,7 +73,8 @@ namespace CrazyBuy.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, userUuid),                    
                     new Claim("MemberName", userName),
                     new Claim("MemberTenantType", tenantType),
-                    new Claim("type", type)
+                    new Claim("type", type),
+                    new Claim("userType", userType)
                     });
 
                 // STEP2: 取得對稱式加密 JWT Signature 的金鑰
@@ -95,6 +97,7 @@ namespace CrazyBuy.Controllers
                 rm.Add("code", MessageCode.SUCCESS.ToString());
                 rm.Add("token", serializeToken);
                 rm.Add("type", type);
+                rm.Add("userType",userType);
                 return Ok(rm);
             }
             else
