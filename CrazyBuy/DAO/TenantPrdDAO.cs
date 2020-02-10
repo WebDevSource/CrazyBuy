@@ -8,6 +8,7 @@ namespace CrazyBuy.DAO
 {
     public class TenantPrdDAO : CrazyBuyRerpository
     {
+        // 首頁商品
         public List<TenantPrd> getHomePrds(Guid tenantId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
@@ -17,9 +18,20 @@ namespace CrazyBuy.DAO
                 sql += @" where tp.[isOpenOrder] = 1 ";
                 sql += @" and hp.[tenantId] ='{0}' ";
 
-                string query = String.Format(sql,tenantId.ToString());
+                string query = String.Format(sql, tenantId.ToString());
                 Debug.WriteLine("query:" + query);
                 return dbContext.Database.SqlQuery<TenantPrd>(query).ToList();
+            }
+        }
+
+        // 單獨商品
+        public TenantPrd getTenandPrd(Guid prdId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                TenantPrd model = dbContext.TenantPrd.Where(
+                m => m.id == prdId).SingleOrDefault();
+                return model;
             }
         }
     }
