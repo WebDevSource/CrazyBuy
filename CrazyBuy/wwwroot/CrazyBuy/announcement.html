@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crazyplusone</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <script src="./js/lib/jquery-3.4.1.min.js"></script>
+    <script src="./js/lib/popper.min.js"></script>
+    <script src="./js/lib/multiselect.min.js"></script>
+    <script src="./js/lib/bootstrap.min.js"></script>
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="./js/lib/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="./js/lib/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+
+    <script src="./js/all.min.js"></script>
+    <script src="./js/Utils.js"></script>
+    <script src="./js/NavBar.js"></script>
+    <script src="./js/Announcement.js"></script>
+
+    <link rel="stylesheet" href="./css/all.min.css">
+</head>
+<body>
+<!-- navbar -->
+  <div class="navbar-mobile-block"></div>
+  <header class="container-fluid p-0" id="navbar">
+    <div class="text-center narbar-logo py-20">
+      <div class="d-inline-block admin-edit-content">
+        <img src="./images/logo.svg" alt="logo">
+        <!-- 管理者編輯 -->
+        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-Authority="admin">編輯</button>
+        <!-- 管理者編輯 -->
+      </div>
+    </div>
+    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
+      <div class="box">
+        <div id="hamburger" class="hamburger" >
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
+          <img src="./images/logo.svg" alt="logo">
+        </div>
+        <div class="input-group mobile-side-bar-item mb-3">
+          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+          <div class="d-flex">
+            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+        <ul class="navbar-nav mr-auto">
+        </ul>
+      </div>
+
+      <div class="navbar-status-content">
+      </div> 
+    </nav>
+  </header>
+  <div class="gotop">
+    <i class="fas fa-angle-up"></i>
+  </div>
+<!-- navbar -->
+<!-- 公告 -->
+<section class="container-fluid announcement-bg" id="announcement">
+  <div class="admin-edit-content">
+    <button class="btn btn-outline-register btn-admin-edit banner-admin-edit px-3 py-0" data-Authority="admin">編輯</button>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-8 col-12 mx-auto">
+      <h2 class="text-center my-3 text-white announcement-title"><b>-批發規則-</b></h2>
+      <ol>
+        <li>
+          請詳細閱讀批發規則及訂購流程
+        </li>
+        <li>訂單成立一律『無法取消』</li>
+        <li>顯示『獨立下單』務必獨立下單</li>
+        <li>常溫及冷凍商品皆要分開下單</li>
+        <li>處理訂單需3-5個工作天(不含假日) <span class="announcement-limit">不接受急單</span></li>
+        <li>訂單顯示『等待貨款』即可轉帳</li>
+        <li>訂單有指定收件人及出貨日請備註清楚</li>
+        <li>訂單顯示『已出貨』、『處理中』就禁止再併單及追加</li>
+        <li>加單方式-自行下單備註與訂單XXXX_併單</li>
+        <li>
+          收到商品有短缺或故障請先拍照存證，並在收到貨起<span class="announcement-limit">七天內</span>反應，逾時無法處理
+          <p class="announcement-action">短缺或故障請先拍照存證 生活圈詢問(詢問前請把資料準備齊全不要浪費彼此時間)</p>
+        </li>
+        <li>
+          <span class="announcement-action">(單一商品達成團數)或(處理中訂單金額滿5000元)即免運</span>
+          <p>常溫運費:100元 冷凍運費:180元</p>
+          <p class="announcement-action">(系統預設是冷凍運費180元，處理人員會改掉，<span class="announcement-single">請勿先行付款</span>)</p>
+        </li>
+        <li>
+          服飾專區獨立下單 請勿跟新品區下在同一張訂單
+          <p>會影響你其他商品的出貨速度</p>
+        </li>
+      </ol>
+      <h4 class="text-center announcement-bottom-title">每筆訂單請三思後再下單</h4>
+    </div>
+  </div>  
+</section>
+<!-- 公告 -->
+</body>
+</html>

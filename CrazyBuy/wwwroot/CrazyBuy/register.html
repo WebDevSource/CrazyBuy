@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crazyplusone</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <script src="./js/lib/jquery-3.4.1.min.js"></script>
+    <script src="./js/lib/popper.min.js"></script>
+    <script src="./js/lib/multiselect.min.js"></script>
+    <script src="./js/lib/bootstrap.min.js"></script>
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="./js/lib/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="./js/lib/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+    <script src="./js/all.min.js"></script>
+    <script src="./js/Utils.js"></script>
+    <script src="./js/NavBar.js"></script>
+    <script src="./js/Register.js"></script>
+    <link rel="stylesheet" href="./css/all.min.css">
+</head>
+<body>
+<!-- navbar -->
+  <div class="navbar-mobile-block"></div>
+  <header class="container-fluid p-0" id="navbar">
+    <div class="text-center narbar-logo py-20">
+      <div class="d-inline-block admin-edit-content">
+        <img src="./images/logo.svg" alt="logo">
+        <!-- 管理者編輯 -->
+        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-Authority="admin">編輯</button>
+        <!-- 管理者編輯 -->
+      </div>
+    </div>
+    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
+      <div class="box">
+        <div id="hamburger" class="hamburger" >
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
+          <img src="./images/logo.svg" alt="logo">
+        </div>
+        <div class="input-group mobile-side-bar-item mb-3">
+          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+          <div class="d-flex">
+            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+        <ul class="navbar-nav mr-auto">
+       
+        </ul>
+      </div>
+
+      <div class="navbar-status-content">
+      </div> 
+    </nav>
+  </header>
+  <div class="gotop">
+    <i class="fas fa-angle-up"></i>
+  </div>
+<!-- navbar -->
+  <section class="container-fluid px-md-30 px-15">
+    <h4 class="my-20">註冊會員</h4>
+    <p class="my-30 pb-20 register-hint">
+      感謝加入豐狂商品展示中心批發網站，<br>
+      本網站專門提供商品批發服務，所以對於交易金額、數量均有要求。<br><br>  
+
+      加入會員視同接受本商店的批發規則，請先詳讀【會員須知及批發規則】<br>
+      你申請之後，我們會發審核信給你，請閱讀後詳細回覆<br>
+      1、姓名須為真實中文姓名，基本資料須填寫正確齊全，必填欄位請務必填寫清楚。<br>
+      2、請注意會員註冊信箱，申請核准後，系統會自動發出啟用通知，以及後續訂單交易聯絡郵件（將本系統信件設定為非垃圾郵件）。<br>
+      5、若您提供不實的會員資料，本網站有權隨時終止並取消您的會員資格。<br>
+      6、首次批發商品可先前往<a href="">【批發規則說明】</a>熟讀。<br>
+      7、加入會員後第一次消費需達5000元，一個月內無消費，將會先暫停會員資格！超過三個月無下單者將直接刪除會員資格唷。<br><br>
+
+      我們很重視每一次的交易，所以請先詳閱賣場的規定，會讓您在批發時更快取得您的商品，
+    </p>
+    <form id="checkout-userinfo">
+      <section class="my-md-50 my-30">
+        <h5 class="my-20 order-title">基本資料</h5>
+        <hr>
+        <div class="row d-flex flex-wrap">
+          <div class="col-md-6 col-12 mb-3 order-0">
+            <p class="mb-2"><label for="">姓名</label></p>
+            <input class="w-100" type="text" >
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-1">
+            <p class="mb-2"><label for="">性別</label></p>
+            <input  type="radio" name="gender" id="gender-man">
+            <label class="checkout-radio-label" for="gender-man">男</label>
+            <input  type="radio" name="gender" id="gender-woman">
+            <label class="checkout-radio-label" for="gender-woman">女</label>
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-2">
+            <p class="mb-2"><label for="">聯絡電話</label></p>
+            <input class="w-100" type="text">
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-md-3 order-4">
+            <p class="mb-2"><label for="">Lind ID</label></p>
+            <input class="w-100" type="text">
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-md-4 order-3">
+            <p class="mb-2"><label for="">傳真</label></p>
+            <input class="w-100" type="text">
+          </div>
+          <div class="col-lg-6 col-12 mb-3 order-5">
+            <p class="mb-2"><label for="">地址</label></p>
+            <select class="checkout-select" name="" id="">
+              <option >縣市</option>
+            </select>
+            <select class="checkout-select" name="" id="">
+              <option >鄉鎮市區</option>
+            </select>
+            <input class="checkout-address" type="text">
+          </div>
+        </div>
+      </section>
+      <section class="mb-md-50 mb-30">
+        <h5 class="my-20 order-title">帳號密碼</h5>
+        <hr>
+        <div class="row d-flex flex-wrap">
+          <div class="col-md-6 col-12 mb-3 order-0">
+            <p class="mb-2"><label for="">Email</label></p>
+            <input class="w-100" type="email" >
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-md-1 order-2">
+            <p class="mb-2 "><label for="">輸入密碼</label></p>
+            <input class="w-100" type="password">
+            <span class="register-password"></span>
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-md-2 order-1">
+            <p class="mb-2"><label for="">手機號碼</label></p>
+            <input class="w-100" type="text">
+            <p class="register-ps mb-0">註：Email或手機即是以後登入的會員帳號</p>
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-3">
+            <p class="mb-2 "><label for="">再次輸入密碼</label></p>
+            <input class="w-100" type="password">
+            <span class="register-password"></span>
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-4">
+            <p class="mb-2"><label for="">會員訊息</label></p>
+            <input  type="radio" name="member-msg" id="receive-msg">
+            <label class="checkout-radio-label" for="receive-msg">寄給我</label>
+            <input  type="radio" name="member-msg" id="norecive-mg">
+            <label class="checkout-radio-label" for="norecive-mg">不要寄給我</label>
+          </div>
+          <div class="col-md-6 col-12 mb-3 order-5">
+            <p class="mb-2"><label for="">訂閱電子報</label></p>
+            <input  type="radio" name="subscribe-edm" id="subscribe">
+            <label class="checkout-radio-label" for="subscribe">訂閱</label>
+            <input  type="radio" name="subscribe-edm" id="no-subscribe">
+            <label class="checkout-radio-label" for="no-subscribe">不要訂閱</label>
+          </div>
+          <div class="col-12 mb-3 order-5 text-center my-30">
+            <input  type="checkbox" name="" id="agree-register"> <span class="mb-2"><label for="agree-register">我已經詳閱上述會員說明</label></span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+          <a class="btn btn-register register-submit-btn" href="#" >提交表單</a>
+        </div>
+      </section>
+
+    </form>
+  </section>
+  
+
+</body>
+</html>

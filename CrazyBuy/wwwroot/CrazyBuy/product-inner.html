@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crazyplusone</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <script src="./js/lib/jquery-3.4.1.min.js"></script>
+    <script src="./js/lib/popper.min.js"></script>
+    <script src="./js/lib/multiselect.min.js"></script>
+    <script src="./js/lib/bootstrap.min.js"></script>
+
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="./js/lib/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="./js/lib/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+    <script src="./js/all.min.js"></script>
+    <script src="./js/Utils.js"></script>
+    <script src="./js/NavBar.js"></script>
+    <script src="./js/ProductInner.js"></script>
+
+    <link rel="stylesheet" href="./css/all.min.css">
+    <style>
+
+        .product-slider {
+            padding: 45px;
+        }
+
+            .product-slider #carousel {
+                border: 4px solid #1089c0;
+                margin: 0;
+            }
+
+            .product-slider #thumbcarousel {
+                margin: 12px 0 0;
+                padding: 0 45px;
+            }
+
+                .product-slider #thumbcarousel .item {
+                    text-align: center;
+                }
+
+                    .product-slider #thumbcarousel .item .thumb {
+                        border: 4px solid #cecece;
+                        width: 20%;
+                        margin: 0 2%;
+                        display: inline-block;
+                        vertical-align: middle;
+                        cursor: pointer;
+                        max-width: 98px;
+                    }
+
+                        .product-slider #thumbcarousel .item .thumb:hover {
+                            border-color: #1089c0;
+                        }
+
+            .product-slider .item img {
+                width: 100%;
+                height: auto;
+            }
+
+        .carousel-control {
+            color: #0284b8;
+            text-align: center;
+            text-shadow: none;
+            font-size: 30px;
+            width: 30px;
+            height: 30px;
+            line-height: 20px;
+            top: 23%;
+        }
+
+            .carousel-control:hover, .carousel-control:focus, .carousel-control:active {
+                color: #333;
+            }
+
+            .carousel-caption, .carousel-control .fa {
+                font: normal normal normal 30px/26px FontAwesome;
+            }
+
+        .carousel-control {
+            background-color: rgba(0, 0, 0, 0);
+            bottom: auto;
+            font-size: 20px;
+            left: 0;
+            position: absolute;
+            top: 30%;
+            width: auto;
+        }
+
+            .carousel-control.right, .carousel-control.left {
+                background-color: rgba(0, 0, 0, 0);
+                background-image: none;
+            }
+    </style>
+</head>
+<body>
+<!-- navbar -->
+  <div class="navbar-mobile-block"></div>
+  <header class="container-fluid p-0" id="navbar">
+    <div class="text-center narbar-logo py-20">
+      <div class="d-inline-block admin-edit-content">
+        <img src="./images/logo.svg" alt="logo">
+        <!-- 管理者編輯 -->
+        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-Authority="admin">編輯</button>
+        <!-- 管理者編輯 -->
+      </div>
+    </div>
+    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
+      <div class="box">
+        <div id="hamburger" class="hamburger" >
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
+          <img src="./images/logo.svg" alt="logo">
+        </div>
+        <div class="input-group mobile-side-bar-item mb-3">
+          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+          <div class="d-flex">
+            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+        <ul class="navbar-nav mr-auto">
+        </ul>
+      </div>
+
+      <div class="navbar-status-content">
+      </div> 
+    </nav>
+  </header>
+  <div class="gotop">
+    <i class="fas fa-angle-up"></i>
+  </div>
+<!-- navbar -->
+<section class="container-fluid mt-30">
+  <div class="row">
+    <div class="col-lg-5 col-12">
+      <div id="proudctCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-slide-number="0">
+            <img src="https://source.unsplash.com/Pn6iimgM-wo/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/Pn6iimgM-wo/">
+          </div>
+          <div class="carousel-item" data-slide-number="1">
+            <img src="https://source.unsplash.com/tXqVe7oO-go/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/tXqVe7oO-go/">
+          </div>
+          <div class="carousel-item" data-slide-number="2">
+            <img src="https://source.unsplash.com/qlYQb7B9vog/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/qlYQb7B9vog/">
+          </div>
+          <div class="carousel-item" data-slide-number="3">
+            <img src="https://source.unsplash.com/QfEfkWk1Uhk/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/QfEfkWk1Uhk/">
+          </div>
+          <div class="carousel-item" data-slide-number="4">
+            <img src="https://source.unsplash.com/CSIcgaLiFO0/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/CSIcgaLiFO0/">
+          </div>
+          <div class="carousel-item" data-slide-number="5">
+            <img src="https://source.unsplash.com/a_xa7RUKzdc/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/a_xa7RUKzdc/">
+          </div>
+          <div class="carousel-item" data-slide-number="6">
+            <img src="https://source.unsplash.com/uanoYn1AmPs/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/uanoYn1AmPs/">
+          </div>
+          <div class="carousel-item" data-slide-number="7">
+            <img src="https://source.unsplash.com/_snqARKTgoc/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/_snqARKTgoc/">
+          </div>
+          <div class="carousel-item" data-slide-number="8">
+            <img src="https://source.unsplash.com/M9F8VR0jEPM/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/M9F8VR0jEPM/">
+          </div>
+          <div class="carousel-item" data-slide-number="9">
+            <img src="https://source.unsplash.com/Q1p7bh3SHj8/1200x800/" class="d-block w-100" alt="..." data-remote="https://source.unsplash.com/Q1p7bh3SHj8/">
+          </div>
+        </div>
+      </div>
+    
+      <!-- Carousel Navigation -->
+      <div id="carousel-thumbs" class="carousel slide" >
+        <div class="carousel-inner">
+          <ol class="carousel-indicators">
+            <li id="carousel-selector-0" data-target="#proudctCarousel" data-slide-to="0" class="active"></li>
+            <li id="carousel-selector-1" data-target="#proudctCarousel" data-slide-to="1" class=""></li>
+            <li id="carousel-selector-2" data-target="#proudctCarousel" data-slide-to="2" class=""></li>
+            <li id="carousel-selector-3" data-target="#proudctCarousel" data-slide-to="3" class=""></li>
+            <li id="carousel-selector-4" data-target="#proudctCarousel" data-slide-to="4" class=""></li>
+            <li id="carousel-selector-5" data-target="#proudctCarousel" data-slide-to="5" class=""></li>
+            <li id="carousel-selector-6" data-target="#proudctCarousel" data-slide-to="6" class=""></li>
+            <li id="carousel-selector-7" data-target="#proudctCarousel" data-slide-to="7" class=""></li>
+            <li id="carousel-selector-8" data-target="#proudctCarousel" data-slide-to="8" class=""></li>
+            <li id="carousel-selector-9" data-target="#proudctCarousel" data-slide-to="9" class=""></li>
+          </ol>
+          <div class="desktop-navs-indicators">
+            <div class="carousel-item active">
+              <div class="row mx-0">
+                <div id="carousel-selector-0" class="thumb col-3 px-1 py-2 selected" data-target="#proudctCarousel" data-slide-to="0" class="carousel-item">
+                  <img src="https://source.unsplash.com/Pn6iimgM-wo/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-1" class="thumb col-3 px-1 py-2" data-target="#proudctCarousel" data-slide-to="1">
+                  <img src="https://source.unsplash.com/tXqVe7oO-go/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-2" class="thumb col-3 px-1 py-2" data-target="#proudctCarousel" data-slide-to="2">
+                  <img src="https://source.unsplash.com/qlYQb7B9vog/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-3" class="thumb col-3 px-1 py-2" data-target="#proudctCarousel" data-slide-to="3">
+                  <img src="https://source.unsplash.com/QfEfkWk1Uhk/600x400/" class="img-fluid" alt="...">
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row mx-0">
+                <div id="carousel-selector-6" class="thumb col-3 px-1 py-2" data-target="#proudctCarousel" data-slide-to="6">
+                  <img src="https://source.unsplash.com/uanoYn1AmPs/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-7" class="thumb col-3 px-1 py-2" data-target="#proudctCarousel" data-slide-to="7">
+                  <img src="https://source.unsplash.com/_snqARKTgoc/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-8" class="thumb col-3 px-1 py-2" data-target="#proudctCarousel" data-slide-to="8">
+                  <img src="https://source.unsplash.com/M9F8VR0jEPM/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-9" class="thumb col-3 px-1 py-2" data-target="#proudctCarousel" data-slide-to="9">
+                  <img src="https://source.unsplash.com/Q1p7bh3SHj8/600x400/" class="img-fluid" alt="...">
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carousel-thumbs" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-thumbs" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-lg-7 col-12">
+      <h5 class="product-inner-title">南門市場60年老店上海火腿湖南臘肉300g
+        <!-- 管理者編輯 -->
+        <button class="btn btn-outline-register btn-dotted px-3 py-0" data-Authority="admin">編輯</button>
+        <!-- 管理者編輯 -->
+      </h5>
+      <p class="product-inner-infolist">商品代碼 201712201140</p>
+      <form class="row product-inner-info">
+        <table class="table table-bordered product-price-table order-lg-0 order-2 mx-15">
+          <thead>
+            <tr>
+              <th scope="col">一般價</th>
+              <th scope="col">會員價</th>
+              <th scope="col">轉批價</th>
+              <th scope="col">A轉/特轉批價</th>
+              <!-- <th scope="col">A轉批價</th>
+              <th scope="col">特轉批價</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row">$160</td>
+              <td>$140</td>
+              <td>$130</td>
+              <td>$125/120</td>
+              <!-- <td>$125</td>
+              <td>$120</td> -->
+            </tr>
+          </tbody>
+        </table>
+        <div class="col-lg-6 col-12 mb-15 d-flex order-lg-1 order-3">
+          <span class="product-inner-infolist desktop-product-infolist">商品簡述</span>
+          <div class="mobile-product-describe"> 
+            年貨大街！過年必吃 <br>
+            30成團 常溫出貨 <br>
+            12/10開始出貨 <br>
+            <div class="accordion my-15" id="product-describe">
+              <h2 class="mb-0" id="headingOne">
+                <button class="btn btn-link w-100 describe-collapse-btn" type="button" data-toggle="collapse" data-target="#product-describe-section" aria-expanded="false" aria-controls="product-describe-section">
+                  <span class="more">更多商品說明</span> <span class="close-collapse">收合</span>
+                </button>
+              </h2>
+              <div id="product-describe-section" class="collapse" data-parent="#product-describe">
+                <p><span class="product-inner-infolist my-10">商品說明</span></p>
+                年貨大街！過年必吃 <br>
+                30成團 常溫出貨 <br>
+                12/10開始出貨 <br>
+                年貨大街！過年必吃 <br>
+                30成團 常溫出貨 <br>
+                12/10開始出貨 <br>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-12 mb-15 order-lg-2 order-5"><span class="product-inner-infolist">商品規格</span><input type="radio" id="product-num"> <label for="product-num">300g</label> </div>
+        <div class="col-12 mb-15 order-lg-3 order-4"><span class="product-inner-infolist desktop-product-infolist">消費提醒</span>
+          <span class="badge badge-no-discount">獨立下單</span>
+          <span class="badge badge-no-discount">不適用任何折扣</span>
+          <span class="badge badge-no-freight">買一件免運費</span>
+        </div>
+        <div class="col-12 mb-15 order-lg-4 order-0"><span class="product-inner-infolist">物流方式</span>貨運</div>
+        <div class="col-12 mb-15 order-lg-5 order-1"><span class="product-inner-infolist">付款方式</span>ATM轉帳</div>
+        <div class="col-12 mb-15 order-lg-6 order-6">
+          <span class="product-inner-infolist">購買數量</span>
+          <span class="num-minus-btn"><i class="fas fa-minus"></i></span>
+          <input class="product-nums" type="text" value=""/> 
+          <span class="num-add-btn"><i class="fas fa-plus"></i></span>
+          <button class="product-addto-cart product-inner-addtocart-btn"> 加入購物車</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</section>
+<hr class="desktop-product-infolist">
+<section class="container-fluid desktop-product-describe" >
+  <p><span class="product-inner-infolist">商品說明</span></p>
+  第一蘋果母親子們天不，畫的一大都是在前的生看看，投稿願意突然陽師，什麼那兩晚安然都自己？ <br><br>
+
+  的時沒有之後，會一然而：好煩什麼真的，望能小東的遊了一我現孩子，之前途中喔喔電腦立刻。<br><br>
+
+  聽完了的本來整理失敗走了：且不個喜本來長的沒睡很不。系列再沒有話沒有，什麼覺得日報夜的的一，漸的原載的新的節動作，很少一起：的冷大家我先如果對不根本。<br><br>
+
+  什麼是真是老。<br>
+
+  的過。給我是太咯支想看的小怎樣。原因仍舊，寫了哈哈講的於不是正：她的他們還是感恩了這來吃今天⋯的事他們來發得最。 <br>
+  回家各位痛的都給一下者也：逐漸懶得你們去罷⋯大漢畫面的地的一一句一下子在大概。一邊書館解決，喜歡半個應該我只，近來啊啊，人員是什心得有人你是：<br><br>
+  近來還沒相關計算左右⋯身子夾著不是進來夠了用一學期⋯我媽未莊想不，又在下去在水啊啊不到不怕，現在恐怖冬天相信⋯覺得說這叫作。天的很好這個，早上還是說到麼有現在重點就是，<br><br>
+  難道成長啊啊終於⋯要去雙喜頭的下收現在實況，本命可惜過的，超好顯出夜的有種笑聲別的，去了地上要出，到大擔心就能有所的大。啦啦我沒。的罷人生還是七斤完全一週。雖然子的歡迎。<br>
+</section>
+</body>
+</html>

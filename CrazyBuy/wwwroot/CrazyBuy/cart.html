@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Crazyplusone</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+  <script src="./js/lib/jquery-3.4.1.min.js"></script>
+  <script src="./js/lib/popper.min.js"></script>
+  <script src="./js/lib/multiselect.min.js"></script>
+  <script src="./js/lib/bootstrap.min.js"></script>
+  <script src="./js/all.min.js"></script>
+  <link rel="stylesheet" href="./css/all.min.css">
+</head>
+<body>
+<!-- navbar -->
+  <!-- 註冊會員 Modal -->
+  <div class="modal" id="register-modal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center border-0 mb-20">
+          <h5 class="modal-title text-center" id="register-modal-title">登入會員</h5>
+        </div>
+        <form class="col-11 mx-auto modal-body">
+          <div class="form-group row">
+            <label for="accountant" class="col-sm-2 col-2 col-form-label text-nowrap">帳號</label>
+            <div class="col-8">
+              <input type="accontant" class="form-control rounded-0" id="accountant">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="password" class="col-sm-2 col-2 col-form-label text-nowrap">密碼</label>
+            <div class="col-8">
+              <input type="password" class="form-control rounded-0" id="password">
+            </div>
+            <div class="d-flex pl-0 col-2">
+              <button id="forget-password-btn" class="text-nowrap" type="button">
+                忘記密碼
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div class="modal-footer justify-content-center border-0">
+          <a href="" class="btn btn-outline-register register-btn-size">註冊會員</a>
+          <button class="btn btn-register btn-signin register-btn-size">登入</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 註冊會員 Modal -->
+  <!-- 忘記密碼 Modal -->
+  <div class="modal" id="forget-password-modal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center border-0 mb-20">
+          <h5 class="modal-title text-center" id="register-modal-title">忘記密碼</h5>
+        </div>
+        <form class="col-11 mx-auto modal-body">
+          <label for="exist-accountant" class="col-12 col-form-label pl-0">輸入會員帳號</label>
+          <div class="form-group row">
+            <div class="col-9">
+              <input type="text" class="form-control" id="exist-accountant">
+            </div>
+            <div class="col-3 px-0">
+              <button class="w-100 btn btn-register btn-signin register-btn-size">送出</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="modal-footer justify-content-center border-0">
+          <button class="register-modal-link btn btn-outline-register register-btn-size">回登入畫面</button>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- 忘記密碼 Modal -->
+  <div class="navbar-mobile-block"></div>
+  <header class="container-fluid p-0" id="navbar">
+    <div class="text-center narbar-logo py-20">
+      <div class="d-inline-block admin-edit-content">
+        <img src="./images/logo.svg" alt="logo">
+        <!-- 管理者編輯 -->
+        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-Authority="admin">編輯</button>
+        <!-- 管理者編輯 -->
+      </div>
+    </div>
+    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
+      <div class="box">
+        <div id="hamburger" class="hamburger" >
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
+          <img src="./images/logo.svg" alt="logo">
+        </div>
+        <div class="input-group mobile-side-bar-item mb-3">
+          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+          <div class="d-flex">
+            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link active" href="#">首頁</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">商品</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">公告</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">常見問題</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="navbar-status-content">
+        <!-- 首頁 遊客視角 -->
+        <!-- <div id="tourists-viewport" data-userAuthority="tourists">
+          <button class="register-link register-modal-link border-0" type="button">
+            登入會員/註冊
+          </button>
+        </div> -->
+        <!-- 首頁 遊客視角 -->
+
+        <!-- 首頁 會員登入視角 -->
+        <!-- <div id="member-viewport" data-userAuthority="member">
+          <nav class="nav">
+            <div class="btn-group nav-cart-group">
+              <a  class="nav-link pl-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-shopping-cart"></i> 購物車(2)
+              </a>
+              <div class="dropdown-menu rounded-0 nav-cart-items px-2">
+               <div class="row mx-0 nav-cart-item py-2">
+                 <div class="col-sm-3 col-2 px-0 d-flex align-items-center">
+                   <div class="navs-cart-item-bg" style="background-image: url('./images/item-1.png');"></div>
+                 </div>
+                 <div class="col-sm-8 col-10 nav-cart-item-info">
+                   <div class="d-flex flex-wrap w-100">
+                    <p class="mb-1 w-100">南門市場60年老店上海火腿湖南臘肉300g</p>
+                    <p class="mb-0 w-100 nav-cart-item-price">1 <i class="fas fa-times"></i> <span class="price">$160</span></p>
+                   </div>
+                 </div>
+                 <div class="nav-cart-close">x</div>
+               </div>
+               <div class="row mx-0 nav-cart-item py-2">
+                 <div class="col-sm-3 col-2 px-0 d-flex align-items-center">
+                   <div class="navs-cart-item-bg" style="background-image: url('./images/item-2.png');"></div>
+                 </div>
+                 <div class="col-sm-8 col-10 nav-cart-item-info">
+                   <div class="d-flex flex-wrap w-100">
+                    <p class="mb-1 w-100">眷村私房菜老滷湯酸白菜鍋1000g(五～七人份) </p>
+                    <p class="mb-0 w-100 nav-cart-item-price">1 <i class="fas fa-times"></i> <span class="price">$160</span></p>
+                   </div>
+                 </div>
+                 <div class="nav-cart-close">x</div>
+               </div>
+               <div class="ml-auto my-2 col-6">
+                 <div class="row">
+                   <div class="col-6 nav-items-num">小計</div>
+                   <div class="col-sm-6 col-12 text-right">
+                    <span class="nav-items-num-mobile">小計</span>
+                    <span class="price">$320</span>
+                   </div>
+                 </div>
+               </div>
+               <div class="ml-auto my-2 col-6">
+                 <div class="row">
+                   <div class="col-sm-6 col-4 nav-cart-items-clear-All">清空</div>
+                   <div class="col-sm-6 col-4 px-0"><a class="btn btn-register navs-btn-checkout" href="#">結帳</a></div>
+                 </div>
+               </div>
+              </div>
+            </div>
+            <div class="btn-group">
+              <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-user"></i> Helena <i class="fas fa-angle-down"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right rounded-0">
+                <a class="nav-link" href="#">查詢我的訂單</a>
+                <a class="nav-link" href="#">維護會員資料</a>
+              </div>
+            </div>
+          </nav>
+        </div> -->
+        <!-- 首頁 會員登入視角 -->
+        
+        <!-- 首頁 管理者登入視角 -->
+        <div id="admin-viewport" data-userAuthority="admin">
+          <nav class="nav">
+            <a class="nav-link pl-0" href="#">
+              <i class="fas fa-rss"></i> 我訂閱的商店
+            </a>
+            <div class="btn-group">
+              <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-user"></i> Helena <i class="fas fa-angle-down"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="nav-link" href="#">查詢我的訂單</a>
+                <a class="nav-link" href="#">維護會員資料</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <!-- 首頁 管理者登入視角 -->
+      </div> 
+    </nav>
+  </header>
+  <div class="gotop">
+    <i class="fas fa-angle-up"></i>
+  </div>
+<!-- navbar -->
+  <section class="container-fluid px-md-30 px-15">
+    <h4 class="my-20">我的購物車</h4>
+    <p class="my-30 p-20 cart-hint">有商品目前無法訂購！</p>
+    <table class="table table-bordered cart-table" id="desktop-cart">
+      <thead>
+        <tr>
+          <th scope="col">商品圖</th>
+          <th scope="col">商品資訊</th>
+          <th scope="col">商品備註</th>
+          <th scope="col">單價</th>
+          <th scope="col">訂購數量</th>
+          <th scope="col">金額</th>
+          <th class="text-center" scope="col"><i class="fas fa-trash-alt"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">
+            <div class="mx-auto cart-item-img" style="background-image: url('./images/item-1.png');"></div>
+          </td>
+          <td class="cart-item-title">南門市場60年老店上海火腿湖南臘肉300g</td>
+          <td class="table-center table-badge"></td>
+          <td class="table-center cart-price">
+            <p class="mb-0 table-member-price">會員價</p>
+            <p class="mb-0">60</p>
+          </td>
+          <td class="table-center cart-num">2</td>
+          <td class="table-center cart-item-totalprice">120</td>
+          <td class="table-center cart-item-delete">x</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <div class="mx-auto cart-item-img" style="background-image: url('./images/item-2.png');"></div>
+          </td>
+          <td class="cart-item-title">眷村私房菜老滷湯酸白菜鍋1000g(五～七人份)</td>
+          <td class="table-center table-badge"><span class="badge badge-no-discount">需獨立下單</span></td>
+          <td class="table-center cart-price">
+            <p class="mb-0 table-member-price">會員價</p>
+            <p class="mb-0">60</p>
+          </td>
+          <td class="table-center cart-num">2</td>
+          <td class="table-center cart-item-totalprice">120</td>
+          <td class="table-center cart-item-delete">x</td>
+        </tr>
+        <tr>
+          <td class="text-right cart-all-toalprice" colspan="4">(不計算運費)總計</td>
+          <td class="text-right" colspan="3">123</td>
+        </tr>
+        <tr>
+          <td class="text-right cart-all-price-hint" colspan="7"><i class="fas fa-info"></i> 選擇運送方式後於結帳確認頁計算訂單總金額</td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="mobile-cart">
+      <div class="row mobile-cart-item mx-0 mb-15">
+        <div class="col-5 px-0">
+          <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-1.png');"></div>
+        </div>
+        <div class="col-7 mobile-cart-info py-1 px-2">
+          <p class="mobile-cart-item-title text-hint">南門市場60年老店上海火腿湖南臘肉300g</p>
+          <p class="mb-1"><span class="text-hint">會員價</span> $160</p>
+          <p class="mb-1 text-right">x2</p>
+          <div><span class="badge badge-no-discount">需獨立下單</span></div>
+          <p class="mobile-cart-delete">x</p>
+        </div>
+      </div>
+      <div class="row mobile-cart-item mx-0 mb-15">
+        <div class="col-5 px-0">
+          <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-2.png');"></div>
+        </div>
+        <div class="col-7 mobile-cart-info py-1 px-2">
+          <p class="mobile-cart-item-title text-hint">南門市場60年老店上海火腿湖南臘肉300g</p>
+          <p class="mb-1"><span class="text-hint">會員價</span> $160</p>
+          <p class="mb-1 text-right">x2</p>
+          <!-- <div><span class="badge badge-no-discount">需獨立下單</span></div> -->
+          <p class="mobile-cart-delete">x</p>
+        </div>
+      </div>
+      <p class="mobile-cart-item-total">商品總計</p>
+      <table class="table table-bordered mobile-cart-table">
+        <tbody>
+          <tr><td class="cart-table-hint">選擇運送方式後於結帳確認頁計算訂單總金額</td></tr>
+          <tr>
+            <td class="d-flex justify-content-between border-0"><span class="cart-total-price">結帳金額</span><span>$320</span></td>
+          </tr>
+        <tbody>
+      </table>
+    </div>
+    <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">
+      <a class="cart-link-btn mr-4" href="#">繼續購物</a>
+      <a class="btn btn-register cart-nextpage-btn" href="#" >結帳</a>
+    </div>
+  </section>
+</body>
+</html>
