@@ -10,7 +10,7 @@ ProductCard = {
             + '             <img src="'+ data.url +'" class="img-fluid card-img-bg" alt="">                                                                   '
             + '         </a>                                                                                                                                     '
             + '    </div>'   
- //           +       ProductCard.getTagHtml(data, role)
+            +       ProductCard.getTagHtml(data, role)
             + '    <div class="card-body">                                                                                                                    '
             + '      <h5 class="card-title product-title">' + data.title + '</h5>                                                                               '
             +'       <div class="text-center">'
@@ -25,8 +25,8 @@ ProductCard = {
 
     getPriceHtml(data, role) {
         let html = '';
-        if (role == Utils.ROLE_TOURISTS) {
-            html += '<p class="card-text price" data-authority="tourists">' + i18next.t("btn_product_priceHide") + '</p>';
+        if (role == Utils.ROLE_GUEST) {
+            html += '<p class="card-text price" data-authority="guest">' + i18next.t("btn_product_priceHide") + '</p>';
         } else {
             let prices = data.prices;
             let i = 0;
@@ -52,7 +52,7 @@ ProductCard = {
 
     getPriceBtnHtml(data, role) {
         let html = '';
-        if (role == Utils.ROLE_TOURISTS) {
+        if (role == Utils.ROLE_GUEST) {
             return html;
         }
         html += '<button class="product-addto-cart">' + i18next.t("btn_product_addCart") + '</button>     '; 
@@ -66,19 +66,20 @@ ProductCard = {
 
     getTagHtml(data,role) {
         let html = '';
-        if (role == Utils.ROLE_TOURISTS) {
-            html += '<p class="card-text price" data-authority="tourists">' + i18next.t("btn_product_priceHide") + '</p>';
+        if (role == Utils.ROLE_GUEST) {
         } else {
             let tags = data.tags;
-            let i = 0;
             if (!tags) {
                 return html;
             }
+            html += '<div class="product-badge" >';
+            let i = 1;
             let len = Object.keys(tags).length;
             for (let tag in tags) {
                 i++;
-                html += '  <span class="badge ' + ((i == len) ? '' : 'badge-no-freight') + '">' + tag + '</span>';
+                html += '  <span class="badge ' + ((1 == i % 2) ? 'badge-no-discount' : 'badge-no-freight') + '">' + tags[tag] + '</span>';
             }
+            html += '</div>';
         }
         return html;                          
     }

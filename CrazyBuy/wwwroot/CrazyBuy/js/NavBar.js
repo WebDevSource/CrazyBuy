@@ -21,9 +21,9 @@
     InitToolButtons(role) {
         let html = '';
         switch (role) {
-            case Utils.ROLE_TOURISTS:
+            case Utils.ROLE_GUEST:
                 NavBar.InitLoginModel();
-                html = NavBar.getTouristsToolButton();
+                html = NavBar.getGuestToolButton();
                 break;
             case Utils.ROLE_MEMBER:
                 html = NavBar.getMemberToolButton();
@@ -35,8 +35,8 @@
         $('.navbar-status-content').html(html);
     },
 
-    getTouristsToolButton() {
-        let html ='<div id="tourists-viewport" data-authority="tourists">                 '
+    getGuestToolButton() {
+        let html ='<div id="tourists-viewport" data-authority="guest">                 '
             + '  <button class="register-link register-modal-link border-0" type="button">'
             + '    登入會員/註冊                                                          '
             + '  </button>                                                                '
@@ -211,20 +211,37 @@
         return html;
     },
 
-    DoLogin(){
+    DoLogin() {
         let accountant = $("#accountant").val();
         let password = $("#password").val();
+ /*       let data = {
+            "account": accountant,
+            "pwd": password
+        };
 
-        if (accountant.toLowerCase() == "admin") {
-            Utils.SetCookie("role", Utils.ROLE_ADMIN);
+        let result = Utils.AsyncProcessAjax("/api/auth/Login", "Post", "", data);
+
+        if (result.code == 1) {
+            if (Utils.ROLE_GUEST == result.type) {
+                alert("User Authorization Error, check account or password Please.");
+            } else {
+ */               if (accountant.toLowerCase() == "admin") {
+                    Utils.SetCookie("role", Utils.ROLE_ADMIN);
+                } else {
+                    Utils.SetCookie("role", Utils.ROLE_MEMBER);
+                }
+                window.location.reload();
+ /*           }
+           
         } else {
-            Utils.SetCookie("role", Utils.ROLE_MEMBER);
+            alert("User Authorization Error, check account or password Please.");
         }
-        window.location.reload();
+ */       
+      
     },
 
     doLogout() {
-        Utils.SetCookie("role", Utils.ROLE_TOURISTS);
+        Utils.SetCookie("role", Utils.ROLE_GUEST);
         window.location.reload();
     }
 

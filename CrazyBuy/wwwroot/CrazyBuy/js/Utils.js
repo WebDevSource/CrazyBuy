@@ -6,7 +6,7 @@
     navbarBotton: { "btn_home": "./index.html", "btn_product": "./products.html", "btn_statement": "./announcement.html","btn_FQA": "questions.html"},
     ROLE_ADMIN : 'admin',
     ROLE_MEMBER : 'member',
-    ROLE_TOURISTS :'tourists',
+    ROLE_GUEST :'guest',
 
     Initial: function async(callback) {
 //        Utils.CheckToken();
@@ -32,7 +32,7 @@
 
     getRole() {
         let role = Utils.GetCookie("role");
-        return role ? role : Utils.ROLE_TOURISTS;
+        return role ? role : Utils.ROLE_GUEST;
     },
 
     InitialForBackendEdit: function async(callback) {
@@ -222,12 +222,16 @@
 
     ProcessAjax: function (url, method, authToken, data, processDone, processFailed) {
         try {
+            if (typeof data == "object") {
+                data = JSON.stringify(data);
+            }
             $.ajax({
                 url: url,
                 type: method,
                 data: data,
-                contentType: "application/json",
-                //async: false,
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 beforeSend: function (xhr) {
                     if (authToken != "")
                         xhr.setRequestHeader("Authorization", 'Bearer ' + authToken);
@@ -247,13 +251,17 @@
 
     AsyncProcessAjax: async function (url, method, authToken, data) {
         let result;
-
         try {
+            if (typeof data == "object") {
+                data = JSON.stringify(data);
+            }
             result = await $.ajax({
                 url: url,
                 type: method,
                 data: data,
-                contentType: "application/json",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 beforeSend: function (xhr) {
                     if (authToken != "")
                         xhr.setRequestHeader("Authorization", 'Bearer ' + authToken);
@@ -264,6 +272,7 @@
         catch (e) {
             console.log(e);
         }
+
     },
 
     SetCookie: function (cname, cvalue, exdays) {

@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crazyplusone</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <script src="./js/lib/jquery-3.4.1.min.js"></script>
+    <script src="./js/lib/popper.min.js"></script>
+    <script src="./js/lib/multiselect.min.js"></script>
+    <script src="./js/lib/bootstrap.min.js"></script>
+
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="./js/lib/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="./js/lib/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+    <script src="./js/all.min.js"></script>
+    <script src="./js/Utils.js"></script>
+    <script src="./js/NavBar.js"></script>
+    <script src="./js/Products.js"></script>
+    <script src="./js/ProductCard.js"></script>
+
+    <link rel="stylesheet" href="./css/all.min.css">
+</head>
+<body>
+<!-- navbar -->
+  <div class="navbar-mobile-block"></div>
+  <header class="container-fluid p-0" id="navbar">
+    <div class="text-center narbar-logo py-20">
+      <div class="d-inline-block admin-edit-content">
+        <img src="./images/logo.svg" alt="logo">
+        <!-- 管理者編輯 -->
+        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-Authority="admin">編輯</button>
+        <!-- 管理者編輯 -->
+      </div>
+    </div>
+    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
+      <div class="box">
+        <div id="hamburger" class="hamburger" >
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
+          <img src="./images/logo.svg" alt="logo">
+        </div>
+        <div class="input-group mobile-side-bar-item mb-3">
+          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+          <div class="d-flex">
+            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+        <ul class="navbar-nav mr-auto">
+        </ul>
+      </div>
+
+      <div class="navbar-status-content">
+      </div> 
+    </nav>
+  </header>
+  <div class="gotop">
+    <i class="fas fa-angle-up"></i>
+  </div>
+<!-- navbar -->
+<!-- products -->
+<section class="container-fluid mt-50" id="products-list">
+  <div class="row">
+    <div class="col-md-4 product-category">
+      <!-- 管理者視角 -->
+      <div class="admin-edit-content">
+        <button class="btn btn-outline-register btn-admin-edit banner-admin-edit px-3 py-0" data-Authority="admin">編輯</button>
+      </div>
+      <!-- 管理者視角 -->
+      <div class="nav flex-column" id="desktop-nav-product-category">
+        <p class="nav-link category-title">商品分類</p>
+        <a class="nav-link category" href="#">全部商品 <span data-userAuthority="member">(1980)</span></a>
+        <a class="nav-link category" href="#">鼠年年菜專區 <span data-userAuthority="member">(7)</span></a>
+        <a class="nav-link category" href="#">TAIWAN - 台灣館 <span data-userAuthority="member">(371)</span></a>
+        <a class="nav-link category-sub" href="#"><span class="category-item">常溫食品</span><span data-userAuthority="member">(179)</span></a>
+        <a class="nav-link category-sub" href="#"><span class="category-item">生活用品</span><span data-userAuthority="member">(116)</span></a>
+        <a class="nav-link category-sub" href="#"><span class="category-item">美妝品</span><span data-userAuthority="member">(21)</span></a>
+        <a class="nav-link category-sub" href="#"><span class="category-item">在地美食</span><span data-userAuthority="member">(35)</span></a>
+      </div>
+      <!-- 遊客視角 -->
+      <!-- <div class="nav flex-column" id="desktop-nav-product-category">
+        <p class="nav-link category-title">商品分類</p>
+        <a class="nav-link category" href="#">全部商品 </a>
+        <a class="nav-link category" href="#">鼠年年菜專區 </a>
+        <a class="nav-link category" href="#">TAIWAN - 台灣館 </a>
+        <a class="nav-link category-sub" href="#"><span class="category-item">常溫食品</span></a>
+        <a class="nav-link category-sub" href="#"><span class="category-item">生活用品</span></a>
+        <a class="nav-link category-sub" href="#"><span class="category-item">美妝品</span></a>
+        <a class="nav-link category-sub" href="#"><span class="category-item">在地美食</span></a>
+      </div> -->
+      <!-- 遊客視角 -->
+    </div>
+    <div class="col-md-8 col-12 product-row">
+      <!-- 商品功能 -->
+      <div class="products-tool mb-md-30 mb-20">
+        <div class="product-list-types">
+          <a href=""><i class="fas fa-th-large active px-3"></i></a>
+          <a href=""><i class="fas fa-th-list px-3"></i></a>
+        </div>
+        <div class="products-search-bar" data-Authority="member">
+            <form class="products-search d-inline-block">
+              <input type="text" class="navbar-search-text" placeholder="搜尋商品">
+              <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="btn-group" id="mobile-nav-product-category">
+              <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown">
+                分類
+              </button>
+              <div class="dropdown-menu">
+                  <a class="nav-link category" href="#"><span class="category-item">鼠年年菜專區</span> <span data-userAuthority="member">(7)</span></a>
+                  <a class="nav-link category" href="#"><span class="category-item">TAIWAN - 台灣館</span> <span data-userAuthority="member">(371)</span></a>
+                  <a class="nav-link category-sub" href="#"><span class="category-item">常溫食品</span><span data-userAuthority="member">(179)</span></a>
+                  <a class="nav-link category-sub" href="#"><span class="category-item">生活用品</span><span data-userAuthority="member">(116)</span></a>
+                  <a class="nav-link category-sub" href="#"><span class="category-item">美妝品</span><span data-userAuthority="member">(21)</span></a>
+                  <a class="nav-link category-sub" href="#"><span class="category-item">在地美食</span><span data-userAuthority="member">(35)</span></a>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="limit-search">
+                排序
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">依照商品上架日</button>
+                <button class="dropdown-item" type="button">商品名稱(A-Z)</button>
+                <button class="dropdown-item" type="button">商品名稱(Z-A)</button>
+                <button class="dropdown-item" type="button">價格(低-高)</button>
+                <button class="dropdown-item" type="button">價格(高-低)</button>
+              </div>
+            </div>
+        </div>
+      </div>
+      <!-- 商品功能 -->
+      <!-- 商品排列 清單 -->
+      <div class="items-card-row row row-cols-2 row-cols-sm-2 row-cols-lg-2 mx-0">
+        <div class="items-card col px-4 mb-4">
+          <div class="card h-100 border-0">
+            <div class="card-img-top">
+            <!-- 管理員視角 -->
+            <div class="product-item-edit" data-Authority="admin">
+              <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>編輯商品</span></a>
+              <a class="d-block" href=""><i class="fas fa-image"></i><span>增加圖片</span></a>
+            </div>
+            <!-- 管理員視角 -->
+              <a >
+                <img src="./images/noitem.jpg" class="img-fluid card-img-bg" alt="">
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title product-title">眷村私房菜老滷湯酸白菜鍋1000g(五～七人份)</h5>
+              <!-- 遊客視角 -->
+              <p class="card-text price" data-Authority="guest">$ 請先登入會員</p>
+              <!-- 遊客視角 -->
+              <!-- 管理員/會員視角 -->
+              <!-- <div class="text-center" data-Authority="member"> 
+                <p class="card-text product-price mb-0">一般價$ 160</p>
+                <p class="card-text product-price" >會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
+                <button class="product-addto-cart">加入購物車</button>
+                <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-Authority="admin">編輯</button>
+              </div> -->
+              <!-- 管理員/會員視角 -->
+            </div>
+          </div>
+        </div>
+        <div class="items-card col px-4 mb-4">
+          <div class="card h-100 border-0">
+            <div class="card-img-top">
+              <!-- 管理員視角 -->
+              <div class="product-item-edit" data-Authority="admin">
+                <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>編輯商品</span></a>
+                <a class="d-block" href=""><i class="fas fa-image"></i><span>增加圖片</span></a>
+              </div>
+              <!-- 管理員視角 -->
+              <a href="#">
+                <img src="./images/item-1.png" class="img-fluid card-img-bg" alt="">
+              </a>
+            </div>
+            <!-- 會員視角 -->
+            <div class="product-badge" data-Authority="member">
+              <span class="badge badge-no-freight">買一件免運費</span>
+              <span class="badge badge-no-discount">不適用任何折扣</span>
+            </div>
+            <!-- 會員視角 -->
+            <div class="card-body">
+              <h5 class="card-title product-title">富貴團圓年菜9件組(12/10)</h5>
+              <!-- 遊客視角 -->
+              <!-- <p class="card-text price" data-Authority="guest">$ 請先登入會員</p> -->
+              <!-- 遊客視角 -->
+              <!-- 管理員/會員視角 -->
+              <div class="text-center" data-Authority="member">
+                <p class="card-text product-price mb-0">一般價$ 160</p>
+                <p class="card-text product-price" >會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
+                <button class="product-addto-cart">加入購物車</button>
+                <!-- 管理員視角 -->
+                <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-Authority="admin">編輯</button>
+                <!-- 管理員視角 -->
+              </div>
+              <!-- 管理員/會員視角 -->
+            </div>
+           
+          </div>
+        </div>
+        <div class="items-card col px-4 mb-4">
+          <div class="card h-100 border-0">
+            <div class="card-img-top">
+            <!-- 管理員視角 -->
+            <div class="product-item-edit" data-Authority="admin">
+              <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>編輯商品</span></a>
+              <a class="d-block" href=""><i class="fas fa-image"></i><span>增加圖片</span></a>
+            </div>
+            <!-- 管理員視角 -->
+              <a href="#">
+                <img src="./images/item-1.png" class="img-fluid card-img-bg" alt="">
+              </a>
+            </div>
+            <!-- 會員視角 -->
+            <div class="product-badge" data-Authority="member">
+              <span class="badge badge-no-freight">買一件免運費</span>
+            </div>
+            <!-- 會員視角 -->
+            <div class="card-body">
+              <h5 class="card-title product-title">富貴滿堂年菜超值組-A/B(經典組)(12/10)</h5>
+              <!-- 遊客視角 -->
+              <!-- <p class="card-text price" data-Authority="guest">$ 請先登入會員</p> -->
+              <!-- 遊客視角 -->
+              <!-- 管理員/會員視角 -->
+              <div class="text-center" data-Authority="member">
+                <p class="card-text product-price mb-0" >一般價$ 160</p>
+                <p class="card-text product-price">會員價$ <span>140</span> </p>
+                <button class="product-addto-cart">加入購物車</button>
+                <!-- 管理員視角 -->
+                <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-Authority="admin">編輯</button>
+                <!-- 管理員視角 -->
+              </div>
+              <!-- 管理員/會員視角 -->
+            </div>
+          </div>
+        </div>
+        <div class="items-card col px-4 mb-4">
+          <div class="card h-100 border-0">
+            <div class="card-img-top">
+            <!-- 管理員視角 -->
+            <div class="product-item-edit" data-Authority="admin">
+              <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>編輯商品</span></a>
+              <a class="d-block" href=""><i class="fas fa-image"></i><span>增加圖片</span></a>
+            </div>
+            <!-- 管理員視角 -->              
+              <a href="#" >
+                <img src="./images/item-1.png" class="img-fluid card-img-bg" alt="">
+              </a>
+            </div>
+            <!-- 會員視角 -->
+            <div class="product-badge" data-Authority="member">
+              <span class="badge badge-no-discount">不適用任何折扣</span>
+            </div>
+            <!-- 會員視角 -->
+            <div class="card-body">
+              <h5 class="card-title product-title">南門市場60年老店上海火腿-蜜汁火腿300g(12P)</h5>
+              <!-- 遊客視角 -->
+              <!-- <p class="card-text price" data-Authority="guest">$ 請先登入會員</p> -->
+              <!-- 遊客視角 -->
+              <!-- 管理員/會員視角 -->
+              <div class="text-center" data-Authority="member">
+                <p class="card-text product-price mb-0" >一般價$ 160</p>
+                <p class="card-text product-price">會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
+                <button class="product-addto-cart">加入購物車</button>
+                <!-- 管理員視角 -->
+                <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-Authority="admin">編輯</button>
+                <!-- 管理員視角 -->
+              </div>
+              <!-- 管理員/會員視角 -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 商品排列 清單 -->
+    </div>
+  </div>
+</section>
+
+
+<!-- products -->
+</body>
+</html>
