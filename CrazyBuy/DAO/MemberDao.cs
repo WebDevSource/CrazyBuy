@@ -22,16 +22,7 @@ namespace CrazyBuy.DAO
                 dbContext.Member.Add(member);
                 dbContext.SaveChanges();
             }
-        }
-
-        public int getMemberId()
-        {
-            using (CrazyBuyDbContext dbContext = ContextInit())
-            {
-                int size = dbContext.Member.Count();
-                return size++;
-            }
-        }
+        }       
 
         public void updateMember(Member member)
         {

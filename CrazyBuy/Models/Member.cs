@@ -7,7 +7,7 @@ namespace CrazyBuy.Models
     {
         [Key]
         public string memberCode { get; set; }
-        public int memberId { get; set; }        
+        public Guid memberId { get; set; }        
         public string account { get; set; }
         public string password { get; set; }
         public string name { get; set; }
@@ -27,6 +27,6 @@ namespace CrazyBuy.Models
         public DateTime createTime { get; set; }
         public DateTime updateTime { get; set; }
         public int creator { get; set; }
-        public int updater { get; set; }
+        public int updater { get; set; }        
     }
 }

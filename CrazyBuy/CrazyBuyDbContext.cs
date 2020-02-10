@@ -9,6 +9,7 @@ namespace CrazyBuy
     {
         public DbSet<Tenant> Tenant { get; set; }
         public DbSet<Member> Member { get; set; }
+        public DbSet<TenantMember> TenantMember { get; set; }
 
         public CrazyBuyDbContext(string connStr) : base(new SqlConnection(connStr), true)
         {
