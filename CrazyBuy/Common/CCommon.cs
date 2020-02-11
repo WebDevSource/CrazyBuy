@@ -28,4 +28,10 @@
         public string remoteIp { get; set; }
     }
 
+    public class CHType
+    {
+        public readonly static string PRICE_MEMBER = "會員價";
+        public readonly static string PRICE_NORMAL = "一般價";        
+    }
+
 }
