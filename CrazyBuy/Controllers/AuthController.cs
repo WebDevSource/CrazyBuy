@@ -36,6 +36,7 @@ namespace CrazyBuy.Controllers
                 string pwd = data.GetValueOrDefault("pwd");
                 string userName;
                 string userUuid;
+                string tenantId;
                 string tenantType;
                 string type;
                 string userNameId;
@@ -51,6 +52,7 @@ namespace CrazyBuy.Controllers
                     tenantType = member.tenantType;
                     type = "loginUser";
                     userType = CTenantManager.isOwner(userNameId)? UserType.ADMIN : UserType.NORMAL;
+                    tenantId = DataManager.tenantMemberDao.getTenantMemberByMemberId(member.memberId).tenantId.ToString();
 
                     // updateLoginTime
                     member.dLastLogin = DateTime.Now;
@@ -65,6 +67,7 @@ namespace CrazyBuy.Controllers
                     userNameId = id;
                     tenantType = "";
                     type = "guest";
+                    tenantId = null;
                 }
 
                 // STEP1: 建立使用者的 Claims 聲明，這會是 JWT Payload 的一部分
@@ -74,7 +77,8 @@ namespace CrazyBuy.Controllers
                     new Claim("MemberName", userName),
                     new Claim("MemberTenantType", tenantType),
                     new Claim("type", type),
-                    new Claim("userType", userType)
+                    new Claim("userType", userType),
+                    new Claim("tenantId", tenantId)
                     });
 
                 // STEP2: 取得對稱式加密 JWT Signature 的金鑰
@@ -98,6 +102,7 @@ namespace CrazyBuy.Controllers
                 rm.Add("token", serializeToken);
                 rm.Add("type", type);
                 rm.Add("userType",userType);
+                rm.Add("tenantId", tenantId);
                 return Ok(rm);
             }
             else

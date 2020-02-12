@@ -30,8 +30,8 @@
 
     public class CHType
     {
-        public readonly static string PRICE_MEMBER = "會員價";
-        public readonly static string PRICE_NORMAL = "一般價";        
+        public readonly static string PRICE_MEMBER = "member";
+        public readonly static string PRICE_NORMAL = "normal";        
     }
 
 }

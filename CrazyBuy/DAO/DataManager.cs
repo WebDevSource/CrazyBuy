@@ -6,5 +6,6 @@
         public static readonly TenantDAO tenantDao = new TenantDAO();
         public static readonly TenantMemberDAO tenantMemberDao = new TenantMemberDAO();
         public static readonly TenantPrdDAO tenantPrdDao = new TenantPrdDAO();
+        public static readonly TenantPrdCatDAO tenantPrdCatDao = new TenantPrdCatDAO();
     }
 }

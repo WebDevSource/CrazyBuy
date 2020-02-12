@@ -1,8 +1,7 @@
-﻿using System;
+﻿using CrazyBuy.Models;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using CrazyBuy.Models;
 
 namespace CrazyBuy.DAO
 {
@@ -19,7 +18,6 @@ namespace CrazyBuy.DAO
                 sql += @" and hp.[tenantId] ='{0}' ";
 
                 string query = String.Format(sql, tenantId.ToString());
-                Debug.WriteLine("query:" + query);
                 return dbContext.Database.SqlQuery<TenantPrd>(query).ToList();
             }
         }
@@ -32,6 +30,19 @@ namespace CrazyBuy.DAO
                 TenantPrd model = dbContext.TenantPrd.Where(
                 m => m.id == prdId).SingleOrDefault();
                 return model;
+            }
+        }
+
+        public List<TenantPrd> getTenandPrdByCatId(Guid tenantId, long catId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" select p.* from [TenantPrd] p ";
+                sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
+                sql += @" where p.tenantId = '{0}' and r.catId = {1} ";
+
+                string query = String.Format(sql, tenantId.ToString(), catId);
+                return dbContext.Database.SqlQuery<TenantPrd>(query).ToList();
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using CrazyBuy.DAO;
 using CrazyBuy.Models;
 
 namespace CrazyBuy.Services
@@ -7,6 +9,12 @@ namespace CrazyBuy.Services
     {
         public static readonly string TYPE_MEMBER = "loginUser";
         public static readonly string TYPE_GUEST = "guest";
+
+        public static IEnumerable<Dictionary<string, object>> getPrdListByCat(Guid tenantId, long catId, string userType)
+        {
+            List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(tenantId, catId);
+            return getPrdList(data, userType);
+        }
 
         public static IEnumerable<Dictionary<string, object>> getPrdList(List<TenantPrd> prds, string userType)
         {
@@ -25,7 +33,7 @@ namespace CrazyBuy.Services
             string price;
             if (TYPE_MEMBER.Equals(userType))
             {
-                price =string.Format("${0}", prd.memberPrice);
+                price = string.Format("${0}", prd.memberPrice);
                 prices.Add(CHType.PRICE_MEMBER, price);
             }
             else
@@ -41,6 +49,8 @@ namespace CrazyBuy.Services
             data.Add("tenantId", prd.tenantId);
             data.Add("summary", prd.summary);
             data.Add("prdImages", prd.prdImages);
+            data.Add("paymentType", prd.paymentType);
+            data.Add("shipType", prd.shipType);
             data.Add("tags", prd.SpecialRule);
             return data;
         }

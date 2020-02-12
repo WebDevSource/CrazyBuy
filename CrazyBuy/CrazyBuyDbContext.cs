@@ -11,6 +11,7 @@ namespace CrazyBuy
         public DbSet<Member> Member { get; set; }
         public DbSet<TenantMember> TenantMember { get; set; }
         public DbSet<TenantPrd> TenantPrd { get; set; }
+        public DbSet<TenantPrdCat> TenantPrdCat { get; set; }
 
         public CrazyBuyDbContext(string connStr) : base(new SqlConnection(connStr), true)
         {
