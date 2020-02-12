@@ -220,10 +220,14 @@
         return myDate;
     },
 
-    ProcessAjax: function (url, method, authToken, data, processDone, processFailed) {
+    ProcessAjax: function (url, method, authToken, tenantId, data, processDone, processFailed) {
         try {
             if (typeof data == "object") {
                 data = JSON.stringify(data);
+            }
+            if (tenantId) {
+                let tenantId = Utils.GetUrlParameter("tenantId");
+                url += "/" + tenantId;
             }
             $.ajax({
                 url: url,
@@ -233,8 +237,11 @@
                     "Content-Type": "application/json"
                 },
                 beforeSend: function (xhr) {
-                    if (authToken != "")
-                        xhr.setRequestHeader("Authorization", 'Bearer ' + authToken);
+                    if (authToken) {
+                        GetUrlParameter()
+                        let token = Utils.GetCookie("token");
+                        xhr.setRequestHeader("Authorization", 'Bearer ' + token);
+                    }
                 },
                 success: function (data) {
                     //alert(JSON.stringify(result));

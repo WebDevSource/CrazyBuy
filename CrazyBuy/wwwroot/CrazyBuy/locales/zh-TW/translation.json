@@ -21,6 +21,8 @@
   "btn_close": "關閉",
   "btn_cancel": "取消",
   "btn_confirm": "確定",
+  "btn_Collapse": "收合",
+  "btn_sort": "排序",
 
   "btn_search": "查詢",
   "btn_import": "匯入",

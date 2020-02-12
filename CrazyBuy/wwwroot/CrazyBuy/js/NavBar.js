@@ -174,7 +174,7 @@
             + '       <div class="ml-auto my-2 col-6">'
             + '         <div class="row">'
             + '           <div class="col-sm-6 col-4 nav-cart-items-clear-All">清空</div>'
-            + '           <div class="col-sm-6 col-4 px-0"><a class="btn btn-register navs-btn-checkout" href="./checkout.html">結帳</a></div>'
+             + '           <div class="col-sm-6 col-4 px-0"><a class="btn btn-register navs-btn-checkout" href="./cart.html">結帳</a></div>'
             + '         </div>'
             + '       </div>'
             + '      </div>'

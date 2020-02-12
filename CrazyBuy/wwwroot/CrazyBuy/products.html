@@ -10,8 +10,7 @@
     <script src="./js/lib/popper.min.js"></script>
     <script src="./js/lib/multiselect.min.js"></script>
     <script src="./js/lib/bootstrap.min.js"></script>
-
-
+    
     <!-- i18next.min.js -->
     <script type="text/javascript" src="./js/lib/i18next/js/i18next.min.js"></script>
     <script type="text/javascript" src="./js/lib/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
@@ -23,7 +22,7 @@
     <script src="./js/NavBar.js"></script>
     <script src="./js/Products.js"></script>
     <script src="./js/ProductCard.js"></script>
-  
+    
     <link rel="stylesheet" href="./css/all.min.css">
 </head>
 <body>
@@ -34,7 +33,7 @@
       <div class="d-inline-block admin-edit-content">
         <img src="./images/logo.svg" alt="logo">
         <!-- 管理者編輯 -->
-        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-Authority="admin">編輯</button>
+        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin">編輯</button>
         <!-- 管理者編輯 -->
       </div>
     </div>
@@ -51,7 +50,7 @@
           <img src="./images/logo.svg" alt="logo">
         </div>
         <div class="input-group mobile-side-bar-item mb-3">
-          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋" data-i18n="[placeholder]search">
           <div class="d-flex">
             <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
           </div>
@@ -74,31 +73,43 @@
     <div class="col-md-4 product-category">
       <!-- 管理者視角 -->
       <div class="admin-edit-content">
-        <button class="btn btn-outline-register btn-admin-edit banner-admin-edit px-3 py-0" data-Authority="admin">編輯</button>
+        <button class="btn btn-outline-register btn-admin-edit banner-admin-edit px-3 py-0" data-i18n="btn_edit" data-Authority="admin">編輯</button>
       </div>
       <!-- 管理者視角 -->
       <div class="nav flex-column" id="desktop-nav-product-category">
-        <p class="nav-link category-title">商品分類</p>
-        <a class="nav-link category" href="#">全部商品 <span data-userAuthority="member">(1980)</span></a>
-        <a class="nav-link category" href="#">鼠年年菜專區 <span data-userAuthority="member">(7)</span></a>
-        <a class="nav-link category" href="#">TAIWAN - 台灣館 <span data-userAuthority="member">(371)</span></a>
-        <a class="nav-link category-sub" href="#"><span class="category-item">常溫食品</span><span data-userAuthority="member">(179)</span></a>
-        <a class="nav-link category-sub" href="#"><span class="category-item">生活用品</span><span data-userAuthority="member">(116)</span></a>
-        <a class="nav-link category-sub" href="#"><span class="category-item">美妝品</span><span data-userAuthority="member">(21)</span></a>
-        <a class="nav-link category-sub" href="#"><span class="category-item">在地美食</span><span data-userAuthority="member">(35)</span></a>
+        <p class="nav-link category-title" data-i18n="prdCatalog">商品分類</p>
+        <div class="accordion" id="category-accordion">
+          <a href="#" class="nav-link category" data-toggle="collapse" data-target="#first-category">
+            全部商品 <span data-userAuthority="member">(1980)</span>
+          </a>
+          <div id="first-category" class="collapse show" data-parent="#category-accordion">
+            <a class="nav-link category" href="#" data-toggle="collapse" data-target="#food-second-category">鼠年年菜專區 <span data-userAuthority="member">(7)</span></a>
+            <div id="food-second-category" class="collapse" data-parent="#first-category">
+              <a class="nav-link category-sub" href="#"><span class="category-item">佛跳牆</span><span data-userAuthority="member">(179)</span></a>
+              <a class="nav-link category-sub" href="#"><span class="category-item">獅子頭</span><span data-userAuthority="member">(116)</span></a>
+              <a class="nav-link category-sub" href="#"><span class="category-item">紅燒魚</span><span data-userAuthority="member">(21)</span></a>
+              <a class="nav-link category-sub" href="#"><span class="category-item">五更腸旺</span><span data-userAuthority="member">(35)</span></a> 
+            </div>
+            <a class="nav-link category" href="#" data-toggle="collapse" data-target="#second-category">TAIWAN - 台灣館 <span data-userAuthority="member">(371)</span></a>
+            <div id="second-category" class="collapse" data-parent="#first-category">
+              <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#thirty-category-1"><span class="category-item">常溫食品</span><span data-userAuthority="member">(179)</span></a>
+              <div id="thirty-category-1" class="collapse" data-parent="#second-category">
+                <a class="nav-link category-sub" href="#"><span class="category-item">麵包</span><span data-userAuthority="member">(179)</span></a>
+                <a class="nav-link category-sub" href="#"><span class="category-item">飯糰</span><span data-userAuthority="member">(116)</span></a>
+                <a class="nav-link category-sub" href="#"><span class="category-item">茶葉蛋</span><span data-userAuthority="member">(21)</span></a>
+              </div> 
+              <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#thirty-category-2"><span class="category-item">生活用品</span><span data-userAuthority="member">(116)</span></a>
+              <div id="thirty-category-2" class="collapse" data-parent="#second-category">
+                <a class="nav-link category-sub" href="#"><span class="category-item">衛生紙</span><span data-userAuthority="member">(179)</span></a>
+                <a class="nav-link category-sub" href="#"><span class="category-item">口罩</span><span data-userAuthority="member">(116)</span></a>
+                <a class="nav-link category-sub" href="#"><span class="category-item">衛生棉</span><span data-userAuthority="member">(21)</span></a>
+              </div> 
+              <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#food-second-category"><span class="category-item">美妝品</span><span data-userAuthority="member">(21)</span></a>
+              <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#food-second-category"><span class="category-item">在地美食</span><span data-userAuthority="member">(35)</span></a> 
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- 遊客視角 -->
-      <!-- <div class="nav flex-column" id="desktop-nav-product-category">
-        <p class="nav-link category-title">商品分類</p>
-        <a class="nav-link category" href="#">全部商品 </a>
-        <a class="nav-link category" href="#">鼠年年菜專區 </a>
-        <a class="nav-link category" href="#">TAIWAN - 台灣館 </a>
-        <a class="nav-link category-sub" href="#"><span class="category-item">常溫食品</a>
-        <a class="nav-link category-sub" href="#"><span class="category-item">生活用品</a>
-        <a class="nav-link category-sub" href="#"><span class="category-item">美妝品</a>
-        <a class="nav-link category-sub" href="#"><span class="category-item">在地美食</a>
-      </div> -->
-      <!-- 遊客視角 -->
     </div>
     <div class="col-md-8 col-12 product-row">
       <!-- 商品功能 -->
@@ -109,24 +120,49 @@
         </div>
         <div class="products-search-bar" data-Authority="member">
             <form class="products-search d-inline-block">
-              <input type="text" class="navbar-search-text" placeholder="搜尋商品">
+              <input type="text" class="navbar-search-text" placeholder="搜尋" data-i18n="[placeholder]search">
               <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
             </form>
             <div class="btn-group" id="mobile-nav-product-category">
-              <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown">
+              <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="category-dropdown-m">
                 分類
               </button>
-              <div class="dropdown-menu">
-                  <a class="nav-link category" href="#"><span class="category-item">鼠年年菜專區</span> <span data-userAuthority="member">(7)</span></a>
-                  <a class="nav-link category" href="#"><span class="category-item">TAIWAN - 台灣館</span> <span data-userAuthority="member">(371)</span></a>
-                  <a class="nav-link category-sub" href="#"><span class="category-item">常溫食品</span><span data-userAuthority="member">(179)</span></a>
-                  <a class="nav-link category-sub" href="#"><span class="category-item">生活用品</span><span data-userAuthority="member">(116)</span></a>
-                  <a class="nav-link category-sub" href="#"><span class="category-item">美妝品</span><span data-userAuthority="member">(21)</span></a>
-                  <a class="nav-link category-sub" href="#"><span class="category-item">在地美食</span><span data-userAuthority="member">(35)</span></a>
+              <div class="dropdown-menu" >
+                <div class="accordion" id="category-accordion-m">
+                  <a href="#" class="nav-link category" data-toggle="collapse" data-target="#first-category-m">
+                    全部商品 <span data-userAuthority="member">(1980)</span>
+                  </a>
+                  <div id="first-category-m" class="collapse show" data-parent="#category-accordion-m">
+                    <a class="nav-link category" href="#" data-toggle="collapse" data-target="#food-second-category-m">鼠年年菜專區 <span data-userAuthority="member">(7)</span></a>
+                    <div id="food-second-category-m" class="collapse" data-parent="#first-category-m">
+                      <a class="nav-link category-sub" href="#"><span class="category-item">佛跳牆</span><span data-userAuthority="member">(179)</span></a>
+                      <a class="nav-link category-sub" href="#"><span class="category-item">獅子頭</span><span data-userAuthority="member">(116)</span></a>
+                      <a class="nav-link category-sub" href="#"><span class="category-item">紅燒魚</span><span data-userAuthority="member">(21)</span></a>
+                      <a class="nav-link category-sub" href="#"><span class="category-item">五更腸旺</span><span data-userAuthority="member">(35)</span></a> 
+                    </div>
+                    <a class="nav-link category" href="#" data-toggle="collapse" data-target="#second-category-m">TAIWAN - 台灣館 <span data-userAuthority="member">(371)</span></a>
+                    <div id="second-category-m" class="collapse" data-parent="#first-category-m">
+                      <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#thirty-category-1-m"><span class="category-item">常溫食品</span><span data-userAuthority="member">(179)</span></a>
+                      <div id="thirty-category-1-m" class="collapse" data-parent="#second-category-m">
+                        <a class="nav-link category-sub" href="#"><span class="category-item">麵包</span><span data-userAuthority="member">(179)</span></a>
+                        <a class="nav-link category-sub" href="#"><span class="category-item">飯糰</span><span data-userAuthority="member">(116)</span></a>
+                        <a class="nav-link category-sub" href="#"><span class="category-item">茶葉蛋</span><span data-userAuthority="member">(21)</span></a>
+                      </div> 
+                      <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#thirty-category-2-m"><span class="category-item">生活用品</span><span data-userAuthority="member">(116)</span></a>
+                      <div id="thirty-category-2-m" class="collapse" data-parent="#second-category-m">
+                        <a class="nav-link category-sub" href="#"><span class="category-item">衛生紙</span><span data-userAuthority="member">(179)</span></a>
+                        <a class="nav-link category-sub" href="#"><span class="category-item">口罩</span><span data-userAuthority="member">(116)</span></a>
+                        <a class="nav-link category-sub" href="#"><span class="category-item">衛生棉</span><span data-userAuthority="member">(21)</span></a>
+                      </div> 
+                      <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#food-second-category-m"><span class="category-item">美妝品</span><span data-userAuthority="member">(21)</span></a>
+                      <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#food-second-category-m"><span class="category-item">在地美食</span><span data-userAuthority="member">(35)</span></a> 
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="btn-group">
-              <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="limit-search">
+              <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="limit-search" data-i18n="btn_sort">
                 排序
               </button>
               <div class="dropdown-menu dropdown-menu-right">
@@ -203,7 +239,7 @@
                     <p class="card-text product-price" >會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
                     <button class="product-addto-cart">加入購物車</button>
                     <!-- 管理員視角 -->
-                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-Authority="admin">編輯</button>
+                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-i18n="btn_edit" data-Authority="admin">編輯</button>
                     <!-- 管理員視角 -->
                   </div>
                   <!-- 管理員/會員視角 -->
@@ -240,7 +276,7 @@
                     <p class="card-text product-price">會員價$ <span>140</span> </p>
                     <button class="product-addto-cart">加入購物車</button>
                     <!-- 管理員視角 -->
-                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-Authority="admin">編輯</button>
+                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-i18n="btn_edit"  data-Authority="admin">編輯</button>
                     <!-- 管理員視角 -->
                   </div>
                   <!-- 管理員/會員視角 -->
@@ -276,7 +312,7 @@
                     <p class="card-text product-price">會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
                     <button class="product-addto-cart">加入購物車</button>
                     <!-- 管理員視角 -->
-                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-Authority="admin">編輯</button>
+                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-i18n="btn_edit" data-Authority="admin">編輯</button>
                     <!-- 管理員視角 -->
                   </div>
                   <!-- 管理員/會員視角 -->
