@@ -9,6 +9,9 @@ namespace CrazyBuy.Models
         public Guid tenantId { get; set; }
 
         public string tenantCode { get; set; }
-        
+
+        public string owner { get; set; }
+
+
     }
 }

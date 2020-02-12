@@ -1,4 +1,6 @@
 ﻿using CrazyBuy.Models;
+using System;
+using System.Linq;
 
 namespace CrazyBuy.DAO
 {
@@ -10,6 +12,16 @@ namespace CrazyBuy.DAO
             {
                 dbContext.TenantMember.Add(tenantMember);
                 dbContext.SaveChanges();
+            }
+        }
+
+        public TenantMember getTenantMemberByMemberId(Guid memberId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                TenantMember model = dbContext.TenantMember.Where(
+                m => m.memberId == memberId).SingleOrDefault();
+                return model;
             }
         }
     }

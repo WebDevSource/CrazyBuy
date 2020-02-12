@@ -7,6 +7,13 @@
         public readonly static int ERROR = -1;
     }
 
+    public class UserType
+    {
+        public readonly static string ADMIN = "admin";
+        public readonly static string NORMAL = "nomal";
+        public readonly static string GUEST = "guest";
+    }
+
     // 回傳格式
     public class ReturnMessage
     {
@@ -19,6 +26,12 @@
     {
         public string headerAuthorization { get; set; }
         public string remoteIp { get; set; }
+    }
+
+    public class CHType
+    {
+        public readonly static string PRICE_MEMBER = "member";
+        public readonly static string PRICE_NORMAL = "normal";        
     }
 
 }

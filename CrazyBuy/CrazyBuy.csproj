@@ -12,10 +12,6 @@
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
   <ItemGroup>
     <Content Remove="mono_crash.91852a820.0.json" />
   </ItemGroup>

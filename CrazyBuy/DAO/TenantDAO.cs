@@ -1,10 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CrazyBuy.Models;
 namespace CrazyBuy.DAO
 {
     public class TenantDAO : CrazyBuyRerpository
     {
+        public Tenant getTenant(Guid id)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                Tenant model = dbContext.Tenant.Where(
+                              m => m.tenantId == id).SingleOrDefault();
+                return model;
+            }
+        }
+
+        public Tenant getTenantByOwner(string ownerId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                Tenant model = dbContext.Tenant.Where(
+                              m => m.owner == ownerId).FirstOrDefault();
+                return model;
+            }
+        }
+
         public List<Tenant> GetTable(int limit)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())

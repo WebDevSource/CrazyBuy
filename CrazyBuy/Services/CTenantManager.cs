@@ -4,7 +4,7 @@ using CrazyBuy.Models;
 
 namespace CrazyBuy
 {
-    public class TenantManager
+    public class CTenantManager
     {        
 
         public static List<Tenant> getTenantTop(int limit)
@@ -25,6 +25,11 @@ namespace CrazyBuy
         public static void updateTenant(Tenant tenant)
         {
             DataManager.tenantDao.updateTenant(tenant);
+        }
+
+        public static bool isOwner(string userId)
+        {
+            return DataManager.tenantDao.getTenantByOwner(userId) != null ? true : false;
         }
     }
 }
