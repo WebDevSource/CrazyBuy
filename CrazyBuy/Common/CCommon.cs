@@ -1,4 +1,4 @@
-﻿namespace CrazyBuy
+﻿    namespace CrazyBuy
 {
     // 回傳狀態碼
     public class MessageCode
@@ -13,6 +13,13 @@
         public readonly static string NORMAL = "nomal";
         public readonly static string GUEST = "guest";
     }
+
+    public class LoginType
+    {
+        public readonly static string LOGIN_USER = "loginUser";
+        public readonly static string GUEST = "guest";
+    }
+
 
     // 回傳格式
     public class ReturnMessage

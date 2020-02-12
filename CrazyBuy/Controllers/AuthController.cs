@@ -50,7 +50,7 @@ namespace CrazyBuy.Controllers
                     userUuid = member.memberCode.ToString();
                     userNameId = member.memberId.ToString();
                     tenantType = member.tenantType;
-                    type = "loginUser";
+                    type = LoginType.LOGIN_USER;
                     userType = CTenantManager.isOwner(userNameId)? UserType.ADMIN : UserType.NORMAL;
                     tenantId = DataManager.tenantMemberDao.getTenantMemberByMemberId(member.memberId).tenantId.ToString();
 
@@ -62,12 +62,12 @@ namespace CrazyBuy.Controllers
                 {
                     // not login for guest
                     string id = Guid.NewGuid().ToString();
-                    userName = "guest";
+                    userName = LoginType.GUEST;
                     userUuid = id;
                     userNameId = id;
                     tenantType = "";
-                    type = "guest";
-                    tenantId = null;
+                    type = LoginType.GUEST;
+                    tenantId = "";
                 }
 
                 // STEP1: 建立使用者的 Claims 聲明，這會是 JWT Payload 的一部分
