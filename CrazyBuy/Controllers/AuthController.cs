@@ -34,6 +34,7 @@ namespace CrazyBuy.Controllers
             {
                 string userId = data.GetValueOrDefault("account");
                 string pwd = data.GetValueOrDefault("pwd");
+                string defaultTenant = data.GetValueOrDefault("tenantId");
                 string userName;
                 string userUuid;
                 string tenantId;
@@ -67,7 +68,7 @@ namespace CrazyBuy.Controllers
                     userNameId = id;
                     tenantType = "";
                     type = LoginType.GUEST;
-                    tenantId = "";
+                    tenantId = defaultTenant;
                 }
 
                 // STEP1: 建立使用者的 Claims 聲明，這會是 JWT Payload 的一部分
