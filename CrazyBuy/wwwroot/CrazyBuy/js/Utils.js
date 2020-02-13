@@ -9,7 +9,7 @@
     ROLE_GUEST :'guest',
 
     Initial: function async(callback) {
-//        Utils.CheckToken();
+        Utils.CheckToken();
 //        Backend.SetupMessageConnect(callback);
     },
 
@@ -103,45 +103,45 @@
 
     ClearToken: function () {
         Utils.SetCookie("token", "", 0);
-        Utils.SetCookie("tenantId", "", 0);
-        Utils.SetCookie("uId", "", 0);
-        Utils.SetCookie("userPermit", "", 0);
+        Utils.SetCookie("role", Utils.ROLE_GUEST);
     },
 
     CheckToken: function async(callback) {
         var token = "";
 
         token = Utils.GetCookie("token");
+        if (token) {
+            Utils.ProcessAjax("/api/values/authorize", "GET", token, "",
+                function (result) {
+                    //alert(JSON.stringify(result));
 
-        Utils.ProcessAjax("/Backend/SystemUtils/CheckToken", "POST", token, "",
-            function (result) {
-                //alert(JSON.stringify(result));
-                if (result.code == 0) {
                     //alert(`SystemLoginUser.id = ${result.data.userId}`);
-                    Utils.SystemLoginUser = result.data;
+                    //Utils.SystemLoginUser = result.data;
 
-                    Utils.HeaderInitial();
-                    Utils.SystemFunctionInitial();
-                    Utils.GetModuleNavigation();
-                    if (callback) callback();
-                }
-                else {
+                    //Utils.HeaderInitial();
+                    //Utils.SystemFunctionInitial();
+                    //Utils.GetModuleNavigation();
+                    //                    if (callback) callback();
+                    for (let i = 0; i < result.length; i++) {
+                        let item = result[i];
+                        if (item.type == "userType") {
+                            Utils.SetCookie("role", item.value);
+                        }
+                    }
+
+                },
+                function (result) {
+                    alert(JSON.stringify(result));
                     alert("User Authorization Error, Login Again Please.");
 
                     Utils.ClearToken();
 
-					location.href = "/Backend/index.html";
-                }
+                    window.location.reload();
+                });
+        } else {
+            NavBar.login("test", "1234");
+        }
 
-            },
-            function (result) {
-                alert(JSON.stringify(result));
-                alert("User Authorization Error, Login Again Please.");
-
-                Utils.ClearToken();
-
-                location.href = "/Backend/index.html";
-            });
     },
 
 
@@ -220,26 +220,20 @@
         return myDate;
     },
 
-    ProcessAjax: function (url, method, authToken, tenantId, data, processDone, processFailed) {
+    ProcessAjax: function (url, method, authToken, data, processDone, processFailed) {
         try {
             if (typeof data == "object") {
                 data = JSON.stringify(data);
-            }
-            if (tenantId) {
-                let tenantId = Utils.GetUrlParameter("tenantId");
-                url += "/" + tenantId;
             }
             $.ajax({
                 url: url,
                 type: method,
                 data: data,
-                headers: {
-                    "Content-Type": "application/json"
-                },
+               
                 beforeSend: function (xhr) {
                     if (authToken) {
-                        GetUrlParameter()
                         let token = Utils.GetCookie("token");
+                        xhr.setRequestHeader("Content-Type", "application/json");
                         xhr.setRequestHeader("Authorization", 'Bearer ' + token);
                     }
                 },
@@ -256,22 +250,29 @@
         catch (e) { alert(e); }
     },
 
-    AsyncProcessAjax: async function (url, method, authToken, data) {
+    AsyncProcessAjax: function (url, method, authToken, data) {
         let result;
         try {
             if (typeof data == "object") {
                 data = JSON.stringify(data);
             }
-            result = await $.ajax({
+            $.ajax({
                 url: url,
                 type: method,
                 data: data,
+                async: false,
                 headers: {
                     "Content-Type": "application/json"
                 },
                 beforeSend: function (xhr) {
                     if (authToken != "")
                         xhr.setRequestHeader("Authorization", 'Bearer ' + authToken);
+                },
+                success(ret) {
+                    result =  ret;
+                },
+                error(ret) {
+                    alert(ret);
                 }
             });
             return result;

@@ -213,35 +213,44 @@
 
     DoLogin() {
         let accountant = $("#accountant").val();
-        let password = $("#password").val();
- /*       let data = {
+        let pwd = $("#password").val();
+        if (!NavBar.login(accountant, pwd)) {
+            alert("User Authorization Error, Check  Again Accountant  Password.");
+            window.location.reload();
+        }
+      
+    },
+
+    login(accountant, pwd) {
+        let tenantId = Utils.GetUrlParameter("tenantId");
+        let data = {
             "account": accountant,
-            "pwd": password
+            "pwd": pwd,
+            "tenantId":tenantId
         };
 
         let result = Utils.AsyncProcessAjax("/api/auth/Login", "Post", "", data);
 
-        if (result.code == 1) {
+        if (result.code == "1") {
+            Utils.SetCookie("token", result.token);
             if (Utils.ROLE_GUEST == result.type) {
-                alert("User Authorization Error, check account or password Please.");
+
             } else {
- */               if (accountant.toLowerCase() == "admin") {
+                if (accountant.toLowerCase() == "admin") {
                     Utils.SetCookie("role", Utils.ROLE_ADMIN);
                 } else {
                     Utils.SetCookie("role", Utils.ROLE_MEMBER);
                 }
-                window.location.reload();
- /*           }
-           
+            }
         } else {
-            alert("User Authorization Error, check account or password Please.");
+            alert("User Authorization Error, Login Again Please.");
         }
- */       
-      
+        return Utils.ROLE_GUEST != result.type;
+
     },
 
     doLogout() {
-        Utils.SetCookie("role", Utils.ROLE_GUEST);
+        Utils.ClearToken();
         window.location.reload();
     }
 

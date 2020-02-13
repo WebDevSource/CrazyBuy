@@ -9299,12 +9299,11 @@ a.text-hint:hover, a.text-hint:focus {
     background-size: 100%;
     background-repeat: no-repeat; }
 
-.items-card {
-  margin-right: auto; }
+.items-card .card {
+  max-width: 270px;
+  margin: auto; }
 
 @media (min-width: 1440px) {
-  .items-card {
-    max-width: 20vw; }
   .card-img-top {
     padding: 46.25%; } }
 
@@ -9475,6 +9474,10 @@ a.text-hint:hover, a.text-hint:focus {
     padding: 5px;
     background: transparent; }
 
+#category-accordion div,
+#category-accordion-m div {
+  padding-left: 10px; }
+
 #mobile-nav-product-category {
   position: initial !important; }
   #mobile-nav-product-category .nav-link {
@@ -9525,11 +9528,7 @@ a.text-hint:hover, a.text-hint:focus {
   background: transparent; }
 
 .product-row .items-card .card-img-top {
-  padding: 47.25%; }
-
-@media (min-width: 1440px) {
-  .product-row .items-card {
-    max-width: 18vw; } }
+  padding: 46.25%; }
 
 /***  
 ================================== 
@@ -9716,10 +9715,16 @@ a.text-hint:hover, a.text-hint:focus {
 .num-add-btn {
   font-size: 25px;
   background: #f5344b;
-  padding: 0px 6px;
   color: #fff;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   cursor: pointer; }
+  .num-minus-btn .fas,
+  .num-add-btn .fas {
+    width: 34px;
+    text-align: center; }
 
 .product-nums {
   width: 60px;
@@ -9744,11 +9749,17 @@ a.text-hint:hover, a.text-hint:focus {
 .close-collapse {
   display: none; }
 
-.describe-collapse-btn.collapsed .close-collapse {
+.describe-collapse-btn .close-collapse {
   display: block; }
 
-.describe-collapse-btn.collapsed .more {
+.describe-collapse-btn .more {
   display: none; }
+
+.describe-collapse-btn.collapsed .close-collapse {
+  display: none; }
+
+.describe-collapse-btn.collapsed .more {
+  display: block; }
 
 @media (max-width: 992px) {
   .desktop-product-infolist,
@@ -9760,6 +9771,11 @@ a.text-hint:hover, a.text-hint:focus {
 @media (min-width: 991px) {
   #product-describe {
     display: none !important; } }
+
+@media (max-width: 576px) {
+  .product-inner-addtocart-btn {
+    margin-left: 0px;
+    margin-top: 10px; } }
 
 /***  
 ================================== 
