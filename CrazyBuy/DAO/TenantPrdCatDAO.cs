@@ -17,6 +17,16 @@ namespace CrazyBuy.DAO
             }
         }
 
+        public List<TenantPrdCat> getAllPrdCats(Guid tenantId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @"select * from [TenantPrdCat] where tenantId = '{0}' order by parentId asc";
+                string query = String.Format(sql, tenantId.ToString());
+                return dbContext.Database.SqlQuery<TenantPrdCat>(query).ToList();
+            }
+        }
+
         public List<TenantPrdCat> getPrdCatsByParentId(Guid tenantId, long parentId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())

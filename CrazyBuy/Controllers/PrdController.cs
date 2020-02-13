@@ -94,17 +94,16 @@ namespace CrazyBuy.Controllers
             return Ok(rm);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [Authorize]
-        public ActionResult getPrdByCatId(long id)
+        public ActionResult getPrdCats()
         {
             ReturnMessage rm = new ReturnMessage();
             try
             {
                 string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
-                string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
                 rm.code = MessageCode.SUCCESS;
-                rm.data = CTenantPrdManager.getPrdListByCat(Guid.Parse(tenantId), id, type);
+                rm.data = DataManager.tenantPrdCatDao.getAllPrdCats(Guid.Parse(tenantId));
             }
             catch (Exception e)
             {
