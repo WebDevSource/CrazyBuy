@@ -26,22 +26,36 @@ namespace CrazyBuy.Services
             return result;
         }
 
+        public static PrdPrice getPrdPrice(TenantPrd prd, string userType)
+        {
+            PrdPrice prdPrice = new PrdPrice();
+            string type;
+            int price;
+
+            if (TYPE_MEMBER.Equals(userType))
+            {
+                price = prd.memberPrice;
+                type = CHType.PRICE_MEMBER;
+            }
+            else
+            {
+                price = prd.fixedprice;
+                type = CHType.PRICE_NORMAL;
+            }
+
+            prdPrice.price = price;
+            prdPrice.type = type;
+            return prdPrice;
+        }
+
         public static Dictionary<string, object> getPrdItem(TenantPrd prd, string userType)
         {
             Dictionary<string, object> data = new Dictionary<string, object>();
             Dictionary<string, string> prices = new Dictionary<string, string>();
             string price;
-            if (TYPE_MEMBER.Equals(userType))
-            {
-                price = string.Format("${0}", prd.memberPrice);
-                prices.Add(CHType.PRICE_MEMBER, price);
-            }
-            else
-            {
-                price = string.Format("${0}", prd.fixedprice);
-                prices.Add(CHType.PRICE_NORMAL, price);
-            }
-
+            PrdPrice prdPrice = getPrdPrice(prd, userType);
+            price = string.Format("${0}", prdPrice.price);
+            prices.Add(prdPrice.type, price);
             data.Add("prices", prices);
             data.Add("id", prd.id);
             data.Add("name", prd.name);

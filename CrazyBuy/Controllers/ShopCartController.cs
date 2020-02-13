@@ -1,5 +1,6 @@
 ﻿using CrazyBuy.DAO;
 using CrazyBuy.Models;
+using CrazyBuy.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -79,17 +80,23 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
+                string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;                
                 Guid memberId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
                 Guid itemId = Guid.NewGuid();
+
+                TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(value.productId);
+                PrdPrice prdPrice = CTenantPrdManager.getPrdPrice(prd, type);
+
                 ShopCart shopCart = new ShopCart();
                 shopCart.id = itemId;
                 shopCart.memberId = memberId;
                 shopCart.productId = value.productId;
                 shopCart.createTime = DateTime.Now;
                 shopCart.count = value.count;
-                shopCart.amount = value.amount;
+                shopCart.amount = prdPrice.price* value.count;
                 shopCart.tenantId = tenantId;
+               
                 DataManager.shopCartDao.addItem(shopCart);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = itemId;

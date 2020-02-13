@@ -47,7 +47,12 @@ namespace CrazyBuy
     {
         public Guid productId { get; set; }
         public int count { get; set; }
-        public int amount { get; set; }
+    }
+
+    public class PrdPrice
+    {
+        public int price { get; set; }
+        public string type { get; set; }
     }
 
 }
