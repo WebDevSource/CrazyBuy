@@ -112,5 +112,25 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public ActionResult getPrdByCatId(long id)
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
+                string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+                rm.code = MessageCode.SUCCESS;
+                rm.data = CTenantPrdManager.getPrdListByCat(Guid.Parse(tenantId), id, type);
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
     }
 }
