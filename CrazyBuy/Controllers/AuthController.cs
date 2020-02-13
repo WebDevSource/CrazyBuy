@@ -55,7 +55,7 @@ namespace CrazyBuy.Controllers
                         userNameId = member.memberId.ToString();
                         tenantType = member.tenantType;
                         type = LoginType.LOGIN_USER;
-                        userType = CTenantManager.isOwner(userNameId) ? UserType.ADMIN : UserType.NORMAL;
+                        userType = CTenantManager.isOwner(userNameId) ? UserType.ADMIN : UserType.MEMBER;
                         tenantId = DataManager.tenantMemberDao.getTenantMemberByMemberId(member.memberId).tenantId.ToString();
 
                         if (tenantId != null)

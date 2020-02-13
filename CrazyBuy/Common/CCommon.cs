@@ -12,7 +12,7 @@ namespace CrazyBuy
     public class UserType
     {
         public readonly static string ADMIN = "admin";
-        public readonly static string NORMAL = "nomal";
+        public readonly static string MEMBER = "member";
         public readonly static string GUEST = "guest";
     }
 
