@@ -1,4 +1,6 @@
-﻿namespace CrazyBuy
+﻿using System;
+
+namespace CrazyBuy
 {
     // 回傳狀態碼
     public class MessageCode
@@ -13,6 +15,13 @@
         public readonly static string NORMAL = "nomal";
         public readonly static string GUEST = "guest";
     }
+
+    public class LoginType
+    {
+        public readonly static string LOGIN_USER = "loginUser";
+        public readonly static string GUEST = "guest";
+    }
+
 
     // 回傳格式
     public class ReturnMessage
@@ -31,7 +40,14 @@
     public class CHType
     {
         public readonly static string PRICE_MEMBER = "member";
-        public readonly static string PRICE_NORMAL = "normal";        
+        public readonly static string PRICE_NORMAL = "normal";
+    }
+
+    public class ShopCartRequest
+    {
+        public Guid productId { get; set; }
+        public int count { get; set; }
+        public int amount { get; set; }
     }
 
 }
