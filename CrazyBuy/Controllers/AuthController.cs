@@ -114,6 +114,8 @@ namespace CrazyBuy.Controllers
                     rm.Add("type", type);
                     rm.Add("userType", userType);
                     rm.Add("tenantId", tenantId);
+                    rm.Add("name", userName);
+                    rm.Add("id", userUuid);
                     return Ok(rm);
                 }
                 else

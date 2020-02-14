@@ -22,6 +22,11 @@ namespace CrazyBuy
         public const string GUEST = "guest";
     }
 
+    public class UserInfo
+    {
+        public Guid tnenatId;
+        public Guid memberId;
+    }
 
     // 回傳格式
     public class ReturnMessage
