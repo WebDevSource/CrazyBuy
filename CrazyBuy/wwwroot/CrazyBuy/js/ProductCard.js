@@ -1,31 +1,13 @@
 ProductCard = {
 
     getHtml(data, role) {
-/*        {
-            "prices": { "會員價": "$160", "一般價": "$170" },
-            "title": "富貴團圓年菜9件組(12/10)",
-                "url": "./images/item-1.png",
-                    "id": 8
-        }
-
-        prices: {normal: "$100"}
-id: "80ff9a2e-6a95-413a-8cca-adfb11e99d7b"
-name: "富士山蘋果"
-prdCode: "20200202235553"
-tenantId: "fe883257-2183-4562-8f73-ddd7b4f27f1e"
-summary: "好吃的富士山蘋果"
-prdImages: "{"fileName":"apple.jpg","type":"jpg"}"
-paymentType: "["ATM轉帳"]"
-shipType: "["貨源"]"
-tags: "["冷藏","獨立下單,"特殊運件"]"
-		];
-*/
         let images = JSON.parse(data.prdImages);
+        let detailUrl = "./product-inner.html?id=" + data.id
         let html = '<div class="items-card col px-4 mb-4">                                                                                                        '
             + '  <div class="card h-100 border-0">                                                                                                            '
             + '    <div class="card-img-top">                                                                                                                 '
             +           ProductCard.getImgBtnHtml(data,role)
-            + '         <a href="./product-inner.html">                                                                                                                                      '
+            + '         <a href="' + detailUrl +'">                                                                                                                                      '
             + '             <img src="'+ images.fileName +'" class="img-fluid card-img-bg" alt="">                                                                   '
             + '         </a>                                                                                                                                     '
             + '    </div>'   
@@ -74,7 +56,7 @@ tags: "["冷藏","獨立下單,"特殊運件"]"
         if (role == Utils.ROLE_GUEST) {
             return html;
         }
-        html += '<button class="product-addto-cart">' + i18next.t("btn_product_addCart") + '</button>     '; 
+        html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\''+ data.id+'\')">' + i18next.t("btn_product_addCart") + '</button>     '; 
         if (role == Utils.ROLE_ADMIN) {
                 html += '<button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" onClick=ProductCard.openUrl("'+ "http://yahoo.com.tw" +'")>' + i18next.t("btn_edit")
                 + '</button>';
@@ -101,9 +83,24 @@ tags: "["冷藏","獨立下單,"特殊運件"]"
             html += '</div>';
         }
         return html;                          
+    },
+
+    addCart(id) {
+
+        let data = {
+            productId: id,
+            count:1
+        }
+        Utils.ProcessAjax("/api/ShopCart", "PUT", true, data,
+            function (ret) {
+                if (ret.code == 1) {
+                    NavBar.getCartData();
+                    alert("Add Cart Success");
+                }
+            }
+        );
+
     }
-
-
 
 
 

@@ -3,14 +3,33 @@
     SystemLoginUser: null,
     LocalServiceUrl: "",
     PublicServiceUrl: "",
-    navbarBotton: { "btn_home": "./index.html", "btn_product": "./products.html", "btn_statement": "./announcement.html","btn_FQA": "questions.html"},
+   // navbarBotton: { "btn_home": "./index.html", "btn_product": "./products.html", "btn_statement": "./announcement.html","btn_FQA": "questions.html"},
     ROLE_ADMIN : 'admin',
     ROLE_MEMBER : 'member',
-    ROLE_GUEST :'guest',
+    ROLE_GUEST: 'guest',
+    TenantId :'',
 
     Initial: function async(callback) {
         Utils.CheckToken();
+        Utils.TenantId = Utils.GetUrlParameter("tenantId");
+        Utils.InitEvent();
 //        Backend.SetupMessageConnect(callback);
+    },
+
+    InitEvent() {
+        
+        $("body").on("click", 'a', function () {
+            
+            let me = $(this);
+            let url = me.attr("href");
+            if (me.attr("data-toggle")) {
+
+            }
+            else if (url && url.indexOf('javascript:') < 0) {
+                 url += (url.indexOf("?") > 0?"&":"?")+'tenantId=' + Utils.TenantId;
+                $(this).attr("href", url);
+            }
+        });
     },
 
 
@@ -108,9 +127,13 @@
 
     CheckToken: function async(callback) {
         var token = "";
-
+        let tenantId = Utils.GetUrlParameter("tenantId");
+        
         token = Utils.GetCookie("token");
-        if (token) {
+        if (!tenantId) {
+            alert("tenant error");
+            location.href = "./error.html";
+        }else if (token) {
             Utils.ProcessAjax("/api/values/authorize", "GET", token, "",
                 function (result) {
                     //alert(JSON.stringify(result));
