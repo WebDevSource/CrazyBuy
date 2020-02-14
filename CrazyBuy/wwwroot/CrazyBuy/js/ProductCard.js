@@ -27,7 +27,7 @@ ProductCard = {
     getPriceHtml(data, role) {
         let html = '';
         if (role == Utils.ROLE_GUEST) {
-            html += '<p class="card-text price" data-authority="guest">' + i18next.t("price_hide") + '</p>';
+            html += '<p class="card-text price">' + i18next.t("price_hide") + '</p>';
         } else {
             let prices = data.prices;
             let i = 0;

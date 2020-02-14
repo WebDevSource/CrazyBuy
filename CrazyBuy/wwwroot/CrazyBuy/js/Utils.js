@@ -3,30 +3,30 @@
     SystemLoginUser: null,
     LocalServiceUrl: "",
     PublicServiceUrl: "",
-   // navbarBotton: { "btn_home": "./index.html", "btn_product": "./products.html", "btn_statement": "./announcement.html","btn_FQA": "questions.html"},
-    ROLE_ADMIN : 'admin',
-    ROLE_MEMBER : 'member',
+    // navbarBotton: { "btn_home": "./index.html", "btn_product": "./products.html", "btn_statement": "./announcement.html","btn_FQA": "questions.html"},
+    ROLE_ADMIN: 'admin',
+    ROLE_MEMBER: 'member',
     ROLE_GUEST: 'guest',
-    TenantId :'',
+    TenantId: '',
 
     Initial: function async(callback) {
         Utils.CheckToken();
         Utils.TenantId = Utils.GetUrlParameter("tenantId");
         Utils.InitEvent();
-//        Backend.SetupMessageConnect(callback);
+        //        Backend.SetupMessageConnect(callback);
     },
 
     InitEvent() {
-        
+
         $("body").on("click", 'a', function () {
-            
+
             let me = $(this);
             let url = me.attr("href");
             if (me.attr("data-toggle")) {
 
             }
             else if (url && url.indexOf('javascript:') < 0) {
-                 url += (url.indexOf("?") > 0?"&":"?")+'tenantId=' + Utils.TenantId;
+                url += (url.indexOf("?") > 0 ? "&" : "?") + 'tenantId=' + Utils.TenantId;
                 $(this).attr("href", url);
             }
         });
@@ -38,15 +38,15 @@
         for (let key in Utils.navbarBotton) {
             html += '<li class="nav-item ">'
                 + '<a class="nav-link " href = "' + Utils.navbarBotton[key] + '" > ' + i18next.t(key) + '</a ></li > ';
-                    }
-        $(".navbar-nav").html(html);  
+        }
+        $(".navbar-nav").html(html);
         let role = Utils.getRole();
         $('[data-userauthority]').hide();
         $('[data-authority]').hide();
-        $('[data-userauthority="'+ role +'"]').show()
-        $('[data-authority="'+ role +'"]').show();
+        $('[data-userauthority="' + role + '"]').show()
+        $('[data-authority="' + role + '"]').show();
 
-       
+
     },
 
     getRole() {
@@ -58,7 +58,7 @@
         Utils.CheckToken(callback);
         Backend.SetupMessageConnect(callback);
     },
-    
+
     HeaderInitial: function () {
         $("#header-navbar").load("/Backend/header.html", function () {
             //alert(Utils.SystemLoginUser.userName);
@@ -100,9 +100,9 @@
             $(".pcoded-navbar").html(menuBuffer);
 
             //Utils.LoadExtScript("/assets/js/pcoded.min.js");
-			Utils.LoadExtScript("/Backend/assets/js/vartical-layout.min.js");
+            Utils.LoadExtScript("/Backend/assets/js/vartical-layout.min.js");
             //Utils.LoadExtScript("/assets/js/jquery.mCustomScrollbar.concat.min.js");
-			Utils.LoadExtScript("/Backend/assets/js/script.js");
+            Utils.LoadExtScript("/Backend/assets/js/script.js");
 
             $(".navbar-wrapper").show();
             $(".pcoded-navbar").show();
@@ -112,7 +112,7 @@
 
     Logout: function () {
         if (confirm("系統即將登出，請問您是否確認離開?") == true) {
-			location.href = "/Backend/index.html";
+            location.href = "/Backend/index.html";
         }
     },
 
@@ -128,12 +128,12 @@
     CheckToken: function async(callback) {
         var token = "";
         let tenantId = Utils.GetUrlParameter("tenantId");
-        
+
         token = Utils.GetCookie("token");
         if (!tenantId) {
             alert("tenant error");
             location.href = "./error.html";
-        }else if (token) {
+        } else if (token) {
             Utils.ProcessAjax("/api/values/authorize", "GET", token, "",
                 function (result) {
                     //alert(JSON.stringify(result));
@@ -252,7 +252,7 @@
                 url: url,
                 type: method,
                 data: data,
-               
+
                 beforeSend: function (xhr) {
                     if (authToken) {
                         let token = Utils.GetCookie("token");
@@ -288,11 +288,13 @@
                     "Content-Type": "application/json"
                 },
                 beforeSend: function (xhr) {
-                    if (authToken != "")
-                        xhr.setRequestHeader("Authorization", 'Bearer ' + authToken);
+                    if (authToken != "") {
+                        let token = Utils.GetCookie("token");
+                        xhr.setRequestHeader("Authorization", 'Bearer ' + token);
+                    }
                 },
                 success(ret) {
-                    result =  ret;
+                    result = ret;
                 },
                 error(ret) {
                     alert(ret);
@@ -392,7 +394,7 @@
                     Utils.PublicServiceUrl = location.protocol + "//" + location.host;
                 }
 
-                if (callback != null) { callback();}
+                if (callback != null) { callback(); }
             }, function (result) {
                 Utils.LocalServiceUrl = location.protocol + "//" + location.host;
                 Utils.PublicServiceUrl = location.protocol + "//" + location.host;
@@ -441,7 +443,7 @@
                     buffer.functionId = arrFunction[j].functionId;
                     buffer.functionName = arrFunction[j].functionName;
 
-                } else  if (arrFunction[j].functionUrl.trim() == pathname.trim()) {
+                } else if (arrFunction[j].functionUrl.trim() == pathname.trim()) {
                     buffer.moduleIcon = arrModule[i].moduleIcon;
                     buffer.moduleId = arrModule[i].moduleId;
                     buffer.moduleName = arrModule[i].moduleName;

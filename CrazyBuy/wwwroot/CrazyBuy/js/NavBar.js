@@ -220,7 +220,7 @@
         let images = JSON.parse(data.prdImages);
         let html = '<div class="row mx-0 nav-cart-item py-2">'
             + ' <div class="col-sm-3 col-2 px-0 d-flex align-items-center">'
-            + '   <div class="navs-cart-item-bg" style="background-image: url(' + images.fileName +');"></div>'
+            + '   <div class="navs-cart-item-bg" style="background-image: url(' + images.fileName + ');"></div>'
             + ' </div> '
             + ' <div class="col-sm-8 col-10 nav-cart-item-info"> '
             + '   <div class="d-flex flex-wrap w-100">'
@@ -228,7 +228,7 @@
             + '    <p class="mb-0 w-100 nav-cart-item-price">' + data.count + ' <i class="fas fa-times"></i> <span class="price">$' + data.amount + '</span></p>'
             + '   </div>'
             + ' </div>'
-            + ' <div class="nav-cart-close" onclick=NavBar.delCart(\'' + data.id +'\')>x</div>'
+            + ' <div class="nav-cart-close" onclick=NavBar.delCart(\'' + data.id + '\')>x</div>'
             + '</div>';
 
 
@@ -262,7 +262,7 @@
     },
 
     delCart(id) {
-        Utils.ProcessAjax("/api/ShopCart/"+id, "DELETE", true, "",
+        Utils.ProcessAjax("/api/ShopCart/" + id, "DELETE", true, "",
             function (ret) {
                 if (ret.code == 1) {
                     NavBar.getCartData();
@@ -271,8 +271,8 @@
             }
         );
     },
-     
-  getAdminToolButton() {
+
+    getAdminToolButton() {
         let html = '<div id="admin-viewport" data-authority="admin">'
             + '     <nav class="nav">'
             + '     	<a class="nav-link pl-0" href="#">'
@@ -289,12 +289,12 @@
         let user = Utils.GetCookie("user");
         let html = '<div class="btn-group">                                                                 '
             + '	<a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-            + '		<i class="far fa-user"></i> '+ user.name +' <i class="fas fa-angle-down"></i>'
+            + '		<i class="far fa-user"></i> ' + user.name + ' <i class="fas fa-angle-down"></i>'
             + '	</a>'
             + '	<div class="dropdown-menu dropdown-menu-right rounded-0"> '
             + '		<a class="nav-link" data-i18n="btn_nav_order" href="./order.html">查詢我的訂單</a> '
             + '		<a class="nav-link" data-i18n="btn_nav_user" href="./member-info.html">維護會員資料</a> '
-            + '     <a class="nav-link" data-i18n="btn_nav_logout" href="javascript:NavBar.doLogout()">登出</a>'  
+            + '     <a class="nav-link" data-i18n="btn_nav_logout" href="javascript:NavBar.doLogout()">登出</a>'
             + '	</div>'
             + '</div>';
         return html;
@@ -304,12 +304,12 @@
         let accountant = $("#accountant").val();
         let pwd = $("#password").val();
         if (NavBar.login(accountant, pwd)) {
-             window.location.reload();
+            window.location.reload();
         } else {
             alert("User Authorization Error, Check  Again Accountant  Password.");
 
         }
-      
+
     },
 
     login(accountant, pwd) {
@@ -317,7 +317,7 @@
         let data = {
             "account": accountant,
             "pwd": pwd,
-            "tenantId":tenantId
+            "tenantId": tenantId
         };
 
         let result = Utils.AsyncProcessAjax("/api/auth/Login", "Post", "", data);

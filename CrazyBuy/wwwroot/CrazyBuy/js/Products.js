@@ -15,12 +15,12 @@
 
 	InitView() {
 		Products.InitCatalogData();
-		Products.InitProductData();
+		//Products.InitProductData();
 	},
 
-	InitProductData() {
+	getProductData(id) {
 
-		Utils.ProcessAjax("/api/prd/getHomePrdList", "GET", true, "",
+		Utils.ProcessAjax("/api/prd/getPrdByCatId/"+id, "GET", true, "",
 			function (ret) {
 				Products.initProductList(ret.data);
 			}
@@ -30,11 +30,14 @@
 
 	initProductList(data) {
 		let role = Utils.getRole();
-		let html = '';
+		let pcHtml = '';
+		let mobileHtml = '';
 		for (let item in data) {
-			html += ProductCard.getHtml(data[item], role);
+			pcHtml += ProductCard.getHtml(data[item], role);
+			mobileHtml += ProductItem.getHtml(data[item], role);
 		}
-		$('.items-card-row').html(html);
+		$('.items-card-row').html(pcHtml);
+		$("#products-row").html(mobileHtml);
 	},
 
 	InitCatalogData() {
@@ -48,34 +51,40 @@
 						let item = ret.data[i];
 						parents.set(item.parentId, item);
 					}
-					Products.InitCatalogList("pc-");
+					Products.InitCatalogList("pc-", "category-accordion");
+					Products.InitCatalogList("m-", "category-accordion-m");
+					Products.getProductData(ret.data[0].id);
 				}
 			}
 		);
 
 	},
 
-	InitCatalogList(driver) {
+	InitCatalogList(driver, rootId) {
 		let role = Utils.getRole();
 		let html = '';
 		for (let i = 0; i < Products.catalogs.length; i++) {
+
 			let item = Products.catalogs[i];
-			html = Products.getCatalogHtml(item, role, "category-accordion", driver);
-			if (item.parentId) {
+			let catalogId = item.parentId ? driver + item.parentId : rootId;
+			html = Products.getCatalogHtml(item, role, rootId, driver);
+/*			if (item.parentId) {
 				$("#" +driver+ item.parentId).append(html);
 			} else {
-				$("#category-accordion").append(html);
+				$("#" + rootId).append(html);
 			}
+*/
+			$("#" + catalogId).append(html);
 		}
 
 	},
 
 	getCatalogHtml(item, role, rootId, driver) {
 		let collapseId = driver + item.id;
-		let html = '<a  href="javascript" class="nav-link category" data-toggle="collapse" data-value="' + item.id + '" data-toggle="collapse" data-target="#' + collapseId + '">'
+		let html = '<div  onClick="Products.getProductData(\''+item.id +'\')" class="nav-link category" data-toggle="collapse" data-value="' + item.id + '" data-toggle="collapse" data-target="#' + collapseId + '">'
 			+ item.name
 			+ ((role != Utils.ROLE_GUEST) ? '<span data-userAuthority="member" > (1980)</span > ' : '')
-			+ '</a>'
+			+ '</div>'
 			+ '  <div id="' + collapseId + '" class="collapse" data-parent="#' + (item.parentId ? collapseId: rootId) + '">'
 			+ '</div> ';
 

@@ -10,7 +10,7 @@
     <script src="./js/lib/popper.min.js"></script>
     <script src="./js/lib/multiselect.min.js"></script>
     <script src="./js/lib/bootstrap.min.js"></script>
-    
+
     <!-- i18next.min.js -->
     <script type="text/javascript" src="./js/lib/i18next/js/i18next.min.js"></script>
     <script type="text/javascript" src="./js/lib/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
@@ -22,7 +22,8 @@
     <script src="./js/NavBar.js"></script>
     <script src="./js/Products.js"></script>
     <script src="./js/ProductCard.js"></script>
-    
+    <script src="./js/ProductItem.js"></script>
+
     <link rel="stylesheet" href="./css/all.min.css">
 </head>
 <body>
@@ -79,35 +80,6 @@
       <div class="nav flex-column" id="desktop-nav-product-category">
         <p class="nav-link category-title" data-i18n="prdCatalog">商品分類</p>
         <div class="accordion" id="category-accordion">
-          <a href="#" class="nav-link category" data-toggle="collapse" data-target="#first-category">
-            全部商品 <span data-userAuthority="member">(1980)</span>
-          </a>
-          <div id="first-category" class="collapse show" data-parent="#category-accordion">
-            <a class="nav-link category" href="#" data-toggle="collapse" data-target="#food-second-category">鼠年年菜專區 <span data-userAuthority="member">(7)</span></a>
-            <div id="food-second-category" class="collapse" data-parent="#first-category">
-              <a class="nav-link category-sub" href="#"><span class="category-item">佛跳牆</span><span data-userAuthority="member">(179)</span></a>
-              <a class="nav-link category-sub" href="#"><span class="category-item">獅子頭</span><span data-userAuthority="member">(116)</span></a>
-              <a class="nav-link category-sub" href="#"><span class="category-item">紅燒魚</span><span data-userAuthority="member">(21)</span></a>
-              <a class="nav-link category-sub" href="#"><span class="category-item">五更腸旺</span><span data-userAuthority="member">(35)</span></a> 
-            </div>
-            <a class="nav-link category" href="#" data-toggle="collapse" data-target="#second-category">TAIWAN - 台灣館 <span data-userAuthority="member">(371)</span></a>
-            <div id="second-category" class="collapse" data-parent="#first-category">
-              <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#thirty-category-1"><span class="category-item">常溫食品</span><span data-userAuthority="member">(179)</span></a>
-              <div id="thirty-category-1" class="collapse" data-parent="#second-category">
-                <a class="nav-link category-sub" href="#"><span class="category-item">麵包</span><span data-userAuthority="member">(179)</span></a>
-                <a class="nav-link category-sub" href="#"><span class="category-item">飯糰</span><span data-userAuthority="member">(116)</span></a>
-                <a class="nav-link category-sub" href="#"><span class="category-item">茶葉蛋</span><span data-userAuthority="member">(21)</span></a>
-              </div> 
-              <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#thirty-category-2"><span class="category-item">生活用品</span><span data-userAuthority="member">(116)</span></a>
-              <div id="thirty-category-2" class="collapse" data-parent="#second-category">
-                <a class="nav-link category-sub" href="#"><span class="category-item">衛生紙</span><span data-userAuthority="member">(179)</span></a>
-                <a class="nav-link category-sub" href="#"><span class="category-item">口罩</span><span data-userAuthority="member">(116)</span></a>
-                <a class="nav-link category-sub" href="#"><span class="category-item">衛生棉</span><span data-userAuthority="member">(21)</span></a>
-              </div> 
-              <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#food-second-category"><span class="category-item">美妝品</span><span data-userAuthority="member">(21)</span></a>
-              <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#food-second-category"><span class="category-item">在地美食</span><span data-userAuthority="member">(35)</span></a> 
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -129,35 +101,6 @@
               </button>
               <div class="dropdown-menu" >
                 <div class="accordion" id="category-accordion-m">
-                  <a href="#" class="nav-link category" data-toggle="collapse" data-target="#first-category-m">
-                    全部商品 <span data-userAuthority="member">(1980)</span>
-                  </a>
-                  <div id="first-category-m" class="collapse show" data-parent="#category-accordion-m">
-                    <a class="nav-link category" href="#" data-toggle="collapse" data-target="#food-second-category-m">鼠年年菜專區 <span data-userAuthority="member">(7)</span></a>
-                    <div id="food-second-category-m" class="collapse" data-parent="#first-category-m">
-                      <a class="nav-link category-sub" href="#"><span class="category-item">佛跳牆</span><span data-userAuthority="member">(179)</span></a>
-                      <a class="nav-link category-sub" href="#"><span class="category-item">獅子頭</span><span data-userAuthority="member">(116)</span></a>
-                      <a class="nav-link category-sub" href="#"><span class="category-item">紅燒魚</span><span data-userAuthority="member">(21)</span></a>
-                      <a class="nav-link category-sub" href="#"><span class="category-item">五更腸旺</span><span data-userAuthority="member">(35)</span></a> 
-                    </div>
-                    <a class="nav-link category" href="#" data-toggle="collapse" data-target="#second-category-m">TAIWAN - 台灣館 <span data-userAuthority="member">(371)</span></a>
-                    <div id="second-category-m" class="collapse" data-parent="#first-category-m">
-                      <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#thirty-category-1-m"><span class="category-item">常溫食品</span><span data-userAuthority="member">(179)</span></a>
-                      <div id="thirty-category-1-m" class="collapse" data-parent="#second-category-m">
-                        <a class="nav-link category-sub" href="#"><span class="category-item">麵包</span><span data-userAuthority="member">(179)</span></a>
-                        <a class="nav-link category-sub" href="#"><span class="category-item">飯糰</span><span data-userAuthority="member">(116)</span></a>
-                        <a class="nav-link category-sub" href="#"><span class="category-item">茶葉蛋</span><span data-userAuthority="member">(21)</span></a>
-                      </div> 
-                      <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#thirty-category-2-m"><span class="category-item">生活用品</span><span data-userAuthority="member">(116)</span></a>
-                      <div id="thirty-category-2-m" class="collapse" data-parent="#second-category-m">
-                        <a class="nav-link category-sub" href="#"><span class="category-item">衛生紙</span><span data-userAuthority="member">(179)</span></a>
-                        <a class="nav-link category-sub" href="#"><span class="category-item">口罩</span><span data-userAuthority="member">(116)</span></a>
-                        <a class="nav-link category-sub" href="#"><span class="category-item">衛生棉</span><span data-userAuthority="member">(21)</span></a>
-                      </div> 
-                      <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#food-second-category-m"><span class="category-item">美妝品</span><span data-userAuthority="member">(21)</span></a>
-                      <a class="nav-link category-sub" href="#" data-toggle="collapse" data-target="#food-second-category-m"><span class="category-item">在地美食</span><span data-userAuthority="member">(35)</span></a> 
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -180,207 +123,9 @@
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane show active" id="prodcuts-col" role="tabpanel" aria-labelledby="prodcuts-col-tab">
           <div class="items-card-row row row-cols-2 row-cols-sm-2 row-cols-lg-2 row-cols-xl-3 mx-0">
-            <div class="items-card col px-4 mb-4">
-              <div class="card h-100 border-0">
-                <div class="card-img-top">
-                <!-- 管理員視角 -->
-                <div class="product-item-edit" data-Authority="admin">
-                  <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>編輯商品</span></a>
-                  <a class="d-block" href=""><i class="fas fa-image"></i><span>增加圖片</span></a>
-                </div>
-                <!-- 管理員視角 -->
-                  <a >
-                    <img src="./images/noitem.jpg" class="img-fluid card-img-bg" alt="">
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title product-title">眷村私房菜老滷湯酸白菜鍋1000g(五～七人份)</h5>
-                  <!-- 遊客視角 -->
-                  <p class="card-text price" data-Authority="tourists">$ 請先登入會員</p>
-                  <!-- 遊客視角 -->
-                  <!-- 管理員/會員視角 -->
-                  <!-- <div class="text-center" data-Authority="member"> 
-                    <p class="card-text product-price mb-0">一般價$ 160</p>
-                    <p class="card-text product-price" >會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
-                    <button class="product-addto-cart">加入購物車</button>
-                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-Authority="admin">編輯</button>
-                  </div> -->
-                  <!-- 管理員/會員視角 -->
-                </div>
-              </div>
-            </div>
-            <div class="items-card col px-4 mb-4">
-              <div class="card h-100 border-0">
-                <div class="card-img-top">
-                  <!-- 管理員視角 -->
-                  <div class="product-item-edit" data-Authority="admin">
-                    <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>編輯商品</span></a>
-                    <a class="d-block" href=""><i class="fas fa-image"></i><span>增加圖片</span></a>
-                  </div>
-                  <!-- 管理員視角 -->
-                  <a href="#">
-                    <img src="./images/item-1.png" class="img-fluid card-img-bg" alt="">
-                  </a>
-                </div>
-                <!-- 會員視角 -->
-                <div class="product-badge" data-Authority="member">
-                  <span class="badge badge-no-freight">買一件免運費</span>
-                  <span class="badge badge-no-discount">不適用任何折扣</span>
-                </div>
-                <!-- 會員視角 -->
-                <div class="card-body">
-                  <h5 class="card-title product-title">富貴團圓年菜9件組(12/10)</h5>
-                  <!-- 遊客視角 -->
-                  <!-- <p class="card-text price" data-Authority="tourists">$ 請先登入會員</p> -->
-                  <!-- 遊客視角 -->
-                  <!-- 管理員/會員視角 -->
-                  <div class="text-center" data-Authority="member">
-                    <p class="card-text product-price mb-0">一般價$ 160</p>
-                    <p class="card-text product-price" >會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
-                    <button class="product-addto-cart">加入購物車</button>
-                    <!-- 管理員視角 -->
-                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-i18n="btn_edit" data-Authority="admin">編輯</button>
-                    <!-- 管理員視角 -->
-                  </div>
-                  <!-- 管理員/會員視角 -->
-                </div>
-               
-              </div>
-            </div>
-            <div class="items-card col px-4 mb-4">
-              <div class="card h-100 border-0">
-                <div class="card-img-top">
-                <!-- 管理員視角 -->
-                <div class="product-item-edit" data-Authority="admin">
-                  <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>編輯商品</span></a>
-                  <a class="d-block" href=""><i class="fas fa-image"></i><span>增加圖片</span></a>
-                </div>
-                <!-- 管理員視角 -->
-                  <a href="#">
-                    <img src="./images/item-1.png" class="img-fluid card-img-bg" alt="">
-                  </a>
-                </div>
-                <!-- 會員視角 -->
-                <div class="product-badge" data-Authority="member">
-                  <span class="badge badge-no-freight">買一件免運費</span>
-                </div>
-                <!-- 會員視角 -->
-                <div class="card-body">
-                  <h5 class="card-title product-title">富貴滿堂年菜超值組-A/B(經典組)(12/10)</h5>
-                  <!-- 遊客視角 -->
-                  <!-- <p class="card-text price" data-Authority="tourists">$ 請先登入會員</p> -->
-                  <!-- 遊客視角 -->
-                  <!-- 管理員/會員視角 -->
-                  <div class="text-center" data-Authority="member">
-                    <p class="card-text product-price mb-0" >一般價$ 160</p>
-                    <p class="card-text product-price">會員價$ <span>140</span> </p>
-                    <button class="product-addto-cart">加入購物車</button>
-                    <!-- 管理員視角 -->
-                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-i18n="btn_edit"  data-Authority="admin">編輯</button>
-                    <!-- 管理員視角 -->
-                  </div>
-                  <!-- 管理員/會員視角 -->
-                </div>
-              </div>
-            </div>
-            <div class="items-card col px-4 mb-4">
-              <div class="card h-100 border-0">
-                <div class="card-img-top">
-                <!-- 管理員視角 -->
-                <div class="product-item-edit" data-Authority="admin">
-                  <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>編輯商品</span></a>
-                  <a class="d-block" href=""><i class="fas fa-image"></i><span>增加圖片</span></a>
-                </div>
-                <!-- 管理員視角 -->              
-                  <a href="#" >
-                    <img src="./images/item-1.png" class="img-fluid card-img-bg" alt="">
-                  </a>
-                </div>
-                <!-- 會員視角 -->
-                <div class="product-badge" data-Authority="member">
-                  <span class="badge badge-no-discount">不適用任何折扣</span>
-                </div>
-                <!-- 會員視角 -->
-                <div class="card-body">
-                  <h5 class="card-title product-title">南門市場60年老店上海火腿-蜜汁火腿300g(12P)</h5>
-                  <!-- 遊客視角 -->
-                  <!-- <p class="card-text price" data-Authority="tourists">$ 請先登入會員</p> -->
-                  <!-- 遊客視角 -->
-                  <!-- 管理員/會員視角 -->
-                  <div class="text-center" data-Authority="member">
-                    <p class="card-text product-price mb-0" >一般價$ 160</p>
-                    <p class="card-text product-price">會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
-                    <button class="product-addto-cart">加入購物車</button>
-                    <!-- 管理員視角 -->
-                    <button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" data-i18n="btn_edit" data-Authority="admin">編輯</button>
-                    <!-- 管理員視角 -->
-                  </div>
-                  <!-- 管理員/會員視角 -->
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="tab-pane " id="products-row" role="tabpanel" aria-labelledby="products-row-tab">
-          <div class="row product-col-one">
-            <div class="col-md-3 col-4 product-col-img">
-              <a class="left-product-img" href="#" >
-                <img src="./images/noitem.jpg" class="img-fluid card-img-bg" alt="">
-              </a>
-            </div>
-            <div class="col-md-9 col-8 product-col-info ">
-              <h5 class="card-title products-title-color">眷村私房菜老滷湯酸白菜鍋1000g(五～七人份)</h5>
-              <p class="product-text-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra
-                  justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam
-                fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.</p>
-              <div class="d-flex flex-wrap" data-Authority="member">
-                <div class="product-badge order-md-0 order-1 mb-20 w-100" >
-                  <span class="badge badge-no-freight">買一件免運費</span>
-                  <span class="badge badge-no-discount">不適用任何折扣</span>
-                </div>
-                <div class="d-flex order-md-1 order-0">
-                  <p class="card-text product-price ">一般價$ 160</p>
-                  <p class="card-text product-price ml-2" >會員價$ <span>140</span></p>
-                </div>
-              </div>
-              <button class="product-addto-cart"> <span class="desktop-cart-btn">加入購物車</span> <i class="fas fa-cart-plus mobile-cart-btn"></i></button>
-            </div>
-          </div>
-          <div class="row product-col-one">
-            <div class="col-md-3 col-4 product-col-img">
-              <a class="left-product-img" href="#">
-                <img src="./images/item-1.png" class="img-fluid card-img-bg" alt="">
-              </a>
-            </div>
-            <div class="col-md-9 col-8 product-col-info ">
-              <h5 class="card-title products-title-color">眷村私房菜老滷湯酸白菜鍋1000g(五～七人份)</h5>
-              <p class="product-text-info">
-                年貨大街！過年必吃  30成團 常溫出貨 <br>
-                12/10開始出貨</p>
-              <!-- 遊客視角 -->
-                <!-- <p class="card-text price" data-Authority="tourists">$ 請先登入會員</p> -->
-              <!-- 遊客視角 -->
-              <!-- 會員視角 -->
-              <div class="d-flex flex-wrap" data-Authority="member">
-                <div class="product-badge order-md-0 order-1 mb-20 w-100">
-                  <span class="badge badge-no-freight">買一件免運費</span>
-                  <span class="badge badge-no-discount">不適用任何折扣</span>
-                </div>
-                <div class="d-flex order-md-1 order-0">
-                  <p class="card-text product-price ">一般價$ 160</p>
-                  <p class="card-text product-price ml-2" >會員價$ <span class="member-price">140</span> <span class="discount-member-price">119</span></p>
-                </div>
-              </div>
-              <!-- 會員視角 -->
-              <!-- <button class="product-addto-cart"> <span class="desktop-cart-btn">加入購物車</span> <i class="fas fa-cart-plus mobile-cart-btn"></i></button> -->
-              <!-- 管理員視角 -->
-               <div data-Authority="admin">
-                <a href="#"><button class="product-admin-btn mt-2">上傳圖片</button></a>
-                <a href="#"><button class="product-admin-btn mt-2">編輯商品</button></a>
-               </div>
-              <!-- 管理員視角 -->
-            </div>
-          </div>
         </div>
       </div>
 

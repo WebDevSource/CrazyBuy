@@ -15,7 +15,6 @@ $(document).ready(function () {
     }, 700);
     return false;
   });
-  //已加
   $(".register-modal-link").on("click", function () {
     event.stopPropagation();
     $("#register-modal").modal('show');
@@ -26,7 +25,6 @@ $(document).ready(function () {
     $('#forget-password-modal').modal('show');
     $("#register-modal").modal('hide');
   });
-  //--
   $('#hamburger').on('click', function () {
     if ($("#hamburger").hasClass('active')) {
       $("#hamburger").removeClass('active');
@@ -83,5 +81,8 @@ $(document).ready(function () {
 
   $('.desktop-filters').on('show.bs.dropdown', function () {
     $('.multiselect-container.dropdown-menu').removeClass('show');
+  });
+  $(document).on('click', '#mobile-nav-product-category .dropdown-menu', function (e) {
+    e.stopPropagation();
   });
 });
