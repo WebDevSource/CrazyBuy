@@ -5,21 +5,21 @@ namespace CrazyBuy
     // 回傳狀態碼
     public class MessageCode
     {
-        public readonly static int SUCCESS = 1;
-        public readonly static int ERROR = -1;
+        public const int SUCCESS = 1;
+        public const int ERROR = -1;
     }
 
     public class UserType
     {
-        public readonly static string ADMIN = "admin";
-        public readonly static string MEMBER = "member";
-        public readonly static string GUEST = "guest";
+        public const string ADMIN = "admin";
+        public const string MEMBER = "member";
+        public const string GUEST = "guest";
     }
 
     public class LoginType
     {
-        public readonly static string LOGIN_USER = "loginUser";
-        public readonly static string GUEST = "guest";
+        public const string LOGIN_USER = "loginUser";
+        public const string GUEST = "guest";
     }
 
 
@@ -39,8 +39,11 @@ namespace CrazyBuy
 
     public class CHType
     {
-        public readonly static string PRICE_MEMBER = "member";
-        public readonly static string PRICE_NORMAL = "normal";
+        public const string PRICE_MEMBER = "member";
+        public const string PRICE_NORMAL = "normal";
+        public const string PRICE_NTRANS = "NTrans";
+        public const string PRICE_HTRANS = "HTrans";
+        public const string PRICE_VIPTRANS = "VIPTrans";
     }
 
     public class ShopCartRequest
