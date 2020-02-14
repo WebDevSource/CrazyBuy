@@ -13,6 +13,8 @@ namespace CrazyBuy
         public DbSet<TenantPrd> TenantPrd { get; set; }
         public DbSet<TenantPrdCat> TenantPrdCat { get; set; }
         public DbSet<ShopCart> ShopCart { get; set; }
+        public DbSet<OrderMaster> OrderMaster { get; set; }
+        public DbSet<OrderDetail> OrderDetail { get; set; }
 
         public CrazyBuyDbContext(string connStr) : base(new SqlConnection(connStr), true)
         {

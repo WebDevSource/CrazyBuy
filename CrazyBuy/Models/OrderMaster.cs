@@ -7,6 +7,7 @@ namespace CrazyBuy.Models
     {
         [Key]
         public int id { get; set; }
+        public Guid tenantId { get; set; }
         public Guid memberId { get; set; }
         public string serialNo { get; set; }
         public DateTime dtOrder { get; set; }
@@ -36,6 +37,7 @@ namespace CrazyBuy.Models
         public string frontRemark { get; set; }
         public string backendRemark { get; set; }
         public int sourceOrderId { get; set; }
+        public string status { get; set; }
         public DateTime createTime { get; set; }
         public DateTime updateTime { get; set; }
     }

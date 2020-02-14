@@ -8,5 +8,6 @@
         public static readonly TenantPrdDAO tenantPrdDao = new TenantPrdDAO();
         public static readonly TenantPrdCatDAO tenantPrdCatDao = new TenantPrdCatDAO();
         public static readonly ShopCartDAO shopCartDao = new ShopCartDAO();
+        public static readonly OrderDAO orderDao = new OrderDAO();
     }
 }

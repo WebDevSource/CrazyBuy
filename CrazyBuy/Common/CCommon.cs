@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CrazyBuy.Models;
+using System;
+using System.Collections.Generic;
 
 namespace CrazyBuy
 {
@@ -26,6 +28,7 @@ namespace CrazyBuy
     {
         public Guid tnenatId;
         public Guid memberId;
+        public string userType;
     }
 
     // 回傳格式
@@ -63,4 +66,9 @@ namespace CrazyBuy
         public string type { get; set; }
     }
 
+    public class OrderData
+    {
+        public OrderMaster master { get; set; }
+        public List<OrderDetail> detail { get; set; }
+    }
 }
