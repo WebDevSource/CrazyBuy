@@ -13,16 +13,41 @@ namespace CrazyBuy.Controllers
     {
         // POST api/values
         [HttpPost("{tenantId}")]
-        public ActionResult Add([FromBody]Member member,string tenantId)
+        public ActionResult Add([FromBody]Member member, string tenantId)
         {
             ReturnMessage rm = new ReturnMessage();
-            string account = member.account;
-            string pwd = member.password;
-
-            Member saveMember = DataManager.memberDao.getMember(account, pwd);
-            if (saveMember == null)
+            try
             {
-                bool isV = CMemberManager.addMember(member,Guid.Parse(tenantId));
+                string account = member.account;
+                string phone = member.cellphone;
+                string email = member.email;
+                string pwd = member.password;
+
+                Member saveMemberByAccount = DataManager.memberDao.getMember(account, pwd);
+                if (saveMemberByAccount != null)
+                {
+                    rm.code = MessageCode.ERROR;
+                    rm.data = "account already exist.";
+                    return Ok(rm);
+                }
+
+                Member saveMemberByPhone = DataManager.memberDao.getMemberByCellPhone(phone, pwd);
+                if (saveMemberByPhone != null)
+                {
+                    rm.code = MessageCode.ERROR;
+                    rm.data = "cellphone already exist.";
+                    return Ok(rm);
+                }
+
+                Member saveMemberByMail = DataManager.memberDao.getMemberByEmail(email, pwd);
+                if (saveMemberByMail != null)
+                {
+                    rm.code = MessageCode.ERROR;
+                    rm.data = "mail already exist.";
+                    return Ok(rm);
+                }
+
+                bool isV = CMemberManager.addMember(member, Guid.Parse(tenantId));
                 if (isV)
                 {
                     rm.code = MessageCode.SUCCESS;
@@ -34,10 +59,10 @@ namespace CrazyBuy.Controllers
                     rm.data = "service error.";
                 }
             }
-            else
+            catch (Exception e)
             {
                 rm.code = MessageCode.ERROR;
-                rm.data = "member already excited.";
+                rm.data = e.Message;
             }
             return Ok(rm);
         }

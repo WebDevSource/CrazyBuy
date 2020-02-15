@@ -15,6 +15,26 @@ namespace CrazyBuy.DAO
             }
         }
 
+        public Member getMemberByCellPhone(string phone, string pwd)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                Member model = dbContext.Member.Where(
+                 m => m.cellphone == phone && m.password == pwd).SingleOrDefault();
+                return model;
+            }
+        }
+
+        public Member getMemberByEmail(string mail, string pwd)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                Member model = dbContext.Member.Where(
+                 m => m.email == mail && m.password == pwd).SingleOrDefault();
+                return model;
+            }
+        }
+
         public void addMember(Member member)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
@@ -22,7 +42,7 @@ namespace CrazyBuy.DAO
                 dbContext.Member.Add(member);
                 dbContext.SaveChanges();
             }
-        }       
+        }
 
         public void updateMember(Member member)
         {

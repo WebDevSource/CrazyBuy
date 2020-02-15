@@ -33,9 +33,9 @@ namespace CrazyBuy.Controllers
             {
                 Dictionary<string, string> rm = new Dictionary<string, string>();
                 // STEP0: 在產生 JWT Token 之前，可以依需求做身分驗證
-                if (data.ContainsKey("tenantId") && data.ContainsKey("account") && data.ContainsKey("pwd"))
+                if (data.ContainsKey("tenantId") && data.ContainsKey("user") && data.ContainsKey("pwd"))
                 {
-                    string userId = data.GetValueOrDefault("account");
+                    string user = data.GetValueOrDefault("user");
                     string pwd = data.GetValueOrDefault("pwd");
                     string defaultTenant = data.GetValueOrDefault("tenantId");
                     string userName;
@@ -46,7 +46,9 @@ namespace CrazyBuy.Controllers
                     string userNameId;
                     string userType = UserType.GUEST;
 
-                    Member member = DataManager.memberDao.getMember(userId, pwd);
+                    Member member = DataManager.memberDao.getMemberByCellPhone(user, pwd);
+                    member = member == null ? DataManager.memberDao.getMemberByEmail(user, pwd) : member;
+
                     if (member != null)
                     {
                         // login

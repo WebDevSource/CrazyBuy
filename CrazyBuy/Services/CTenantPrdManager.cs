@@ -8,9 +8,9 @@ namespace CrazyBuy.Services
     public class CTenantPrdManager
     {
 
-        public static IEnumerable<Dictionary<string, object>> getPrdListByCat(Guid tenantId, long catId, string userType)
+        public static IEnumerable<Dictionary<string, object>> getPrdListByCat(Guid tenantId, long catId, string userType, int sortType)
         {
-            List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(tenantId, catId);
+            List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(tenantId, catId, sortType);
             return getPrdList(data, userType);
         }
 

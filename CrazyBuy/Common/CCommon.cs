@@ -71,4 +71,18 @@ namespace CrazyBuy
         public OrderMaster master { get; set; }
         public List<OrderDetail> detail { get; set; }
     }
+
+    public class SortType
+    {
+        public const int DATE_ASC = 0;
+        public const int NAME_ASC = 1;
+        public const int NAME_DESC = 2;
+        public const int PRICE_ASC = 3;
+        public const int PRICE_DESC = 4;
+    }
+
+    public class SortTypeRequest
+    {
+        public int sortType { get; set; }
+    }
 }

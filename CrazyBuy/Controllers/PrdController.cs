@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CrazyBuy.Common;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 using CrazyBuy.Services;
@@ -115,15 +116,16 @@ namespace CrazyBuy.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public ActionResult getPrdByCatId(long id)
+        public ActionResult getPrdByCatId(long id, [FromBody] SortTypeRequest request)
         {
             ReturnMessage rm = new ReturnMessage();
             try
             {
+                MDebugLog.debug("[sortType] > " + request.sortType);
                 string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
                 rm.code = MessageCode.SUCCESS;
-                rm.data = CTenantPrdManager.getPrdListByCat(Guid.Parse(tenantId), id, type);
+                rm.data = CTenantPrdManager.getPrdListByCat(Guid.Parse(tenantId), id, type, request.sortType);
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
-﻿using CrazyBuy.Models;
+﻿using CrazyBuy.Common;
+using CrazyBuy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public List<TenantPrd> getTenandPrdByCatId(Guid tenantId, long catId)
+        public List<TenantPrd> getTenandPrdByCatId(Guid tenantId, long catId, int type)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
@@ -41,7 +42,27 @@ namespace CrazyBuy.DAO
                 sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
                 sql += @" where p.tenantId = '{0}' and r.catId = {1} ";
 
+                switch (type)
+                {
+                    case SortType.NAME_ASC:
+                        sql += @" order by p.name asc ";
+                        break;
+                    case SortType.NAME_DESC:
+                        sql += @" order by p.name desc ";
+                        break;
+                    case SortType.PRICE_ASC:
+                        sql += @" order by p.memberPrice asc ";
+                        break;
+                    case SortType.PRICE_DESC:
+                        sql += @" order by p.memberPrice desc ";
+                        break;
+                    default:
+                        sql += @" order by p.createTime asc ";
+                        break;
+                }
+
                 string query = String.Format(sql, tenantId.ToString(), catId);
+                MDebugLog.debug("[getTenandPrdByCatId] >" + query);
                 return dbContext.Database.SqlQuery<TenantPrd>(query).ToList();
             }
         }
