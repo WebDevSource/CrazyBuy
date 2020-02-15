@@ -79,15 +79,55 @@ namespace CrazyBuy
         public const int NAME_DESC = 2;
         public const int PRICE_ASC = 3;
         public const int PRICE_DESC = 4;
+        public static string getOrderBy(int type)
+        {
+            Dictionary<int, string> map = new Dictionary<int, string>();
+            map.Add(DATE_ASC, @" order by p.createTime asc ");
+            map.Add(NAME_ASC, @" order by p.name asc ");
+            map.Add(NAME_DESC, @" order by p.name desc ");
+            map.Add(PRICE_ASC, @" order by p.memberPrice asc ");
+            map.Add(PRICE_DESC, @" order by p.memberPrice desc ");
+            return map.GetValueOrDefault(type);
+        }
+
     }
 
     public class SortTypeRequest
     {
         public int sortType { get; set; }
+        public int count { get; set; }
+        public int page { get; set; }
     }
 
     public class SqlQueryTotal
     {
         public int total { get; set; }
+    }
+
+    public class PrdPageQuery
+    {
+        public PrdPageQuery(SortTypeRequest value)
+        {
+            count = value.count;
+            page = value.page - 1;
+            sortType = value.sortType;
+        }
+        public Guid tnenatId { get; set; }
+        public long catId { get; set; }
+        public string userType { get; set; }
+        public int sortType { get; set; }
+        public int count { get; set; }
+        public int page { get; set; }
+        public string getKey()
+        {
+            return tnenatId.ToString() + catId + sortType + count + page;
+        }
+    }
+
+    public class PrdPageResponse
+    {
+        public int maxPage { get; set; }
+        public int page { get; set; }
+        public object result { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace CrazyBuy.Services
 
         public static List<TenantPrdCat> getRootCats(Guid tenantId)
         {
-            string key = tenantId.ToString();
+            string key = tenantId.ToString() + "getRootCats";
             if (CacheResult.isKeyExist(key))
             {
                 return (List<TenantPrdCat>)CacheResult.getData(key);
@@ -26,7 +26,7 @@ namespace CrazyBuy.Services
 
         public static List<TenantPrdCat> getTreeCats(Guid tenantId, long parentId)
         {
-            string key = tenantId.ToString() + parentId;
+            string key = tenantId.ToString() + parentId + "getTreeCats";
             if (CacheResult.isKeyExist(key))
             {
                 return (List<TenantPrdCat>)CacheResult.getData(key);
@@ -38,7 +38,7 @@ namespace CrazyBuy.Services
                 return data;
             }
         }
-
+        
         public static List<TenantPrdCatCount> getAllCats(Guid tenantId)
         {
             string key = tenantId.ToString() + "getAllCats";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CrazyBuy.Common;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 
@@ -8,10 +9,20 @@ namespace CrazyBuy.Services
     public class CTenantPrdManager
     {
 
-        public static IEnumerable<Dictionary<string, object>> getPrdListByCat(Guid tenantId, long catId, string userType, int sortType)
+        public static IEnumerable<Dictionary<string, object>> getPrdListByCat(PrdPageQuery query)
         {
-            List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(tenantId, catId, sortType);
-            return getPrdList(data, userType);
+            string key = query.getKey() + "getPrdListByCat";
+            if (CacheResult.isKeyExist(key))
+            {
+                return (IEnumerable<Dictionary<string, object>>)CacheResult.getData(key);
+            }
+            else
+            {
+                List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(query);
+                IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType);
+                CacheResult.setData(key, result);
+                return result;
+            }
         }
 
         public static IEnumerable<Dictionary<string, object>> getPrdList(List<TenantPrd> prds, string userType)
@@ -82,6 +93,21 @@ namespace CrazyBuy.Services
                     break;
             }
             return prices;
+        }
+
+        public static int getTenantPrdCount(Guid tenantId, long catId)
+        {
+            string key = tenantId.ToString() + catId + "getTenantPrdCount";
+            if (CacheResult.isKeyExist(key))
+            {
+                return (int)CacheResult.getData(key);
+            }
+            else
+            {
+                int count = DataManager.tenantPrdDao.getCountByCatId(tenantId, catId);
+                CacheResult.setData(key, count);
+                return count;
+            }
         }
 
         public static Dictionary<string, object> getPrdItem(TenantPrd prd, string userType)

@@ -121,11 +121,24 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
-                MDebugLog.debug("[sortType] > " + request.sortType);
                 string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+
+                PrdPageQuery query = new PrdPageQuery(request);
+                query.tnenatId = Guid.Parse(tenantId);
+                query.catId = id;
+                query.userType = type;
+
+                int totalCount = CTenantPrdManager.getTenantPrdCount(Guid.Parse(tenantId), id);
+                int maxPage = totalCount % request.count == 0 ? totalCount / request.count : totalCount / request.count + 1;
+                maxPage = totalCount <= request.count ? 1 : maxPage;
+
+                PrdPageResponse response = new PrdPageResponse();
+                response.page = request.page;
+                response.maxPage = maxPage;
+                response.result = CTenantPrdManager.getPrdListByCat(query);
                 rm.code = MessageCode.SUCCESS;
-                rm.data = CTenantPrdManager.getPrdListByCat(Guid.Parse(tenantId), id, type, request.sortType);
+                rm.data = response;
             }
             catch (Exception e)
             {

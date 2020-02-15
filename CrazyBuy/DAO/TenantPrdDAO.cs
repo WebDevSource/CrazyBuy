@@ -34,36 +34,42 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public List<TenantPrd> getTenandPrdByCatId(Guid tenantId, long catId, int type)
+        public int getCountByCatId(Guid tenantId, long catId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @" select p.* from [TenantPrd] p ";
+                var sql = @" select count(p.id) as total from [TenantPrd] p ";
                 sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
                 sql += @" where p.tenantId = '{0}' and r.catId = {1} ";
+                string query = String.Format(sql, tenantId, catId);
+                return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total;
+            }
+        }
 
-                switch (type)
-                {
-                    case SortType.NAME_ASC:
-                        sql += @" order by p.name asc ";
-                        break;
-                    case SortType.NAME_DESC:
-                        sql += @" order by p.name desc ";
-                        break;
-                    case SortType.PRICE_ASC:
-                        sql += @" order by p.memberPrice asc ";
-                        break;
-                    case SortType.PRICE_DESC:
-                        sql += @" order by p.memberPrice desc ";
-                        break;
-                    default:
-                        sql += @" order by p.createTime asc ";
-                        break;
-                }
+        public List<TenantPrd> getTenandPrdByCatId(PrdPageQuery pageQuery)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                int top = pageQuery.count;
+                int pageCount = top * pageQuery.page;
+                string tenantId = pageQuery.tnenatId.ToString();
+                long catId = pageQuery.catId;
 
-                string query = String.Format(sql, tenantId.ToString(), catId);
-                MDebugLog.debug("[getTenandPrdByCatId] >" + query);
-                return dbContext.Database.SqlQuery<TenantPrd>(query).ToList();
+                var notInsql = @" select TOP {0} p.id from [TenantPrd] p ";
+                notInsql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
+                notInsql += @" where p.tenantId = '{1}' and r.catId = {2} ";
+                notInsql += SortType.getOrderBy(pageQuery.sortType);
+                notInsql = String.Format(notInsql, pageCount, tenantId, catId);
+
+                var sql = @" select TOP {0} p.* from [TenantPrd] p ";
+                sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
+                sql += @" where p.tenantId = '{1}' and r.catId = {2} ";
+                sql += @" and p.id not in ( {3} ) ";
+                sql += SortType.getOrderBy(pageQuery.sortType);
+                sql = String.Format(sql, top, tenantId, catId, notInsql);
+               
+                MDebugLog.debug("[getTenandPrdByCatId] >" + sql);
+                return dbContext.Database.SqlQuery<TenantPrd>(sql).ToList();
             }
         }
     }
