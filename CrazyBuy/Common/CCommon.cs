@@ -85,4 +85,9 @@ namespace CrazyBuy
     {
         public int sortType { get; set; }
     }
+
+    public class SqlQueryTotal
+    {
+        public int total { get; set; }
+    }
 }

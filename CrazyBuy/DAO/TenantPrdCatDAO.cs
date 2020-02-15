@@ -37,5 +37,14 @@ namespace CrazyBuy.DAO
             }
         }
 
+        public int getCountCatsByParentId(Guid tenantId, long parentId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @"select count(*) as total from [TenantPrdCat] where tenantId = '{0}' and parentId = {1}";
+                string query = String.Format(sql, tenantId, parentId);
+                return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total;
+            }
+        }
     }
 }

@@ -104,7 +104,7 @@ namespace CrazyBuy.Controllers
             {
                 string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
                 rm.code = MessageCode.SUCCESS;
-                rm.data = DataManager.tenantPrdCatDao.getAllPrdCats(Guid.Parse(tenantId));
+                rm.data = CTenantPrdCatManager.getAllCats(Guid.Parse(tenantId));
             }
             catch (Exception e)
             {
