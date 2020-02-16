@@ -120,7 +120,7 @@ namespace CrazyBuy
         public int page { get; set; }
         public string getKey()
         {
-            return tnenatId.ToString() + catId + sortType + count + page;
+            return tnenatId.ToString() + userType + catId + sortType + count + page;
         }
     }
 
