@@ -129,6 +129,7 @@ namespace CrazyBuy.Services
             data.Add("prdCode", prd.prdCode);
             data.Add("tenantId", prd.tenantId);
             data.Add("summary", prd.summary);
+            data.Add("desc", prd.desc);
             data.Add("prdImages", prd.prdImages);
             data.Add("paymentType", prd.paymentType);
             data.Add("shipType", prd.shipType);
