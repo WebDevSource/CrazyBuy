@@ -99,6 +99,15 @@ namespace CrazyBuy
         public int page { get; set; }
     }
 
+    public class SearchRequest
+    {
+        public int sortType { get; set; }
+        public int count { get; set; }
+        public int page { get; set; }
+        public int catId { get; set; }
+        public string search { get; set; }
+    }
+
     public class SqlQueryTotal
     {
         public int total { get; set; }
@@ -122,6 +131,25 @@ namespace CrazyBuy
         {
             return tnenatId.ToString() + userType + catId + sortType + count + page;
         }
+    }
+
+    public class PrdSearchQuery
+    {
+        public PrdSearchQuery(SearchRequest value)
+        {
+            count = value.count;
+            page = value.page - 1;
+            sortType = value.sortType;
+            name = value.search;
+        }
+        public Guid tnenatId { get; set; }
+        public long catId { get; set; }
+        public string search { get; set; }
+        public string userType { get; set; }
+        public int sortType { get; set; }
+        public int count { get; set; }
+        public int page { get; set; }
+        public string name { get; set; }
     }
 
     public class PrdPageResponse

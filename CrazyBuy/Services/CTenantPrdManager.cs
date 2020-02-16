@@ -8,6 +8,12 @@ namespace CrazyBuy.Services
 {
     public class CTenantPrdManager
     {
+        public static IEnumerable<Dictionary<string, object>> getPrdSearchListByCat(PrdSearchQuery query)
+        {
+            List<TenantPrd> data = DataManager.tenantPrdDao.getSearchTenandPrdByCatId(query);
+            IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType);
+            return result;
+        }
 
         public static IEnumerable<Dictionary<string, object>> getPrdListByCat(PrdPageQuery query)
         {
@@ -66,23 +72,25 @@ namespace CrazyBuy.Services
             {
                 case LoginType.LOGIN_USER:
                     PrdPrice prdPriceUser = new PrdPrice();
-                    prdPriceUser.price = prd.memberPrice;
-                    prdPriceUser.type = CHType.PRICE_MEMBER;
-                    prices.Add(prdPriceUser);
-                    prdPriceUser = new PrdPrice();
                     prdPriceUser.price = prd.fixedprice;
                     prdPriceUser.type = CHType.PRICE_NORMAL;
                     prices.Add(prdPriceUser);
+
+                    prdPriceUser = new PrdPrice();
+                    prdPriceUser.price = prd.memberPrice;
+                    prdPriceUser.type = CHType.PRICE_MEMBER;
+                    prices.Add(prdPriceUser);
+
                     break;
                 case UserType.ADMIN:
                     PrdPrice prdPriceAdmin = new PrdPrice();
-                    prdPriceAdmin.price = prd.memberPrice;
-                    prdPriceAdmin.type = CHType.PRICE_MEMBER;
+                    prdPriceAdmin.price = prd.fixedprice;
+                    prdPriceAdmin.type = CHType.PRICE_NORMAL;
                     prices.Add(prdPriceAdmin);
 
                     prdPriceAdmin = new PrdPrice();
-                    prdPriceAdmin.price = prd.fixedprice;
-                    prdPriceAdmin.type = CHType.PRICE_NORMAL;
+                    prdPriceAdmin.price = prd.memberPrice;
+                    prdPriceAdmin.type = CHType.PRICE_MEMBER;
                     prices.Add(prdPriceAdmin);
 
                     prdPriceAdmin = new PrdPrice();

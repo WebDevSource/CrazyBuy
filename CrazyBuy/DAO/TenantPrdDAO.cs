@@ -67,8 +67,35 @@ namespace CrazyBuy.DAO
                 sql += @" and p.id not in ( {3} ) ";
                 sql += SortType.getOrderBy(pageQuery.sortType);
                 sql = String.Format(sql, top, tenantId, catId, notInsql);
-               
+
                 MDebugLog.debug("[getTenandPrdByCatId] >" + sql);
+                return dbContext.Database.SqlQuery<TenantPrd>(sql).ToList();
+            }
+        }
+
+        public List<TenantPrd> getSearchTenandPrdByCatId(PrdSearchQuery searchQuery)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                int top = searchQuery.count;
+                int pageCount = top * searchQuery.page;
+                string tenantId = searchQuery.tnenatId.ToString();
+                long catId = searchQuery.catId;
+
+                var notInsql = @" select TOP {0} p.id from [TenantPrd] p ";
+                notInsql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
+                notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and p.name like '%{3}%' ";
+                notInsql += SortType.getOrderBy(searchQuery.sortType);
+                notInsql = String.Format(notInsql, pageCount, tenantId, catId, searchQuery.name);
+
+                var sql = @" select TOP {0} p.* from [TenantPrd] p ";
+                sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
+                sql += @" where p.tenantId = '{1}' and r.catId = {2} and p.name like '%{3}%' ";
+                sql += @" and p.id not in ( {4} ) ";
+                sql += SortType.getOrderBy(searchQuery.sortType);
+                sql = String.Format(sql, top, tenantId, catId, searchQuery.name, notInsql);
+
+                MDebugLog.debug("[getSearchTenandPrdByCatId] >" + sql);
                 return dbContext.Database.SqlQuery<TenantPrd>(sql).ToList();
             }
         }

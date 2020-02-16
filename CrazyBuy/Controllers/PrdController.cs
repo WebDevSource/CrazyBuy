@@ -146,5 +146,39 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult getPrdSearchByCatId([FromBody] SearchRequest request)
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
+                string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+
+                PrdSearchQuery query = new PrdSearchQuery(request);
+                query.tnenatId = Guid.Parse(tenantId);
+                query.catId = request.catId;
+                query.userType = type;
+
+                int totalCount = CTenantPrdManager.getTenantPrdCount(Guid.Parse(tenantId), request.catId);
+                int maxPage = totalCount % request.count == 0 ? totalCount / request.count : totalCount / request.count + 1;
+                maxPage = totalCount <= request.count ? 1 : maxPage;
+
+                PrdPageResponse response = new PrdPageResponse();
+                response.page = request.page;
+                response.maxPage = maxPage;
+                response.result = CTenantPrdManager.getPrdSearchListByCat(query);
+                rm.code = MessageCode.SUCCESS;
+                rm.data = response;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
     }
 }
