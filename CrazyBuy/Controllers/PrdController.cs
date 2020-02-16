@@ -116,7 +116,7 @@ namespace CrazyBuy.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public ActionResult getPrdByCatId(long id, [FromBody] SortTypeRequest request)
+        public ActionResult getPrdByCatId(long id, [FromQuery] SortTypeRequest request)
         {
             ReturnMessage rm = new ReturnMessage();
             try
