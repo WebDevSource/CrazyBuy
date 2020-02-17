@@ -2,6 +2,7 @@
 using CrazyBuy.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,6 +26,42 @@ namespace CrazyBuy.Controllers
                 }
                 rm.code = MessageCode.SUCCESS;
                 rm.data = isExist;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
+        [HttpGet]
+        public ActionResult getFAQ()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
+                rm.code = MessageCode.SUCCESS;
+                rm.data = DataManager.tenantFAQDao.getFAQ(tenantId);
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
+        [HttpGet]
+        public ActionResult getBulletin()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
+                rm.code = MessageCode.SUCCESS;
+                rm.data = DataManager.tenantBulletinDao.getBulletin(tenantId);
             }
             catch (Exception e)
             {
