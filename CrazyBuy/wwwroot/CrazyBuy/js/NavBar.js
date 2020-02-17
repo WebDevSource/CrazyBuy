@@ -51,7 +51,10 @@
     },
 
     InitLoginModel() {
-        let html = '<div class="modal" id="register-modal" tabindex="-1" role="dialog"  aria-hidden="true">           '
+        let html = '<div class="alert alert-primary fade" role="alert">'
+            + '  A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.'
+            + '</div>'
+            + '<div class="modal" id="register-modal" tabindex="-1" role="dialog"  aria-hidden="true">           '
             + '  <div class="modal-dialog modal-dialog-centered" role="document">                                '
             + '    <div class="modal-content">                                                                   '
             + '      <div class="modal-header justify-content-center border-0 mb-20">                            '
@@ -141,50 +144,6 @@
         let html = ' <div id="member-viewport" data-authority="member">'
             + '  <nav class="nav">'
             + '    <div class="btn-group nav-cart-group"> '
-            + '      <a  class="nav-link pl-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-            + '        <i class="fas fa-shopping-cart"></i>' + i18next.t("btn_nav_cart") + "(" + count + ")"
-            + '      </a>'
-            + '      <div class="dropdown-menu rounded-0 nav-cart-items px-2"> '
-            + '       <div class="row mx-0 nav-cart-item py-2">'
-            + '         <div class="col-sm-3 col-2 px-0 d-flex align-items-center">                                                     '
-            + '           <div class="navs-cart-item-bg" style="background-image: url(\'./images/item-1.png\');"></div>'
-            + '         </div>'
-            + '         <div class="col-sm-8 col-10 nav-cart-item-info"> '
-            + '           <div class="d-flex flex-wrap w-100"> '
-            + '            <p class="mb-1 w-100">南門市場60年老店上海火腿湖南臘肉300g</p> '
-            + '            <p class="mb-0 w-100 nav-cart-item-price">1 <i class="fas fa-times"></i> <span class="price">$160</span></p> '
-            + '           </div>'
-            + '         </div> '
-            + '         <div class="nav-cart-close">x</div> '
-            + '       </div>'
-            + '       <div class="row mx-0 nav-cart-item py-2"> '
-            + '         <div class="col-sm-3 col-2 px-0 d-flex align-items-center"> '
-            + '           <div class="navs-cart-item-bg" style="background-image: url(\'./images/item-2.png\');"></div>'
-            + '         </div>'
-            + '         <div class="col-sm-8 col-10 nav-cart-item-info">'
-            + '           <div class="d-flex flex-wrap w-100">'
-            + '            <p class="mb-1 w-100">眷村私房菜老滷湯酸白菜鍋1000g(五～七人份) </p>'
-            + '            <p class="mb-0 w-100 nav-cart-item-price">1 <i class="fas fa-times"></i> <span class="price">$160</span></p> '
-            + '           </div> '
-            + '         </div>'
-            + '         <div class="nav-cart-close">x</div> '
-            + '       </div>'
-            + '       <div class="ml-auto my-2 col-6">'
-            + '         <div class="row"> '
-            + '           <div class="col-6 nav-items-num">小計</div> '
-            + '           <div class="col-sm-6 col-12 text-right">'
-            + '            <span class="nav-items-num-mobile">小計</span> '
-            + '            <span class="price">$320</span> '
-            + '           </div>'
-            + '         </div>'
-            + '       </div> '
-            + '       <div class="ml-auto my-2 col-6">'
-            + '         <div class="row">'
-            + '           <div class="col-sm-6 col-4 nav-cart-items-clear-All">清空</div>'
-            + '           <div class="col-sm-6 col-4 px-0"><a class="btn btn-register navs-btn-checkout" href="./cart.html">結帳</a></div>'
-            + '         </div>'
-            + '       </div>'
-            + '      </div>'
             + '    </div>'
             + NavBar.getUserGroupButton()
             + '  </nav>                                                                                                                 '
@@ -217,17 +176,18 @@
     },
 
     getCartHtml(data) {
+        let url = "./product-inner.html?id=" + data.productId;
         let images = JSON.parse(data.prdImages);
         let html = '<div class="row mx-0 nav-cart-item py-2">'
-            + ' <div class="col-sm-3 col-2 px-0 d-flex align-items-center">'
+            + ' <a href="' + url + '" class="col-sm-3 col-2 px-0 d-flex align-items-center">'
             + '   <div class="navs-cart-item-bg" style="background-image: url(' + images.fileName + ');"></div>'
-            + ' </div> '
-            + ' <div class="col-sm-8 col-10 nav-cart-item-info"> '
+            + ' </a> '
+            + ' <a  href="' + url + '" class="col-sm-8 col-10 nav-cart-item-info nav-link category"> '
             + '   <div class="d-flex flex-wrap w-100">'
             + '    <p class="mb-1 w-100">' + data.name + '</p>'
             + '    <p class="mb-0 w-100 nav-cart-item-price">' + data.count + ' <i class="fas fa-times"></i> <span class="price">$' + data.amount + '</span></p>'
             + '   </div>'
-            + ' </div>'
+            + ' </a>'
             + ' <div class="nav-cart-close" onclick=NavBar.delCart(\'' + data.id + '\')>x</div>'
             + '</div>';
 
@@ -253,7 +213,7 @@
             + '       </div> '
             + '       <div class="ml-auto my-2 col-6">'
             + '         <div class="row">'
-            + '           <div class="col-sm-6 col-4 nav-cart-items-clear-All" data-i18n="btn_nav_checkout">清空</div>'
+            + '           <div class="col-sm-6 col-4 nav-cart-items-clear-All" data-i18n="btn_nav_checkout" onclick="NavBar.clearCarts()">清空</div>'
             + '           <div class="col-sm-6 col-4 px-0"><a class="btn btn-register navs-btn-checkout" data-i18n="btn_nav_clean" href="./cart.html">結帳</a></div>'
             + '         </div>'
             + '       </div>'
@@ -267,6 +227,17 @@
                 if (ret.code == 1) {
                     NavBar.getCartData();
                     //alert("delete Cart Success");
+                }
+            }
+        );
+    },
+
+    clearCarts() {
+        Utils.ProcessAjax("/api/ShopCart/all", "DELETE", true, "",
+            function (ret) {
+                if (ret.code == 1) {
+                    NavBar.getCartData();
+                    alert("Clean Cart Success");
                 }
             }
         );
@@ -286,7 +257,7 @@
 
     getUserGroupButton() {
 
-        let user = Utils.GetCookie("user");
+        let user = JSON.parse(Utils.GetCookie("user"));
         let html = '<div class="btn-group">                                                                 '
             + '	<a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
             + '		<i class="far fa-user"></i> ' + user.name + ' <i class="fas fa-angle-down"></i>'
@@ -315,7 +286,7 @@
     login(accountant, pwd) {
         let tenantId = Utils.GetUrlParameter("tenantId");
         let data = {
-            "account": accountant,
+            "user": accountant,
             "pwd": pwd,
             "tenantId": tenantId
         };
@@ -332,7 +303,7 @@
                 } else {
                     Utils.SetCookie("role", Utils.ROLE_MEMBER);
                 }
-                Utils.SetCookie("user", result);
+                Utils.SetCookie("user", JSON.stringify(result));
             }
         } else {
             alert("User Authorization Error, Login Again Please.");

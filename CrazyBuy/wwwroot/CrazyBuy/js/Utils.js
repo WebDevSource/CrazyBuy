@@ -162,6 +162,7 @@
                     window.location.reload();
                 });
         } else {
+            Utils.ClearToken();
             NavBar.login("test", "1234");
         }
 
@@ -245,18 +246,19 @@
 
     ProcessAjax: function (url, method, authToken, data, processDone, processFailed) {
         try {
-            if (typeof data == "object") {
+            if (typeof data == "object" && method != "GET") {
                 data = JSON.stringify(data);
             }
             $.ajax({
                 url: url,
                 type: method,
                 data: data,
-
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 beforeSend: function (xhr) {
                     if (authToken) {
                         let token = Utils.GetCookie("token");
-                        xhr.setRequestHeader("Content-Type", "application/json");
                         xhr.setRequestHeader("Authorization", 'Bearer ' + token);
                     }
                 },

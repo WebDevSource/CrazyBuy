@@ -8809,8 +8809,7 @@ a.text-hint:hover, a.text-hint:focus {
 ================================== 
 ***/
 .badge {
-  padding: 10px 2px;
-  width: 100px;
+  padding: 10px;
   margin-left: 3px;
   margin-top: 3px; }
 
@@ -8848,6 +8847,9 @@ a.text-hint:hover, a.text-hint:focus {
   color: #F6344B;
   font-size: 20px;
   font-family: 'ArialMT', 'Arial'; }
+  .product-row .product-price span {
+    display: block;
+    text-align: center; }
   .product-row .product-price .member-price {
     text-decoration-line: line-through; }
 
@@ -9412,22 +9414,28 @@ a.text-hint:hover, a.text-hint:focus {
         商品清單選項
 ================================== 
 ***/
-.product-list-types .fas {
-  font-size: 30px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #d7d7d7;
-  background: #fff;
-  color: #d7d7d7;
-  padding: 5px;
-  width: 60px;
-  height: 43px;
-  cursor: pointer; }
-  .product-list-types .fas:last-child {
+.product-list-types {
+  border: 0; }
+  .product-list-types .product-type-tab:first-child {
+    margin-left: 5px; }
+  .product-list-types .product-type-tab:last-child {
     margin-left: -5px; }
-  .product-list-types .fas.active {
-    background: #d7d7d7;
-    color: red; }
+  .product-list-types .fas {
+    font-size: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d7d7d7;
+    background: #fff;
+    color: #d7d7d7;
+    padding: 5px;
+    width: 60px;
+    height: 43px;
+    cursor: pointer; }
+    .product-list-types .fas.active {
+      background: #d7d7d7;
+      color: red; }
+    .product-list-types .fas .product-type-tab {
+      color: #fff; }
 
 .product-type-tab.active .fas {
   background: #d7d7d7;
@@ -9436,20 +9444,8 @@ a.text-hint:hover, a.text-hint:focus {
 .products-tool {
   display: flex;
   justify-content: space-between;
-  align-items: center; }
-
-.products-search-bar .dropdown-toggle::after {
-  display: none; }
-
-.products-search-bar button:focus {
-  outline: 0px; }
-
-.products-search-bar button,
-.products-search-bar #limit-search {
-  background-color: transparent; }
-
-.products-search-bar .dropdown-menu.show {
-  margin-top: 10px; }
+  align-items: center;
+  flex-wrap: wrap; }
 
 .products-search {
   position: relative; }
@@ -9473,6 +9469,34 @@ a.text-hint:hover, a.text-hint:focus {
     color: red;
     padding: 5px;
     background: transparent; }
+
+.products-search-bar .dropdown-toggle::after {
+  display: none; }
+
+.products-search-bar button:focus {
+  outline: 0px; }
+
+.products-search-bar button,
+.products-search-bar #limit-search {
+  background-color: transparent; }
+
+.products-search-bar .dropdown-menu.show {
+  margin-top: 10px; }
+
+#products-list-search-m {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 10px; }
+  #products-list-search-m .navbar-search-text.active {
+    width: 100%; }
+
+@media (min-width: 768px) {
+  #products-list-search-m {
+    display: none !important; } }
+
+@media (max-width: 768px) {
+  #products-list-search {
+    display: none !important; } }
 
 #category-accordion div,
 #category-accordion-m div {
@@ -9577,7 +9601,7 @@ a.text-hint:hover, a.text-hint:focus {
 .product-col-one {
   padding: 20px;
   border: 1px solid #d7d7d7;
-  margin-bottom: 30px; }
+  margin-bottom: 28px; }
   .product-col-one .product-badge {
     justify-content: flex-start; }
 
@@ -9624,7 +9648,7 @@ a.text-hint:hover, a.text-hint:focus {
   .product-col-one {
     padding: 8px; }
     .product-col-one .badge {
-      padding: 2px; }
+      padding: 10px; }
     .product-col-one .product-addto-cart {
       padding: 4px 12px;
       position: absolute;
@@ -9701,8 +9725,7 @@ a.text-hint:hover, a.text-hint:focus {
     display: inline-block; }
   .product-inner-info .badge {
     font-size: 85%;
-    padding: 7px 2px;
-    width: 115px; }
+    padding: 10px; }
 
 .product-inner-title {
   font-size: 32px; }
@@ -9882,8 +9905,7 @@ a.text-hint:hover, a.text-hint:focus {
 .mobile-cart-item {
   border: 1px solid #d7d7d7; }
   .mobile-cart-item .badge {
-    padding: 4px 2px;
-    width: 90px; }
+    padding: 10px; }
 
 .mobile-cart-item-img {
   width: 100%;
@@ -10342,10 +10364,7 @@ a.text-hint:hover, a.text-hint:focus {
   .order-detail-table .cart-item-img {
     width: 80px;
     height: 80px; }
-  .order-detail-table .table-badge {
-    min-width: 100px; }
   .order-detail-table .badge {
-    width: 88px;
     margin-left: 0px; }
 
 .order-text-center {

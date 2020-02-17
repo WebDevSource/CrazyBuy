@@ -1,6 +1,9 @@
 ﻿var Products = {
 
 	catalogs: {},
+	sortType: 1,
+	currentCat: 0,
+	pageIndex: 1,
 
 	doLoad() {
 		Utils.Initial();
@@ -18,9 +21,15 @@
 		//Products.InitProductData();
 	},
 
-	getProductData(id) {
+	getProductData() {
+		let data = {
+			"sortType": parseInt(Products.sortType),
+			"count": 12,
+			"page": parseInt(Products.pageIndex)
+		}
+		let url = "/api/prd/getPrdByCatId/" + Products.currentCat;
 
-		Utils.ProcessAjax("/api/prd/getPrdByCatId/"+id, "GET", true, "",
+		Utils.ProcessAjax(url, "GET", true, data,
 			function (ret) {
 				Products.initProductList(ret.data);
 			}
@@ -32,9 +41,10 @@
 		let role = Utils.getRole();
 		let pcHtml = '';
 		let mobileHtml = '';
-		for (let item in data) {
-			pcHtml += ProductCard.getHtml(data[item], role);
-			mobileHtml += ProductItem.getHtml(data[item], role);
+		let items = data.result;
+		for (let item in items) {
+			pcHtml += ProductCard.getHtml(items[item], role);
+			mobileHtml += ProductItem.getHtml(items[item], role);
 		}
 		$('.items-card-row').html(pcHtml);
 		$("#products-row").html(mobileHtml);
@@ -53,7 +63,8 @@
 					}
 					Products.InitCatalogList("pc-", "category-accordion");
 					Products.InitCatalogList("m-", "category-accordion-m");
-					Products.getProductData(ret.data[0].id);
+					Products.currentCat = ret.data[0].id;
+					Products.getProductData(1);
 				}
 			}
 		);
@@ -68,12 +79,12 @@
 			let item = Products.catalogs[i];
 			let catalogId = item.parentId ? driver + item.parentId : rootId;
 			html = Products.getCatalogHtml(item, role, rootId, driver);
-/*			if (item.parentId) {
-				$("#" +driver+ item.parentId).append(html);
-			} else {
-				$("#" + rootId).append(html);
-			}
-*/
+			/*			if (item.parentId) {
+							$("#" +driver+ item.parentId).append(html);
+						} else {
+							$("#" + rootId).append(html);
+						}
+			*/
 			$("#" + catalogId).append(html);
 		}
 
@@ -81,17 +92,27 @@
 
 	getCatalogHtml(item, role, rootId, driver) {
 		let collapseId = driver + item.id;
-		let html = '<div  onClick="Products.getProductData(\''+item.id +'\')" class="nav-link category" data-toggle="collapse" data-value="' + item.id + '" data-toggle="collapse" data-target="#' + collapseId + '">'
+		let html = '<div  style="cursor:pointer;" onClick="Products.getCatalogProducts(this)" class="nav-link category" data-toggle="collapse" data-value="' + item.id + '" data-toggle="collapse" data-target="#' + collapseId + '">'
 			+ item.name
-			+ ((role != Utils.ROLE_GUEST) ? '<span data-userAuthority="member" > (1980)</span > ' : '')
+			+ ((role != Utils.ROLE_GUEST) ? '<span data-userAuthority="member" >(' + item.count + ')</span > ' : '')
 			+ '</div>'
-			+ '  <div id="' + collapseId + '" class="collapse" data-parent="#' + (item.parentId ? collapseId: rootId) + '">'
+			+ '  <div id="' + collapseId + '" class="collapse" data-parent="#' + (item.parentId ? collapseId : rootId) + '">'
 			+ '</div> ';
 
 		return html;
-	}
+	},
 
+	getCatalogProducts(me) {
+		let id = $(me).attr("data-value");
+		Products.currentCat = id;
+		Products.pageIndex = 1;
+		Products.getProductData();
+	},
 
+	sortData(type) {
+		Products.sortType = type;
+		Products.getProductData();
+	},
 
 
 };

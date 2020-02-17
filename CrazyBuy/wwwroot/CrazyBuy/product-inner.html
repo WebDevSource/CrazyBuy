@@ -98,156 +98,135 @@
     </style>
 </head>
 <body>
-<!-- navbar -->
-  <div class="navbar-mobile-block"></div>
-  <header class="container-fluid p-0" id="navbar">
-    <div class="text-center narbar-logo py-20">
-      <div class="d-inline-block admin-edit-content">
-        <img src="./images/logo.svg" alt="logo">
-        <!-- 管理者編輯 -->
-        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin">編輯</button>
-        <!-- 管理者編輯 -->
-      </div>
-    </div>
-    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
-      <div class="box">
-        <div id="hamburger" class="hamburger" >
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
-      </div>
-      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
-        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
-          <img src="./images/logo.svg" alt="logo">
-        </div>
-        <div class="input-group mobile-side-bar-item mb-3">
-          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
-          <div class="d-flex">
-            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
-          </div>
-        </div>
-        <ul class="navbar-nav mr-auto">
-        </ul>
-      </div>
-
-      <div class="navbar-status-content">
-      </div> 
-    </nav>
-  </header>
-  <div class="gotop">
-    <i class="fas fa-angle-up"></i>
-  </div>
-<!-- navbar -->
-<section class="container-fluid mt-30">
-  <div class="row">
-    <div class="col-lg-5 col-12">
-      <div id="proudctCarousel" class="carousel slide" data-ride="carousel">
-      </div>
-    
-      <!-- Carousel Navigation -->
-      <div id="carousel-thumbs" class="carousel slide" >
-          <a class="carousel-control-prev" href="#carousel-thumbs" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carousel-thumbs" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-      
-    </div>
-    <div class="col-lg-7 col-12">
-      <h5 class="product-inner-title">南門市場60年老店上海火腿湖南臘肉300g
-        <!-- 管理者編輯 -->
-        <button class="btn btn-outline-register btn-dotted px-3 py-0" data-i18n="btn_edit" data-Authority="admin">編輯</button>
-        <!-- 管理者編輯 -->
-      </h5>
-      <p class="product-inner-infolist" data-i18n="prd_code">商品代碼 <span>201712201140</span></p>
-      <form class="row product-inner-info">
-        <table class="table table-bordered product-price-table order-lg-0 order-2">
-          <thead>
-            <tr>
-              <th scope="col">一般價</th>
-              <th scope="col">會員價</th>
-              <th scope="col">轉批價</th>
-              <th scope="col">A轉/特轉批價</th>
-              <!-- <th scope="col">A轉批價</th>
-              <th scope="col">特轉批價</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td scope="row">$160</td>
-              <td>$140</td>
-              <td>$130</td>
-              <td>$125/120</td>
-              <!-- <td>$125</td>
-              <td>$120</td> -->
-            </tr>
-          </tbody>
-        </table>
-        <div class="col-lg-6 col-12 mb-15 d-flex order-lg-1 order-3">
-          <span class="product-inner-infolist desktop-product-infolist" data-i18n="prd_summary">商品簡述</span>
-          <div class="mobile-product-describe"> 
-            年貨大街！過年必吃 <br>
-            30成團 常溫出貨 <br>
-            12/10開始出貨 <br>
-            <div class="accordion my-15" id="product-describe">
-              <h2 class="mb-0" id="headingOne">
-                <button class="btn btn-link w-100 describe-collapse-btn collapsed" type="button" data-toggle="collapse" data-target="#product-describe-section" aria-expanded="false" aria-controls="product-describe-section">
-                  <span class="more" data-i18n="prd_moreDesc">更多商品說明</span> <span class="close-collapse" data-i18n="prd_collapse">收合</span>
-                </button>
-              </h2>
-              <div id="product-describe-section" class="collapse" data-parent="#product-describe">
-                <p><span class="product-inner-infolist my-10" data-i18n="prd_desc">商品說明</span></p>
-                年貨大街！過年必吃 <br>
-                30成團 常溫出貨 <br>
-                12/10開始出貨 <br>
-                年貨大街！過年必吃 <br>
-                30成團 常溫出貨 <br>
-                12/10開始出貨 <br>
-              </div>
+    <!-- navbar -->
+    <div class="navbar-mobile-block"></div>
+    <header class="container-fluid p-0" id="navbar">
+        <div class="text-center narbar-logo py-20">
+            <div class="d-inline-block admin-edit-content">
+                <img src="./images/logo.svg" alt="logo">
+                <!-- 管理者編輯 -->
+                <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin">編輯</button>
+                <!-- 管理者編輯 -->
             </div>
-          </div>
         </div>
-        <div class="col-lg-6 col-12 mb-15 order-lg-2 order-5"><span class="product-inner-infolist" data-i18n="prd_sepc">商品規格</span><input type="radio" id="product-num"> <label for="product-num">300g</label> </div>
-        <div class="col-12 mb-15 order-lg-3 order-4"><span class="product-inner-infolist desktop-product-infolist" data-i18n="prd_specialRule">消費提醒</span>
-          <span class="badge badge-no-discount">獨立下單</span>
-          <span class="badge badge-no-discount">不適用任何折扣</span>
-          <span class="badge badge-no-freight">買一件免運費</span>
-        </div>
-        <div class="col-12 mb-15 order-lg-4 order-0"><span class="product-inner-infolist" data-i18n="prd_shipType">物流方式</span>貨運</div>
-        <div class="col-12 mb-15 order-lg-5 order-1"><span class="product-inner-infolist" data-i18n="prd_paymentType">付款方式</span>ATM轉帳</div>
-        <div class="col-12 mb-15 order-lg-6 order-6">
-          <span class="product-inner-infolist" data-i18n="prd_count">購買數量</span>
-          <span class="num-minus-btn"><i class="fas fa-minus"></i></span>
-          <input class="product-nums" type="text" value=""/> 
-          <span class="num-add-btn"><i class="fas fa-plus"></i></span> &nbsp;
-          <button class="product-addto-cart product-inner-addtocart-btn" data-i18n="btn_product_addCart"> 加入購物車</button>
-        </div>
-      </form>
+        <nav class="navbar narbar-container navbar-expand-sm navbar-light">
+            <div class="box">
+                <div id="hamburger" class="hamburger">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+                <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo">
+                    <img src="./images/logo.svg" alt="logo">
+                </div>
+                <div class="input-group mobile-side-bar-item mb-3">
+                    <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+                    <div class="d-flex">
+                        <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+                    </div>
+                </div>
+                <ul class="navbar-nav mr-auto">
+                </ul>
+            </div>
+
+            <div class="navbar-status-content">
+            </div>
+        </nav>
+    </header>
+    <div class="gotop">
+        <i class="fas fa-angle-up"></i>
     </div>
-  </div>
+    <!-- navbar -->
+    <section class="container-fluid mt-30">
+        <div class="row">
+            <div class="col-lg-5 col-12">
+                <div id="proudctCarousel" class="carousel slide" data-ride="carousel">
+                </div>
 
-</section>
-<hr class="desktop-product-infolist">
-<section class="container-fluid desktop-product-describe" >
-  <p><span class="product-inner-infolist" data-i18n="prd_desc">商品說明</span></p>
-  第一蘋果母親子們天不，畫的一大都是在前的生看看，投稿願意突然陽師，什麼那兩晚安然都自己？ <br><br>
+                <!-- Carousel Navigation -->
+                <div id="carousel-thumbs" class="carousel slide">
+                    <div class="carousel-inner">
+                        <a class="carousel-control-prev" href="#carousel-thumbs" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-thumbs" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
 
-  的時沒有之後，會一然而：好煩什麼真的，望能小東的遊了一我現孩子，之前途中喔喔電腦立刻。<br><br>
+            </div>
+            <div class="col-lg-7 col-12">
+                <h5 class="product-inner-title" data-name="name">
+                    <!-- 管理者編輯 -->
+                    <button class="btn btn-outline-register btn-dotted px-3 py-0" data-i18n="btn_edit" data-Authority="admin">編輯</button>
+                    <!-- 管理者編輯 -->
+                </h5>
+                <p class="product-inner-infolist">
+                    <span data-i18n="prd_code">
 
-  聽完了的本來整理失敗走了：且不個喜本來長的沒睡很不。系列再沒有話沒有，什麼覺得日報夜的的一，漸的原載的新的節動作，很少一起：的冷大家我先如果對不根本。<br><br>
+                        商品代碼
+                    </span>
+                    <span data-name="prdCode">201712201140</span>
+                </p>
+                <form class="row product-inner-info">
+                    <table class="table table-bordered product-price-table order-lg-0 order-2" data-name="prices">
+                    </table>
+                    <div class="col-lg-6 col-12 mb-15 d-flex order-lg-1 order-3">
+                        <span class="product-inner-infolist desktop-product-infolist" data-i18n="prd_summary">商品簡述</span>
+                        <div class="mobile-product-describe">
+                            <span data-name="summary">
+                            </span>
 
-  什麼是真是老。<br>
+                            <div class="accordion my-15" id="product-describe">
+                                <h2 class="mb-0" id="headingOne">
+                                    <button class="btn btn-link w-100 describe-collapse-btn collapsed" type="button" data-toggle="collapse" data-target="#product-describe-section" aria-expanded="false" aria-controls="product-describe-section">
+                                        <span class="more" data-i18n="prd_moreDesc">更多商品說明</span> <span class="close-collapse" data-i18n="prd_collapse">收合</span>
+                                    </button>
+                                </h2>
+                                <div id="product-describe-section" class="collapse" data-parent="#product-describe">
+                                    <p><span class="product-inner-infolist my-10" data-i18n="prd_desc">商品說明</span></p>
+                                    <span data-name="desc">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12 mb-15 order-lg-2 order-5"><span class="product-inner-infolist" data-i18n="prd_sepc">商品規格</span><input type="radio" id="product-num"> <label for="product-num">300g</label> </div>
+                    <div class="col-12 mb-15 order-lg-3 order-4">
+                        <span class="product-inner-infolist desktop-product-infolist" data-i18n="prd_specialRule">消費提醒</span>
+                        <span data-name="tags">
+                        </span>
+                    </div>
+                    <div class="col-12 mb-15 order-lg-4 order-0">
+                        <span class="product-inner-infolist" data-i18n="prd_shipType">物流方式</span>
+                        <span data-name="shipType"></span>
+                    </div>
+                    <div class="col-12 mb-15 order-lg-5 order-1">
+                        <span class="product-inner-infolist" data-i18n="prd_paymentType">付款方式</span>
+                        <span data-name="paymentType"></span>
+                    </div>
+                    <div class="col-12 mb-15 order-lg-6 order-6">
+                        <span class="product-inner-infolist" data-i18n="prd_count">購買數量</span>
+                        <span class="num-minus-btn" onclick="ProductInner.changeCount(false)"><i class="fas fa-minus"></i></span>
+                        <input class="product-nums" type="text" value="1" maxlength="5" />
+                        <span class="num-add-btn" onclick="ProductInner.changeCount(true)"><i class="fas fa-plus"></i></span> &nbsp;
+                        <button type="button" class="product-addto-cart product-inner-addtocart-btn" data-i18n="btn_product_addCart" onclick="ProductInner.addCart()"> 加入購物車</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-  的過。給我是太咯支想看的小怎樣。原因仍舊，寫了哈哈講的於不是正：她的他們還是感恩了這來吃今天⋯的事他們來發得最。 <br>
-  回家各位痛的都給一下者也：逐漸懶得你們去罷⋯大漢畫面的地的一一句一下子在大概。一邊書館解決，喜歡半個應該我只，近來啊啊，人員是什心得有人你是：<br><br>
-  近來還沒相關計算左右⋯身子夾著不是進來夠了用一學期⋯我媽未莊想不，又在下去在水啊啊不到不怕，現在恐怖冬天相信⋯覺得說這叫作。天的很好這個，早上還是說到麼有現在重點就是，<br><br>
-  難道成長啊啊終於⋯要去雙喜頭的下收現在實況，本命可惜過的，超好顯出夜的有種笑聲別的，去了地上要出，到大擔心就能有所的大。啦啦我沒。的罷人生還是七斤完全一週。雖然子的歡迎。<br>
-</section>
+    </section>
+    <hr class="desktop-product-infolist">
+    <section class="container-fluid desktop-product-describe" style="margin-bottom:50px;">
+        <p><span class="product-inner-infolist" data-i18n="prd_desc">商品說明</span></p>
+        <div data-name="desc">
+        </div>
+    </section>
 </body>
 </html>

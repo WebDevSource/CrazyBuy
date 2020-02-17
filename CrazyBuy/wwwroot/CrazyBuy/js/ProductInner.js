@@ -1,4 +1,6 @@
 ﻿var ProductInner = {
+    id: 0,
+
     doLoad() {
         Utils.Initial();
         Utils.InitI18next("zh-TW", "products", ProductInner.InitModule);
@@ -15,18 +17,66 @@
     },
 
     getProductItem() {
-        let id = Utils.GetUrlParameter("id");
-        let result = Utils.AsyncProcessAjax("/api/prd/getHomePrdItem/" + id, "GET", true, "");
-        if (result.code == "1") {
-            ProductInner.InitProductItem(result.data);
-        } else {
-            alert("system error reload Please");
-        }
+        ProductInner.id = Utils.GetUrlParameter("id");
+        Utils.ProcessAjax("/api/prd/getHomePrdItem/" + ProductInner.id, "GET", true, "", function (ret) {
+            if (ret.code == "1") {
+                ProductInner.InitProductItem(ret.data);
+            } else {
+                alert("system error reload Please");
+            }
+        });
     },
 
     InitProductItem(item) {
         let fakeImages = ["./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg"];
+        let role = Utils.getRole();
         ProductInner.InitImages(fakeImages);
+        item.tags = ProductInner.getTagsHtml(item.tags, role);
+        item.prices = ProductInner.getPricesHtml(item.prices, role);
+        item.shipType = JSON.parse(item.shipType).toString();
+        item.paymentType = JSON.parse(item.paymentType).toString();
+
+        for (let key in item) {
+            $("[data-name=" + key + "]").append(item[key]);
+        }
+
+    },
+
+    getTagsHtml(item, role) {
+        let html = '';
+        if (role == Utils.ROLE_GUEST) {
+        } else {
+            let tags = JSON.parse(item);
+            if (!tags) {
+                return html;
+            }
+            let i = 1;
+            let len = Object.keys(tags).length;
+            for (let tag in tags) {
+                i++;
+                html += '  <span class="badge ' + ((1 == i % 2) ? 'badge-no-discount' : 'badge-no-freight') + '">' + tags[tag] + '</span>';
+            }
+        }
+        return html;
+    },
+
+    getPricesHtml(item, role) {
+        let head = "<thead><tr>";
+        let body = "<tbody><tr>";
+        if (role == Utils.ROLE_GUEST) {
+            head += '<th>' + i18next.t("price_hide") + '</th>';
+        } else {
+            let i = 0;
+            let len = Object.keys(item).length;
+            for (let price in item) {
+                head += '<th>' + i18next.t("price_" + price) + '</th>';
+                body += '<td>' + item[price] + '</td>';
+                i++;
+            }
+        }
+        head += "</tr></thead>";
+        body += "</tr></tbody>";
+        return head + body;
     },
 
     InitImages(items) {
@@ -35,7 +85,7 @@
         for (let key in items) {
             let item = items[key];
             let url = item;
-            imageHtml += '<div class="carousel-item ' + (i == 0 ? 'active' : "") +'" data-slide-number="' + i++ + '" >'
+            imageHtml += '<div class="carousel-item ' + (i == 0 ? 'active' : "") + '" data-slide-number="' + i++ + '" >'
                 + '	<img src="' + url + '" class="d-block w-100" alt="..." data-remote="' + url + '/"> '
                 + '</div>';
         }
@@ -44,13 +94,14 @@
         let iconHtml = ProductInner.getThumbsHtml(items);
 
         $("#proudctCarousel").html(imageHtml);
-        $("#carousel-thumbs").prepend(iconHtml);
+        $("#carousel-thumbs > .carousel-inner").prepend(iconHtml);
 
     },
     getThumbsHtml(items) {
-        html = '<ol class="carousel-indicators">';
+
+        let html = '<ol class="carousel-indicators">';
         for (let i = 0; i < items.length; i++) {
-            html += ' <li id="carousel-selector-' + i + '" data-target="#proudctCarousel" data-slide-to="' + i + '" class="' + (i == 0 ?'active':"")+'"></li> ';
+            html += ' <li id="carousel-selector-' + i + '" data-target="#proudctCarousel" data-slide-to="' + i + '" class="' + (i == 0 ? 'active' : "") + '"></li> ';
         }
         html += '</ol> ';
         html += '<div class="desktop-navs-indicators">'
@@ -59,7 +110,7 @@
             if (i == 0) {
                 html += '<div class="carousel-item active">'
                     + '    <div class="row mx-0">';
-            } else if(i % 4 == 0) {
+            } else if (i % 4 == 0) {
                 html += '</div></div><div class="carousel-item">'
                     + '    <div class="row mx-0">';
             }
@@ -67,7 +118,43 @@
                 + '     <img src="' + item + '" class="img-fluid" alt="..."> '
                 + ' </div>'
         }
+        html += '</div>';
         return html;
+    },
+
+    changeCount(add) {
+        let elem = $(".product-nums");
+        let count = elem.val();
+        if (add) {
+            count++;
+
+        } else {
+            if (count > 1) {
+                count--;
+            }
+        }
+        elem.val(count);
+    },
+
+    addCart() {
+        if (Utils.ROLE_GUEST == Utils.getRole()) {
+            alert("register Member frist ,Thanks!");
+            return;
+        }
+
+        let data = {
+            productId: ProductInner.id,
+            count: parseInt($(".product-nums").val())
+        }
+        Utils.ProcessAjax("/api/ShopCart", "PUT", true, data,
+            function (ret) {
+                if (ret.code == 1) {
+                    NavBar.getCartData();
+                    alert("Add Cart Success");
+                }
+            }
+        );
+
     }
 
 

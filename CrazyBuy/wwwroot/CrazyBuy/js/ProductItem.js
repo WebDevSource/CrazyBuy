@@ -39,7 +39,7 @@ ProductItem = {
             let len = Object.keys(prices).length;
             for (let price in prices) {
                 i++;
-                html += '<p class="card-text product-price ' + ((i == len) ? '' : 'mb-0') + '">' + i18next.t("price_"+price) + prices[price] + '</p>';
+                html += '<p class="card-text product-price " '+ ((i == len) ? '' : 'style="margin-right:10px"') + ' >' + i18next.t("price_"+price) + '<span>'+ prices[price] + '</span></p>';
             }
         } 
         return html;

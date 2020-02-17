@@ -27,114 +27,121 @@
     <link rel="stylesheet" href="./css/all.min.css">
 </head>
 <body>
-<!-- navbar -->
-  <div class="navbar-mobile-block"></div>
-  <header class="container-fluid p-0" id="navbar">
-    <div class="text-center narbar-logo py-20">
-      <div class="d-inline-block admin-edit-content">
-        <img src="./images/logo.svg" alt="logo">
-        <!-- 管理者編輯 -->
-        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin">編輯</button>
-        <!-- 管理者編輯 -->
-      </div>
-    </div>
-    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
-      <div class="box">
-        <div id="hamburger" class="hamburger" >
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
-      </div>
-      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
-        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
-          <img src="./images/logo.svg" alt="logo">
-        </div>
-        <div class="input-group mobile-side-bar-item mb-3">
-          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋" data-i18n="[placeholder]search">
-          <div class="d-flex">
-            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
-          </div>
-        </div>
-        <ul class="navbar-nav mr-auto">
-        </ul>
-      </div>
+    <!-- navbar -->
+    <!-- 註冊會員 Modal -->
 
-      <div class="navbar-status-content">
-      </div> 
-    </nav>
-  </header>
-  <div class="gotop">
-    <i class="fas fa-angle-up"></i>
-  </div>
-<!-- navbar -->
-<!-- products -->
-<section class="container-fluid mt-50" id="products-list">
-  <div class="row">
-    <div class="col-md-4 product-category">
-      <!-- 管理者視角 -->
-      <div class="admin-edit-content">
-        <button class="btn btn-outline-register btn-admin-edit banner-admin-edit px-3 py-0" data-i18n="btn_edit" data-Authority="admin">編輯</button>
-      </div>
-      <!-- 管理者視角 -->
-      <div class="nav flex-column" id="desktop-nav-product-category">
-        <p class="nav-link category-title" data-i18n="prdCatalog">商品分類</p>
-        <div class="accordion" id="category-accordion">
+    <div class="navbar-mobile-block"></div>
+    <header class="container-fluid p-0" id="navbar">
+        <div class="text-center narbar-logo py-20">
+            <div class="d-inline-block admin-edit-content">
+                <img src="./images/logo.svg" alt="logo">
+                <!-- 管理者編輯 -->
+                <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-Authority="admin">編輯</button>
+                <!-- 管理者編輯 -->
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-8 col-12 product-row">
-      <!-- 商品功能 -->
-      <div class="products-tool mb-md-30 mb-20">
-        <div class="product-list-types nav nav-tabs" id="nav-tab" role="tablist">
-          <a id="pills-col-tab" class="product-type-tab active" data-toggle="tab" href="#prodcuts-col" role="tab" aria-controls="prodcuts-col" aria-selected="true"><i class="fas fa-th-large px-3"></i></a>
-          <a id="pills-row-tab" class="product-type-tab" data-toggle="tab" href="#products-row" role="tab" aria-controls="products-row" aria-selected="false"><i class="fas fa-th-list px-3"></i></a>
-        </div>
-        <div class="products-search-bar" data-Authority="member">
-            <form class="products-search d-inline-block">
-              <input type="text" class="navbar-search-text" placeholder="搜尋" data-i18n="[placeholder]search">
-              <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
-            </form>
-            <div class="btn-group" id="mobile-nav-product-category">
-              <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="category-dropdown-m">
-                分類
-              </button>
-              <div class="dropdown-menu" >
-                <div class="accordion" id="category-accordion-m">
+        <nav class="navbar narbar-container navbar-expand-sm navbar-light">
+            <div class="box">
+                <div id="hamburger" class="hamburger">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
                 </div>
-              </div>
             </div>
-            <div class="btn-group">
-              <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="limit-search" data-i18n="btn_sort">
-                排序
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">依照商品上架日</button>
-                <button class="dropdown-item" type="button">商品名稱(A-Z)</button>
-                <button class="dropdown-item" type="button">商品名稱(Z-A)</button>
-                <button class="dropdown-item" type="button">價格(低-高)</button>
-                <button class="dropdown-item" type="button">價格(高-低)</button>
-              </div>
+            <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+                <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo">
+                    <img src="./images/logo.svg" alt="logo">
+                </div>
+                <div class="input-group mobile-side-bar-item mb-3">
+                    <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+                    <div class="d-flex">
+                        <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+                    </div>
+                </div>
+                <ul class="navbar-nav mr-auto">
+                </ul>
             </div>
-        </div>
-      </div>
-      <!-- 商品功能 -->
-      <!-- 商品排列 清單 -->
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane show active" id="prodcuts-col" role="tabpanel" aria-labelledby="prodcuts-col-tab">
-          <div class="items-card-row row row-cols-2 row-cols-sm-2 row-cols-lg-2 row-cols-xl-3 mx-0">
-          </div>
-        </div>
-        <div class="tab-pane " id="products-row" role="tabpanel" aria-labelledby="products-row-tab">
-        </div>
-      </div>
 
-      <!-- 商品排列 清單 -->
+            <div class="navbar-status-content">
+            </div>
+        </nav>
+    </header>
+    <div class="gotop">
+        <i class="fas fa-angle-up"></i>
     </div>
-  </div>
-</section>
+    <!-- navbar -->
+    <!-- products -->
+    <section class="container-fluid mt-50" id="products-list">
+        <div class="row">
+            <div class="col-md-4 product-category">
+                <!-- 管理者視角 -->
+                <div class="admin-edit-content">
+                    <button class="btn btn-outline-register btn-admin-edit banner-admin-edit px-3 py-0" data-Authority="admin">編輯</button>
+                </div>
+                <!-- 管理者視角 -->
+                <div class="nav flex-column" id="desktop-nav-product-category">
+                    <p class="nav-link category-title">商品分類</p>
+                    <div class="accordion" id="category-accordion">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-12 product-row">
+                <!-- 商品功能 -->
+                <form class="products-search d-inline-block" id="products-list-search-m">
+                    <input type="text" class="navbar-search-text" placeholder="搜尋商品">
+                    <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
+                </form>
+                <div class="products-tool mb-md-30 mb-20">
+                    <div class="product-list-types nav nav-tabs" id="nav-tab" role="tablist">
+                        <a id="pills-col-tab" class="product-type-tab active" data-toggle="tab" href="#prodcuts-col" role="tab" aria-controls="prodcuts-col" aria-selected="true"><i class="fas fa-th-large px-3"></i></a>
+                        <a id="pills-row-tab" class="product-type-tab" data-toggle="tab" href="#products-row" role="tab" aria-controls="products-row" aria-selected="false"><i class="fas fa-th-list px-3"></i></a>
+                    </div>
+                    <div class="products-search-bar">
+                        <form class="products-search d-inline-block" id="products-list-search">
+                            <input type="text" class="navbar-search-text" placeholder="搜尋商品">
+                            <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
+                        </form>
+                        <div class="btn-group" id="mobile-nav-product-category">
+                            <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="category-dropdown-m">
+                                分類
+                            </button>
+                            <div class="dropdown-menu">
+                                <div class="accordion" id="category-accordion-m">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="limit-search">
+                                排序
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <button class="dropdown-item" onclick="Products.sortData(0)" type="button">依照商品上架日</button>
+                                <button class="dropdown-item" onclick="Products.sortData(1)" type="button">商品名稱(A-Z)</button>
+                                <button class="dropdown-item" onclick="Products.sortData(2)" type="button">商品名稱(Z-A)</button>
+                                <button class="dropdown-item" onclick="Products.sortData(3)" type="button">價格(低-高)</button>
+                                <button class="dropdown-item" onclick="Products.sortData(4)" type="button">價格(高-低)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 商品功能 -->
+                <!-- 商品排列 清單 -->
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane show active" id="prodcuts-col" role="tabpanel" aria-labelledby="prodcuts-col-tab">
+                        <div class="items-card-row row row-cols-2 row-cols-sm-2 row-cols-lg-2 row-cols-xl-3 mx-0">
+                        </div>
+                    </div>
+                    <div class="tab-pane " id="products-row" role="tabpanel" aria-labelledby="products-row-tab">
+                    </div>
+                </div>
+
+                <!-- 商品排列 清單 -->
+            </div>
+        </div>
+    </section>
 
 
-<!-- products -->
+
+    <!-- products -->
 </body>
 </html>
