@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using CrazyBuy.Common;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace CrazyBuy.Controllers
                 if (data.ContainsKey("tenantId") && data.ContainsKey("user") && data.ContainsKey("pwd"))
                 {
                     string user = data.GetValueOrDefault("user");
-                    string pwd = data.GetValueOrDefault("pwd");
+                    string pwd = Utils.MD5_Encode(data.GetValueOrDefault("pwd"));
                     string defaultTenant = data.GetValueOrDefault("tenantId");
                     string userName;
                     string userUuid;
@@ -46,15 +47,15 @@ namespace CrazyBuy.Controllers
                     string userNameId;
                     string userType = UserType.GUEST;
 
-                    Member member = DataManager.memberDao.getMemberByCellPhone(user, pwd);
-                    member = member == null ? DataManager.memberDao.getMemberByEmail(user, pwd) : member;
+                    Member member = DataManager.memberDao.getMemberByCellPhone(Guid.Parse(defaultTenant), user, pwd);
+                    member = member == null ? DataManager.memberDao.getMemberByEmail(Guid.Parse(defaultTenant), user, pwd) : member;
 
                     if (member != null)
                     {
                         // login
                         userName = member.name;
-                        userUuid = member.memberCode.ToString();
-                        userNameId = member.memberId.ToString();
+                        userUuid = member.memberId.ToString();
+                        userNameId = member.name;
                         tenantType = member.tenantType;
                         userType = CTenantManager.isOwner(userNameId) ? UserType.ADMIN : UserType.MEMBER;
                         type = UserType.ADMIN.Equals(userType) ? UserType.ADMIN : LoginType.LOGIN_USER;
@@ -63,7 +64,7 @@ namespace CrazyBuy.Controllers
                         if (tenantId != null)
                         {
                             // updateLoginTime
-                            member.dLastLogin = DateTime.Now;
+                            member.dtLastLogin = DateTime.Now;
                             DataManager.memberDao.updateMember(member);
                         }
                         else

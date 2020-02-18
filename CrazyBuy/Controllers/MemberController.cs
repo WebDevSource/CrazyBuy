@@ -18,20 +18,11 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
-                string account = member.account;
                 string phone = member.cellphone;
                 string email = member.email;
                 string pwd = member.password;
 
-                Member saveMemberByAccount = DataManager.memberDao.getMember(account, pwd);
-                if (saveMemberByAccount != null)
-                {
-                    rm.code = MessageCode.ERROR;
-                    rm.data = "account already exist.";
-                    return Ok(rm);
-                }
-
-                Member saveMemberByPhone = DataManager.memberDao.getMemberByCellPhone(phone, pwd);
+                Member saveMemberByPhone = DataManager.memberDao.getMemberByCellPhone(Guid.Parse(tenantId), phone, pwd);
                 if (saveMemberByPhone != null)
                 {
                     rm.code = MessageCode.ERROR;
@@ -39,7 +30,7 @@ namespace CrazyBuy.Controllers
                     return Ok(rm);
                 }
 
-                Member saveMemberByMail = DataManager.memberDao.getMemberByEmail(email, pwd);
+                Member saveMemberByMail = DataManager.memberDao.getMemberByEmail(Guid.Parse(tenantId), email, pwd);
                 if (saveMemberByMail != null)
                 {
                     rm.code = MessageCode.ERROR;

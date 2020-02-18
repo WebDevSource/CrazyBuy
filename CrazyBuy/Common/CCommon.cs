@@ -27,7 +27,7 @@ namespace CrazyBuy
     public class UserInfo
     {
         public Guid tnenatId;
-        public Guid memberId;
+        public int memberId;
         public string userType;
     }
 
@@ -56,7 +56,7 @@ namespace CrazyBuy
 
     public class ShopCartRequest
     {
-        public Guid productId { get; set; }
+        public int productId { get; set; }
         public int count { get; set; }
     }
 

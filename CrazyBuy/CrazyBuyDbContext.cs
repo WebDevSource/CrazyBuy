@@ -15,6 +15,8 @@ namespace CrazyBuy
         public DbSet<ShopCart> ShopCart { get; set; }
         public DbSet<OrderMaster> OrderMaster { get; set; }
         public DbSet<OrderDetail> OrderDetail { get; set; }
+        public DbSet<TenantFAQ> TenantFAQ { get; set; }
+        public DbSet<TenantBulletin> TenantBulletin { get; set; }
 
         public CrazyBuyDbContext(string connStr) : base(new SqlConnection(connStr), true)
         {

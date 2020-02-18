@@ -8,7 +8,7 @@ namespace CrazyBuy.Models
         [Key]
         public int id { get; set; }
         public Guid tenantId { get; set; }
-        public Guid memberId { get; set; }
+        public int memberId { get; set; }
         public string serialNo { get; set; }
         public DateTime dtOrder { get; set; }
         public string recipientName { get; set; }
@@ -23,6 +23,7 @@ namespace CrazyBuy.Models
         public string orderRemark { get; set; }
         public int orderAmount { get; set; }
         public int shippingAmount { get; set; }
+        public int totalAmount { get; set; }
         public bool isNeedInvoice { get; set; }
         public string invoiceType { get; set; }
         public string invoiceTitle { get; set; }
@@ -30,7 +31,10 @@ namespace CrazyBuy.Models
         public string payType { get; set; }
         public string payStatus { get; set; }
         public string shippingMethod { get; set; }
-        public DateTime dtInStock { get; set; }
+        public DateTime? dtInStock { get; set; }
+        public DateTime? dtExpectShipping { get; set; }
+        public bool isPickup { get; set; }
+        public DateTime? dtShipping { get; set; }
         public string shippingCompany { get; set; }
         public string shippingSerialNo { get; set; }
         public string shippingStatus { get; set; }
@@ -38,7 +42,7 @@ namespace CrazyBuy.Models
         public string backendRemark { get; set; }
         public int sourceOrderId { get; set; }
         public string status { get; set; }
-        public DateTime createTime { get; set; }
-        public DateTime updateTime { get; set; }
+        public DateTime? createTime { get; set; }
+        public DateTime? updateTime { get; set; }
     }
 }

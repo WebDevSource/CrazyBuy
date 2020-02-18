@@ -50,12 +50,12 @@ namespace CrazyBuy.Services
 
             if (LoginType.LOGIN_USER.Equals(userType))
             {
-                price = prd.memberPrice;
+                price = prd.memberPrice == null ? 0 : (int)prd.memberPrice;
                 type = CHType.PRICE_MEMBER;
             }
             else
             {
-                price = prd.fixedprice;
+                price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
                 type = CHType.PRICE_NORMAL;
             }
 
@@ -72,29 +72,29 @@ namespace CrazyBuy.Services
             {
                 case LoginType.LOGIN_USER:
                     PrdPrice prdPriceUser = new PrdPrice();
-                    prdPriceUser.price = prd.fixedprice;
+                    prdPriceUser.price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
                     prdPriceUser.type = CHType.PRICE_NORMAL;
                     prices.Add(prdPriceUser);
 
                     prdPriceUser = new PrdPrice();
-                    prdPriceUser.price = prd.memberPrice;
+                    prdPriceUser.price = prd.memberPrice == null ? 0 : (int)prd.memberPrice;
                     prdPriceUser.type = CHType.PRICE_MEMBER;
                     prices.Add(prdPriceUser);
 
                     break;
                 case UserType.ADMIN:
                     PrdPrice prdPriceAdmin = new PrdPrice();
-                    prdPriceAdmin.price = prd.fixedprice;
+                    prdPriceAdmin.price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
                     prdPriceAdmin.type = CHType.PRICE_NORMAL;
                     prices.Add(prdPriceAdmin);
 
                     prdPriceAdmin = new PrdPrice();
-                    prdPriceAdmin.price = prd.memberPrice;
+                    prdPriceAdmin.price = prd.memberPrice == null ? 0 : (int)prd.memberPrice;
                     prdPriceAdmin.type = CHType.PRICE_MEMBER;
                     prices.Add(prdPriceAdmin);
 
                     prdPriceAdmin = new PrdPrice();
-                    prdPriceAdmin.price = prd.transferPrice;
+                    prdPriceAdmin.price = prd.transferPrice == null ? 0 : (int)prd.transferPrice;
                     prdPriceAdmin.type = CHType.PRICE_NTRANS;
                     prices.Add(prdPriceAdmin);
 

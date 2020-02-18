@@ -38,7 +38,7 @@ namespace CrazyBuy.Services
                 return data;
             }
         }
-        
+
         public static List<TenantPrdCatCount> getAllCats(Guid tenantId)
         {
             string key = tenantId.ToString() + "getAllCats";
@@ -59,10 +59,6 @@ namespace CrazyBuy.Services
                     raw.name = item.name;
                     raw.sort = item.sort;
                     raw.status = item.status;
-                    raw.createTime = item.createTime;
-                    raw.updateTime = item.updateTime;
-                    raw.creator = item.creator;
-                    raw.updater = item.updater;
                     raw.count = DataManager.tenantPrdCatDao.getCountCatsByParentId(tenantId, (long)raw.parentId);
                     result.Add(raw);
                 }

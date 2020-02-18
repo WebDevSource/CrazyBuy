@@ -21,7 +21,7 @@ namespace CrazyBuy.Controllers
             try
             {
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
-                Guid memberId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
 
                 UserInfo info = new UserInfo();
@@ -84,7 +84,7 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
-                Guid memberId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = DataManager.orderDao.getOrderByMember(memberId);
             }
