@@ -48,7 +48,7 @@ namespace CrazyBuy.Controllers
             catch (Exception e)
             {
                 rm.code = MessageCode.ERROR;
-                rm.data = e.Message;
+                rm.data = e;
             }
             return Ok(rm);
         }

@@ -27,7 +27,7 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public List<OrderMaster> getOrderByMember(Guid memberId)
+        public List<OrderMaster> getOrderByMember(int memberId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {

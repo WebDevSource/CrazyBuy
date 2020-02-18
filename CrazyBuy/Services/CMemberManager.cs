@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using CrazyBuy.Common;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 
@@ -12,21 +13,18 @@ namespace CrazyBuy.Services
             bool isV = false;
             try
             {
-                Guid id = Guid.NewGuid();
                 DateTime now = DateTime.Now;
-
-                member.memberId = id;
-                member.memberCode = id.ToString();
                 member.createTime = now;
                 member.updateTime = now;
-                DataManager.memberDao.addMember(member);
+                member.password = Utils.MD5_Encode(member.password);
+                int memberId = DataManager.memberDao.addMember(member);
 
                 TenantMember tenantMember = new TenantMember();
-                tenantMember.id = Guid.NewGuid();
                 tenantMember.tenantId = tenantId;
-                tenantMember.memberId = id;
+                tenantMember.memberId = memberId;
                 tenantMember.isBlockade = false;
                 tenantMember.status = "0";
+                tenantMember.creator = member.memberId;
                 tenantMember.createTime = now;
                 tenantMember.updateTime = now;
                 DataManager.tenantMemberDao.addTenantMember(tenantMember);

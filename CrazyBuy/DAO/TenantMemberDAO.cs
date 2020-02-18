@@ -15,7 +15,7 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public TenantMember getTenantMemberByMemberId(Guid memberId)
+        public TenantMember getTenantMemberByMemberId(int memberId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {

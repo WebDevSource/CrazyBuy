@@ -1,46 +1,44 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using CrazyBuy.Common;
 using CrazyBuy.Models;
 
 namespace CrazyBuy.DAO
 {
     public class MemberDAO : CrazyBuyRerpository
     {
-        public Member getMember(string account, string pwd)
+        public Member getMemberByCellPhone(Guid tenantId, string phone, string pwd)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                Member model = dbContext.Member.Where(
-                 m => m.account == account && m.password == pwd).SingleOrDefault();
-                return model;
+                var sql = @" select m.* from [Member] m ";
+                sql += @" left join [TenantMember] t on t.memberId = m.memberId ";
+                sql += @" where t.tenantId = '{0}' and m.cellphone = '{1}' and m.password = '{2}' ";
+                string query = String.Format(sql, tenantId.ToString(), phone, pwd);
+                MDebugLog.debug("[getMemberByCellPhone]>" + query);
+                return dbContext.Database.SqlQuery<Member>(query).SingleOrDefault();
             }
         }
 
-        public Member getMemberByCellPhone(string phone, string pwd)
+        public Member getMemberByEmail(Guid tenantId, string mail, string pwd)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                Member model = dbContext.Member.Where(
-                 m => m.cellphone == phone && m.password == pwd).SingleOrDefault();
-                return model;
+                var sql = @" select m.* from [Member] m ";
+                sql += @" left join [TenantMember] t on t.memberId = m.memberId ";
+                sql += @" where t.tenantId = '{0}' and m.email = '{1}' and m.password = '{2}' ";
+                string query = String.Format(sql, tenantId.ToString(), mail, pwd);
+                return dbContext.Database.SqlQuery<Member>(query).SingleOrDefault();
             }
         }
 
-        public Member getMemberByEmail(string mail, string pwd)
-        {
-            using (CrazyBuyDbContext dbContext = ContextInit())
-            {
-                Member model = dbContext.Member.Where(
-                 m => m.email == mail && m.password == pwd).SingleOrDefault();
-                return model;
-            }
-        }
-
-        public void addMember(Member member)
+        public int addMember(Member member)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 dbContext.Member.Add(member);
                 dbContext.SaveChanges();
+                return member.memberId;
             }
         }
 
@@ -49,7 +47,7 @@ namespace CrazyBuy.DAO
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 Member model = dbContext.Member.Where(
-                m => m.memberCode == member.memberCode).SingleOrDefault();
+                m => m.memberId == member.memberId).SingleOrDefault();
                 if (model != null)
                 {
                     dbContext.Entry(model).CurrentValues.SetValues(member);

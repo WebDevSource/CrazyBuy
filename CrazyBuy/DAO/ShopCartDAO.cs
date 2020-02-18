@@ -52,7 +52,7 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public List<ShopCartPrd> getItemsByMember(Guid memberId)
+        public List<ShopCartPrd> getItemsByMember(int memberId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
@@ -64,7 +64,7 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public void removeItemsByMember(Guid memberId)
+        public void removeItemsByMember(int memberId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {

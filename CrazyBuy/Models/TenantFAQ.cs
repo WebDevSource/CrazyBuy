@@ -8,9 +8,9 @@ namespace CrazyBuy.Models
         [Key]
         public int id { get; set; }
         public Guid tenantId { get; set; }
-        public string Type { get; set; }
-        public string Question { get; set; }
-        public string Answer { get; set; }
+        public string type { get; set; }
+        public string question { get; set; }
+        public string answer { get; set; }
         public string status { get; set; }
         public DateTime createTime { get; set; }
         public DateTime updateTime { get; set; }

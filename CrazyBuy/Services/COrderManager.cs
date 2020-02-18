@@ -48,6 +48,8 @@ namespace CrazyBuy.Services
                 if (total != 0)
                 {
                     orderMaster.orderAmount = total;
+                    orderMaster.totalAmount = total;
+                    orderMaster.shippingAmount = total;
                     orderResult = DataManager.orderDao.addOrderMaster(orderMaster);
                     foreach (OrderDetail item in detailList)
                     {
@@ -59,7 +61,7 @@ namespace CrazyBuy.Services
             }
             catch (Exception e)
             {
-                MDebugLog.error("[COrderManager-addOrder] error:" + e.Message);
+                MDebugLog.error("[COrderManager-addOrder] error:" + e);
             }
             return orderResult;
         }

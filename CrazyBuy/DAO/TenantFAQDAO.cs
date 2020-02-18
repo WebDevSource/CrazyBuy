@@ -1,4 +1,5 @@
-﻿using CrazyBuy.Models;
+﻿using CrazyBuy.Common;
+using CrazyBuy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

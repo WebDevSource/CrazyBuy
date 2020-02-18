@@ -7,8 +7,8 @@ namespace CrazyBuy.Models
     {
         [Key]
         public Guid id { get; set; }
-        public Guid memberId { get; set; }
-        public Guid productId { get; set; }
+        public int memberId { get; set; }
+        public int productId { get; set; }
         public DateTime createTime { get; set; }
         public int count { get; set; }
         public int amount { get; set; }
@@ -18,8 +18,8 @@ namespace CrazyBuy.Models
     public class ShopCartPrd
     {       
         public Guid id { get; set; }
-        public Guid memberId { get; set; }
-        public Guid productId { get; set; }
+        public int memberId { get; set; }
+        public int productId { get; set; }
         public DateTime createTime { get; set; }
         public int count { get; set; }
         public int amount { get; set; }

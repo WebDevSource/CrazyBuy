@@ -38,13 +38,13 @@ namespace CrazyBuy.Controllers
 
         [HttpGet("{prdId}")]
         [Authorize]
-        public ActionResult getHomePrdItem(string prdId)
+        public ActionResult getHomePrdItem(int prdId)
         {
             ReturnMessage rm = new ReturnMessage();
             try
             {
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
-                TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(Guid.Parse(prdId));
+                TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(prdId);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = CTenantPrdManager.getPrdItem(prd, type);
             }

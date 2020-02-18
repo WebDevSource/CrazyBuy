@@ -21,7 +21,7 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
-                Guid memberId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = DataManager.shopCartDao.getItemsByMember(memberId);
             }
@@ -80,8 +80,8 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
-                string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;                
-                Guid memberId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
                 Guid itemId = Guid.NewGuid();
 
@@ -94,9 +94,9 @@ namespace CrazyBuy.Controllers
                 shopCart.productId = value.productId;
                 shopCart.createTime = DateTime.Now;
                 shopCart.count = value.count;
-                shopCart.amount = prdPrice.price* value.count;
+                shopCart.amount = prdPrice.price * value.count;
                 shopCart.tenantId = tenantId;
-               
+
                 DataManager.shopCartDao.addItem(shopCart);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = itemId;
@@ -137,7 +137,7 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
-                Guid memberId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 DataManager.shopCartDao.removeItemsByMember(memberId);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = "all delete success.";
