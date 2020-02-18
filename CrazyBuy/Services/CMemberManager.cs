@@ -16,7 +16,7 @@ namespace CrazyBuy.Services
                 DateTime now = DateTime.Now;
                 member.createTime = now;
                 member.updateTime = now;
-                member.password = Utils.MD5_Encode(member.password);
+                member.password = Utils.ConverToMD5(member.password);
                 int memberId = DataManager.memberDao.addMember(member);
 
                 TenantMember tenantMember = new TenantMember();

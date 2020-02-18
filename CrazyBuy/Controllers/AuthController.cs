@@ -37,7 +37,7 @@ namespace CrazyBuy.Controllers
                 if (data.ContainsKey("tenantId") && data.ContainsKey("user") && data.ContainsKey("pwd"))
                 {
                     string user = data.GetValueOrDefault("user");
-                    string pwd = Utils.MD5_Encode(data.GetValueOrDefault("pwd"));
+                    string pwd = Utils.ConverToMD5(data.GetValueOrDefault("pwd"));
                     string defaultTenant = data.GetValueOrDefault("tenantId");
                     string userName;
                     string userUuid;

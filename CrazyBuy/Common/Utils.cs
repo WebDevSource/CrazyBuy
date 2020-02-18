@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 
 namespace CrazyBuy.Common
@@ -29,58 +30,15 @@ namespace CrazyBuy.Common
 
             return result;
         }
-
-        /// <summary>
-        /// 加密
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string MD5_Encode(string data)
+        //將密碼用MD5加密
+        public static string ConverToMD5(string Password)
         {
-            byte[] byKey = System.Text.Encoding.Default.GetBytes(GetConfiguration("MD5_key").Substring(5, 8));
-            byte[] byIV = System.Text.Encoding.Default.GetBytes(GetConfiguration("MD5_key").Substring(5, 8));
-            DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();
-            int i = cryptoProvider.KeySize;
-            MemoryStream ms = new MemoryStream();
-            CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateEncryptor(byKey, byIV), CryptoStreamMode.Write);
-            StreamWriter sw = new StreamWriter(cst);
-            cst.Write(System.Text.Encoding.Default.GetBytes(data), 0, System.Text.Encoding.Default.GetByteCount(data));
-            //sw.Write(data);   
-            sw.Flush();
-            cst.FlushFinalBlock();
-            sw.Flush();
-            return Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length);
+            MD5 md5 = MD5.Create();//建立一個MD5
+            byte[] source = Encoding.Default.GetBytes(Password);//將字串轉為Byte[]
+            byte[] crypto = md5.ComputeHash(source);//進行MD5加密
+            string password_md5 = Convert.ToBase64String(crypto);//把加密後的字串從Byte[]轉為字串
+            return password_md5;
         }
-        /// <summary>
-        /// 解密
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string MD5_Decode(string data)
-        {
-            //把金鑰轉成二進位制陣列
-            byte[] byKey = System.Text.Encoding.Default.GetBytes(GetConfiguration("MD5_key").Substring(5, 8));
-            byte[] byIV = System.Text.Encoding.Default.GetBytes(GetConfiguration("MD5_key").Substring(5, 8));
-            byte[] byEnc;
-            try
-            {
-                //base64解碼
-                byEnc = Convert.FromBase64String(data);
-            }
-            catch
-            {
-                return null;
-            }
-            DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();
-            MemoryStream ms = new MemoryStream(byEnc);
-            CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateDecryptor(byKey, byIV), CryptoStreamMode.Read);
-            StreamReader sr = new StreamReader(cst);
-            byte[] tmp = new byte[ms.Length];
-            cst.Read(tmp, 0, tmp.Length);
-            string result = System.Text.Encoding.Default.GetString(tmp);
-            return result.Replace("\0", "");
-        }
-
     }
 
 }
