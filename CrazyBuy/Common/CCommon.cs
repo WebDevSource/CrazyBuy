@@ -9,6 +9,7 @@ namespace CrazyBuy
     {
         public const int SUCCESS = 1;
         public const int ERROR = -1;
+        public const int PRD_NOT_ENOUGHT = -2;
     }
 
     public class UserType

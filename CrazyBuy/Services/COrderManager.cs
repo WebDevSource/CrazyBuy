@@ -3,6 +3,7 @@ using CrazyBuy.DAO;
 using CrazyBuy.Models;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace CrazyBuy.Services
 {
@@ -16,6 +17,7 @@ namespace CrazyBuy.Services
             return data;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static int addOrder(OrderMaster orderMaster, UserInfo userInfo)
         {
             int orderResult = MessageCode.ERROR;
@@ -31,6 +33,9 @@ namespace CrazyBuy.Services
                 int total = 0;
                 List<ShopCartPrd> shopCartPrds = DataManager.shopCartDao.getItemsByMember(userInfo.memberId);
                 List<OrderDetail> detailList = new List<OrderDetail>();
+                Dictionary<int, TenantPrd> prdMap = new Dictionary<int, TenantPrd>();
+
+                //結算購物車價錢
                 foreach (ShopCartPrd item in shopCartPrds)
                 {
                     OrderDetail detail = new OrderDetail();
@@ -45,6 +50,19 @@ namespace CrazyBuy.Services
                     detailList.Add(detail);
                 }
 
+                //檢查是否數量足夠
+                foreach (OrderDetail item in detailList)
+                {
+                    TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.prdId);
+                    prdItem.stockNum = prdItem.stockNum - item.qty;
+                    if (prdItem.stockNum < 0)
+                    {
+                        return MessageCode.PRD_NOT_ENOUGHT;
+                    }
+                    prdMap.Add(prdItem.id, prdItem);
+                }
+
+                //開始寫入價格
                 if (total != 0)
                 {
                     orderMaster.orderAmount = total;
@@ -53,6 +71,9 @@ namespace CrazyBuy.Services
                     orderResult = DataManager.orderDao.addOrderMaster(orderMaster);
                     foreach (OrderDetail item in detailList)
                     {
+                        TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);
+                        DataManager.tenantPrdDao.updateTenandPrd(prdItem);
+
                         item.orderId = orderResult;
                         DataManager.orderDao.addOrderDetail(item);
                     }
@@ -61,7 +82,7 @@ namespace CrazyBuy.Services
             }
             catch (Exception e)
             {
-                MDebugLog.error("[COrderManager-addOrder] error:" + e);
+                MDebugLog.error("[COrderManager-addOrder] error: " + e);
             }
             return orderResult;
         }

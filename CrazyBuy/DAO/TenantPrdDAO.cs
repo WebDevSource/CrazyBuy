@@ -35,6 +35,20 @@ namespace CrazyBuy.DAO
             }
         }
 
+        public void updateTenandPrd(TenantPrd tenantPrd)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                TenantPrd model = dbContext.TenantPrd.Where(
+                m => m.id == tenantPrd.id).SingleOrDefault();
+                if (model != null)
+                {
+                    dbContext.Entry(model).CurrentValues.SetValues(tenantPrd);
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+
         public int getCountByCatId(Guid tenantId, long catId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
