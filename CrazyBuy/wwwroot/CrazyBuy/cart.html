@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="CartApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,143 +23,132 @@
     <script src="./js/Home.js"></script>
     <script src="./js/ProductCard.js"></script>
 
+    <!-- page lib -->
+    <script src="./js/lib/angular.min.js"></script>
+    <script src="./js/Cart.js"></script>
 
     <link rel="stylesheet" href="./css/all.min.css">
 </head>
-<body>
-<!-- navbar -->
-  <div class="navbar-mobile-block"></div>
-  <header class="container-fluid p-0" id="navbar">
-    <div class="text-center narbar-logo py-20">
-      <div class="d-inline-block admin-edit-content">
-        <img src="./images/logo.svg" alt="logo">
-        <!-- 管理者編輯 -->
-        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin">編輯</button>
-        <!-- 管理者編輯 -->
-      </div>
-    </div>
-    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
-      <div class="box">
-        <div id="hamburger" class="hamburger" >
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
+<body ng-controller="CartCtrl">
+    <!-- navbar -->
+    <div class="navbar-mobile-block"></div>
+    <header class="container-fluid p-0" id="navbar">
+        <div class="text-center narbar-logo py-20">
+            <div class="d-inline-block admin-edit-content">
+                <img src="./images/logo.svg" alt="logo">
+                <!-- 管理者編輯 -->
+                <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin">編輯</button>
+                <!-- 管理者編輯 -->
+            </div>
         </div>
-      </div>
-      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
-        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
-          <img src="./images/logo.svg" alt="logo">
-        </div>
-        <div class="input-group mobile-side-bar-item mb-3">
-          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
-          <div class="d-flex">
-            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
-          </div>
-        </div>
-        <ul class="navbar-nav mr-auto">
-        </ul>
-      </div>
+        <nav class="navbar narbar-container navbar-expand-sm navbar-light">
+            <div class="box">
+                <div id="hamburger" class="hamburger">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+                <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo">
+                    <img src="./images/logo.svg" alt="logo">
+                </div>
+                <div class="input-group mobile-side-bar-item mb-3">
+                    <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+                    <div class="d-flex">
+                        <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+                    </div>
+                </div>
+                <ul class="navbar-nav mr-auto">
+                </ul>
+            </div>
 
-      <div class="navbar-status-content">
-      </div> 
-    </nav>
-  </header>
-  <div class="gotop">
-    <i class="fas fa-angle-up"></i>
-  </div>
-<!-- navbar -->
-  <section class="container-fluid px-md-30 px-15">
-    <h4 class="my-20">我的購物車</h4>
-    <p class="my-30 p-20 cart-hint">有商品目前無法訂購！</p>
-    <table class="table table-bordered cart-table" id="desktop-cart">
-      <thead>
-        <tr>
-          <th scope="col">商品圖</th>
-          <th scope="col">商品資訊</th>
-          <th scope="col">商品備註</th>
-          <th scope="col">單價</th>
-          <th scope="col">訂購數量</th>
-          <th scope="col">金額</th>
-          <th class="text-center" scope="col"><i class="fas fa-trash-alt"></i></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td scope="row">
-            <div class="mx-auto cart-item-img" style="background-image: url('./images/item-1.png');"></div>
-          </td>
-          <td class="cart-item-title">南門市場60年老店上海火腿湖南臘肉300g</td>
-          <td class="table-center table-badge"></td>
-          <td class="table-center cart-price">
-            <p class="mb-0 table-member-price">會員價</p>
-            <p class="mb-0">60</p>
-          </td>
-          <td class="table-center cart-num">2</td>
-          <td class="table-center cart-item-totalprice">120</td>
-          <td class="table-center cart-item-delete">x</td>
-        </tr>
-        <tr>
-          <td scope="row">
-            <div class="mx-auto cart-item-img" style="background-image: url('./images/item-2.png');"></div>
-          </td>
-          <td class="cart-item-title">眷村私房菜老滷湯酸白菜鍋1000g(五～七人份)</td>
-          <td class="table-center table-badge"><span class="badge badge-no-discount">需獨立下單</span></td>
-          <td class="table-center cart-price">
-            <p class="mb-0 table-member-price">會員價</p>
-            <p class="mb-0">60</p>
-          </td>
-          <td class="table-center cart-num">2</td>
-          <td class="table-center cart-item-totalprice">120</td>
-          <td class="table-center cart-item-delete">x</td>
-        </tr>
-        <tr>
-          <td class="text-right cart-all-toalprice" colspan="4">(不計算運費)總計</td>
-          <td class="text-right" colspan="3">123</td>
-        </tr>
-        <tr>
-          <td class="text-right cart-all-price-hint" colspan="7"><i class="fas fa-info"></i> 選擇運送方式後於結帳確認頁計算訂單總金額</td>
-        </tr>
-      </tbody>
-    </table>
-    <div id="mobile-cart">
-      <div class="row mobile-cart-item mx-0 mb-15">
-        <div class="col-5 px-0">
-          <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-1.png');"></div>
-        </div>
-        <div class="col-7 mobile-cart-info py-1 px-2">
-          <p class="mobile-cart-item-title text-hint">南門市場60年老店上海火腿湖南臘肉300g</p>
-          <p class="mb-1"><span class="text-hint">會員價</span> $160</p>
-          <p class="mb-1 text-right">x2</p>
-          <div><span class="badge badge-no-discount">需獨立下單</span></div>
-          <p class="mobile-cart-delete">x</p>
-        </div>
-      </div>
-      <div class="row mobile-cart-item mx-0 mb-15">
-        <div class="col-5 px-0">
-          <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-2.png');"></div>
-        </div>
-        <div class="col-7 mobile-cart-info py-1 px-2">
-          <p class="mobile-cart-item-title text-hint">南門市場60年老店上海火腿湖南臘肉300g</p>
-          <p class="mb-1"><span class="text-hint">會員價</span> $160</p>
-          <p class="mb-1 text-right">x2</p>
-          <!-- <div><span class="badge badge-no-discount">需獨立下單</span></div> -->
-          <p class="mobile-cart-delete">x</p>
-        </div>
-      </div>
-      <p class="mobile-cart-item-total">商品總計</p>
-      <table class="table table-bordered mobile-cart-table">
-        <tbody>
-          <tr><td class="cart-table-hint">選擇運送方式後於結帳確認頁計算訂單總金額</td></tr>
-          <tr>
-            <td class="d-flex justify-content-between border-0"><span class="cart-total-price">結帳金額</span><span>$320</span></td>
-          </tr>
-        <tbody>
-      </table>
+            <div class="navbar-status-content">
+            </div>
+        </nav>
+    </header>
+    <div class="gotop">
+        <i class="fas fa-angle-up"></i>
     </div>
-    <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">
-      <a class="cart-link-btn mr-4" href="#">繼續購物</a>
-      <a class="btn btn-register cart-nextpage-btn" href="./checkout.html" >結帳</a>
-    </div>
-  </section>
+    <!-- navbar -->
+    <section class="container-fluid px-md-30 px-15">
+        <h4 class="my-20">我的購物車</h4>
+        <p class="my-30 p-20 cart-hint">有商品目前無法訂購！</p>
+        <table class="table table-bordered cart-table" id="desktop-cart">
+            <thead>
+                <tr>
+                    <th scope="col">商品圖</th>
+                    <th scope="col">商品資訊</th>
+                    <th scope="col">商品備註</th>
+                    <th scope="col">單價</th>
+                    <th scope="col">訂購數量</th>
+                    <th scope="col">金額</th>
+                    <th class="text-center" scope="col"><i class="fas fa-trash-alt"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cart in carts">
+                    <td scope="row">
+                        <div class="mx-auto cart-item-img" style="background-image: url('./images/item-1.png');"></div>
+                    </td>
+                    <td class="cart-item-title">{{cart.name}}</td>
+                    <td class="table-center table-badge"></td>
+                    <td class="table-center cart-price">
+                        <p class="mb-0 table-member-price">會員價</p>
+                        <p class="mb-0">{{cart.amount/cart.count}}</p>
+                    </td>
+                    <td class="table-center cart-num">{{cart.count}}</td>
+                    <td class="table-center cart-item-totalprice">{{cart.amount}}</td>
+                    <td class="table-center cart-item-delete">x</td>
+                </tr>
+                <tr>
+                    <td class="text-right cart-all-toalprice" colspan="4">(不計算運費)總計</td>
+                    <td class="text-right" colspan="3">123</td>
+                </tr>
+                <tr>
+                    <td class="text-right cart-all-price-hint" colspan="7"><i class="fas fa-info"></i> 選擇運送方式後於結帳確認頁計算訂單總金額</td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="mobile-cart">
+            <div class="row mobile-cart-item mx-0 mb-15">
+                <div class="col-5 px-0">
+                    <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-1.png');"></div>
+                </div>
+                <div class="col-7 mobile-cart-info py-1 px-2">
+                    <p class="mobile-cart-item-title text-hint">南門市場60年老店上海火腿湖南臘肉300g</p>
+                    <p class="mb-1"><span class="text-hint">會員價</span> $160</p>
+                    <p class="mb-1 text-right">x2</p>
+                    <div><span class="badge badge-no-discount">需獨立下單</span></div>
+                    <p class="mobile-cart-delete">x</p>
+                </div>
+            </div>
+            <div class="row mobile-cart-item mx-0 mb-15">
+                <div class="col-5 px-0">
+                    <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-2.png');"></div>
+                </div>
+                <div class="col-7 mobile-cart-info py-1 px-2">
+                    <p class="mobile-cart-item-title text-hint">南門市場60年老店上海火腿湖南臘肉300g</p>
+                    <p class="mb-1"><span class="text-hint">會員價</span> $160</p>
+                    <p class="mb-1 text-right">x2</p>
+                    <!-- <div><span class="badge badge-no-discount">需獨立下單</span></div> -->
+                    <p class="mobile-cart-delete">x</p>
+                </div>
+            </div>
+            <p class="mobile-cart-item-total">商品總計</p>
+            <table class="table table-bordered mobile-cart-table">
+                <tbody>
+                    <tr><td class="cart-table-hint">選擇運送方式後於結帳確認頁計算訂單總金額</td></tr>
+                    <tr>
+                        <td class="d-flex justify-content-between border-0"><span class="cart-total-price">結帳金額</span><span>$320</span></td>
+                    </tr>
+                <tbody>
+            </table>
+        </div>
+        <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">
+            <a class="cart-link-btn mr-4" href="#">繼續購物</a>
+            <a class="btn btn-register cart-nextpage-btn" href="./checkout.html">結帳</a>
+        </div>
+    </section>
 </body>
 </html>
