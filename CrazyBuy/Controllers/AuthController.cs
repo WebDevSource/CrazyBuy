@@ -105,7 +105,7 @@ namespace CrazyBuy.Controllers
                         Issuer = _config["Jwt:Issuer"],
                         Audience = _config["Jwt:Issuer"],
                         Subject = userClaims,
-                        Expires = DateTime.Now.AddMinutes(30),
+                        Expires = DateTime.Now.AddHours(8),
                         SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
                     };
                     // 產出所需要的 JWT Token 物件
