@@ -73,7 +73,7 @@
     <!-- navbar -->
     <section class="container-fluid px-md-30 px-15">
         <h4 class="my-20">我的購物車</h4>
-        <p class="my-30 p-20 cart-hint">有商品目前無法訂購！</p>
+        <p class="my-30 p-20 cart-hint" ng-show="prdCountCheck">有商品目前無法訂購！</p>
         <table class="table table-bordered cart-table" id="desktop-cart">
             <thead>
                 <tr>
@@ -120,9 +120,9 @@
                     <p class="mb-1"><span class="text-hint">會員價</span> ${{cart.amount/cart.count}}</p>
                     <p class="mb-1 text-right">x{{cart.count}}</p>
                     <div><span class="badge badge-no-discount">需獨立下單</span></div>
-                    <p class="mobile-cart-delete">x</p>
+                    <p class="mobile-cart-delete" ng-click="delCartItem(cart.id)">x</p>
                 </div>
-            </div>         
+            </div>
             <p class="mobile-cart-item-total">商品總計</p>
             <table class="table table-bordered mobile-cart-table">
                 <tbody>
@@ -134,8 +134,8 @@
             </table>
         </div>
         <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">
-            <a class="cart-link-btn mr-4" href="#">繼續購物</a>
-            <a class="btn btn-register cart-nextpage-btn" href="./checkout.html">結帳</a>
+            <a class="cart-link-btn mr-4" href="javascript:history.back()">繼續購物</a>
+            <a class="btn btn-register cart-nextpage-btn" href="./checkout.html" ng-show="canOrder">結帳</a>
         </div>
     </section>
 </body>

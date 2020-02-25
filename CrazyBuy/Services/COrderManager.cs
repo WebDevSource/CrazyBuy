@@ -17,6 +17,21 @@ namespace CrazyBuy.Services
             return data;
         }
 
+        public static bool isProductEnough(int userId)
+        {
+            List<ShopCartPrd> shopCartPrds = DataManager.shopCartDao.getItemsByMember(userId);
+            foreach (ShopCartPrd item in shopCartPrds)
+            {
+                TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.productId);
+                prdItem.stockNum = prdItem.stockNum - item.count;
+                if (prdItem.stockNum < 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static int addOrder(OrderMaster orderMaster, UserInfo userInfo)
         {

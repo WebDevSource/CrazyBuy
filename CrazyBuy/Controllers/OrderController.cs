@@ -38,7 +38,7 @@ namespace CrazyBuy.Controllers
                 rm.data = e.Message;
             }
             return Ok(rm);
-        }
+        }        
 
         [HttpGet("{id}")]
         [Authorize]

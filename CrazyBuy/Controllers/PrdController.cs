@@ -16,6 +16,25 @@ namespace CrazyBuy.Controllers
     {
         [HttpGet]
         [Authorize]
+        public ActionResult isProductEnough()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                rm.code = MessageCode.SUCCESS;
+                rm.data = COrderManager.isProductEnough(memberId);
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
+        [HttpGet]
+        [Authorize]
         public ActionResult getHomePrdList()
         {
             ReturnMessage rm = new ReturnMessage();
