@@ -1,4 +1,8 @@
-﻿var Checkout = {
+﻿var CheckOutApp = angular.module('CheckOutApp', []).controller('CheckOutCtrl', function ($scope) {
+
+});
+
+var Checkout = {
     doLoad() {
         Utils.Initial();
         Utils.InitI18next("zh-TW", "Checkout", Checkout.InitModule);
