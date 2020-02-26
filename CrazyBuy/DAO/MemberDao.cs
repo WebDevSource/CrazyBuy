@@ -55,5 +55,15 @@ namespace CrazyBuy.DAO
                 }
             }
         }
+
+        public Member getMember(int id)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                Member model = dbContext.Member.Where(
+                              m => m.memberId == id).SingleOrDefault();
+                return model;
+            }
+        }
     }
 }

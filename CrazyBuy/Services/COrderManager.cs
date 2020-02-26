@@ -74,7 +74,11 @@ namespace CrazyBuy.Services
                     {
                         return MessageCode.PRD_NOT_ENOUGHT;
                     }
-                    prdMap.Add(prdItem.id, prdItem);
+
+                    if (!prdMap.ContainsKey(prdItem.id))
+                    {
+                        prdMap.Add(prdItem.id, prdItem);
+                    }
                 }
 
                 //開始寫入價格

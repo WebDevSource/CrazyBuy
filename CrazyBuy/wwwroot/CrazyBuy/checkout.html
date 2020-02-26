@@ -70,46 +70,48 @@
         <i class="fas fa-angle-up"></i>
     </div>
     <!-- navbar -->
-    <p>form = {{checkout}}</p>
+    <p>form = {{checkout}}</p>    
     <section class="container-fluid px-md-30 px-15">
         <h4 class="my-20">結帳(Checkout)</h4>
-        <form id="checkout-userinfo">
+        <form id="checkout-userinfo" ng-submit="submit()" >
             <section class="my-md-50 my-30">
                 <h5 class="my-20 order-title">1.訂購人資料</h5>
                 <hr>
                 <div class="row d-flex flex-wrap">
                     <div class="col-md-6 col-12 mb-3 order-0">
                         <p class="mb-2"><label for="">姓名</label></p>
-                        <input class="w-100" type="text" name="name" ng-model="checkout.recipientName">
+                        <input class="w-100" type="text" name="name" value="{{member.name}}" required="required" disabled="disabled">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-1">
                         <p class="mb-2"><label for="">性別</label></p>
-                        <input type="radio" name="gender" id="gender-man" value="man" ng-model="checkout.recipientGender">
+                        <input type="radio" name="gender1" id="gender-man" value="男" ng-model="member.gender" ng-true-value="'男'" required="required" disabled="disabled">
                         <label class="checkout-radio-label" for="gender-man">男</label>
-                        <input type="radio" name="gender" id="gender-woman" value="woman" ng-model="checkout.recipientGender">
+                        <input type="radio" name="gender1" id="gender-woman" value="女" ng-model="member.gender" ng-true-value="'女'" required="required" disabled="disabled">
                         <label class="checkout-radio-label" for="gender-woman">女</label>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-2">
                         <p class="mb-2"><label for="">聯絡電話</label></p>
-                        <input class="w-100" type="text">
+                        <input class="w-100" type="text" value="{{member.tel}}" required="required" disabled="disabled">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-3 order-4">
                         <p class="mb-2"><label for="">手機號碼</label></p>
-                        <input class="w-100" type="text">
+                        <input class="w-100" type="text" value="{{member.cellphone}}" required="required" disabled="disabled">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-4 order-3">
                         <p class="mb-2"><label for="">Email</label></p>
-                        <input class="w-100" type="email">
+                        <input class="w-100" type="email" value="{{member.email}}" required="required" disabled="disabled">
                     </div>
                     <div class="col-lg-6 col-12 mb-3 order-5">
                         <p class="mb-2"><label for="">地址</label></p>
+                        <!--
                         <select class="checkout-select" name="" id="">
                             <option>縣市</option>
                         </select>
                         <select class="checkout-select" name="" id="">
                             <option>鄉鎮市區</option>
                         </select>
-                        <input class="checkout-address" type="text">
+                           -->
+                        <input class="w-100" " type="text" value="{{member.address}}" required="required" disabled="disabled">
                     </div>
                 </div>
             </section>
@@ -117,55 +119,57 @@
                 <div class="checkout-recipient">
                     <h5 class="my-20 order-title">2.收件人資料</h5>
                     <hr>
-                    <button class="btn btn-outline-register btn-dotted btn-same-recipient py-1 mb-lg-3 mb-0">同訂購人資料</button>
+                    <button class="btn btn-outline-register btn-dotted btn-same-recipient py-1 mb-lg-3 mb-0" ng-click="replaceData()">同訂購人資料</button>
                 </div>
 
                 <div class="row d-flex flex-wrap">
                     <div class="col-md-6 col-12 mb-3 order-0">
                         <p class="mb-2"><label for="">姓名</label></p>
-                        <input class="w-100" type="text" name="name">
+                        <input class="w-100" type="text" name="name" ng-model="checkout.recipientName" required="required">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-1">
                         <p class="mb-2"><label for="">性別</label></p>
-                        <input type="radio" name="gender" id="gender-man">
+                        <input type="radio" name="gender2 id="gender-man" value="男" ng-model="checkout.recipientGender" ng-true-value="'男'">
                         <label class="checkout-radio-label" for="gender-man">男</label>
-                        <input type="radio" name="gender" id="gender-woman">
+                        <input type="radio" name="gender2" id="gender-woman" value="女" ng-model="checkout.recipientGender" ng-true-value="'女'">
                         <label class="checkout-radio-label" for="gender-woman">女</label>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-2">
                         <p class="mb-2"><label for="">聯絡電話</label></p>
-                        <input class="w-100" type="text">
+                        <input class="w-100" type="text" ng-model="checkout.recipientTel" required="required">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-3 order-4">
                         <p class="mb-2"><label for="">手機號碼</label></p>
-                        <input class="w-100" type="text">
+                        <input class="w-100" type="text" ng-model="checkout.recipientMobile" required="required">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-4 order-3">
                         <p class="mb-2"><label for="">Email</label></p>
-                        <input class="w-100" type="email">
+                        <input class="w-100" type="email" ng-model="checkout.recipientEmail" required="required">
                     </div>
                     <div class="col-lg-6 col-12 mb-3 order-5">
                         <p class="mb-2"><label for="">地址</label></p>
+                        <!--
                         <select class="checkout-select" name="" id="">
                             <option>縣市</option>
                         </select>
                         <select class="checkout-select" name="" id="">
                             <option>鄉鎮市區</option>
                         </select>
-                        <input class="checkout-address" type="text">
+                           -->
+                        <input class="w-100" " type="text" ng-model="checkout.recipientAddr" required="required">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-6">
                         <p class="mb-2"><label for="">希望到貨時段</label></p>
-                        <select class="checkout-select checkout-select-w100" name="" id="">
+                        <select class="checkout-select checkout-select-w100" name="" id="" ng-model="checkout.hopeArrivalTime">
                             <option value="">請選擇</option>
-                            <option value="">上午</option>
-                            <option value="">中午</option>
-                            <option value="">晚上</option>
+                            <option value="上午">上午</option>
+                            <option value="中午">中午</option>
+                            <option value="晚上">晚上</option>
                         </select>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-7">
                         <p class="mb-2"><label for="">運送備註</label></p>
-                        <textarea class="w-100" name="" id=""></textarea>
+                        <textarea class="w-100" name="" id="" ng-model="checkout.orderRemark"></textarea>
                     </div>
                 </div>
             </section>
@@ -174,12 +178,12 @@
                 <hr>
                 <div class="row">
                     <div class="col-12">
-                        <input type="radio" name="transport-method" id="face-to-face">
+                        <input type="radio" name="transport-method" id="face-to-face" value="面交取貨" ng-model="checkout.shippingMethod" required="required">
                         <label class="checkout-radio-label" for="face-to-face">面交取貨</label>
                         <div class="transport-method-describe mt-15">
                             面交地點說明：
                         </div>
-                        <input type="radio" name="transport-method" id="express">
+                        <input type="radio" name="transport-method" id="express" value="快遞送貨"  ng-model="checkout.shippingMethod" required="required">
                         <label class="checkout-radio-label" for="express">快遞送貨</label> <span class="text-hint">運費 $180</span>
                         <div class="transport-method-describe mt-15">
                             本公司會依照下單順序、匯款回壓順序進行出貨 <br>
@@ -194,10 +198,10 @@
                 <hr>
                 <div class="row">
                     <div class="col-12">
-                        <input type="radio" name="pay-method" id="face-to-face-pay">
+                        <input type="radio" name="pay-method" id="face-to-face-pay" value="面交付款" ng-model="checkout.payType" required="required">
                         <label class="checkout-radio-label " for="face-to-face-pay">面交付款</label>
                         <br><br>
-                        <input type="radio" name="pay-method" id="atm-pay">
+                        <input type="radio" name="pay-method" id="atm-pay" value="ATM 轉帳" ng-model="checkout.payType" required="required">
                         <label class="checkout-radio-label" for="atm-pay">ATM 轉帳</label>
                         <div class="transport-method-describe mt-15">
                             匯款資訊處 <br>
@@ -215,19 +219,19 @@
                 <div class="row">
                     <div class="col-12">
                         <p>本站購物需外加5%發票稅，若選不需開發票則不需加5％發票稅</p>
-                        <input type="radio" name="receipt" id="no-receipt">
+                        <input type="radio" name="receipt" id="no-receipt" value="false" ng-model="checkout.isNeedInvoice">
                         <label class="checkout-radio-label " for="no-receipt">不需開發票</label>
                         <br><br>
-                        <input type="radio" name="receipt" id="atm-pay">
+                        <input type="radio" name="receipt" id="atm-pay" value="empty" ng-model="checkout.isNeedInvoice">
                         <label class="checkout-radio-label" for="atm-pay">三聯式發票</label>
                         <div class="transport-method-describe mt-15">
                             <div class="col-12 mb-3">
                                 <p class="mb-2"><label for="">公司統一編號</label></p>
-                                <input class="w-100" type="text">
+                                <input class="w-100" type="text" ng-model="checkout.invoiceBuinessNo">
                             </div>
                             <div class="col-12 mb-3">
                                 <p class="mb-2"><label for="">發票抬頭</label></p>
-                                <input class="w-100" type="text">
+                                <input class="w-100" type="text" ng-model="checkout.invoiceTitle">
                             </div>
                             <div class="col-12 mb-3">
                                 <p class="mb-2"><label for="">發票收件人</label></p>
@@ -249,7 +253,8 @@
             </section>
             <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">
                 <a class="cart-link-btn mr-4" href="#">回上一頁</a>
-                <a class="btn btn-register cart-nextpage-btn" href="./checkout-success.html">確認資料</a>
+                <input class="btn btn-register cart-nextpage-btn" type="submit" value="確認資料" />
+                <!--<a class="btn btn-register cart-nextpage-btn" href="./checkout-success.html">確認資料</a>-->
             </div>
         </form>
     </section>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 using CrazyBuy.Services;
@@ -11,6 +12,27 @@ namespace CrazyBuy.Controllers
     [Route("api/[controller]")]
     public class MemberController : Controller
     {
+        [HttpGet]
+        public ActionResult getMember()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                Member member = DataManager.memberDao.getMember(memberId);
+                member.password = "";
+
+                rm.code = MessageCode.SUCCESS;
+                rm.data = member;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
         // POST api/values
         [HttpPost("{tenantId}")]
         public ActionResult Add([FromBody]Member member, string tenantId)
