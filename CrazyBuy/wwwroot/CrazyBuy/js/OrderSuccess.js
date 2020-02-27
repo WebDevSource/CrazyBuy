@@ -1,13 +1,18 @@
-﻿var Questions = {
+﻿var CheckOutApp = angular.module('OrderApp', []).controller('OrderCtrl', function ($scope) {
+    $scope.id = Utils.GetUrlParameter('id');
+});
+
+
+var OrderSuccess = {
     doLoad() {
         Utils.Initial();
-        Utils.InitI18next("zh-TW", "questions", Questions.InitModule);
+        Utils.InitI18next("zh-TW", "orderSuccess", Questions.InitModule);
     },
 
 
     InitModule() {
         NavBar.Init();
-        Questions.InitView();
+        OrderSuccess.InitView();
     },
 
 	InitView() {
@@ -15,4 +20,4 @@
     }
 };
 
-window.onload = Questions.doLoad;
+window.onload = OrderSuccess.doLoad;

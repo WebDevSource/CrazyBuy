@@ -44,6 +44,7 @@ var Checkout = {
         Utils.ProcessAjax("/api/member", "GET", true, "",
             function (ret) {
                 if (ret.code === 1) {
+                    Utils.SetCookie("memberData", JSON.stringify(ret.data), 1);
                     Checkout.InitView(ret.data);
                 } else {
                     alert("service error");
@@ -54,7 +55,7 @@ var Checkout = {
     },
 
     sendOrder(order) {
-        Utils.SetCookie("order", JSON.stringify(order), 1);
+        Utils.SetCookie("order", JSON.stringify(order), 1);        
         window.location.href = 'checkout-success.html?&tenantId=' + Utils.GetUrlParameter("tenantId");
     }
 };

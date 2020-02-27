@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="OrderApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,10 +23,13 @@
     <script src="./js/Home.js"></script>
     <script src="./js/ProductCard.js"></script>
 
+    <!-- page lib -->
+    <script src="./js/lib/angular.min.js"></script>
+    <script src="./js/OrderSuccess.js"></script>
 
     <link rel="stylesheet" href="./css/all.min.css">
 </head>
-<body>
+<body ng-controller="OrderCtrl">
 <!-- navbar -->
   <div class="navbar-mobile-block"></div>
   <header class="container-fluid p-0" id="navbar">
@@ -70,12 +73,12 @@
 <!-- navbar -->
   <section class="container-fluid px-md-30 px-15 col-lg-8 col-12 mr-auto ml-0">
     <h4 class="my-20">完成訂購</h4>
-    <p>您已完成訂購，訂購單號：<span class="text-hint order-info-p">201912131817</span>  ，您可以到<a class="link" href="#">查詢訂單</a>中回報您的匯款資訊或查詢進度。</p>
+    <p>您已完成訂購，訂購單號：<span class="text-hint order-info-p">{{id}}</span>  ，您可以到<a class="link" href="#">查詢訂單</a>中回報您的匯款資訊或查詢進度。</p>
     <table class="table table-bordered order-success-table">
       <tbody>
         <tr>
           <td class="text-right">訂購單號</td>
-          <td class="text-hint order-info">201912131817</td>
+          <td class="text-hint order-info">{{id}}</td>
         </tr>
         <tr>
           <td class="text-right">貨款狀態</td>
