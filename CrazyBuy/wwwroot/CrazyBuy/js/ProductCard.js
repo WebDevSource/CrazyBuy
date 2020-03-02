@@ -1,14 +1,19 @@
 ProductCard = {
 
     getHtml(data, role) {
-        let images = JSON.parse(data.prdImages);
+
+        let imageUrl = "./images/noitem.jpg";
+        if (data.prdImages) {
+            let images = data.prdImages ? JSON.parse(data.prdImages) : "";
+            imageUrl = Utils.BackendUrl + images[0].filename;
+        }
         let detailUrl = "./product-inner.html?id=" + data.id
         let html = '<div class="items-card col px-4 mb-4">                                                                                                        '
             + '  <div class="card h-100 border-0">                                                                                                            '
             + '    <div class="card-img-top">                                                                                                                 '
             +           ProductCard.getImgBtnHtml(data,role)
-            + '         <a href="' + detailUrl +'">                                                                                                                                      '
-            + '             <img src="' + Utils.BackendUrl + images.fileName +'" class="img-fluid card-img-bg" alt="">                                                                   '
+            + '         <a href="' + detailUrl + '">                                                                                                                                      '
+            + '             <img src="' + imageUrl + '" class="img-fluid card-img-bg" alt="">                                                                   '
             + '         </a>                                                                                                                                     '
             + '    </div>'   
             +       ProductCard.getTagHtml(data, role)

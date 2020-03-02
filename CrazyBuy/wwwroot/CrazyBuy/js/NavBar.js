@@ -177,10 +177,14 @@
 
     getCartHtml(data) {
         let url = "./product-inner.html?id=" + data.productId;
-        let images = JSON.parse(data.prdImages);
+        let imageUrl = "./images/noitem.jpg";
+        if (data.prdImages) {
+            let images = data.prdImages ? JSON.parse(data.prdImages) : "";
+            imageUrl = Utils.BackendUrl + images[0].filename;
+        }
         let html = '<div class="row mx-0 nav-cart-item py-2">'
             + ' <a href="' + url + '" class="col-sm-3 col-2 px-0 d-flex align-items-center">'
-            + '   <div class="navs-cart-item-bg" style="background-image: url(' + Utils.BackendUrl + images.fileName + ');"></div>'
+            + '   <div class="navs-cart-item-bg" style="background-image: url(' + imageUrl + ');"></div>'
             + ' </a> '
             + ' <a  href="' + url + '" class="col-sm-8 col-10 nav-cart-item-info nav-link category"> '
             + '   <div class="d-flex flex-wrap w-100">'

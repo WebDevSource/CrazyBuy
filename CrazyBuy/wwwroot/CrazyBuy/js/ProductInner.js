@@ -28,9 +28,18 @@
     },
 
     InitProductItem(item) {
+        let urlItems = ["./images/noitem.jpg"];
+        if (item.prdImages) {
+            let baseUrl = Utils.BackendUrl;
+            urlItems = [];
+            let urls = JSON.parse(item.prdImages);
+            for (let key in urls) {
+                urlItems.push(baseUrl + urls[key].filename);
+            }
+        }
         let fakeImages = ["./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg"];
         let role = Utils.getRole();
-        ProductInner.InitImages(fakeImages);
+        ProductInner.InitImages(urlItems);
         item.tags = ProductInner.getTagsHtml(item.tags, role);
         item.prices = ProductInner.getPricesHtml(item.prices, role);
         item.shipType = JSON.parse(item.shipType).toString();
@@ -84,7 +93,7 @@
         let i = 0;
         for (let key in items) {
             let item = items[key];
-            let url =  item;
+            let url = item;
             imageHtml += '<div class="carousel-item ' + (i == 0 ? 'active' : "") + '" data-slide-number="' + i++ + '" >'
                 + '	<img src="' + url + '" class="d-block w-100" alt="..." data-remote="' + url + '/"> '
                 + '</div>';
