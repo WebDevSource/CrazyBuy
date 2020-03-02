@@ -6,7 +6,7 @@ ProductItem = {
         html='<div class="row product-col-one">'
             + '  <div class="col-md-3 col-4 product-col-img">'
             + '    <a class="left-product-img" href="' + detailUrl+'">'
-            + '      <img src="' + images.fileName + '" class="img-fluid card-img-bg" alt="">'
+            + '      <img src="' + Utils.BackendUrl +images.fileName + '" class="img-fluid card-img-bg" alt="">'
             + '    </a>'
             + '  </div>'
             + '  <div class="col-md-9 col-8 product-col-info ">'

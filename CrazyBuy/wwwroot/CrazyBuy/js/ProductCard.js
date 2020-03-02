@@ -8,7 +8,7 @@ ProductCard = {
             + '    <div class="card-img-top">                                                                                                                 '
             +           ProductCard.getImgBtnHtml(data,role)
             + '         <a href="' + detailUrl +'">                                                                                                                                      '
-            + '             <img src="'+ images.fileName +'" class="img-fluid card-img-bg" alt="">                                                                   '
+            + '             <img src="' + Utils.BackendUrl + images.fileName +'" class="img-fluid card-img-bg" alt="">                                                                   '
             + '         </a>                                                                                                                                     '
             + '    </div>'   
             +       ProductCard.getTagHtml(data, role)
@@ -88,7 +88,7 @@ ProductCard = {
     addCart(id) {
 
         let data = {
-            productId: id,
+            productId: parseInt(id),
             count:1
         }
         Utils.ProcessAjax("/api/ShopCart", "PUT", true, data,

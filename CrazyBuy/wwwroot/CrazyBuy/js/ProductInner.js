@@ -84,7 +84,7 @@
         let i = 0;
         for (let key in items) {
             let item = items[key];
-            let url = item;
+            let url =  item;
             imageHtml += '<div class="carousel-item ' + (i == 0 ? 'active' : "") + '" data-slide-number="' + i++ + '" >'
                 + '	<img src="' + url + '" class="d-block w-100" alt="..." data-remote="' + url + '/"> '
                 + '</div>';

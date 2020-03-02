@@ -9,6 +9,8 @@
     ROLE_GUEST: 'guest',
     TenantId: '',
 
+    BackendUrl:"http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
+
     Initial: function async(callback) {
         Utils.CheckToken();
         Utils.TenantId = Utils.GetUrlParameter("tenantId");
