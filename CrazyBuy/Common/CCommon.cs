@@ -69,8 +69,9 @@ namespace CrazyBuy
 
     public class OrderData
     {
-        public OrderMaster master { get; set; }
-        public List<OrderDetail> detail { get; set; }
+        public OrderMasterUser master { get; set; }
+        public List<OrderPrdDetail> detail { get; set; }
+        public List<OrderContactItem> contactList { get; set; }
     }
 
     public class SortType

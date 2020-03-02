@@ -1,4 +1,5 @@
-﻿using CrazyBuy.Models;
+﻿using CrazyBuy.Common;
+using CrazyBuy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,15 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public OrderMaster getOrder(int id)
+        public OrderMasterUser getOrder(int id)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                OrderMaster model = dbContext.OrderMaster.Where(
-                              m => m.id == id).SingleOrDefault();
-                return model;
+                var sql = @" SELECT m.*,r.name as userName FROM [OrderMaster] m ";
+                sql += @" LEFT JOIN [Member] r on r.memberId = m.memberId ";
+                sql += @" WHERE m.Id = {0} ";
+                var query = String.Format(sql, id);                
+                return dbContext.Database.SqlQuery<OrderMasterUser>(query).FirstOrDefault();
             }
         }
 
@@ -36,13 +39,15 @@ namespace CrazyBuy.DAO
                 return result;
             }
         }
-        public List<OrderDetail> getDetailLists(int id)
+        public List<OrderPrdDetail> getDetailLists(int id)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"SELECT * FROM [OrderDetail] where orderId = {0} ";
+                var sql = @" SELECT d.*,p.name,p.summary,p.prdImages,p.prdSepc FROM [OrderDetail] d ";
+                sql += @" LEFT JOIN [TenantPrd] p on p.id = d.prdId ";
+                sql += @" where d.orderId = {0} ";
                 var query = String.Format(sql, id);
-                return dbContext.Database.SqlQuery<OrderDetail>(query).ToList();
+                return (List<OrderPrdDetail>)dbContext.Database.SqlQuery<OrderPrdDetail>(query).ToList();
             }
         }
 

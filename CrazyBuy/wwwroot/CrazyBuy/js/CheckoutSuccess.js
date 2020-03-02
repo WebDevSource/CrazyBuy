@@ -27,9 +27,13 @@ var CheckoutSuccess = {
                     let $scope = angular.element(appElement).scope();
 
                     $scope.TotalAmt = 0;
+                    $scope.ResultAmt = 0;
                     $scope.CalculateSum = function (cart) {
                         $scope.TotalAmt += cart.amount;
-                    }
+                        $scope.ResultAmt = $scope.TotalAmt + parseInt(($scope.TotalAmt * 0.05).toFixed(0), 0);
+                        $scope.ResultAmt += checkout.shippingMethod === '快遞送貨' ? 180 : 0;
+                        console.log($scope.ResultAmt);
+                    };
                     $scope.carts = ret.data;
                     $scope.$apply();
                 } else {

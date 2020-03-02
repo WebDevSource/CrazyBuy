@@ -15,8 +15,12 @@ var OrderSuccess = {
         OrderSuccess.InitView();
     },
 
-	InitView() {
-	
+    InitView() {
+
+    },
+
+    checkDetail() {
+        window.location.href = 'order-detail.html?&tenantId=' + Utils.GetUrlParameter("tenantId") + '&id=' + Utils.GetUrlParameter('id');
     }
 };
 

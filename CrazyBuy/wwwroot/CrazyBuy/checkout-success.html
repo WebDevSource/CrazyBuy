@@ -107,11 +107,11 @@
                 </tr>
                 <tr>
                     <td class="text-right" colspan="3">運費</td>
-                    <td class="text-right" colspan="2">60</td>
+                    <td class="text-right" colspan="2">{{checkout.shippingMethod=='快遞送貨'?180:0}}</td>
                 </tr>
                 <tr>
                     <td class="text-right text-hint total-price" colspan="3">訂單總金額</td>
-                    <td class="text-right table-center" colspan="2">{{TotalAmt}}</td>
+                    <td class="text-right table-center" colspan="2">{{ResultAmt}}</td>
                 </tr>
             </tbody>
         </table>
@@ -126,7 +126,7 @@
                     <p class="mb-1 text-right">x{{cart.count}}</p>
                     <div><span class="badge badge-no-discount">需獨立下單</span></div>
                 </div>
-            </div>            
+            </div>
             <p class="mobile-cart-item-total">商品總計</p>
             <table class="table table-bordered mobile-cart-table">
                 <tbody>
@@ -213,7 +213,7 @@
             </div>
             <div class="row mb-15">
                 <div class="col-lg-2 col-md-3 col-4 text-center">運費</div>
-                <div class="col-8">180元</div>
+                <div class="col-8">{{checkout.shippingMethod=='快遞送貨'?180:0}}元</div>
             </div>
         </section>
         <section class="order-info mb-md-50 mb-30">
@@ -249,7 +249,7 @@
             </div>
         </section>
         <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">
-            <a class="cart-link-btn mr-4" href="#">回上一頁</a>
+            <a class="cart-link-btn mr-4" href="javascript:history.back()">回上一頁</a>
             <button class="btn btn-register cart-nextpage-btn" ng-click="sendOrder()">送出訂單</button>
         </div>
     </section>

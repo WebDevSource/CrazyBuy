@@ -14,6 +14,7 @@ namespace CrazyBuy.Services
             OrderData data = new OrderData();
             data.master = DataManager.orderDao.getOrder(orderId);
             data.detail = DataManager.orderDao.getDetailLists(orderId);
+            data.contactList = DataManager.orderContactItemDAO.getListByOrderId(orderId);
             return data;
         }
 

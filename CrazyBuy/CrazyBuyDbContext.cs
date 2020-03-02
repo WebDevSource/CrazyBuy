@@ -17,6 +17,7 @@ namespace CrazyBuy
         public DbSet<OrderDetail> OrderDetail { get; set; }
         public DbSet<TenantFAQ> TenantFAQ { get; set; }
         public DbSet<TenantBulletin> TenantBulletin { get; set; }
+        public DbSet<OrderContactItem> OrderContactItem { get; set; }
 
         public CrazyBuyDbContext(string connStr) : base(new SqlConnection(connStr), true)
         {
