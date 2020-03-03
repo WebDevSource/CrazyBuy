@@ -47,6 +47,9 @@ var OrderDetail = {
                     $scope.ShipAmt = 0;
                     $scope.master = ret.data.master;
                     $scope.detail = ret.data.detail;
+                    $.each($scope.detail, function (index, value) {
+                        $scope.detail[index].prdImages = Utils.GetImageUrl(value);
+                    });
                     $scope.now = new Date();
                     $scope.contact = {};
                     $scope.contact.ContactContent = "匯款日：\n末五碼：\n備註：";
@@ -59,7 +62,7 @@ var OrderDetail = {
                     $scope.CalculateSum = function (item) {
                         $scope.TotalAmt += item.amount;
                         $scope.resultAmt = $scope.TotalAmt + $scope.ShipAmt;
-                    }
+                    };
                     $scope.$apply();
                 } else {
                     alert("service error");

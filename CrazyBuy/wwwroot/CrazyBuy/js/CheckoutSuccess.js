@@ -35,6 +35,9 @@ var CheckoutSuccess = {
                         console.log($scope.ResultAmt);
                     };
                     $scope.carts = ret.data;
+                    $.each($scope.carts, function (index, value) {
+                        $scope.carts[index].prdImages = Utils.GetImageUrl(value);
+                    });
                     $scope.$apply();
                 } else {
                     alert("service error");

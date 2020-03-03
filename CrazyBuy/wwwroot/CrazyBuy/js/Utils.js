@@ -9,7 +9,7 @@
     ROLE_GUEST: 'guest',
     TenantId: '',
 
-    BackendUrl:"http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
+    BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
 
     Initial: function async(callback) {
         Utils.CheckToken();
@@ -576,6 +576,15 @@
         var result = paginationObj.prop('outerHTML');
         return result;
 
+    },
+
+    GetImageUrl: function (data) {
+        let imageUrl = "./images/noitem.jpg";
+        if (data.prdImages) {
+            let images = data.prdImages ? JSON.parse(data.prdImages) : "";
+            imageUrl = Utils.BackendUrl + images[0].filename;
+        }
+        return imageUrl;
     },
 
     GetNumberPages: function (lastPage, CurrentPage, showPageSize) {

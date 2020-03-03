@@ -54,10 +54,14 @@ var Cart = {
                     $scope.TotalAmt = 0;
                     $scope.CalculateSum = function (cart) {
                         $scope.TotalAmt += cart.amount;
-                    }
+                    };
                     $scope.canOrder = !prdCountNotEnough;
                     $scope.prdCountCheck = prdCountNotEnough;
                     $scope.carts = ret.data;
+                    $.each($scope.carts, function (index, value) {
+                        $scope.carts[index].prdImages = Utils.GetImageUrl(value);
+                    });
+
                     $scope.$apply();
                 } else {
                     alert("service error");

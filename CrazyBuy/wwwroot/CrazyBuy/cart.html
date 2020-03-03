@@ -89,7 +89,7 @@
             <tbody>
                 <tr ng-repeat="cart in carts">
                     <td scope="row">
-                        <div class="mx-auto cart-item-img" style="background-image: url('./images/item-1.png');"></div>
+                        <div class="mx-auto cart-item-img" style="background-image: url('{{cart.prdImages}}');"></div>
                     </td>
                     <td class="cart-item-title" ng-init="CalculateSum(cart)">{{cart.name}}</td>
                     <td class="table-center table-badge"></td>

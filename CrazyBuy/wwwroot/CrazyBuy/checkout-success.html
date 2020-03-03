@@ -88,7 +88,7 @@
             <tbody>
                 <tr ng-repeat="cart in carts">
                     <td scope="row">
-                        <div class="mx-auto cart-item-img" style="background-image: url('./images/item-1.png');"></div>
+                        <div class="mx-auto cart-item-img" style="background-image: url('{{cart.prdImages}}');"></div>
                     </td>
                     <td class="cart-item-title" ng-init="CalculateSum(cart)">{{cart.name}}</td>
                     <td class="table-center table-badge"></td>
@@ -118,7 +118,7 @@
         <div id="mobile-cart">
             <div class="row mobile-cart-item mx-0 mb-15" ng-repeat="cart in carts">
                 <div class="col-5 px-0">
-                    <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-1.png');"></div>
+                    <div class="mx-auto mobile-cart-item-img" style="background-image: url('{{cart.prdImages}}');"></div>
                 </div>
                 <div class="col-7 mobile-cart-info py-1 px-2">
                     <p class="mobile-cart-item-title text-hint">{{cart.name}}</p>
