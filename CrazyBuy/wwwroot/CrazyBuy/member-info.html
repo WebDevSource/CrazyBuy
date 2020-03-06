@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="MemberApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,10 +23,13 @@
     <script src="./js/Home.js"></script>
     <script src="./js/ProductCard.js"></script>
 
+    <!-- page lib -->
+    <script src="./js/lib/angular.min.js"></script>
+    <script src="./js/MemberInfo.js"></script>
 
     <link rel="stylesheet" href="./css/all.min.css">
 </head>
-<body>
+<body ng-controller="MemberCtrl">
 <!-- navbar -->
   <div class="navbar-mobile-block"></div>
   <header class="container-fluid p-0" id="navbar">
@@ -70,33 +73,33 @@
 <!-- navbar -->
   <section class="container-fluid px-md-30 px-15">
     <h4 class="my-20">會員資料維護</h4>
-    <form id="checkout-userinfo">
+    <form id="checkout-userinfo" ng-submit="submit()">
       <section class="my-md-50 my-30">
         <h5 class="my-20 order-title">基本資料</h5>
         <hr>
         <div class="row d-flex flex-wrap">
           <div class="col-md-6 col-12 mb-3 order-0">
             <p class="mb-2"><label for="">姓名</label></p>
-            <input class="w-100" type="text" >
+            <input class="w-100" type="text"  ng-model="member.name" required="required">
           </div>
           <div class="col-md-6 col-12 mb-3 order-1">
             <p class="mb-2"><label for="">性別</label></p>
-            <input  type="radio" name="gender" id="gender-man">
+            <input  type="radio" name="gender" id="gender-man" value="男" ng-model="member.gender" ng-true-value="'男'" required="required">
             <label class="checkout-radio-label" for="gender-man">男</label>
-            <input  type="radio" name="gender" id="gender-woman">
+            <input  type="radio" name="gender" id="gender-woman" value="女"  ng-model="member.gender" ng-true-value="'女'" required="required">
             <label class="checkout-radio-label" for="gender-woman">女</label>
           </div>
           <div class="col-md-6 col-12 mb-3 order-2">
             <p class="mb-2"><label for="">聯絡電話</label></p>
-            <input class="w-100" type="text">
+            <input class="w-100" type="text" ng-model="member.tel" required="required">
           </div>
           <div class="col-md-6 col-12 mb-3 order-md-3 order-4">
             <p class="mb-2"><label for="">Lind ID</label></p>
-            <input class="w-100" type="text">
+            <input class="w-100" type="text" ng-model="member.lineId" required="required">
           </div>
           <div class="col-md-6 col-12 mb-3 order-md-4 order-3">
             <p class="mb-2"><label for="">傳真</label></p>
-            <input class="w-100" type="text">
+            <input class="w-100" type="text" ng-model="member.fax" required="required">
           </div>
           <div class="col-lg-6 col-12 mb-3 order-5">
             <p class="mb-2"><label for="">地址</label></p>
@@ -106,7 +109,7 @@
             <select class="checkout-select" name="" id="">
               <option >鄉鎮市區</option>
             </select>
-            <input class="checkout-address" type="text">
+            <input class="checkout-address" type="text" ng-model="member.address" required="required">
           </div>
         </div>
       </section>
@@ -116,21 +119,21 @@
         <div class="row d-flex flex-wrap">
           <div class="col-md-6 col-12 mb-3 order-0">
             <p class="mb-2"><label for="">Email</label></p>
-            <input class="w-100" type="email" >
+            <input class="w-100" type="email" ng-model="member.email" required="required">
           </div>
           <div class="col-md-6 col-12 mb-3 order-md-1 order-2">
             <p class="mb-2 "><label for="">輸入密碼</label></p>
-            <input class="w-100" type="password">
+            <input class="w-100" type="password" ng-model="member.password" required="required">
             <span class="register-password"></span>
           </div>
           <div class="col-md-6 col-12 mb-3 order-md-2 order-1">
             <p class="mb-2"><label for="">手機號碼</label></p>
-            <input class="w-100" type="text">
+            <input class="w-100" type="text" ng-model="member.cellphone" required="required">
             <p class="register-ps mb-0">註：Email或手機即是以後登入的會員帳號</p>
           </div>
           <div class="col-md-6 col-12 mb-3 order-3">
             <p class="mb-2 "><label for="">再次輸入密碼</label></p>
-            <input class="w-100" type="password">
+            <input class="w-100" type="password" ng-model="checkPwd" required="required">
             <span class="register-password"></span>
           </div>
           <div class="col-md-6 col-12 mb-3 order-4">
@@ -148,11 +151,11 @@
             <label class="checkout-radio-label" for="no-subscribe">不要訂閱</label>
           </div>
           <div class="col-12 mb-3 order-5 text-center my-30">
-            <input  type="checkbox" name="" id="agree-register"> <span class="mb-2"><label for="agree-register">我已經詳閱上述會員說明</label></span>
+            <input  type="checkbox" name="" id="agree-register" ng-model="agree"> <span class="mb-2"><label for="agree-register">我已經詳閱上述會員說明</label></span>
           </div>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-          <a class="btn btn-register register-submit-btn" href="#" >提交表單</a>
+          <button class="btn btn-register register-submit-btn">提交表單</button>
         </div>
       </section>
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using CrazyBuy.Common;
 using CrazyBuy.Models;
 
@@ -7,6 +8,31 @@ namespace CrazyBuy.DAO
 {
     public class MemberDAO : CrazyBuyRerpository
     {
+        public Member getMemberByCellPhone(Guid tenantId, string phone)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" select m.* from [Member] m ";
+                sql += @" left join [TenantMember] t on t.memberId = m.memberId ";
+                sql += @" where t.tenantId = '{0}' and m.cellphone = '{1}' ";
+                string query = String.Format(sql, tenantId.ToString(), phone);
+                MDebugLog.debug("[getMemberByCellPhone]>" + query);
+                return dbContext.Database.SqlQuery<Member>(query).SingleOrDefault();
+            }
+        }
+
+        public Member getMemberByEmail(Guid tenantId, string mail)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" select m.* from [Member] m ";
+                sql += @" left join [TenantMember] t on t.memberId = m.memberId ";
+                sql += @" where t.tenantId = '{0}' and m.email = '{1}' ";
+                string query = String.Format(sql, tenantId.ToString(), mail);
+                return dbContext.Database.SqlQuery<Member>(query).SingleOrDefault();
+            }
+        }
+
         public Member getMemberByCellPhone(Guid tenantId, string phone, string pwd)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())

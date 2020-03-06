@@ -34,9 +34,9 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                List<OrderMaster> result = dbContext.OrderMaster.Where(
-                              m => m.memberId == memberId).ToList();
-                return result;
+                var sql = @" SELECT * FROM [OrderMaster] WHERE memberId = {0} order by id desc ";
+                var query = String.Format(sql, memberId);                
+                return (List<OrderMaster>)dbContext.Database.SqlQuery<OrderMaster>(query).ToList();                
             }
         }
         public List<OrderPrdDetail> getDetailLists(int id)
