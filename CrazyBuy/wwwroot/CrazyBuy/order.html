@@ -104,7 +104,7 @@
                             <td>{{item.orderAmount}}</td>
                             <td>
                                 <button ng-click="action(item.id)" class="btn btn-register py-0 px-2 mb-1">詳情</button>
-                                <a href="#" class="btn btn-outline-register py-0 px-2 mb-1" data-toggle="modal" data-target="#keeptouch">後續聯絡</a>
+                                <button class="btn btn-outline-register py-0 px-2 mb-1" data-toggle="modal" data-target="#keeptouch" ng-click="contact(item.id)">後續聯絡</button>
                             </td>
                         </tr>
                     </tbody>
@@ -112,14 +112,14 @@
 
                 <section class="mobile-order" id="mobile-order-list">
                     <div class="order mb-20" ng-repeat="item in data">
-                        <a href="./order-detail.html" class="row mobile-order-row mx-0">
+                        <a ng-click="action(item.id)"  class="row mobile-order-row mx-0">
                             <div class="col-4 text-hint mb-1 order-emphasize px-0">{{item.id}}</div>
                             <div class="col-5 px-0 pt-1 mb-1 px-0"><span>購買日期</span>  <span class="text-hint mobile-buy-date">{{item.dtOrder|date:'yyyy-MM-dd'}}</span></div>
                             <div class="col-3 pt-1 mb-1 px-0">${{item.orderAmount}}</div>
                             <div class="col-12 mb-2 px-0"><span>貨款狀態</span> <span class="text-hint order-emphasize">待處理</span></div>
                             <div class="col-12 mb-2 px-0"><span>出貨狀態</span> <span class="text-hint order-emphasize">未出貨</span></div>
                         </a>
-                        <a href="" class="btn btn-report transfer-report py-0 px-2 mb-1" data-toggle="modal" data-target="#keeptouch">匯款回報</a>
+                        <button class="btn btn-report transfer-report py-0 px-2 mb-1" data-toggle="modal" data-target="#keeptouch" ng-click="contact(item.id)">匯款回報</button>
                         <div class="accordion order-accordion">
                             <div class="card">
                                 <div class="card-header p-0">
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </section>
 
 
@@ -228,7 +228,7 @@
         </div>
     </div>
     <div class="modal fade mobile-order-modal" id="keeptouch" tabindex="-1" role="dialog">
-        <form action="">
+        <form ng-submit="submit()">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -240,10 +240,10 @@
                     <div class="modal-body">
                         <div class="row mr-0">
                             <div class="col-lg-3 col-4 mb-3">聯絡日期</div>
-                            <div class="col-lg-9 col-8 keeptouch-date mb-3 px-0 py-1">2019/12/20</div>
+                            <div class="col-lg-9 col-8 keeptouch-date mb-3 px-0 py-1">{{now|date:'yyyy-MM-dd'}}</div>
                             <div class="col-lg-3 col-4 mb-3">聯絡內容</div>
                             <div class="col-lg-9 col-8 px-0 mb-3">
-                                <textarea name="" id="">
+                                <textarea name="" id="" ng-model="send.ContactContent" required="required">
 匯款日：
 末五碼：
 備註：
@@ -261,22 +261,12 @@
                                         <th scope="row">聯絡日期</th>
                                         <td>訊息</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2019/12/20</th>
+                                    <tr ng-repeat="contact in contactList">
+                                        <th scope="row">{{contact.dtContact|date:'yyyy-MM-dd'}}</th>
                                         <td>
-                                            <p class="mb-0">匯款日：2019/12/19 </p>
-                                            <p class="mb-0">末五碼：74445</p>
-                                            <p class="mb-0">備註：上一筆末五碼寫錯了</p>
+                                            <p class="mb-0">{{contact.contactContent}}</p>                                           
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2019/12/19</th>
-                                        <td>
-                                            <p class="mb-0">匯款日：2019/12/19 </p>
-                                            <p class="mb-0">末五碼：74444</p>
-                                            <p class="mb-0">備註：</p>
-                                        </td>
-                                    </tr>
+                                    </tr>                                    
                                 </tbody>
                             </table>
                         </div>
