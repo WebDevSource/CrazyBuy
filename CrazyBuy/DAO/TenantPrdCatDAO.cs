@@ -41,7 +41,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"select count(*) as total from [TenantPrdCat] where tenantId = '{0}' and parentId = {1}";
+                var sql = @"select count(*) as total from [TenantPrdCat] where tenantId = '{0}' and catId = {1}";
                 string query = String.Format(sql, tenantId, parentId);
                 return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total;
             }

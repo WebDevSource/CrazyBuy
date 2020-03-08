@@ -55,7 +55,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" select count(p.id) as total from [TenantPrd] p ";
                 sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                sql += @" where p.tenantId = '{0}' and r.mainCatId = {1} ";
+                sql += @" where p.tenantId = '{0}' and r.catId = {1} ";
                 string query = String.Format(sql, tenantId, catId);
                 MDebugLog.debug("[getCountByCatId] > " + query);
                 return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total;
@@ -73,13 +73,13 @@ namespace CrazyBuy.DAO
 
                 var notInsql = @" select TOP {0} p.id from [TenantPrd] p ";
                 notInsql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                notInsql += @" where p.tenantId = '{1}' and r.mainCatId = {2} ";
+                notInsql += @" where p.tenantId = '{1}' and r.catId = {2} ";
                 notInsql += SortType.getOrderBy(pageQuery.sortType);
                 notInsql = String.Format(notInsql, pageCount, tenantId, catId);
 
                 var sql = @" select TOP {0} p.* from [TenantPrd] p ";
                 sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                sql += @" where p.tenantId = '{1}' and r.mainCatId = {2} ";
+                sql += @" where p.tenantId = '{1}' and r.catId = {2} ";
                 sql += @" and p.id not in ( {3} ) ";
                 sql += SortType.getOrderBy(pageQuery.sortType);
                 sql = String.Format(sql, top, tenantId, catId, notInsql);
@@ -100,13 +100,13 @@ namespace CrazyBuy.DAO
 
                 var notInsql = @" select TOP {0} p.id from [TenantPrd] p ";
                 notInsql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                notInsql += @" where p.tenantId = '{1}' and r.mainCatId = {2} and p.name like N'%{3}%' ";
+                notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and p.name like N'%{3}%' ";
                 notInsql += SortType.getOrderBy(searchQuery.sortType);
                 notInsql = String.Format(notInsql, pageCount, tenantId, catId, searchQuery.name);
 
                 var sql = @" select TOP {0} p.* from [TenantPrd] p ";
                 sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                sql += @" where p.tenantId = '{1}' and r.mainCatId = {2} and p.name like N'%{3}%' ";
+                sql += @" where p.tenantId = '{1}' and r.catId = {2} and p.name like N'%{3}%' ";
                 sql += @" and p.id not in ( {4} ) ";
                 sql += SortType.getOrderBy(searchQuery.sortType);
                 sql = String.Format(sql, top, tenantId, catId, searchQuery.name, notInsql);
