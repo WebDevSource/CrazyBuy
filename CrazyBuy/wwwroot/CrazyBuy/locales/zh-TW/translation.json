@@ -42,12 +42,16 @@
   "btn_product_edit": "商品編輯",
   "btn_product_addImg": "新增照片",
   "btn_product_addCart": "加入購物車",
+  "btn_product_soldout": "已售完",
   "price_hide": "請先登入會員",
   "price_normal": "一般價 ",
   "price_member": "會員價 ",
   "price_NTrans": "轉批價 ",
   "price_HTrans": "A轉價 ",
   "price_VIPTrans": "特轉價 ",
+  "tag_only": "獨立下單",
+  "tag_factory": "廠商直出",
+
 
   "pleaseSelect": "請選擇",
 

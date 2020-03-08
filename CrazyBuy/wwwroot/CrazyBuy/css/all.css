@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -9551,6 +9551,7 @@ a.text-hint:hover, a.text-hint:focus {
   border-radius: 5px;
   background: transparent; }
 
+
 .product-row .items-card .card-img-top {
   padding: 46.25%; }
 
@@ -10408,3 +10409,11 @@ a.text-hint:hover, a.text-hint:focus {
 ================================== 
 ***/
 
+
+.product-soldout-cart {
+    color: red;
+    padding: 8px 40px;
+    border: 2px dashed red;
+    border-radius: 5px;
+    background: transparent;
+}

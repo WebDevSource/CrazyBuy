@@ -1,4 +1,5 @@
-﻿var ProductInner = {
+﻿
+var ProductInner = {
     id: 0,
 
     doLoad() {
@@ -37,14 +38,17 @@
                 urlItems.push(baseUrl + urls[key].filename);
             }
         }
-        let fakeImages = ["./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg", "./images/1200x800.jpg"];
+        if (item.count > 0) {
+            $(".addCart").show();
+        } else {
+            $(".soldoutCart").show();
+        }
         let role = Utils.getRole();
         ProductInner.InitImages(urlItems);
         item.tags = ProductInner.getTagsHtml(item.tags, role);
         item.prices = ProductInner.getPricesHtml(item.prices, role);
-        item.shipType = JSON.parse(item.shipType).toString();
-        item.paymentType = JSON.parse(item.paymentType).toString();
-
+        item.shipType = JSON.parse(item.shipType) ? JSON.parse(item.shipType).toString() : "";
+        item.paymentType = JSON.parse(item.paymentType) ? JSON.parse(item.paymentType).toString() : "";
         for (let key in item) {
             $("[data-name=" + key + "]").append(item[key]);
         }
@@ -61,9 +65,26 @@
             }
             let i = 1;
             let len = Object.keys(tags).length;
+            let hasOnly = false;
             for (let tag in tags) {
+                let name = tags[tag];
+                if (name.indexOf(i18next.t("tag_factory")) > -1) {
+                    if (hasOnly) {
+                        continue;
+                    } else {
+                        hasOnly = true;
+                        name = i18next.t("tag_only");
+                    }
+                } else if (name.indexOf(i18next.t("tag_only")) > -1) {
+                    if (hasOnly) {
+                        continue;
+                    } else {
+
+                        hasOnly = true;
+                    }
+                }
                 i++;
-                html += '  <span class="badge ' + ((1 == i % 2) ? 'badge-no-discount' : 'badge-no-freight') + '">' + tags[tag] + '</span>';
+                html += '  <span class="badge ' + ((1 == i % 2) ? 'badge-no-discount' : 'badge-no-freight') + '">' + name + '</span>';
             }
         }
         return html;
@@ -95,7 +116,7 @@
             let item = items[key];
             let url = item;
             imageHtml += '<div class="carousel-item ' + (i == 0 ? 'active' : "") + '" data-slide-number="' + i++ + '" >'
-                + '	<img src="' + url + '" class="d-block w-100" alt="..." data-remote="' + url + '/"> '
+                + '	<img src="' + url + '" class="d-block w-100" alt="" data-remote="' + url + '/"> '
                 + '</div>';
         }
         imageHtml += "</div>";
@@ -124,7 +145,7 @@
                     + '    <div class="row mx-0">';
             }
             html += '<div id="carousel-selector-' + i + '" class="thumb col-3 px-1 py-2 selected" data-target="#proudctCarousel" data-slide-to="' + i + '" class="carousel-item"> '
-                + '     <img src="' + item + '" class="img-fluid" alt="..."> '
+                + '     <img src="' + item + '" class="img-fluid" alt=""> '
                 + ' </div>'
         }
         html += '</div>';

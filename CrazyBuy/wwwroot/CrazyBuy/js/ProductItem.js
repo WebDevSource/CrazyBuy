@@ -7,7 +7,7 @@ ProductItem = {
             imageUrl = Utils.BackendUrl + images[0].filename;
         }
         let detailUrl = "./product-inner.html?id=" + data.id
-        html='<div class="row product-col-one">'
+        html = '<div class="row product-col-one">'
             + '  <div class="col-md-3 col-4 product-col-img">'
             + '    <a class="left-product-img" href="' + detailUrl + '">'
             + '      <img src="' + imageUrl + '" class="img-fluid card-img-bg" alt="">'
@@ -43,16 +43,16 @@ ProductItem = {
             let len = Object.keys(prices).length;
             for (let price in prices) {
                 i++;
-                html += '<p class="card-text product-price " '+ ((i == len) ? '' : 'style="margin-right:10px"') + ' >' + i18next.t("price_"+price) + '<span>'+ prices[price] + '</span></p>';
+                html += '<p class="card-text product-price " ' + ((i == len) ? '' : 'style="margin-right:10px"') + ' >' + i18next.t("price_" + price) + '<span>' + prices[price] + '</span></p>';
             }
-        } 
+        }
         return html;
     },
 
     getImgBtnHtml(data, role) {
         let html = '';
-        if (role == Utils.ROLE_ADMIN) { 
-            html+= '    <div">                                                                                     '
+        if (role == Utils.ROLE_ADMIN) {
+            html += '    <div">                                                                                     '
                 + '      <a href="#"><button class="product-admin-btn mt-2">' + i18next.t("btn_product_edit") + '</button></a>'
                 + '      <a href="#"><button class="product-admin-btn mt-2">' + i18next.t("btn_product_addImg") + '</button></a>'
                 + '    </div> ';
@@ -65,17 +65,21 @@ ProductItem = {
         if (role == Utils.ROLE_GUEST) {
             return html;
         }
-
-        html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_addCart") + '</span ><i class="fas fa-cart-plus mobile-cart-btn"></i></button>'; 
- //       if (role == Utils.ROLE_ADMIN) {
- //               html += '<button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" onClick=ProductCard.openUrl("'+ "http://yahoo.com.tw" +'")>' + i18next.t("btn_edit")
- //               + '</button>';
- //       }
+        if (data.count > 0) {
+            html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_addCart") + '</span ><i class="fas fa-cart-plus mobile-cart-btn"></i></button>';
+        } else {
+            html += '<button class="product-addto-cart product-soldout-cart"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_soldout") + '</span ><i class="fas fa-shopping-cart mobile-cart-btn"></i></button>';
+        }
+        //html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_addCart") + '</span ><i class="fas fa-cart-plus mobile-cart-btn"></i></button>';
+        //       if (role == Utils.ROLE_ADMIN) {
+        //               html += '<button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" onClick=ProductCard.openUrl("'+ "http://yahoo.com.tw" +'")>' + i18next.t("btn_edit")
+        //               + '</button>';
+        //       }
         return html;
     },
 
 
-    getTagHtml(data,role) {
+    getTagHtml(data, role) {
         let html = '';
         if (role == Utils.ROLE_GUEST) {
         } else {
@@ -86,20 +90,37 @@ ProductItem = {
             html += '<div class="product-badge order-md-0 order-1 mb-20 w-100" >';
             let i = 1;
             let len = Object.keys(tags).length;
+            let hasOnly = false;
             for (let tag in tags) {
+                let name = tags[tag];
+                if (name.indexOf(i18next.t("tag_factory")) > -1) {
+                    if (hasOnly) {
+                        continue;
+                    } else {
+                        hasOnly = true;
+                        name = i18next.t("tag_only");
+                    }
+                } else if (name.indexOf(i18next.t("tag_only")) > -1) {
+                    if (hasOnly) {
+                        continue;
+                    } else {
+
+                        hasOnly = true;
+                    }
+                }
                 i++;
-                html += '  <span class="badge ' + ((1 == i % 2) ? 'badge-no-discount' : 'badge-no-freight') + '">' + tags[tag] + '</span>';
+                html += '  <span class="badge ' + ((1 == i % 2) ? 'badge-no-discount' : 'badge-no-freight') + '">' + name + '</span>';
             }
             html += '</div>';
         }
-        return html;                          
+        return html;
     },
 
     addCart(id) {
 
         let data = {
             productId: id,
-            count:1
+            count: 1
         }
         Utils.ProcessAjax("/api/ShopCart", "PUT", true, data,
             function (ret) {

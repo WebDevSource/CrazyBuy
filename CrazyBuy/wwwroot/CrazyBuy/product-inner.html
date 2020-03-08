@@ -215,7 +215,8 @@
                         <span class="num-minus-btn" onclick="ProductInner.changeCount(false)"><i class="fas fa-minus"></i></span>
                         <input class="product-nums" type="text" value="1" maxlength="5" />
                         <span class="num-add-btn" onclick="ProductInner.changeCount(true)"><i class="fas fa-plus"></i></span> &nbsp;
-                        <button type="button" class="product-addto-cart product-inner-addtocart-btn" data-i18n="btn_product_addCart" onclick="ProductInner.addCart()"> 加入購物車</button>
+                        <button type="button" class="product-addto-cart product-inner-addtocart-btn addCart" style="display:none;" data-i18n="btn_product_addCart" onclick="ProductInner.addCart()"> 加入購物車</button>
+                        <button type="button" class="product-addto-cart product-inner-addtocart-btn product-soldout-cart soldoutCart" style="display:none;" data-i18n="btn_product_soldout" onclick=""> 已售完</button>
                     </div>
                 </form>
             </div>
