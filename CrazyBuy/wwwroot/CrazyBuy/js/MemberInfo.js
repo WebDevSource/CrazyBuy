@@ -1,8 +1,7 @@
 ﻿var MemberApp = angular.module('MemberApp', []).controller('MemberCtrl', function ($scope) {
     $scope.agree = false;
     $scope.checkPwd = '';
-    $scope.member = {};
-    MemberInfo.GetMemberData();
+    $scope.member = {};    
 
     $scope.submit = function () {
         if ($scope.agree) {
@@ -33,7 +32,6 @@
 var MemberInfo = {
     doLoad() {
         Utils.Initial();
-
         Utils.InitI18next("zh-TW", "memberInfo", MemberInfo.InitModule);
     },
 
@@ -44,7 +42,7 @@ var MemberInfo = {
     },
 
     InitView() {
-
+        MemberInfo.GetMemberData();
     },
 
     GetMemberData() {

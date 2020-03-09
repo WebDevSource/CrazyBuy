@@ -3,8 +3,7 @@
     $scope.submit = function () {
         $scope.contact.orderId = parseInt($scope.id, 0);
         OrderDetail.addContactItem($scope.contact);
-    };
-    OrderDetail.getDetailData($scope.id);
+    };   
 });
 
 
@@ -21,7 +20,7 @@ var OrderDetail = {
     },
 
     InitView() {
-
+        OrderDetail.getDetailData(Utils.GetUrlParameter('id'));
     },
 
     addContactItem(args) {

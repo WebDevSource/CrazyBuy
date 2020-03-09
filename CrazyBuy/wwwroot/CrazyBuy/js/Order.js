@@ -1,5 +1,4 @@
-﻿var OrderApp = angular.module('OrderApp', []).controller('OrderCtrl', function ($scope) {
-    Order.InitView();
+﻿var OrderApp = angular.module('OrderApp', []).controller('OrderCtrl', function ($scope) {   
     $scope.sendId;
     $scope.action = function (id) {
         Order.checkDetail(id);
@@ -16,19 +15,19 @@
             ContactContent: $scope.send.ContactContent
         };
         Order.addContactItem(args);
-    }
+    };
 });
 
 var Order = {
     doLoad() {
         Utils.Initial();
-
         Utils.InitI18next("zh-TW", "order", Order.InitModule);
     },
 
 
     InitModule() {
         NavBar.Init();
+        Order.InitView();
     },
 
     InitView() {
