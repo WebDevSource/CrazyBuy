@@ -59,7 +59,7 @@ var Cart = {
                     $scope.prdCountCheck = prdCountNotEnough;
                     $scope.carts = ret.data;
                     $.each($scope.carts, function (index, value) {
-                        $scope.carts[index].prdImages = Utils.GetImageUrl(value);
+                        $scope.carts[index].prdImages = Utils.GetImageUrl(value);        
                     });
 
                     $scope.$apply();
