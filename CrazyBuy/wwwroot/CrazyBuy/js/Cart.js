@@ -1,6 +1,5 @@
 ﻿var prdCountNotEnough = true;
-var cartApp = angular.module('CartApp', []).controller('CartCtrl', function ($scope) {
-    Cart.checkPrdCount();
+var cartApp = angular.module('CartApp', []).controller('CartCtrl', function ($scope) {    
 
     $scope.delCartItem = function (id) {
         Cart.delCartItem(id);
@@ -11,6 +10,7 @@ var Cart = {
     doLoad() {
         Utils.Initial();
         Utils.InitI18next("zh-TW", "cart", Cart.InitModule);
+        Cart.checkPrdCount();
     },
 
     InitModule() {
