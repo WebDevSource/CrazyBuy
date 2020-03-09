@@ -35,10 +35,11 @@ var ProductInner = {
             urlItems = [];
             let urls = JSON.parse(item.prdImages);
             for (let key in urls) {
-                urlItems.push(baseUrl + urls[key].filename);
+                //urlItems.push(baseUrl + urls[key].filename);
+                urlItems.push(baseUrl + "id=" + item.id + "&filename=" + urls[key].filename);
             }
         }
-        if (item.count > 0) {
+        if (true) {
             $(".addCart").show();
         } else {
             $(".soldoutCart").show();

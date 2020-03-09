@@ -1,11 +1,7 @@
 ProductItem = {
 
     getHtml(data, role) {
-        let imageUrl = "./images/noitem.jpg";
-        if (data.prdImages) {
-            let images = data.prdImages ? JSON.parse(data.prdImages) : "";
-            imageUrl = Utils.BackendUrl + images[0].filename;
-        }
+        let imageUrl = Utils.GetImageUrl(data);
         let detailUrl = "./product-inner.html?id=" + data.id
         html = '<div class="row product-col-one">'
             + '  <div class="col-md-3 col-4 product-col-img">'
@@ -65,7 +61,7 @@ ProductItem = {
         if (role == Utils.ROLE_GUEST) {
             return html;
         }
-        if (data.count > 0) {
+        if (true) {
             html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_addCart") + '</span ><i class="fas fa-cart-plus mobile-cart-btn"></i></button>';
         } else {
             html += '<button class="product-addto-cart product-soldout-cart"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_soldout") + '</span ><i class="fas fa-shopping-cart mobile-cart-btn"></i></button>';

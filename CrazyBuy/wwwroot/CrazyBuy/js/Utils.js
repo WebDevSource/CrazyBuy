@@ -9,11 +9,12 @@
     ROLE_GUEST: 'guest',
     TenantId: '',
 
-    BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
+   // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
+    BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?",
 
     Initial: function async(callback) {
-        Utils.CheckToken();
         Utils.TenantId = Utils.GetUrlParameter("tenantId");
+        Utils.CheckToken();
         Utils.InitEvent();
         //        Backend.SetupMessageConnect(callback);
     },
@@ -123,16 +124,14 @@
     },
 
     ClearToken: function () {
-        Utils.SetCookie("token", "", 0);
+        Utils.SetCookie(Utils.TenantId + "token", "", 0);
         Utils.SetCookie("role", Utils.ROLE_GUEST);
     },
 
     CheckToken: function async(callback) {
         var token = "";
-        let tenantId = Utils.GetUrlParameter("tenantId");
-
-        token = Utils.GetCookie("token");
-        if (!tenantId) {
+        token = Utils.GetCookie(Utils.TenantId + "token");
+        if (!Utils.TenantId) {
             alert("tenant error");
             location.href = "./error.html";
         } else if (token) {
@@ -260,7 +259,7 @@
                 },
                 beforeSend: function (xhr) {
                     if (authToken) {
-                        let token = Utils.GetCookie("token");
+                        let token = Utils.GetCookie(Utils.TenantId + "token");
                         xhr.setRequestHeader("Authorization", 'Bearer ' + token);
                     }
                 },
@@ -293,7 +292,7 @@
                 },
                 beforeSend: function (xhr) {
                     if (authToken != "") {
-                        let token = Utils.GetCookie("token");
+                        let token = Utils.GetCookie(Utils.TenantId + "token");
                         xhr.setRequestHeader("Authorization", 'Bearer ' + token);
                     }
                 },
@@ -582,7 +581,7 @@
         let imageUrl = "./images/noitem.jpg";
         if (data.prdImages) {
             let images = data.prdImages ? JSON.parse(data.prdImages) : "";
-            imageUrl = Utils.BackendUrl + images[0].filename;
+            imageUrl = Utils.BackendUrl + "id=" + data.id + "&filename="  + images[0].filename;
         }
         return imageUrl;
     },

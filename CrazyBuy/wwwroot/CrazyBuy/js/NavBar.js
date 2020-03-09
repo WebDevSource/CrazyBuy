@@ -298,7 +298,7 @@
         let result = Utils.AsyncProcessAjax("/api/auth/Login", "Post", "", data);
 
         if (result.code == "1") {
-            Utils.SetCookie("token", result.token);
+            Utils.SetCookie(Utils.TenantId + "token", result.token);
             if (Utils.ROLE_GUEST == result.type) {
 
             } else {
