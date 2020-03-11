@@ -5,13 +5,13 @@ namespace CrazyBuy.Models
 {
     public class Tenant
     {
-        [Key]        
+        [Key]
         public Guid tenantId { get; set; }
 
         public string tenantCode { get; set; }
 
         public string owner { get; set; }
 
-
+        public int createdMemberId { get; set; }
     }
 }

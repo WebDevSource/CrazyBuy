@@ -34,11 +34,11 @@ namespace CrazyBuy.Controllers
             {
                 Dictionary<string, string> rm = new Dictionary<string, string>();
                 // STEP0: 在產生 JWT Token 之前，可以依需求做身分驗證
-                if (data.ContainsKey("tenantId") && data.ContainsKey("user") && data.ContainsKey("pwd"))
+                if (data.ContainsKey("tenantCode") && data.ContainsKey("user") && data.ContainsKey("pwd"))
                 {
                     string user = data.GetValueOrDefault("user");
                     string pwd = Utils.ConverToMD5(data.GetValueOrDefault("pwd"));
-                    string defaultTenant = data.GetValueOrDefault("tenantId");
+                    string tenantCode = data.GetValueOrDefault("tenantCode");
                     string userName;
                     string userUuid;
                     string tenantId;
@@ -47,8 +47,9 @@ namespace CrazyBuy.Controllers
                     string userNameId;
                     string userType = UserType.GUEST;
 
-                    Member member = DataManager.memberDao.getMemberByCellPhone(Guid.Parse(defaultTenant), user, pwd);
-                    member = member == null ? DataManager.memberDao.getMemberByEmail(Guid.Parse(defaultTenant), user, pwd) : member;
+                    Tenant tenant = DataManager.tenantDao.getTenantByTenantCode(tenantCode);
+                    Member member = DataManager.memberDao.getMemberByCellPhone(tenant.tenantId, user, pwd);
+                    member = member == null ? DataManager.memberDao.getMemberByEmail(tenant.tenantId, user, pwd) : member;
 
                     if (member != null)
                     {
@@ -57,7 +58,7 @@ namespace CrazyBuy.Controllers
                         userUuid = member.memberId.ToString();
                         userNameId = member.name;
                         tenantType = member.tenantType;
-                        userType = CTenantManager.isOwner(userNameId) ? UserType.ADMIN : UserType.MEMBER;
+                        userType = CTenantManager.isOwner(member.memberId) ? UserType.ADMIN : UserType.MEMBER;
                         type = UserType.ADMIN.Equals(userType) ? UserType.ADMIN : LoginType.LOGIN_USER;
                         tenantId = DataManager.tenantMemberDao.getTenantMemberByMemberId(member.memberId).tenantId.ToString();
 
@@ -69,7 +70,7 @@ namespace CrazyBuy.Controllers
                         }
                         else
                         {
-                            tenantId = defaultTenant;
+                            tenantId = tenant.tenantId.ToString();
                         }
                     }
                     else
@@ -81,7 +82,7 @@ namespace CrazyBuy.Controllers
                         userNameId = id;
                         tenantType = "";
                         type = LoginType.GUEST;
-                        tenantId = defaultTenant;
+                        tenantId = tenant.tenantId.ToString();
                     }
 
                     // STEP1: 建立使用者的 Claims 聲明，這會是 JWT Payload 的一部分

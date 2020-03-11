@@ -27,7 +27,7 @@ namespace CrazyBuy
             DataManager.tenantDao.updateTenant(tenant);
         }
 
-        public static bool isOwner(string userId)
+        public static bool isOwner(int userId)
         {
             return DataManager.tenantDao.getTenantByOwner(userId) != null ? true : false;
         }

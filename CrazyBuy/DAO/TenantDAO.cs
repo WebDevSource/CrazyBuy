@@ -16,12 +16,22 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public Tenant getTenantByOwner(string ownerId)
+        public Tenant getTenantByTenantCode(string tenantCode)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 Tenant model = dbContext.Tenant.Where(
-                              m => m.owner == ownerId).FirstOrDefault();
+                              m => m.tenantCode == tenantCode).SingleOrDefault();
+                return model;
+            }
+        }
+
+        public Tenant getTenantByOwner(int ownerId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                Tenant model = dbContext.Tenant.Where(
+                              m => m.createdMemberId == ownerId).FirstOrDefault();
                 return model;
             }
         }
