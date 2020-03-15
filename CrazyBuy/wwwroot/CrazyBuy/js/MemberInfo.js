@@ -1,28 +1,33 @@
 ﻿var MemberApp = angular.module('MemberApp', []).controller('MemberCtrl', function ($scope) {
     $scope.agree = false;
     $scope.checkPwd = '';
-    $scope.member = {};    
+    $scope.member = {};
 
     $scope.submit = function () {
         if ($scope.agree) {
-            if ($scope.checkPwd === $scope.member.password) {
-                Utils.ProcessAjax("/api/member/" + $scope.member.memberId, "POST", true, $scope.member,
-                    function (ret) {
-                        switch (ret.code) {
-                            case 1:
-                                alert('update successful.');
-                                window.location = "index.html?tenantId=" + Utils.GetUrlParameter('tenantId');
-                                break;
-                            case -1:
-                                alert(ret.data);
-                                break;
-                        }
-                    },
-                    function (error) { alert("ajax error") }
-                );
-            } else {
-                alert('please check password.');
+
+            if ($scope.member.password !==null) {
+                if ($scope.checkPwd !== $scope.member.password) {
+                    alert('please check password');
+                    return;
+                }
             }
+
+            Utils.ProcessAjax("/api/member/" + $scope.member.memberId, "POST", true, $scope.member,
+                function (ret) {
+                    switch (ret.code) {
+                        case 1:
+                            alert('update successful.');
+                            window.location = "index.html?tenantCode=" + Utils.TenantCode;
+                            break;
+                        case -1:
+                            alert(ret.data);
+                            break;
+                    }
+                },
+                function (error) { alert("ajax error") }
+            );
+
         } else {
             alert('not agree.');
         }

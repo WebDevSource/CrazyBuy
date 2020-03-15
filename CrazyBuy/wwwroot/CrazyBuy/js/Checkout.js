@@ -56,7 +56,7 @@ var Checkout = {
 
     sendOrder(order) {
         Utils.SetCookie("order", JSON.stringify(order), 1);        
-        window.location.href = 'checkout-success.html?&tenantId=' + Utils.GetUrlParameter("tenantId");
+        window.location.href = 'checkout-success.html?&tenantCode=' + Utils.TenantCode;
     }
 };
 

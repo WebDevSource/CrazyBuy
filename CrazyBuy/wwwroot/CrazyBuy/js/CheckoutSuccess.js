@@ -60,7 +60,7 @@ var CheckoutSuccess = {
                             alert("product not enough.");
                             break;
                         default:
-                            window.location.href = 'order-success.html?tenantId=' + Utils.GetUrlParameter('tenantId') + '&id=' + ret.data;
+                            window.location.href = 'order-success.html?tenantCode=' + Utils.TenantCode + '&id=' + ret.data;
                             break;
                     }
                 } else {

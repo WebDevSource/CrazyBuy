@@ -170,7 +170,7 @@
                 NavBar.RefreshCart(data);
 
             },
-            function (error) { alert("tenant error") }
+            function (error) { alert("tenant error [Cart]") }
         );
 
     },
@@ -288,17 +288,17 @@
     },
 
     login(accountant, pwd) {
-        let tenantId = Utils.GetUrlParameter("tenantId");
+        let tenantCode = Utils.GetUrlParameter("tenantCode");
         let data = {
             "user": accountant,
             "pwd": pwd,
-            "tenantId": tenantId
+            "tenantCode": tenantCode
         };
 
         let result = Utils.AsyncProcessAjax("/api/auth/Login", "Post", "", data);
 
         if (result.code == "1") {
-            Utils.SetCookie(Utils.TenantId + "token", result.token);
+            Utils.SetCookie(Utils.TenantCode + "token", result.token);
             if (Utils.ROLE_GUEST == result.type) {
 
             } else {

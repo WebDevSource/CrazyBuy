@@ -47,7 +47,7 @@ var Order = {
     },
 
     checkDetail(id) {
-        window.location = "order-detail.html?tenantId=" + Utils.GetUrlParameter('tenantId') + '&id=' + id;
+        window.location = "order-detail.html?tenantCode=" + Utils.TenantCode + '&id=' + id;
     },
     
     addContactItem(args) {

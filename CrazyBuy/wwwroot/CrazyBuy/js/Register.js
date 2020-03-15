@@ -10,12 +10,12 @@
                 $scope.member.tenantType = '批發商';
                 $scope.member.status = '正常';
                 $scope.member.creator = 1;
-                Utils.ProcessAjax("/api/member/" + Utils.GetUrlParameter('tenantId'), "PUT", true, $scope.member,
+                Utils.ProcessAjax("/api/member/" + Utils.GetTenantId(), "PUT", true, $scope.member,
                     function (ret) {
                         switch (ret.code) {
                             case 1:
                                 alert('register successful.');
-                                window.location = "index.html?tenantId=" + Utils.GetUrlParameter('tenantId');
+                                window.location = "index.html?tenantCode=" + Utils.TenantCode;
                                 break;
                             case -1:
                                 alert(ret.data);

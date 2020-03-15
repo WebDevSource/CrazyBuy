@@ -7,13 +7,13 @@
     ROLE_ADMIN: 'admin',
     ROLE_MEMBER: 'member',
     ROLE_GUEST: 'guest',
-    TenantId: '',
+    TenantCode: '',
 
    // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
     BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?",
 
     Initial: function async(callback) {
-        Utils.TenantId = Utils.GetUrlParameter("tenantId");
+        Utils.TenantCode = Utils.GetUrlParameter("tenantCode");
         Utils.CheckToken();
         Utils.InitEvent();
         //        Backend.SetupMessageConnect(callback);
@@ -29,7 +29,7 @@
 
             }
             else if (url && url.indexOf('javascript:') < 0) {
-                url += (url.indexOf("?") > 0 ? "&" : "?") + 'tenantId=' + Utils.TenantId;
+                url += (url.indexOf("?") > 0 ? "&" : "?") + 'tenantCode=' + Utils.TenantCode;
                 $(this).attr("href", url);
             }
         });
@@ -124,15 +124,15 @@
     },
 
     ClearToken: function () {
-        Utils.SetCookie(Utils.TenantId + "token", "", 0);
+        Utils.SetCookie(Utils.TenantCode + "token", "", 0);
         Utils.SetCookie("role", Utils.ROLE_GUEST);
     },
 
     CheckToken: function async(callback) {
         var token = "";
-        token = Utils.GetCookie(Utils.TenantId + "token");
-        if (!Utils.TenantId) {
-            alert("tenant error");
+        token = Utils.GetCookie(Utils.TenantCode + "token");
+        if (!Utils.TenantCode) {
+            alert("tenant error [token]");
             location.href = "./error.html";
         } else if (token) {
             Utils.ProcessAjax("/api/values/authorize", "GET", token, "",
@@ -259,7 +259,7 @@
                 },
                 beforeSend: function (xhr) {
                     if (authToken) {
-                        let token = Utils.GetCookie(Utils.TenantId + "token");
+                        let token = Utils.GetCookie(Utils.TenantCode + "token");
                         xhr.setRequestHeader("Authorization", 'Bearer ' + token);
                     }
                 },
@@ -292,7 +292,7 @@
                 },
                 beforeSend: function (xhr) {
                     if (authToken != "") {
-                        let token = Utils.GetCookie(Utils.TenantId + "token");
+                        let token = Utils.GetCookie(Utils.TenantCode + "token");
                         xhr.setRequestHeader("Authorization", 'Bearer ' + token);
                     }
                 },
@@ -608,4 +608,8 @@
         return showPages;
     },
 
+    GetTenantId: function () {
+        var userData = JSON.parse(Utils.GetCookie('user'))
+        return userData.tenantId;
+    }
 };

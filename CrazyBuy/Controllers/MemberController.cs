@@ -21,8 +21,17 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
+                Member dbMember = DataManager.memberDao.getMember(memberId);
+
                 member.memberId = memberId;
-                member.password = Utils.ConverToMD5(member.password);
+                if (member.password == "")
+                {
+                    member.password = dbMember.password;
+                }
+                else
+                {
+                    member.password = Utils.ConverToMD5(member.password);
+                }                
                 DataManager.memberDao.updateMember(member);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = memberId + " update success.";

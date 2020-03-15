@@ -20,7 +20,7 @@ var OrderSuccess = {
     },
 
     checkDetail() {
-        window.location.href = 'order-detail.html?&tenantId=' + Utils.GetUrlParameter("tenantId") + '&id=' + Utils.GetUrlParameter('id');
+        window.location.href = 'order-detail.html?&tenantCode=' + Utils.TenantCode + '&id=' + Utils.GetUrlParameter('id');
     }
 };
 
