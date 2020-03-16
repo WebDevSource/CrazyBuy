@@ -180,7 +180,7 @@
         let imageUrl = "./images/noitem.jpg";
         if (data.prdImages) {
             let images = data.prdImages ? JSON.parse(data.prdImages) : "";
-            imageUrl = Utils.BackendUrl + images[0].filename;
+            imageUrl = Utils.BackendUrl + "id=" + data.productId + "&filename=" + images[0].filename;
         }
         let html = '<div class="row mx-0 nav-cart-item py-2">'
             + ' <a href="' + url + '" class="col-sm-3 col-2 px-0 d-flex align-items-center">'

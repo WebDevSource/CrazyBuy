@@ -581,7 +581,7 @@
         let imageUrl = "./images/noitem.jpg";
         if (data.prdImages) {
             let images = data.prdImages ? JSON.parse(data.prdImages) : "";
-            imageUrl = Utils.BackendUrl + "id=" + data.productId + "&filename="  + images[0].filename;
+            imageUrl = Utils.BackendUrl + "id=" + data.id + "&filename="  + images[0].filename;
         }
         return imageUrl;
     },
