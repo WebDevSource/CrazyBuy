@@ -117,42 +117,44 @@
         <h5 class="my-20 order-title">帳號密碼</h5>
         <hr>
         <div class="row d-flex flex-wrap">
-          <div class="col-md-6 col-12 mb-3 order-0">
-            <p class="mb-2"><label for="">Email</label></p>
-            <input class="w-100" type="email" ng-model="member.email" required="required">
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-md-1 order-2">
-            <p class="mb-2 "><label for="">輸入密碼</label></p>
-            <input class="w-100" type="password" ng-model="member.password">
-            <span class="register-password"></span>
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-md-2 order-1">
-            <p class="mb-2"><label for="">手機號碼</label></p>
-            <input class="w-100" type="text" ng-model="member.cellphone" required="required">
-            <p class="register-ps mb-0">註：Email或手機即是以後登入的會員帳號</p>
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-3">
-            <p class="mb-2 "><label for="">再次輸入密碼</label></p>
-            <input class="w-100" type="password" ng-model="checkPwd">
-            <span class="register-password"></span>
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-4">
-            <p class="mb-2"><label for="">會員訊息</label></p>
-            <input  type="radio" name="member-msg" id="receive-msg">
-            <label class="checkout-radio-label" for="receive-msg">寄給我</label>
-            <input  type="radio" name="member-msg" id="norecive-mg">
-            <label class="checkout-radio-label" for="norecive-mg">不要寄給我</label>
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-5">
-            <p class="mb-2"><label for="">訂閱電子報</label></p>
-            <input  type="radio" name="subscribe-edm" id="subscribe">
-            <label class="checkout-radio-label" for="subscribe">訂閱</label>
-            <input  type="radio" name="subscribe-edm" id="no-subscribe">
-            <label class="checkout-radio-label" for="no-subscribe">不要訂閱</label>
-          </div>
-          <div class="col-12 mb-3 order-5 text-center my-30">
-            <input  type="checkbox" name="" id="agree-register" ng-model="agree"> <span class="mb-2"><label for="agree-register">我已經詳閱上述會員說明</label></span>
-          </div>
+            <div class="col-md-6 col-12 mb-3 order-0">
+                <p class="mb-2"><label for="">Email</label></p>
+                <input class="w-100" type="email" ng-model="member.email" required="required">
+            </div>
+            <div class="col-md-6 col-12 mb-3 order-md-1 order-2">
+                <p class="mb-2 "><label for="">輸入密碼</label></p>
+                <input class="w-100" type="password" ng-model="member.password">
+                <span class="register-password"></span>
+            </div>
+            <div class="col-md-6 col-12 mb-3 order-md-2 order-1">
+                <p class="mb-2"><label for="">手機號碼</label></p>
+                <input class="w-100" type="text" ng-model="member.cellphone" required="required">
+                <p class="register-ps mb-0">註：Email或手機即是以後登入的會員帳號</p>
+            </div>
+            <div class="col-md-6 col-12 mb-3 order-3">
+                <p class="mb-2 "><label for="">再次輸入密碼</label></p>
+                <input class="w-100" type="password" ng-model="checkPwd">
+                <span class="register-password"></span>
+            </div>
+            <!--
+    <div class="col-md-6 col-12 mb-3 order-4">
+      <p class="mb-2"><label for="">會員訊息</label></p>
+      <input  type="radio" name="member-msg" id="receive-msg">
+      <label class="checkout-radio-label" for="receive-msg">寄給我</label>
+      <input  type="radio" name="member-msg" id="norecive-mg">
+      <label class="checkout-radio-label" for="norecive-mg">不要寄給我</label>
+    </div>
+    <div class="col-md-6 col-12 mb-3 order-5">
+      <p class="mb-2"><label for="">訂閱電子報</label></p>
+      <input  type="radio" name="subscribe-edm" id="subscribe">
+      <label class="checkout-radio-label" for="subscribe">訂閱</label>
+      <input  type="radio" name="subscribe-edm" id="no-subscribe">
+      <label class="checkout-radio-label" for="no-subscribe">不要訂閱</label>
+    </div>
+    <div class="col-12 mb-3 order-5 text-center my-30">
+      <input  type="checkbox" name="" id="agree-register" ng-model="agree"> <span class="mb-2"><label for="agree-register">我已經詳閱上述會員說明</label></span>
+    </div>
+          -->
         </div>
         <div class="d-flex justify-content-center align-items-center">
           <button class="btn btn-register register-submit-btn">提交表單</button>

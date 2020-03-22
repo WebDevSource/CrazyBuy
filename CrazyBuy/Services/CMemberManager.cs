@@ -23,7 +23,7 @@ namespace CrazyBuy.Services
                 tenantMember.tenantId = tenantId;
                 tenantMember.memberId = memberId;
                 tenantMember.isBlockade = false;
-                tenantMember.status = "0";
+                tenantMember.status = "待審核";
                 tenantMember.creator = member.memberId;
                 tenantMember.createTime = now;
                 tenantMember.updateTime = now;

@@ -14,7 +14,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" select m.* from [Member] m ";
                 sql += @" left join [TenantMember] t on t.memberId = m.memberId ";
-                sql += @" where t.tenantId = '{0}' and m.cellphone = '{1}' ";
+                sql += @" where t.tenantId = '{0}' and m.cellphone = '{1}' and t.status = N'啟用' ";
                 string query = String.Format(sql, tenantId.ToString(), phone);
                 MDebugLog.debug("[getMemberByCellPhone]>" + query);
                 return dbContext.Database.SqlQuery<Member>(query).SingleOrDefault();
@@ -27,7 +27,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" select m.* from [Member] m ";
                 sql += @" left join [TenantMember] t on t.memberId = m.memberId ";
-                sql += @" where t.tenantId = '{0}' and m.email = '{1}' ";
+                sql += @" where t.tenantId = '{0}' and m.email = '{1}' and t.status = N'啟用'";
                 string query = String.Format(sql, tenantId.ToString(), mail);
                 return dbContext.Database.SqlQuery<Member>(query).SingleOrDefault();
             }
@@ -39,7 +39,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" select m.* from [Member] m ";
                 sql += @" left join [TenantMember] t on t.memberId = m.memberId ";
-                sql += @" where t.tenantId = '{0}' and m.cellphone = '{1}' and m.password = '{2}' ";
+                sql += @" where t.tenantId = '{0}' and m.cellphone = '{1}' and m.password = '{2}' and t.status = N'啟用' ";
                 string query = String.Format(sql, tenantId.ToString(), phone, pwd);
                 MDebugLog.debug("[getMemberByCellPhone]>" + query);
                 return dbContext.Database.SqlQuery<Member>(query).SingleOrDefault();
@@ -52,7 +52,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" select m.* from [Member] m ";
                 sql += @" left join [TenantMember] t on t.memberId = m.memberId ";
-                sql += @" where t.tenantId = '{0}' and m.email = '{1}' and m.password = '{2}' ";
+                sql += @" where t.tenantId = '{0}' and m.email = '{1}' and m.password = '{2}' and t.status = N'啟用' ";
                 string query = String.Format(sql, tenantId.ToString(), mail, pwd);
                 return dbContext.Database.SqlQuery<Member>(query).SingleOrDefault();
             }

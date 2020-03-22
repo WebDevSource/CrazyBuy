@@ -11,7 +11,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"select * from [TenantPrdCat] where tenantId = '{0}' and parentId IS NULL";
+                var sql = @"select * from [TenantPrdCat] where tenantId = '{0}' and parentId IS NULL and status = N'正常'";
                 string query = String.Format(sql, tenantId.ToString());
                 return dbContext.Database.SqlQuery<TenantPrdCat>(query).ToList();
             }
@@ -21,8 +21,8 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"select * from [TenantPrdCat] where tenantId = '{0}' order by parentId asc";
-                string query = String.Format(sql, tenantId.ToString());
+                var sql = @"select * from [TenantPrdCat] where tenantId = '{0}' and status = N'正常'  order by parentId asc";
+                string query = String.Format(sql, tenantId.ToString(),"正常");
                 return dbContext.Database.SqlQuery<TenantPrdCat>(query).ToList();
             }
         }
@@ -31,7 +31,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"select * from [TenantPrdCat] where tenantId = '{0}' and parentId = {1}";
+                var sql = @"select * from [TenantPrdCat] where tenantId = '{0}' and parentId = {1} and status = N'正常'";
                 string query = String.Format(sql, tenantId, parentId);
                 return dbContext.Database.SqlQuery<TenantPrdCat>(query).ToList();
             }

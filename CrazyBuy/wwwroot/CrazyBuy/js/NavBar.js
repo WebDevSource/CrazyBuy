@@ -299,16 +299,17 @@
 
         if (result.code == "1") {
             Utils.SetCookie(Utils.TenantCode + "token", result.token);
-            if (Utils.ROLE_GUEST == result.type) {
 
-            } else {
-                if (accountant.toLowerCase() == "admin") {
-                    Utils.SetCookie("role", Utils.ROLE_ADMIN);
-                } else {
-                    Utils.SetCookie("role", Utils.ROLE_MEMBER);
-                }
-                Utils.SetCookie("user", JSON.stringify(result));
+            if (accountant.toLowerCase() == "admin") {
+                Utils.SetCookie("role", Utils.ROLE_ADMIN);
+            } else if (Utils.ROLE_GUEST == result.type) {
+                Utils.SetCookie("role", Utils.ROLE_GUEST);
             }
+            else {
+                Utils.SetCookie("role", Utils.ROLE_MEMBER);
+            }
+            Utils.SetCookie("user", JSON.stringify(result));
+
         } else {
             alert("User Authorization Error, Login Again Please.");
         }

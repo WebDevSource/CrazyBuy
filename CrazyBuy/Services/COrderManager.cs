@@ -59,7 +59,7 @@ namespace CrazyBuy.Services
                     detail.qty = item.count;
                     detail.unitPrice = item.amount / item.count;
                     detail.amount = item.amount;
-                    detail.status = "0";
+                    detail.status = "正常";
                     detail.createTime = now;
                     detail.updateTime = now;
                     total += item.amount;
@@ -88,6 +88,7 @@ namespace CrazyBuy.Services
                     orderMaster.orderAmount = total;
                     orderMaster.totalAmount = total;
                     orderMaster.shippingAmount = total;
+                    orderMaster.status = "新訂單";
                     orderResult = DataManager.orderDao.addOrderMaster(orderMaster);
                     foreach (OrderDetail item in detailList)
                     {
