@@ -16,6 +16,7 @@ namespace CrazyBuy
     {
         public const string ADMIN = "admin";
         public const string MEMBER = "member";
+        public const string SPC_MEMBER = "spc_member";
         public const string GUEST = "guest";
     }
 
@@ -159,5 +160,10 @@ namespace CrazyBuy
         public int maxPage { get; set; }
         public int page { get; set; }
         public object result { get; set; }
+    }
+
+    public class CustSpcPrice
+    {
+        public int price { get; set; }
     }
 }

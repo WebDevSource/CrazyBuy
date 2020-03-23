@@ -17,18 +17,9 @@ namespace CrazyBuy.Services
 
         public static IEnumerable<Dictionary<string, object>> getPrdListByCat(PrdPageQuery query)
         {
-            string key = query.getKey() + "getPrdListByCat";
-            if (CacheResult.isKeyExist(key))
-            {
-                return (IEnumerable<Dictionary<string, object>>)CacheResult.getData(key);
-            }
-            else
-            {
-                List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(query);
-                IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType);
-                CacheResult.setData(key, result);
-                return result;
-            }
+            List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(query);
+            IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType);
+            return result;
         }
 
         public static IEnumerable<Dictionary<string, object>> getPrdList(List<TenantPrd> prds, string userType)
@@ -45,20 +36,18 @@ namespace CrazyBuy.Services
         public static PrdPrice getPrdPrice(TenantPrd prd, string userType)
         {
             PrdPrice prdPrice = new PrdPrice();
-            string type;
-            int price;
+            string type = UserType.GUEST;
+            int price = int.MaxValue;
 
-            if (LoginType.LOGIN_USER.Equals(userType))
+            List<PrdPrice> prices = getPrdPrices(prd, userType);
+            foreach (PrdPrice itemPrice in prices)
             {
-                price = prd.memberPrice == null ? 0 : (int)prd.memberPrice;
-                type = CHType.PRICE_MEMBER;
+                if (itemPrice.price < price)
+                {
+                    price = itemPrice.price;
+                    type = itemPrice.type;
+                }
             }
-            else
-            {
-                price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
-                type = CHType.PRICE_NORMAL;
-            }
-
             prdPrice.price = price;
             prdPrice.type = type;
             return prdPrice;
@@ -97,7 +86,30 @@ namespace CrazyBuy.Services
                     prdPriceAdmin.price = prd.transferPrice == null ? 0 : (int)prd.transferPrice;
                     prdPriceAdmin.type = CHType.PRICE_NTRANS;
                     prices.Add(prdPriceAdmin);
+                    break;
+                default:
+                    if (userType.StartsWith(UserType.SPC_MEMBER))
+                    {
+                        string custGrade = userType.Split(":")[1];
+                        PrdPrice prdPriceSPCMember = new PrdPrice();
+                        prdPriceSPCMember.price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
+                        prdPriceSPCMember.type = CHType.PRICE_NORMAL;
+                        prices.Add(prdPriceSPCMember);
 
+                        prdPriceSPCMember = new PrdPrice();
+                        prdPriceSPCMember.price = prd.memberPrice == null ? 0 : (int)prd.memberPrice;
+                        prdPriceSPCMember.type = CHType.PRICE_MEMBER;
+                        prices.Add(prdPriceSPCMember);
+
+                        int spc_price = DataManager.tenantPrdDao.getSpcTenantPrdPrice(prd.tenantId, prd.id, int.Parse(custGrade));
+                        if (spc_price != 0)
+                        {
+                            prdPriceSPCMember = new PrdPrice();
+                            prdPriceSPCMember.price = prd.transferPrice == null ? 0 : spc_price;
+                            prdPriceSPCMember.type = CHType.PRICE_VIPTRANS;
+                            prices.Add(prdPriceSPCMember);
+                        }
+                    }
                     break;
             }
             return prices;
@@ -105,17 +117,8 @@ namespace CrazyBuy.Services
 
         public static int getTenantPrdCount(Guid tenantId, long catId)
         {
-            string key = tenantId.ToString() + catId + "getTenantPrdCount";
-            if (CacheResult.isKeyExist(key))
-            {
-                return (int)CacheResult.getData(key);
-            }
-            else
-            {
-                int count = DataManager.tenantPrdDao.getCountByCatId(tenantId, catId);
-                CacheResult.setData(key, count);
-                return count;
-            }
+            int count = DataManager.tenantPrdDao.getCountByCatId(tenantId, catId);
+            return count;
         }
 
         public static Dictionary<string, object> getPrdItem(TenantPrd prd, string userType)

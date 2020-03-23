@@ -94,7 +94,7 @@
                     <td class="cart-item-title" ng-init="CalculateSum(cart)">{{cart.name}}</td>
                     <td class="table-center table-badge"></td>
                     <td class="table-center cart-price">
-                        <p class="mb-0 table-member-price">會員價</p>
+                        <p class="mb-0 table-member-price">{{cart.type}}</p>
                         <p class="mb-0">{{cart.amount/cart.count}}</p>
                     </td>
                     <td class="table-center cart-num">{{cart.count}}</td>

@@ -64,7 +64,9 @@ var Cart = {
                             let images = value.prdImages ? JSON.parse(value.prdImages) : "";
                             imageUrl = Utils.BackendUrl + "id=" + value.productId + "&filename=" + images[0].filename;
                         }
-                        $scope.carts[index].prdImages = imageUrl;       
+                        value.type = i18next.t("price_" + value.type);
+                        $scope.carts[index].prdImages = imageUrl;
+                        $scope.carts[index].type = value.type;       
                     });
 
                     $scope.$apply();
