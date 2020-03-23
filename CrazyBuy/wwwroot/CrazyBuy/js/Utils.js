@@ -132,9 +132,19 @@
         var token = "";
         token = Utils.GetCookie(Utils.TenantCode + "token");
         if (!Utils.TenantCode) {
-            alert("tenant error [token]");
+            //alert(i18next.t("msg_tenant_not_find"));
             location.href = "./error.html";
-        } else if (token) {
+            return;
+        } else {
+            let ret = Utils.AsyncProcessAjax("/api/tenant/isExist/" + Utils.TenantCode, "GET", "", "");
+            if (!ret.data) {
+                //alert(i18next.t("msg_tenant_not_find"));
+                location.href = "./error.html";
+                return;
+            }
+        }
+
+        if (token) {
             Utils.ProcessAjax("/api/values/authorize", "GET", token, "",
                 function (result) {
                     //alert(JSON.stringify(result));
@@ -155,8 +165,7 @@
 
                 },
                 function (result) {
-                    alert(JSON.stringify(result));
-                    alert("User Authorization Error, Login Again Please.");
+                    alert(i18next.t("msg_service_error"));
 
                     Utils.ClearToken();
 
@@ -300,7 +309,7 @@
                     result = ret;
                 },
                 error(ret) {
-                    alert(ret);
+                     alert(ret);
                 }
             });
             return result;
@@ -579,7 +588,9 @@
 
     GetImageUrl: function (data) {
         let imageUrl = "./images/noitem.jpg";
-        if (data.prdImages) {
+        if (Utils.getRole() == Utils.ROLE_GUEST) {
+            
+        }else if (data.prdImages) {
             let images = data.prdImages ? JSON.parse(data.prdImages) : "";
             imageUrl = Utils.BackendUrl + "id=" + data.id + "&filename="  + images[0].filename;
         }
@@ -611,5 +622,11 @@
     GetTenantId: function () {
         var userData = JSON.parse(Utils.GetCookie('user'))
         return userData.tenantId;
+    },
+
+    parseTextToHtml: function (text) {
+        text = text.replace('\r\n', '</br>')
+            .replace('\n','</br>');
+        return text;
     }
 };

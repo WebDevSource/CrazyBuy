@@ -12,7 +12,7 @@ ProductItem = {
             + '  <div class="col-md-9 col-8 product-col-info ">'
             + '    <h5 class="card-title products-title-color">' + data.name + '</h5>'
             + '    <p class="product-text-info">'
-            + data.summary
+            + Utils.parseTextToHtml(data.summary)
             + '</p>'
             + '    <div class="d-flex flex-wrap">'
             + ProductItem.getTagHtml(data, role)
@@ -61,11 +61,11 @@ ProductItem = {
         if (role == Utils.ROLE_GUEST) {
             return html;
         }
-        if (true) {
-            html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_addCart") + '</span ><i class="fas fa-cart-plus mobile-cart-btn"></i></button>';
-        } else {
-            html += '<button class="product-addto-cart product-soldout-cart"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_soldout") + '</span ><i class="fas fa-shopping-cart mobile-cart-btn"></i></button>';
-        }
+//        if (true) {
+ //           html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_addCart") + '</span ><i class="fas fa-cart-plus mobile-cart-btn"></i></button>';
+ //       } else {
+ //           html += '<button class="product-addto-cart product-soldout-cart"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_soldout") + '</span ><i class="fas fa-shopping-cart mobile-cart-btn"></i></button>';
+ //       }
         //html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')"> <span class="desktop-cart-btn" >' + i18next.t("btn_product_addCart") + '</span ><i class="fas fa-cart-plus mobile-cart-btn"></i></button>';
         //       if (role == Utils.ROLE_ADMIN) {
         //               html += '<button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" onClick=ProductCard.openUrl("'+ "http://yahoo.com.tw" +'")>' + i18next.t("btn_edit")

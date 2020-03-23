@@ -57,11 +57,11 @@ ProductCard = {
         if (role == Utils.ROLE_GUEST) {
             return html;
         }
-        if (true) {
-            html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')">' + i18next.t("btn_product_addCart") + '</button>     ';
-        } else {
-            html += '<button class="product-addto-cart product-soldout-cart" onclick="">' + i18next.t("btn_product_soldout") + '</button>     ';
-        }
+ //       if (true) {
+ //           html += '<button class="product-addto-cart" onclick="ProductCard.addCart(\'' + data.id + '\')">' + i18next.t("btn_product_addCart") + '</button>     ';
+//        } else {
+ //           html += '<button class="product-addto-cart product-soldout-cart" onclick="">' + i18next.t("btn_product_soldout") + '</button>     ';
+ //       }
         if (role == Utils.ROLE_ADMIN) {
             html += '<button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" onClick=ProductCard.openUrl("' + "http://yahoo.com.tw" + '")>' + i18next.t("btn_edit")
                 + '</button>';
@@ -117,7 +117,7 @@ ProductCard = {
             function (ret) {
                 if (ret.code == 1) {
                     NavBar.getCartData();
-                    alert("Add Cart Success");
+                    alert(i18next.t("msg_cart_add_success"));
                 }
             }
         );

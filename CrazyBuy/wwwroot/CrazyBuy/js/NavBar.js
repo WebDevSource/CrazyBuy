@@ -170,7 +170,10 @@
                 NavBar.RefreshCart(data);
 
             },
-            function (error) { alert("tenant error [Cart]") }
+            function (error) {
+                //alert("tenant error [Cart]")
+                alert(i18next.t("msg_service_error"));
+            }
         );
 
     },
@@ -241,7 +244,8 @@
             function (ret) {
                 if (ret.code == 1) {
                     NavBar.getCartData();
-                    alert("Clean Cart Success");
+                    //alert("Clean Cart Success");
+                    alert(i18next.t("msg_cart_clear_success"));
                 }
             }
         );
@@ -311,7 +315,8 @@
             Utils.SetCookie("user", JSON.stringify(result));
 
         } else {
-            alert("User Authorization Error, Login Again Please.");
+           // alert("User Authorization Error, Login Again Please.");
+            alert(i18next.t("msg_login_error"));
         }
         return Utils.ROLE_GUEST != result.type;
 

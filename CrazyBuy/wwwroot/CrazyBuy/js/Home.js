@@ -21,7 +21,9 @@
 			function (ret) {
 				Home.initProductList(ret.data);
 			},
-			function (error) {alert("tenant error [product]") }
+			function (error) {
+				alert(i18next.t("msg_tenant_not_find"));
+			}
 		);
 
     },

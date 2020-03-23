@@ -11,15 +11,14 @@ namespace CrazyBuy.Controllers
     [Route("api/[controller]/[action]")]
     public class TenantController : Controller
     {
-        [HttpGet("{tenantId}")]
-        public ActionResult isExist(string tenantId)
+        [HttpGet("{tenantCode}")]
+        public ActionResult isExist(string tenantCode)
         {
             ReturnMessage rm = new ReturnMessage();
             bool isExist = false;
             try
             {
-                Guid id = Guid.Parse(tenantId);
-                Tenant tenant = DataManager.tenantDao.getTenant(id);
+                Tenant tenant = DataManager.tenantDao.getTenantByTenantCode(tenantCode);
                 if (tenant != null)
                 {
                     isExist = true;

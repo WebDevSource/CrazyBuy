@@ -50,6 +50,9 @@ var ProductInner = {
         item.prices = ProductInner.getPricesHtml(item.prices, role);
         item.shipType = JSON.parse(item.shipType) ? JSON.parse(item.shipType).toString() : "";
         item.paymentType = JSON.parse(item.paymentType) ? JSON.parse(item.paymentType).toString() : "";
+        item.summary = Utils.parseTextToHtml(item.summary);
+        item.desc = Utils.parseTextToHtml(item.desc);
+
         for (let key in item) {
             $("[data-name=" + key + "]").append(item[key]);
         }
@@ -174,19 +177,20 @@ var ProductInner = {
         }
 
         let data = {
-            productId: ProductInner.id,
+            productId: parseInt(ProductInner.id),
             count: parseInt($(".product-nums").val())
         }
         Utils.ProcessAjax("/api/ShopCart", "PUT", true, data,
             function (ret) {
                 if (ret.code == 1) {
                     NavBar.getCartData();
-                    alert("Add Cart Success");
+                    alert(i18next.t("msg_cart_add_success"));
                 }
             }
         );
 
     }
+
 
 
 };

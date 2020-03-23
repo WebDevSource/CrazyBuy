@@ -126,6 +126,12 @@
   "msg_error_image_carousel": "[多圖]  需加入圖片及輸入圖片點擊內容",
 
   "msg_content_error_title": "格式錯誤，訊息如下 \n",
-  "msg_content_error": "問題[ ${question} ]，異常訊息: ${errorMsg}\n"
+  "msg_content_error": "問題[ ${question} ]，異常訊息: ${errorMsg}\n",
+  "msg_login_error": "帳號/密碼錯誤 或帳號尚未開通!",
+ 
+  "msg_cart_add_success": "加入購物車成功",
+  "msg_cart_clear_success": "清除購物車成功",
+  "msg_tenant_not_find": "此商成不存在",
+  "msg_service_error": "伺服器發生錯誤 請重新整理!"
 
 }
