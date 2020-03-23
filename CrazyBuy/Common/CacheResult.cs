@@ -13,6 +13,10 @@ namespace CrazyBuy.Common
 
         public static void setData(string key, object data)
         {
+            if (cache.ContainsKey(key))
+            {
+                remove(key);
+            }
             MDebugLog.debug("[CacheResult-setData] key:" + key);
             cache.Add(key, data);
         }

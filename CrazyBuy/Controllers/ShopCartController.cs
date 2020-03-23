@@ -95,6 +95,7 @@ namespace CrazyBuy.Controllers
                 shopCart.createTime = DateTime.Now;
                 shopCart.count = value.count;
                 shopCart.amount = prdPrice.price * value.count;
+                shopCart.type = prdPrice.type;
                 shopCart.tenantId = tenantId;
 
                 DataManager.shopCartDao.addItem(shopCart);

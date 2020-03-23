@@ -60,12 +60,15 @@ namespace CrazyBuy.Controllers
                         tenantType = member.tenantType;
                         userType = CTenantManager.isOwner(member.memberId) ? UserType.ADMIN : UserType.MEMBER;
                         type = UserType.ADMIN.Equals(userType) ? UserType.ADMIN : LoginType.LOGIN_USER;
-                        tenantId = DataManager.tenantMemberDao.getTenantMemberByMemberId(member.memberId).tenantId.ToString();
+
+                        TenantMember tenantMember = DataManager.tenantMemberDao.getTenantMemberByMemberId(member.memberId);
+                        tenantId = tenantMember.tenantId.ToString();
 
                         if (tenantId != null)
                         {
                             // updateLoginTime
                             member.dtLastLogin = DateTime.Now;
+                            type = tenantMember.custPriceGradeId == null ? type : UserType.SPC_MEMBER + ":" + tenantMember.custPriceGradeId;
                             DataManager.memberDao.updateMember(member);
                         }
                         else

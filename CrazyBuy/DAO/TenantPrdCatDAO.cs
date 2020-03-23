@@ -17,13 +17,19 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public List<TenantPrdCat> getAllPrdCats(Guid tenantId)
+        public List<TenantPrdCatCount> getAllPrdCats(Guid tenantId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"select * from [TenantPrdCat] where tenantId = '{0}' and status = N'正常'  order by parentId asc";
-                string query = String.Format(sql, tenantId.ToString(),"正常");
-                return dbContext.Database.SqlQuery<TenantPrdCat>(query).ToList();
+                var sql = @" select c.* ,  ";
+                sql += @" (select count(id) from TenantPrdCatAd tpca where tpca.ancestorId  = c.id) as count , ";
+                sql += @" ( select count(cr.id) from TenantPrdCatRel cr  ";
+                sql += @"   left join TenantPrd prd on prd.id = cr.prdId ";
+                sql += @"   where cr.catId  = c.id and cr.status = N'正常' ";
+                sql += @"   and prd.status = N'上架' ) as pcount ";
+                sql += @" from [TenantPrdCat] c where tenantId = '{0}' and status = N'{1}'  order by parentId asc ";
+                string query = String.Format(sql, tenantId.ToString(), "正常");
+                return dbContext.Database.SqlQuery<TenantPrdCatCount>(query).ToList();
             }
         }
 
