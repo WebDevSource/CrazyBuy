@@ -30,7 +30,7 @@ var ProductInner = {
 
     InitProductItem(item) {
         let urlItems = ["./images/noitem.jpg"];
-        if (item.prdImages) {
+        if (item.prdImages && Utils.getRole() != Utils.ROLE_GUEST) {
             let baseUrl = Utils.BackendUrl;
             urlItems = [];
             let urls = JSON.parse(item.prdImages);

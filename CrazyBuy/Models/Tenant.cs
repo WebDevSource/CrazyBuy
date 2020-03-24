@@ -13,5 +13,11 @@ namespace CrazyBuy.Models
         public string owner { get; set; }
 
         public int createdMemberId { get; set; }
+
+        public DateTime updateTime { get; set; }
+
+        public DateTime createTime { get; set; }
+        
+        public string status { get; set; }
     }
 }

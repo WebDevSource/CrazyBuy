@@ -69,5 +69,30 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+        [HttpPost]
+        public ActionResult Register([FromBody]int memberId, Tenant tenant)
+        {
+            ReturnMessage rm = new ReturnMessage();
+            Guid tenantId = Guid.NewGuid();
+
+            try
+            {
+                tenant.tenantId = tenantId;
+                tenant.status = "審核中";
+                tenant.createTime = DateTime.Now;
+                tenant.updateTime = DateTime.Now;
+
+                DataManager.tenantDao.addTenant(tenant);
+
+                rm.code = MessageCode.SUCCESS;
+                rm.data = tenantId;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
     }
 }

@@ -285,8 +285,8 @@
         if (NavBar.login(accountant, pwd)) {
             window.location.reload();
         } else {
-            alert("User Authorization Error, Check  Again Accountant  Password.");
-
+ //           alert("User Authorization Error, Check  Again Accountant  Password.");
+            alert(i18next.t("msg_login_error"));
         }
 
     },
