@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CrazyBuy.Models
 {
@@ -9,7 +10,10 @@ namespace CrazyBuy.Models
         public int id { get; set; }
         public Guid tenantId { get; set; }
         public int memberId { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string serialNo { get; set; }
+
         public DateTime dtOrder { get; set; }
         public string recipientName { get; set; }
         public string recipientGender { get; set; }

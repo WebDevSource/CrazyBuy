@@ -2,7 +2,7 @@
     $scope.checkout = {};
 
     $scope.submit = function () {
-        $scope.checkout.serialNo = Utils.FormatDate(new Date(), null);
+        //$scope.checkout.serialNo = Utils.FormatDate(new Date(), null);
         if ($scope.checkout.isNeedInvoice === "empty") {
             $scope.checkout.isNeedInvoice = true;
         } else {

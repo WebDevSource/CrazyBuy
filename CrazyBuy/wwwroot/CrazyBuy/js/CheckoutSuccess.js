@@ -36,7 +36,11 @@ var CheckoutSuccess = {
                     };
                     $scope.carts = ret.data;
                     $.each($scope.carts, function (index, value) {
-                        $scope.carts[index].prdImages = Utils.GetImageUrl(value);
+                        if (value.prdImages) {
+                            let images = value.prdImages ? JSON.parse(value.prdImages) : "";
+                            $scope.carts[index].prdImages = Utils.BackendUrl + "id=" + value.productId + "&filename=" + images[0].filename;
+                        }
+
                     });
                     $scope.$apply();
                 } else {

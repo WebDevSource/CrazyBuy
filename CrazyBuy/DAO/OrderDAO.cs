@@ -25,7 +25,7 @@ namespace CrazyBuy.DAO
                 var sql = @" SELECT m.*,r.name as userName FROM [OrderMaster] m ";
                 sql += @" LEFT JOIN [Member] r on r.memberId = m.memberId ";
                 sql += @" WHERE m.Id = {0} ";
-                var query = String.Format(sql, id);                
+                var query = String.Format(sql, id);
                 return dbContext.Database.SqlQuery<OrderMasterUser>(query).FirstOrDefault();
             }
         }
@@ -35,8 +35,8 @@ namespace CrazyBuy.DAO
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 var sql = @" SELECT * FROM [OrderMaster] WHERE memberId = {0} order by id desc ";
-                var query = String.Format(sql, memberId);                
-                return (List<OrderMaster>)dbContext.Database.SqlQuery<OrderMaster>(query).ToList();                
+                var query = String.Format(sql, memberId);
+                return (List<OrderMaster>)dbContext.Database.SqlQuery<OrderMaster>(query).ToList();
             }
         }
         public List<OrderPrdDetail> getDetailLists(int id)
