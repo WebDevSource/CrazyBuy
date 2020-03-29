@@ -15,5 +15,6 @@ namespace CrazyBuy.Models
         [Key]
         public string name { get; set; }
         public List<Town> areas { get; set; }
+        public int id { get; set; }
     }
 }

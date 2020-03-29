@@ -29,5 +29,8 @@ namespace CrazyBuy.Models
         public DateTime? updateTime { get; set; }
         public int? creator { get; set; }
         public int? updater { get; set; }
+ //       public int? townId { get; set; }
+ //       public int? cityId { get; set; }
+ //       public int? zipCode { get; set; }
     }
 }

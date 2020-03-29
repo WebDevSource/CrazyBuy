@@ -318,7 +318,7 @@
            // alert("User Authorization Error, Login Again Please.");
             alert(i18next.t("msg_login_error"));
         }
-        return Utils.ROLE_GUEST != result.type;
+        return result.type && (Utils.ROLE_GUEST != result.type);
 
     },
 

@@ -10,11 +10,12 @@ var Cart = {
     doLoad() {
         Utils.Initial();
         Utils.InitI18next("zh-TW", ["cart","products"], Cart.InitModule);
-        Cart.checkPrdCount();
+
     },
 
     InitModule() {
         NavBar.Init();
+        Cart.checkPrdCount();
     },
 
     checkPrdCount() {

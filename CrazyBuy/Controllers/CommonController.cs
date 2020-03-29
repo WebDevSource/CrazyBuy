@@ -35,6 +35,7 @@ namespace CrazyBuy.Controllers
                     Area area = new Area
                     {
                         name = city.cityName,
+                        id = city.cityId,
                         areas = list
                     };
                     areas.Add(area);

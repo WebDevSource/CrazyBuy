@@ -1,7 +1,11 @@
 ﻿var MemberApp = angular.module('MemberApp', []).controller('MemberCtrl', function ($scope) {
-    $scope.agree = false;
+    $scope.agree = true;
     $scope.checkPwd = '';
     $scope.member = {};
+    $scope.update = function (selectedValue) {
+        $scope.level2 = selectedValue.areas;
+    };
+
 
     $scope.submit = function () {
         if ($scope.agree) {
@@ -12,6 +16,10 @@
                     return;
                 }
             }
+            if ($scope.SelArea.includes(':')) {
+                $scope.member.townId = $scope.SelArea.split(':')[0];
+            }
+            $scope.member.cityId = $scope.SelCity.id;
 
             Utils.ProcessAjax("/api/member/" + $scope.member.memberId, "POST", true, $scope.member,
                 function (ret) {
@@ -44,6 +52,7 @@ var MemberInfo = {
     InitModule() {
         NavBar.Init();
         MemberInfo.InitView();
+        MemberInfo.getPlaces();
     },
 
     InitView() {
@@ -57,6 +66,21 @@ var MemberInfo = {
                     let appElement = document.querySelector('[ng-controller=MemberCtrl]');
                     let $scope = angular.element(appElement).scope();
                     $scope.member = ret.data;
+                    $scope.$apply();
+                } else {
+                    alert("service error");
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
+    },
+    getPlaces() {
+        Utils.ProcessAjax("/api/Common/getPlaces", "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let appElement = document.querySelector('[ng-controller=MemberCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    $scope.Citys = ret.data;
                     $scope.$apply();
                 } else {
                     alert("service error");
