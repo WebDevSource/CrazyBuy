@@ -1,6 +1,9 @@
 ﻿
 var ProductInner = {
+
     id: 0,
+
+    isRadio: false,
 
     doLoad() {
         Utils.Initial();
@@ -39,11 +42,14 @@ var ProductInner = {
                 urlItems.push(baseUrl + "id=" + item.id + "&filename=" + urls[key].filename);
             }
         }
-        if (true) {
-            $(".addCart").show();
-        } else {
+
+        if (item.count < 1 && item.zeroStock) {
+            $(".soldoutCart").text(item.zeroStock);
             $(".soldoutCart").show();
+        } else {
+            $(".addCart").show();
         }
+
         let role = Utils.getRole();
         ProductInner.InitImages(urlItems);
         item.tags = ProductInner.getTagsHtml(item.tags, role);
@@ -160,11 +166,22 @@ var ProductInner = {
     getSepcHtml(items) {
         items = JSON.parse(items);
         let html = "";
-        for (let i in  items) {
-            if (items[i].type == i18next.t("prd_sepc_type_radius")) {
+        if (!items) {
+            return html;
+        }
+        if (items[0].type == i18next.t("prd_sepc_type_radius")) {
+            for (let i in items) {
                 html += "<input type='radio' value='" + JSON.stringify(items[i]) + "' name='sepc'/> "
                     + "<label>" + items[i].name + "</label> &nbsp;";
-            } 
+            }
+            ProductInner.isRadio = true;
+        } else {
+
+            html += "<select class='checkout-select' name='sepc'>";
+            for (let i in items) {
+                html += "<option value='" + JSON.stringify(items[i]) + "'> " + items[i].name + "</option>";
+            }
+            html += "</select>"
         }
         return html;
     },
@@ -189,12 +206,12 @@ var ProductInner = {
             return;
         }
 
-        let sepc = $('input[name=sepc]:checked').val();
+        let sepc = ProductInner.isRadio ? $('input[name=sepc]:checked').val() : $('[name=sepc]').val();
 
         let data = {
             productId: parseInt(ProductInner.id),
             count: parseInt($(".product-nums").val()),
-            sepc:sepc
+            sepc: sepc
         }
         Utils.ProcessAjax("/api/ShopCart", "PUT", true, data,
             function (ret) {

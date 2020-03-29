@@ -376,13 +376,15 @@
     },
 
     InitI18next: function (sLanguage, sNamespaces, callback) {
+        let files = Array.isArray(sNamespaces) ? sNamespaces : [sNamespaces];
+        files.push("translation");
         i18next
             .use(i18nextXHRBackend)
             .init({
                 debug: true,
                 lng: sLanguage,
-                ns: [sNamespaces, "translation"],
-                defaultNS: [sNamespaces, "translation"],
+                ns: files,
+                defaultNS: files,
                 backend: {
                     // for all available options read the backend's repository readme file
                     loadPath: './locales/{{lng}}/{{ns}}.json'

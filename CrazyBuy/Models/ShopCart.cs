@@ -32,5 +32,7 @@ namespace CrazyBuy.Models
         public string summary { get; set; }
         public string SpecialRule { get; set; }
         public string prdSepc { get; set; }
+        public string shipType { get; set; }
+        public int stockNum { get; set; }
     }
 }

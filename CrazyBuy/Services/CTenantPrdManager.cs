@@ -146,6 +146,8 @@ namespace CrazyBuy.Services
             data.Add("shipType", prd.shipType);
             data.Add("tags", prd.SpecialRule);
             data.Add("sepc", prd.prdSepc);
+            data.Add("zeroStock", prd.zeroStockMessage);
+            data.Add("count", prd.stockNum);
             return data;
         }
 
