@@ -44,3 +44,6 @@ CrazyBuy/bin
 *.blob
 
 CrazyBuy.sln
+/CrazyBuy/Controllers/HomeProductCategoriesController.cs
+/CrazyBuy/Models/HomeProductCategories.cs
+/CrazyBuy/Properties/PublishProfiles

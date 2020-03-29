@@ -53,6 +53,8 @@
   "tag_factory": "廠商直出",
   "ship_type_nomal": "常溫配送",
   "ship_type_cool": "低溫配送",
+  "ship_type_nomal1": "常溫宅配",
+  "ship_type_cool1": "低溫宅配",
 
 
   "pleaseSelect": "請選擇",
