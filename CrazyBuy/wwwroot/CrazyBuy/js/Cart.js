@@ -87,7 +87,7 @@ var Cart = {
                         }
                         let shipType = JSON.parse(value.shipType);
                         if (shipType.includes(i18next.t("ship_type_nomal")) && shipType.includes(i18next.t("ship_type_cool"))) {
-
+                            //
                         } else if (shipType.includes(i18next.t("ship_type_nomal")) || shipType.includes(i18next.t("ship_type_nomal1")) ) {
                             shipNomal.set(prdId, value);
 
