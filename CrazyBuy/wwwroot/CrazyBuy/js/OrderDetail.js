@@ -47,7 +47,12 @@ var OrderDetail = {
                     $scope.master = ret.data.master;
                     $scope.detail = ret.data.detail;
                     $.each($scope.detail, function (index, value) {
-                        $scope.detail[index].prdImages = Utils.GetImageUrl(value);
+                        console.log(value);
+                        if (value.prdImages) {
+                            let images = value.prdImages ? JSON.parse(value.prdImages) : "";
+                            let imageUrl = Utils.BackendUrl + "id=" + value.prdId + "&filename=" + images[0].filename;
+                            $scope.detail[index].prdImages = imageUrl;                            
+                        }                       
                     });
                     $scope.now = new Date();
                     $scope.contact = {};
