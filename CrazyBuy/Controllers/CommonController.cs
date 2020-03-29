@@ -1,50 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CrazyBuy.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class CommonController : Controller
     {
-        private readonly IConfiguration _config;
-
-        [HttpGet("DownloadImgFile")]
-        public ActionResult GetDownloadLogoFile(int id, string filename)
+        [HttpGet]
+        [Authorize]
+        public ActionResult getPlaces()
         {
-            //string strFileRootPath = _config["PrdPath"];
-            //string filePath = string.Empty;
-            //TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(id);
-            //try
-            //{
-            //    List<UploadFileModel> lstlogofile = JsonConvert.DeserializeObject<List<UploadFileModel>>(prd.prdImages);
-            //    if (lstlogofile != null && lstlogofile.Count > 0)
-            //    {
-            //        UploadFileModel logofile = lstlogofile.Where(x => x.filename == filename).FirstOrDefault();
-            //        filePath = strFileRootPath + "/" + prd.id.ToString() + "/" + logofile.filename;
-            //        var memoryStream = System.IO.File.OpenRead(filePath);
-            //        return new FileStreamResult(memoryStream, _contentTypes[Path.GetExtension(filePath).ToLowerInvariant()]);
-            //    }
-            //    else
-            //    {
-            //        return Ok();
-            //    }
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                List<City> citys = DataManager.cityDao.getCitys();
+                List<Town> towns = DataManager.cityDao.getTowns();
+                List<Area> areas = new List<Area>();
+                foreach (City city in citys)
+                {
+                    List<Town> list = new List<Town>();
+                    foreach (Town town in towns)
+                    {
+                        if (town.cityId == city.cityId)
+                        {                            
+                            list.Add(town);
+                        }
+                    }
+                    Area area = new Area
+                    {
+                        name = city.cityName,
+                        areas = list
+                    };
+                    areas.Add(area);
+                }
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    return StatusCode(500, ex);
-            //}
-            return Ok();
+                rm.code = MessageCode.SUCCESS;
+                rm.data = areas;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
         }
     }
 }

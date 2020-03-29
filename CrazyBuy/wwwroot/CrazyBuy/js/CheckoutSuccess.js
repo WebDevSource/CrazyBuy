@@ -38,7 +38,8 @@ var CheckoutSuccess = {
                     $.each($scope.carts, function (index, value) {
                         if (value.prdImages) {
                             let images = value.prdImages ? JSON.parse(value.prdImages) : "";
-                            $scope.carts[index].prdImages = Utils.BackendUrl + "id=" + value.productId + "&filename=" + images[0].filename;
+                            imageUrl = Utils.BackendImageUrl + "id=" + value.productId + "&filename=" + images[0].filename;
+                            $scope.carts[index].prdImages = imageUrl;
                         }
 
                     });
@@ -54,9 +55,9 @@ var CheckoutSuccess = {
     sendOrder() {
         var args = JSON.parse(Utils.GetCookie("order"));
         Utils.ProcessAjax("/api/order", "PUT", true, args,
-            function (ret) {
+            function (ret) {                
                 if (ret.code === 1) {
-                    switch (ret.data) {
+                    switch (ret.data.code) {
                         case -1:
                             alert("there not item in cart.");
                             break;
@@ -64,7 +65,7 @@ var CheckoutSuccess = {
                             alert("product not enough.");
                             break;
                         default:
-                            window.location.href = 'order-success.html?tenantCode=' + Utils.TenantCode + '&id=' + ret.data;
+                            window.location.href = 'order-success.html?tenantCode=' + Utils.TenantCode + '&id=' + ret.data.code + '&serialNo=' + ret.data.data.serialNo;
                             break;
                     }
                 } else {

@@ -12,5 +12,7 @@
         public static readonly TenantBulletinDAO tenantBulletinDao = new TenantBulletinDAO();
         public static readonly TenantFAQDAO tenantFAQDao = new TenantFAQDAO();
         public static readonly OrderContactItemDAO orderContactItemDAO = new OrderContactItemDAO();
+        public static readonly CityDao cityDao = new CityDao();
+        public static readonly OrderAmountHistoryDao orderAmountHistoryDao = new OrderAmountHistoryDao();
     }
 }

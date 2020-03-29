@@ -47,6 +47,10 @@ namespace CrazyBuy.Controllers
                 DataManager.orderContactItemDAO.add(args);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = "add success.";
+
+                OrderMaster master = DataManager.orderDao.getOrderMaster(args.orderId);
+                master.payStatus = "已收到貨款";
+                DataManager.orderDao.updateOrderMaster(master);
             }
             catch (Exception e)
             {

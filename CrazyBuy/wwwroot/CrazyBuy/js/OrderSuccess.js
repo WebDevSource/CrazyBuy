@@ -1,5 +1,6 @@
 ﻿var CheckOutApp = angular.module('OrderApp', []).controller('OrderCtrl', function ($scope) {
     $scope.id = Utils.GetUrlParameter('id');
+    $scope.serialNo = Utils.GetUrlParameter('serialNo');
 });
 
 

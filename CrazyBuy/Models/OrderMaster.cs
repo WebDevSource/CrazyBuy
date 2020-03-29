@@ -48,6 +48,12 @@ namespace CrazyBuy.Models
         public string status { get; set; }
         public DateTime? createTime { get; set; }
         public DateTime? updateTime { get; set; }
+
+        public string invoiceNumber { get; set; }
+        public string invoiceName { get; set; }
+        public string invoiceAddr { get; set; }
+        public string invoiceZipCode { get; set; }
+        public string invoiceTownId { get; set; }
     }
 
     public class OrderMasterUser
@@ -91,6 +97,13 @@ namespace CrazyBuy.Models
         public string status { get; set; }
         public DateTime? createTime { get; set; }
         public DateTime? updateTime { get; set; }
+
+        public string invoiceNumber { get; set; }
+        public string invoiceName { get; set; }
+        public string invoiceAddr { get; set; }
+        public string invoiceZipCode { get; set; }
+        public string invoiceTownId { get; set; }
+
         public string userName { get; set; }
     }
 }
