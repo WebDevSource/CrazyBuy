@@ -78,7 +78,7 @@
                     <tbody>
                         <tr>
                             <th scope="col">訂購單號</th>
-                            <td class="text-hint table-order-status">{{id}}</td>
+                            <td class="text-hint table-order-status">{{master.serialNo}}</td>
                         </tr>
                         <tr>
                             <th scope="col">購買日期</th>
@@ -116,20 +116,24 @@
                     <tbody>
                         <tr>
                             <td class="text-center">貨款狀態</td>
-                            <td class="table-order-status">已付款</td>
+                            <td class="table-order-status">{{master.payStatus}}</td>
                             <td>
+                                <!--
                                 <p class="mb-0">@ATM轉帳</p>
                                 <p class="mb-0">匯款日：2019/12/20</p>
                                 <p class="mb-0 d-flex justify-content-between"><span>末五碼：74445 </span> <a href="#" class="order-link" data-toggle="modal" data-target="#keeptouch">匯款回報</a> </p>
                                 <p class="mb-0">備註：</p>
+                                    -->
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center">出貨狀態</td>
-                            <td class="table-order-status">已出貨</td>
+                            <td class="table-order-status">{{master.shippingMethod}}</td>
                             <td>
-                                <p class="mb-0">貨運方式：<a class="order-link" href="#">大榮貨運</a></p>
-                                <p class="mb-0">單號追蹤：<a class="order-link" href="#">20191230102938</a></p>
+                                <!--
+                                    <p class="mb-0">貨運方式：<a class="order-link" href="#">大榮貨運</a></p>
+                                    <p class="mb-0">單號追蹤：<a class="order-link" href="#">20191230102938</a></p>
+                                -->
                             </td>
                         </tr>
                     </tbody>
@@ -230,10 +234,10 @@
                             <div class="col-lg-3 col-4 mb-3">聯絡內容</div>
                             <div class="col-lg-9 col-8 px-0 mb-3">
                                 <textarea name="" id="" ng-model="contact.ContactContent" required="required">
-匯款日：
-末五碼：
-備註：
-                </textarea>
+    匯款日：
+    末五碼：
+    備註：
+                    </textarea>
                             </div>
                         </div>
                         <div class="text-center">
@@ -250,7 +254,7 @@
                                     <tr ng-repeat="item in contactList">
                                         <th scope="row">{{item.dtContact|date:'yyyy-MM-dd'}}</th>
                                         <td>
-                                            <p class="mb-0">{{item.contactContent}}</p>                                           
+                                            <p class="mb-0">{{item.contactContent}}</p>
                                         </td>
                                     </tr>
                                 </tbody>

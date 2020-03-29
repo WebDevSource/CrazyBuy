@@ -8,13 +8,13 @@ namespace CrazyBuy.DAO
 {
     public class OrderDAO : CrazyBuyRerpository
     {
-        public int addOrderMaster(OrderMaster orderMaster)
+        public OrderMaster addOrderMaster(OrderMaster orderMaster)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 dbContext.OrderMaster.Add(orderMaster);
                 dbContext.SaveChanges();
-                return orderMaster.id;
+                return orderMaster;
             }
         }
 
@@ -27,6 +27,31 @@ namespace CrazyBuy.DAO
                 sql += @" WHERE m.Id = {0} ";
                 var query = String.Format(sql, id);
                 return dbContext.Database.SqlQuery<OrderMasterUser>(query).FirstOrDefault();
+            }
+        }
+
+        public OrderMaster getOrderMaster(int id)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" SELECT m.* FROM [OrderMaster] m ";                
+                sql += @" WHERE m.Id = {0} ";
+                var query = String.Format(sql, id);
+                return dbContext.Database.SqlQuery<OrderMaster>(query).FirstOrDefault();
+            }
+        }
+
+        public void updateOrderMaster(OrderMaster orderMaster)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                OrderMaster model = dbContext.OrderMaster.Where(
+                m => m.id == orderMaster.id).SingleOrDefault();
+                if (model != null)
+                {
+                    dbContext.Entry(model).CurrentValues.SetValues(orderMaster);
+                    dbContext.SaveChanges();
+                }
             }
         }
 

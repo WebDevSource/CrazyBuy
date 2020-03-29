@@ -69,10 +69,10 @@
     <div class="gotop">
         <i class="fas fa-angle-up"></i>
     </div>
-    <!-- navbar -->        
+    <!-- navbar -->
     <section class="container-fluid px-md-30 px-15">
         <h4 class="my-20">結帳(Checkout)</h4>
-        <form id="checkout-userinfo" ng-submit="submit()" >
+        <form id="checkout-userinfo" ng-submit="submit()">
             <section class="my-md-50 my-30">
                 <h5 class="my-20 order-title">1.訂購人資料</h5>
                 <hr>
@@ -103,14 +103,14 @@
                     <div class="col-lg-6 col-12 mb-3 order-5">
                         <p class="mb-2"><label for="">地址</label></p>
                         <!--
-                        <select class="checkout-select" name="" id="">
-                            <option>縣市</option>
+                        <select class="checkout-select" ng-model="SelCity" ng-options="City.name for City in Citys" ng-change="update(SelCity)">
+                            <option value="">縣市</option>
                         </select>
-                        <select class="checkout-select" name="" id="">
-                            <option>鄉鎮市區</option>
+                        <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" >
+                            <option value="">鄉鎮市區</option>
                         </select>
-                           -->
-                        <input class="w-100" " type="text" value="{{member.address}}" required="required" disabled="disabled">
+                            -->
+                        <input class="w-100" type="text" value="{{member.address}}" required="required" disabled="disabled">
                     </div>
                 </div>
             </section>
@@ -147,15 +147,13 @@
                     </div>
                     <div class="col-lg-6 col-12 mb-3 order-5">
                         <p class="mb-2"><label for="">地址</label></p>
-                        <!--
-                        <select class="checkout-select" name="" id="">
-                            <option>縣市</option>
+                        <select class="checkout-select" ng-model="SelCity" ng-options="City.name for City in Citys" ng-change="update(SelCity)" required="required">
+                            <option value="">縣市</option>
                         </select>
-                        <select class="checkout-select" name="" id="">
-                            <option>鄉鎮市區</option>
+                        <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" required="required">
+                            <option value="">鄉鎮市區</option>
                         </select>
-                           -->
-                        <input class="w-100" " type="text" ng-model="checkout.recipientAddr" required="required">
+                        <input class="checkout-address" type="text" ng-model="checkout.recipientAddr" required="required">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-6">
                         <p class="mb-2"><label for="">希望到貨時段</label></p>
@@ -182,7 +180,7 @@
                         <div class="transport-method-describe mt-15">
                             面交地點說明：
                         </div>
-                        <input type="radio" name="transport-method" id="express" value="快遞送貨"  ng-model="checkout.shippingMethod" required="required">
+                        <input type="radio" name="transport-method" id="express" value="快遞送貨" ng-model="checkout.shippingMethod" required="required">
                         <label class="checkout-radio-label" for="express">快遞送貨</label> <span class="text-hint">運費 $180</span>
                         <div class="transport-method-describe mt-15">
                             本公司會依照下單順序、匯款回壓順序進行出貨 <br>
@@ -234,17 +232,17 @@
                             </div>
                             <div class="col-12 mb-3">
                                 <p class="mb-2"><label for="">發票收件人</label></p>
-                                <input class="w-100" type="text">
+                                <input class="w-100" type="text" ng-model="checkout.invoiceName">
                             </div>
                             <div class="col-12 mb-3">
                                 <p class="mb-2"><label for="">發票收件地址</label></p>
-                                <select class="checkout-select" name="" id="">
-                                    <option>縣市</option>
+                                <select class="checkout-select" ng-model="recSelCity" ng-options="City.name for City in Citys" ng-change="recUpdate(recSelCity)">
+                                    <option value="">縣市</option>
                                 </select>
-                                <select class="checkout-select" name="" id="">
-                                    <option>鄉鎮市區</option>
+                                <select class="checkout-select" ng-model="recSelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in reclevel2">
+                                    <option value="">鄉鎮市區</option>
                                 </select>
-                                <input class="checkout-address" type="text">
+                                <input class="checkout-address" type="text" ng-model="checkout.invoiceAddr">
                             </div>
                         </div>
                     </div>

@@ -50,7 +50,7 @@ var OrderDetail = {
                         console.log(value);
                         if (value.prdImages) {
                             let images = value.prdImages ? JSON.parse(value.prdImages) : "";
-                            let imageUrl = Utils.BackendUrl + "id=" + value.prdId + "&filename=" + images[0].filename;
+                            imageUrl = Utils.BackendImageUrl + "id=" + value.prdId + "&filename=" + images[0].filename;
                             $scope.detail[index].prdImages = imageUrl;                            
                         }                       
                     });

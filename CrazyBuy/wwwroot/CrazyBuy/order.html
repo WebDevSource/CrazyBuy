@@ -94,12 +94,12 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in data">
-                            <td class="text-hint table-order-num table-order-status">{{item.id}}</td>
+                            <td class="text-hint table-order-num table-order-status">{{item.serialNo}}</td>
                             <td>{{item.dtOrder|date:'yyyy-MM-dd'}}</td>
                             <td>{{item.recipientName}}</td>
                             <td>{{item.recipientAddr}}</td>
-                            <td class="text-hint table-order-status">未付款</td>
-                            <td class="text-hint table-order-status">未出貨</td>
+                            <td class="text-hint table-order-status">{{item.payStatus}}</td>
+                            <td class="text-hint table-order-status">{{item.shippingStatus}}</td>
                             <td>{{item.orderRemark}}</td>
                             <td>{{item.orderAmount}}</td>
                             <td>
@@ -113,11 +113,11 @@
                 <section class="mobile-order" id="mobile-order-list">
                     <div class="order mb-20" ng-repeat="item in data">
                         <a ng-click="action(item.id)"  class="row mobile-order-row mx-0">
-                            <div class="col-4 text-hint mb-1 order-emphasize px-0">{{item.id}}</div>
+                            <div class="col-4 text-hint mb-1 order-emphasize px-0">{{item.serialNo}}</div>
                             <div class="col-5 px-0 pt-1 mb-1 px-0"><span>購買日期</span>  <span class="text-hint mobile-buy-date">{{item.dtOrder|date:'yyyy-MM-dd'}}</span></div>
                             <div class="col-3 pt-1 mb-1 px-0">${{item.orderAmount}}</div>
-                            <div class="col-12 mb-2 px-0"><span>貨款狀態</span> <span class="text-hint order-emphasize">待處理</span></div>
-                            <div class="col-12 mb-2 px-0"><span>出貨狀態</span> <span class="text-hint order-emphasize">未出貨</span></div>
+                            <div class="col-12 mb-2 px-0"><span>貨款狀態</span> <span class="text-hint order-emphasize">{{item.payStatus}}</span></div>
+                            <div class="col-12 mb-2 px-0"><span>出貨狀態</span> <span class="text-hint order-emphasize">{{item.shippingStatus}}</span></div>
                         </a>
                         <button class="btn btn-report transfer-report py-0 px-2 mb-1" data-toggle="modal" data-target="#keeptouch" ng-click="contact(item.id)">匯款回報</button>
                         <div class="accordion order-accordion">

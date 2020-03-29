@@ -34,9 +34,10 @@ namespace CrazyBuy.Services
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public static int addOrder(OrderMaster orderMaster, UserInfo userInfo)
+        public static ReturnMessage addOrder(OrderMaster orderMaster, UserInfo userInfo)
         {
-            int orderResult = MessageCode.ERROR;
+            ReturnMessage rm = new ReturnMessage();
+            int orderResult = MessageCode.ERROR;            
             try
             {
                 DateTime now = DateTime.Now;
@@ -73,7 +74,8 @@ namespace CrazyBuy.Services
                     prdItem.stockNum = prdItem.stockNum - item.qty;
                     if (prdItem.stockNum < 0)
                     {
-                        return MessageCode.PRD_NOT_ENOUGHT;
+                        rm.code = MessageCode.PRD_NOT_ENOUGHT;
+                        return rm;
                     }
 
                     if (!prdMap.ContainsKey(prdItem.id))
@@ -88,24 +90,41 @@ namespace CrazyBuy.Services
                     orderMaster.orderAmount = total;
                     orderMaster.totalAmount = total;
                     orderMaster.shippingAmount = total;
+                    orderMaster.payStatus = "等待貨款";
+                    orderMaster.shippingStatus = "未出貨";
                     orderMaster.status = "新訂單";
-                    orderResult = DataManager.orderDao.addOrderMaster(orderMaster);
+
+                    OrderMaster master = DataManager.orderDao.addOrderMaster(orderMaster);
+
+                    orderResult = master.id;
+                    rm.data = master;
                     foreach (OrderDetail item in detailList)
                     {
                         TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);
                         DataManager.tenantPrdDao.updateTenandPrd(prdItem);
 
-                        item.orderId = orderResult;
+                        item.orderId = master.id;
                         DataManager.orderDao.addOrderDetail(item);
                     }
                     DataManager.shopCartDao.removeItemsByMember(userInfo.memberId);
+
+                    OrderAmountHistory histroy = new OrderAmountHistory();
+                    histroy.orderId = master.id;
+                    histroy.changeDesc = "購物完成";
+                    histroy.changeAmount = total;
+                    histroy.cumulativeAmount = 0;
+                    histroy.status = "正常";
+                    histroy.createTime = DateTime.Now;
+                    histroy.creator = userInfo.memberId;
+                    DataManager.orderAmountHistoryDao.add(histroy);
                 }
             }
             catch (Exception e)
             {
                 MDebugLog.error("[COrderManager-addOrder] error: " + e);
             }
-            return orderResult;
+            rm.code = orderResult;
+            return rm;
         }
     }
 }
