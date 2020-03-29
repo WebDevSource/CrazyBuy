@@ -62,11 +62,13 @@ var Cart = {
                         let imageUrl = "./images/noitem.jpg";
                         if (value.prdImages) {
                             let images = value.prdImages ? JSON.parse(value.prdImages) : "";
-                            imageUrl = Utils.BackendUrl + "id=" + value.productId + "&filename=" + images[0].filename;
+                            imageUrl = Utils.BackendImageUrl + "id=" + value.productId + "&filename=" + images[0].filename;
                         }
                         value.type = i18next.t("price_" + value.type);
                         $scope.carts[index].prdImages = imageUrl;
-                        $scope.carts[index].type = value.type;       
+                        $scope.carts[index].type = value.type;
+                        $scope.carts[index].specialRule = JSON.parse(value.specialRule);
+                        $scope.carts[index].sepc = value.prdSepc ? JSON.parse(value.prdSepc) : null;
                     });
 
                     $scope.$apply();

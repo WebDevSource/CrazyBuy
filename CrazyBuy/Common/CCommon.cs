@@ -60,6 +60,7 @@ namespace CrazyBuy
     {
         public int productId { get; set; }
         public int count { get; set; }
+        public string sepc { get; set; }
     }
 
     public class PrdPrice

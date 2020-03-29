@@ -79,6 +79,7 @@
                 <tr>
                     <th scope="col">商品圖</th>
                     <th scope="col">商品資訊</th>
+                    <th scope="col">商品規格</th>
                     <th scope="col">商品備註</th>
                     <th scope="col">單價</th>
                     <th scope="col">訂購數量</th>
@@ -92,7 +93,8 @@
                         <div class="mx-auto cart-item-img" style="background-image: url('{{cart.prdImages}}');"></div>
                     </td>
                     <td class="cart-item-title" ng-init="CalculateSum(cart)">{{cart.name}}</td>
-                    <td class="table-center table-badge"></td>
+                    <td class="table-center"> {{cart.sepc.name}}</td>
+                    <td class="table-center table-badge" ><span ng-repeat="specia in cart.specialRule" class="badge badge-no-discount"> {{specia}}</span></td>
                     <td class="table-center cart-price">
                         <p class="mb-0 table-member-price">{{cart.type}}</p>
                         <p class="mb-0">{{cart.amount/cart.count}}</p>

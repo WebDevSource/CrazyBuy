@@ -145,6 +145,7 @@ namespace CrazyBuy.Services
             data.Add("paymentType", prd.paymentType);
             data.Add("shipType", prd.shipType);
             data.Add("tags", prd.SpecialRule);
+            data.Add("sepc", prd.prdSepc);
             return data;
         }
 

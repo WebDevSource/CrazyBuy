@@ -97,6 +97,7 @@ namespace CrazyBuy.Controllers
                 shopCart.amount = prdPrice.price * value.count;
                 shopCart.type = prdPrice.type;
                 shopCart.tenantId = tenantId;
+                shopCart.prdSepc = value.sepc;
 
                 DataManager.shopCartDao.addItem(shopCart);
                 rm.code = MessageCode.SUCCESS;

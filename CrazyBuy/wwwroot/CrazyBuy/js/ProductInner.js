@@ -31,7 +31,7 @@ var ProductInner = {
     InitProductItem(item) {
         let urlItems = ["./images/noitem.jpg"];
         if (item.prdImages && Utils.getRole() != Utils.ROLE_GUEST) {
-            let baseUrl = Utils.BackendUrl;
+            let baseUrl = Utils.BackendImageUrl;
             urlItems = [];
             let urls = JSON.parse(item.prdImages);
             for (let key in urls) {
@@ -52,6 +52,7 @@ var ProductInner = {
         item.paymentType = JSON.parse(item.paymentType) ? JSON.parse(item.paymentType).toString() : "";
         item.summary = Utils.parseTextToHtml(item.summary);
         item.desc = Utils.parseTextToHtml(item.desc);
+        item.sepc = ProductInner.getSepcHtml(item.sepc);
 
         for (let key in item) {
             $("[data-name=" + key + "]").append(item[key]);
@@ -156,6 +157,18 @@ var ProductInner = {
         return html;
     },
 
+    getSepcHtml(items) {
+        items = JSON.parse(items);
+        let html = "";
+        for (let i in  items) {
+            if (items[i].type == i18next.t("prd_sepc_type_radius")) {
+                html += "<input type='radio' value='" + JSON.stringify(items[i]) + "' name='sepc'/> "
+                    + "<label>" + items[i].name + "</label> &nbsp;";
+            } 
+        }
+        return html;
+    },
+
     changeCount(add) {
         let elem = $(".product-nums");
         let count = elem.val();
@@ -176,9 +189,12 @@ var ProductInner = {
             return;
         }
 
+        let sepc = $('input[name=sepc]:checked').val();
+
         let data = {
             productId: parseInt(ProductInner.id),
-            count: parseInt($(".product-nums").val())
+            count: parseInt($(".product-nums").val()),
+            sepc:sepc
         }
         Utils.ProcessAjax("/api/ShopCart", "PUT", true, data,
             function (ret) {

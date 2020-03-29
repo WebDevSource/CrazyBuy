@@ -13556,7 +13556,7 @@ a.text-hint:hover, a.text-hint:focus {
 }
 
 #banner-carousel .carousel-item {
-    padding-bottom: 26.25%;
+    padding-bottom: 45.24%;
     position: relative;
 }
 
@@ -13590,7 +13590,7 @@ a.text-hint:hover, a.text-hint:focus {
 
 #banner-nocarousel {
     width: 100%;
-    min-height: 25vw;
+    min-height: 30.88vw;
     position: relative;
     margin-top: 15px;
 }
@@ -13626,7 +13626,7 @@ a.text-hint:hover, a.text-hint:focus {
 
 @media (max-width: 1440px) {
     #banner-carousel .carousel-item {
-        padding-bottom: 32.25%;
+        padding-bottom: 45.24%;
     }
 }
 
@@ -13638,7 +13638,7 @@ a.text-hint:hover, a.text-hint:focus {
     }
 
         #banner-carousel .carousel-item {
-            padding-bottom: 40.25%;
+            padding-bottom: 45.24%;
         }
 
     .carousel-indicators {

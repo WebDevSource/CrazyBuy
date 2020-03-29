@@ -10,17 +10,27 @@
     TenantCode: '',
 
    // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
-    BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?",
+    BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/",
+    BackendImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantPrd/DownloadImgFile?",
 
     Initial: function async(callback) {
+        Utils.InitView();
         Utils.TenantCode = Utils.GetUrlParameter("tenantCode");
         Utils.CheckToken();
         Utils.InitEvent();
         //        Backend.SetupMessageConnect(callback);
     },
 
-    InitEvent() {
+    InitView() {
+        $('[data-userauthority]').hide();
+        $('[data-authority]').hide();
+    
+    },
 
+    InitEvent() {
+        $("body").on("click", ".btn-admin-edit", function () {
+            Utils.openBankend();
+        });
         $("body").on("click", 'a', function () {
 
             let me = $(this);
@@ -44,12 +54,17 @@
         }
         $(".navbar-nav").html(html);
         let role = Utils.getRole();
-        $('[data-userauthority]').hide();
-        $('[data-authority]').hide();
+
         $('[data-userauthority="' + role + '"]').show()
         $('[data-authority="' + role + '"]').show();
 
 
+    },
+
+    openBankend() {
+        //window.open(Utils.BackendUrl + Utils.TenantCode);
+        window.open(Utils.BackendUrl + "platform/login");
+        
     },
 
     getRole() {
@@ -592,7 +607,7 @@
             
         }else if (data.prdImages) {
             let images = data.prdImages ? JSON.parse(data.prdImages) : "";
-            imageUrl = Utils.BackendUrl + "id=" + data.id + "&filename="  + images[0].filename;
+            imageUrl = Utils.BackendImageUrl + "id=" + data.id + "&filename="  + images[0].filename;
         }
         return imageUrl;
     },
