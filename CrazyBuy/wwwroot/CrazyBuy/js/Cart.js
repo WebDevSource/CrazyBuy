@@ -51,6 +51,7 @@ var Cart = {
     InitView() {
         Utils.ProcessAjax("/api/ShopCart", "GET", true, "",
             function (ret) {
+                prdCountNotEnough = false;
                 let onlyOrder = new Map();
                 let shipCoole = new Map();
                 let shipNomal = new Map();
