@@ -87,9 +87,13 @@ namespace CrazyBuy.Services
                 //開始寫入價格
                 if (total != 0)
                 {
-                    orderMaster.orderAmount = total;
+                    orderMaster.orderAmount = total;                    
+                    if (orderMaster.isNeedInvoice)
+                    {
+                        total += Convert.ToInt32(total*0.05);
+                    }
+                    total += orderMaster.shippingAmount;
                     orderMaster.totalAmount = total;
-                    orderMaster.shippingAmount = total;
                     orderMaster.payStatus = "等待貨款";
                     orderMaster.shippingStatus = "未出貨";
                     orderMaster.status = "新訂單";

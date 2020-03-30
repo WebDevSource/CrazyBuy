@@ -7,17 +7,34 @@
 var OrderSuccess = {
     doLoad() {
         Utils.Initial();
-        Utils.InitI18next("zh-TW", "orderSuccess", Questions.InitModule);
+        Utils.InitI18next("zh-TW", "orderSuccess", OrderSuccess.InitModule);
     },
 
 
     InitModule() {
         NavBar.Init();
-        OrderSuccess.InitView();
+        OrderSuccess.InitView();        
     },
 
-    InitView() {
+    InitView() {      
+        OrderSuccess.getDetailData(Utils.GetUrlParameter('id'));
+    },
 
+    getDetailData(id) {
+        Utils.ProcessAjax("/api/order/" + id, "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let appElement = document.querySelector('[ng-controller=OrderCtrl]');
+                    let $scope = angular.element(appElement).scope();                    
+                    $scope.master = ret.data.master;
+                    $scope.detail = ret.data.detail;                    
+                    $scope.$apply();
+                } else {
+                    alert("service error");
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
     },
 
     checkDetail() {

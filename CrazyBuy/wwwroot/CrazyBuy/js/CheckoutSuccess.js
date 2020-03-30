@@ -1,7 +1,7 @@
 ﻿var CheckOutApp = angular.module('CheckOutApp', []).controller('CheckOutCtrl', function ($scope) {
     $scope.checkout = JSON.parse(Utils.GetCookie("order"));
     $scope.memberData = JSON.parse(Utils.GetCookie("memberData"));
-
+    $scope.invoicePrice = 0;
     $scope.sendOrder = function () {
         CheckoutSuccess.sendOrder();
     };
@@ -30,8 +30,13 @@ var CheckoutSuccess = {
                     $scope.ResultAmt = 0;
                     $scope.CalculateSum = function (cart) {
                         $scope.TotalAmt += cart.amount;
-                        $scope.ResultAmt = $scope.TotalAmt + parseInt(($scope.TotalAmt * 0.05).toFixed(0), 0);
-                        $scope.ResultAmt += parseInt($scope.checkout.shipPrice);
+                        if ($scope.checkout.isNeedInvoice) {
+                            $scope.invoicePrice = parseInt(($scope.TotalAmt * 0.05).toFixed(0), 0);
+                            $scope.ResultAmt = $scope.TotalAmt + $scope.invoicePrice;
+                        } else {
+                            $scope.ResultAmt = $scope.TotalAmt;
+                        }
+                        $scope.ResultAmt += parseInt($scope.checkout.shippingAmount);
                         console.log($scope.ResultAmt);
                     };
                     $scope.carts = ret.data;
@@ -55,7 +60,7 @@ var CheckoutSuccess = {
     sendOrder() {
         var args = JSON.parse(Utils.GetCookie("order"));
         Utils.ProcessAjax("/api/order", "PUT", true, args,
-            function (ret) {                
+            function (ret) {
                 if (ret.code === 1) {
                     switch (ret.data.code) {
                         case -1:

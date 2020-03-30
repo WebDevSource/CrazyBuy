@@ -38,8 +38,7 @@
         $scope.checkout.recipientTel = $scope.member.tel;
         $scope.checkout.recipientMobile = $scope.member.cellphone;
         $scope.checkout.recipientEmail = $scope.member.email;
-        $scope.checkout.recipientAddr = $scope.member.address;
-        $scope.$apply();
+        $scope.checkout.recipientAddr = $scope.member.address;        
     };
 });
 
@@ -112,7 +111,7 @@ var Checkout = {
     sendOrder(order) {
         let ship = order.shippingMethod.split(":");
         order.shippingMethod = ship[0]; 
-        order.shipPrice = ship[1];
+        order.shippingAmount = parseInt(ship[1]);
         Utils.SetCookie("order", JSON.stringify(order), 1);
         window.location.href = 'checkout-success.html?&tenantCode=' + Utils.TenantCode;
     }

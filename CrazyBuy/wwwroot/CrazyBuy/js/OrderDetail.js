@@ -59,14 +59,9 @@ var OrderDetail = {
                     $scope.contact.ContactContent = "匯款日：\n末五碼：\n備註：";
                     $scope.contactList = ret.data.contactList;
                     $scope.resultAmt = 0;
-                    if ('面交取貨' !== $scope.master.shippingMethod) {
-                        $scope.ShipAmt = 180;
-                    }
+                    $scope.ShipAmt = $scope.master.shippingAmount;
 
-                    $scope.CalculateSum = function (item) {
-                        $scope.TotalAmt += item.amount;
-                        $scope.resultAmt = $scope.TotalAmt + $scope.ShipAmt;
-                    };
+                    $scope.resultAmt = $scope.master.totalAmount;
                     $scope.$apply();
                 } else {
                     alert("service error");
