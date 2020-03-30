@@ -103,11 +103,11 @@
                 <tr>
                     <td class="table-border-3" rowspan="3" colspan="2"></td>
                     <td class="text-right table-border-top-3 cart-all-toalprice" colspan="3">發票稅</td>
-                    <td class="text-right table-border-top-3" colspan="2">{{(TotalAmt*0.05).toFixed(0)}}</td>
+                    <td class="text-right table-border-top-3" colspan="2">{{invoicePrice}}</td>
                 </tr>
                 <tr>
                     <td class="text-right" colspan="3">運費</td>
-                    <td class="text-right" colspan="2">{{checkout.shipPrice}}</td>
+                    <td class="text-right" colspan="2">{{checkout.shippingAmount}}</td>
                 </tr>
                 <tr>
                     <td class="text-right text-hint total-price" colspan="3">訂單總金額</td>
@@ -135,15 +135,15 @@
                     </tr>
                     <tr>
                         <td class="text-right">發票稅</td>
-                        <td class="text-right">{{(TotalAmt*0.05).toFixed(0)}}</td>
+                        <td class="text-right">{{invoicePrice}}</td>
                     </tr>
                     <tr>
                         <td class="text-right">運費</td>
-                        <td class="text-right">{{checkout.shipPrice}}</td>
+                        <td class="text-right">{{checkout.shippingAmount}}</td>
                     </tr>
                     <tr>
                         <td class="text-right text-hint">訂單總金額</td>
-                        <td class="text-right">{{TotalAmt}}</td>
+                        <td class="text-right">{{ResultAmt}}</td>
                     </tr>
                 <tbody>
             </table>
@@ -213,7 +213,7 @@
             </div>
             <div class="row mb-15">
                 <div class="col-lg-2 col-md-3 col-4 text-center">運費</div>
-                <div class="col-8">{{checkout.shipPrice}}元</div>
+                <div class="col-8">{{checkout.shippingAmount}}元</div>
             </div>
         </section>
         <section class="order-info mb-md-50 mb-30">
