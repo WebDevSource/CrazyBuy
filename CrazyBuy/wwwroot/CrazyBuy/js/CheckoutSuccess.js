@@ -31,7 +31,7 @@ var CheckoutSuccess = {
                     $scope.CalculateSum = function (cart) {
                         $scope.TotalAmt += cart.amount;
                         $scope.ResultAmt = $scope.TotalAmt + parseInt(($scope.TotalAmt * 0.05).toFixed(0), 0);
-                        $scope.ResultAmt += checkout.shippingMethod === '快遞送貨' ? 180 : 0;
+                        $scope.ResultAmt += parseInt($scope.checkout.shipPrice);
                         console.log($scope.ResultAmt);
                     };
                     $scope.carts = ret.data;

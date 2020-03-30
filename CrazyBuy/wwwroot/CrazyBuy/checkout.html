@@ -174,9 +174,11 @@
                 <h5 class="my-20 order-title">3.選擇運送方式</h5>
                 <hr>
                 <div class="row">
-                    <div class="col-12">
-                        <input type="radio" name="transport-method" id="face-to-face" value="面交取貨" ng-model="checkout.shippingMethod" required="required">
-                        <label class="checkout-radio-label" for="face-to-face">面交取貨</label>
+                    <div class="col-12" ng-repeat="item in Freight">
+                        <input type="radio" name="transport-method" id="face-to-face" value="{{item.method}}:{{item.price}}" ng-model="checkout.shippingMethod" required="required">
+                        <label class="checkout-radio-label" for="face-to-face">{{item.method}}:{{item.price}}元</label>
+                        <!--
+
                         <div class="transport-method-describe mt-15">
                             面交地點說明：
                         </div>
@@ -187,6 +189,7 @@
                             下單完成之後，請於狀態變成『等待貨款』後趕快匯款回壓，避免影響你的出貨權益。<br><br>
                             <span class="text-hint"><b><i class="fas fa-exclamation-triangle"></i>常溫商品與冷凍商品無法合併出貨！</b></span>
                         </div>
+                            -->
                     </div>
                 </div>
             </section>

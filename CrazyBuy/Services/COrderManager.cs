@@ -37,7 +37,7 @@ namespace CrazyBuy.Services
         public static ReturnMessage addOrder(OrderMaster orderMaster, UserInfo userInfo)
         {
             ReturnMessage rm = new ReturnMessage();
-            int orderResult = MessageCode.ERROR;            
+            int orderResult = MessageCode.ERROR;
             try
             {
                 DateTime now = DateTime.Now;
@@ -125,6 +125,6 @@ namespace CrazyBuy.Services
             }
             rm.code = orderResult;
             return rm;
-        }
+        }        
     }
 }

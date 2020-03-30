@@ -20,4 +20,10 @@ namespace CrazyBuy.Models
         
         public string status { get; set; }
     }
+
+    public class TenantSetting
+    {
+        public string title { get; set; }
+        public string content { get; set; }
+    }
 }

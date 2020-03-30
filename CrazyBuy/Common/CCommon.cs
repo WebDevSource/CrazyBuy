@@ -167,4 +167,38 @@ namespace CrazyBuy
     {
         public int price { get; set; }
     }
+
+    public class TenantSettingType
+    {
+        public const string FreeFreight = "FreeFreight";
+        public const string RoomTemperatureFreight = "RoomTemperatureFreight";
+        public const string RefrigerationFreigh = "RefrigerationFreigh";
+    }
+
+    public class TenantSettingTAG
+    {
+        public const string FREE = "免運費用";
+        public const string FACE = "面交自取";
+        public const string COOL = "低溫宅配";
+        public const string NOMAL = "常溫宅配";
+    }
+
+    public class TenantSettingMapping
+    {
+
+        public static string getType(string type)
+        {
+            Dictionary<string, string> map = new Dictionary<string, string>();
+            map.Add(TenantSettingType.RoomTemperatureFreight, TenantSettingTAG.COOL);
+            map.Add(TenantSettingType.RefrigerationFreigh, TenantSettingTAG.NOMAL);
+            map.Add(TenantSettingType.FreeFreight, TenantSettingTAG.FACE);
+            return map.GetValueOrDefault(type);
+        }
+    }
+
+    public class ShipMethod
+    {
+        public string method { get; set; }
+        public int price { get; set; }
+    }
 }

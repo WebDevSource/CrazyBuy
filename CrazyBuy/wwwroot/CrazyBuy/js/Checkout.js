@@ -53,6 +53,7 @@ var Checkout = {
         NavBar.Init();
         Checkout.getMemberData();
         Checkout.getPlaces();
+        Checkout.getFreight();
     },
 
     InitView(data) {
@@ -92,7 +93,26 @@ var Checkout = {
         );
     },
 
+    getFreight() {
+        Utils.ProcessAjax("/api/Common/getFreight", "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let appElement = document.querySelector('[ng-controller=CheckOutCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    $scope.Freight = ret.data;
+                    $scope.$apply();
+                } else {
+                    alert("service error");
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
+    },
+
     sendOrder(order) {
+        let ship = order.shippingMethod.split(":");
+        order.shippingMethod = ship[0]; 
+        order.shipPrice = ship[1];
         Utils.SetCookie("order", JSON.stringify(order), 1);
         window.location.href = 'checkout-success.html?&tenantCode=' + Utils.TenantCode;
     }

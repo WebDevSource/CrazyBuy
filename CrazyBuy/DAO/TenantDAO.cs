@@ -88,5 +88,15 @@ namespace CrazyBuy.DAO
                 }
             }
         }
+
+        public List<TenantSetting> getTenantSetting(Guid tenantId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @"SELECT * FROM dbo.TenantSetting where title in  ('FreeFreight','RoomTemperatureFreight','RefrigerationFreigh') and tenantId = '{0}' ";
+                sql = string.Format(sql, tenantId);
+                return dbContext.Database.SqlQuery<TenantSetting>(sql).ToList();
+            }
+        }
     }
 }
