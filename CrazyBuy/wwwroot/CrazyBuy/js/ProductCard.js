@@ -45,8 +45,8 @@ ProductCard = {
         let html = '';
         if (role == Utils.ROLE_ADMIN) {
             html += '    <div class="product-item-edit" data-authority="admin">                                                                                     '
-                + '      <a class="d-block mb-2" href=""><i class="fas fa-edit"></i><span>' + i18next.t("btn_product_edit") + '</span></a>                         '
-                + '      <a class="d-block" href=""><i class="fas fa-image"></i><span>' + i18next.t("btn_product_addImg") + '</span></a>                           '
+                + '      <a class="d-block mb-2" href="" onclick=" Utils.openBankend()" ><i class="fas fa-edit" ></i><span>' + i18next.t("btn_product_edit") + '</span></a>                         '
+                + '      <a class="d-block" href="" onclick=" Utils.openBankend()"><i class="fas fa-image"></i><span>' + i18next.t("btn_product_addImg") + '</span></a>                           '
                 + '    </div> ';
         }
         return html;
@@ -63,7 +63,7 @@ ProductCard = {
  //           html += '<button class="product-addto-cart product-soldout-cart" onclick="">' + i18next.t("btn_product_soldout") + '</button>     ';
  //       }
         if (role == Utils.ROLE_ADMIN) {
-            html += '<button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0" onClick=ProductCard.openUrl("' + "http://yahoo.com.tw" + '")>' + i18next.t("btn_edit")
+            html += '<button class="btn btn-outline-register btn-admin-edit btn-product-edit px-3 py-0">' + i18next.t("btn_edit")
                 + '</button>';
         }
         return html;

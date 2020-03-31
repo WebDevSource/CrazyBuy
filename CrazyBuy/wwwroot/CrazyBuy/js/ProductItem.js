@@ -49,8 +49,8 @@ ProductItem = {
         let html = '';
         if (role == Utils.ROLE_ADMIN) {
             html += '    <div">                                                                                     '
-                + '      <a href="#"><button class="product-admin-btn mt-2">' + i18next.t("btn_product_edit") + '</button></a>'
-                + '      <a href="#"><button class="product-admin-btn mt-2">' + i18next.t("btn_product_addImg") + '</button></a>'
+                + '      <a href="#" onclick=" Utils.openBankend()"><button class="product-admin-btn mt-2">' + i18next.t("btn_product_edit") + '</button></a>'
+                + '      <a href="#" onclick=" Utils.openBankend()"><button class="product-admin-btn mt-2">' + i18next.t("btn_product_addImg") + '</button></a>'
                 + '    </div> ';
         }
         return html;

@@ -13676,6 +13676,12 @@ a.text-hint:hover, a.text-hint:focus {
     display: -webkit-box;
 }
 
+.items-card-row .product-price {
+    color: #F6344B;
+    font-size: 20px;
+    font-family: 'ArialMT', 'Arial';
+}
+
 .card-text.price {
     font-size: 20px;
 }

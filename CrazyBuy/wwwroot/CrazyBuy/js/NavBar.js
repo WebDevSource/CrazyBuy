@@ -254,7 +254,7 @@
     getAdminToolButton() {
         let html = '<div id="admin-viewport" data-authority="admin">'
             + '     <nav class="nav">'
-            + '     	<a class="nav-link pl-0" href="#">'
+            + '     	<a class="nav-link pl-0" href="" onclick=" Utils.openBankend()">'
             + '	            <i class="fas fa-rss"></i> 我訂閱的商店'
             + '     	</a>                                                                                    '
             + NavBar.getUserGroupButton()
