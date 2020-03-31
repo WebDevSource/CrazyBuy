@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,6 +16,41 @@ namespace CrazyBuy.Controllers
     [Route("api/[controller]/[action]")]
     public class CommonController : Controller
     {
+        private readonly IConfiguration _config;
+
+        public CommonController(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
+
+        [HttpGet]
+        public IActionResult DownloadImgFile([FromQuery]int id, [FromQuery]string filename)
+        {
+            string strFileRootPath = _config["PrdPath"];
+            string filePath = string.Empty;
+            TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(id);
+            try
+            {
+                List<UploadFileModel> lstlogofile = JsonConvert.DeserializeObject<List<UploadFileModel>>(prd.prdImages);
+                if (lstlogofile != null && lstlogofile.Count > 0)
+                {
+                    UploadFileModel logofile = lstlogofile.Where(x => x.filename == filename).FirstOrDefault();
+                    filePath = strFileRootPath + "/" + prd.id.ToString() + "/" + logofile.filename;
+                    var memoryStream = System.IO.File.OpenRead(filePath);
+                    return new FileStreamResult(memoryStream, _contentTypes[Path.GetExtension(filePath).ToLowerInvariant()]);
+                }
+                else
+                {
+                    return Ok();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+        }
+
         [HttpGet]
         [Authorize]
         public ActionResult getPlaces()
@@ -129,5 +167,13 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+
+        private readonly static Dictionary<string, string> _contentTypes = new Dictionary<string, string>
+        {
+            {".png", "image/png"},
+            {".jpg", "image/jpeg"},
+            {".jpeg", "image/jpeg"},
+            {".gif", "image/gif"}
+        };
     }
 }

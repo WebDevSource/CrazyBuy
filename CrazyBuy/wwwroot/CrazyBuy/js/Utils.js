@@ -11,7 +11,7 @@
 
    // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
     BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/",
-    BackendImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantPrd/DownloadImgFile?",
+    BackendImageUrl:"/api/Common/DownloadImgFile?",
 
     Initial: function async(callback) {
         Utils.InitView();

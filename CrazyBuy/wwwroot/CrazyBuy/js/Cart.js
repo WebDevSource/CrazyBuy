@@ -1,5 +1,5 @@
 ﻿var prdCountNotEnough = false;
-var cartApp = angular.module('CartApp', []).controller('CartCtrl', function ($scope) {    
+var cartApp = angular.module('CartApp', []).controller('CartCtrl', function ($scope) {
 
     $scope.delCartItem = function (id) {
         Cart.delCartItem(id);
@@ -9,7 +9,7 @@ var cartApp = angular.module('CartApp', []).controller('CartCtrl', function ($sc
 var Cart = {
     doLoad() {
         Utils.Initial();
-        Utils.InitI18next("zh-TW", ["cart","products"], Cart.InitModule);
+        Utils.InitI18next("zh-TW", ["cart", "products"], Cart.InitModule);
 
     },
 
@@ -20,19 +20,19 @@ var Cart = {
 
     checkPrdCount() {
         Cart.InitView();
-       /* 
-        * Utils.ProcessAjax("/api/prd/isProductEnough", "GET", true, "",
-            function (ret) {
-                if (ret.code === 1) {
-                    prdCountNotEnough = !ret.data;
-                    Cart.InitView();
-                } else {
-                    alert("service error");
-                }
-            },
-            function (error) { alert("ajax error") }
-        );
-        */
+        /* 
+         * Utils.ProcessAjax("/api/prd/isProductEnough", "GET", true, "",
+             function (ret) {
+                 if (ret.code === 1) {
+                     prdCountNotEnough = !ret.data;
+                     Cart.InitView();
+                 } else {
+                     alert("service error");
+                 }
+             },
+             function (error) { alert("ajax error") }
+         );
+         */
     },
 
     delCartItem(id) {
@@ -82,20 +82,24 @@ var Cart = {
                         let prdId = value.productId;
                         if (value.stockNum < 1) {
                             stockZero.set(prdId, value);
-                        } 
+                        }
                         if (Array.isArray(specialRule) && (specialRule.includes(i18next.t("tag_only")) || specialRule.includes(i18next.t("tag_factory")))) {
                             onlyOrder.set(prdId, value);
-  
-                        }
-                        let shipType = JSON.parse(value.shipType);
-                        if (shipType.includes(i18next.t("ship_type_nomal")) && shipType.includes(i18next.t("ship_type_cool"))) {
-                            //
-                        } else if (shipType.includes(i18next.t("ship_type_nomal")) || shipType.includes(i18next.t("ship_type_nomal1")) ) {
-                            shipNomal.set(prdId, value);
 
-                        } else if (shipType.includes(i18next.t("ship_type_cool")) || shipType.includes(i18next.t("ship_type_cool1"))) {
-                            shipCoole.set(prdId, value);
                         }
+
+                        if (value.shipType) {
+                            let shipType = JSON.parse(value.shipType);
+                            if (shipType.includes(i18next.t("ship_type_nomal")) && shipType.includes(i18next.t("ship_type_cool"))) {
+                                //
+                            } else if (shipType.includes(i18next.t("ship_type_nomal")) || shipType.includes(i18next.t("ship_type_nomal1"))) {
+                                shipNomal.set(prdId, value);
+
+                            } else if (shipType.includes(i18next.t("ship_type_cool")) || shipType.includes(i18next.t("ship_type_cool1"))) {
+                                shipCoole.set(prdId, value);
+                            }
+                        }
+
                         product.set(prdId, value);
                     });
 
@@ -120,14 +124,14 @@ var Cart = {
                         $scope.errorMessages.push({ "name": i18next.t("ship_type_nomal"), "values": Array.from(shipNomal.values()) });
                         $scope.errorMessages.push({ "name": i18next.t("ship_type_cool"), "values": Array.from(shipCoole.values()) });
                     }
-                   
+
                     if (onlyOrder.size == 1 && product.size > 1) {
                         $scope.errorMessages.push({ "name": i18next.t("tag_only"), "values": Array.from(onlyOrder.values()) });
                     }
 
-                   
+
                     $scope.limitMessage = i18next.t("cart_order_limit");
-                    
+
                     $scope.canOrder = !prdCountNotEnough;
                     $scope.prdCountCheck = prdCountNotEnough;
                     $scope.$apply();

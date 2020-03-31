@@ -201,4 +201,11 @@ namespace CrazyBuy
         public string method { get; set; }
         public int price { get; set; }
     }
+
+    public class UploadFileModel
+    {
+        public string filename { get; set; }
+        public string filetype { get; set; }
+        public int filesize { get; set; }
+    }
 }
