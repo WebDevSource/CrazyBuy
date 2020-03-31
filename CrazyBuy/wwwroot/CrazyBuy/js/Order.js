@@ -39,10 +39,10 @@ var Order = {
                     $scope.data = ret.data;
                     $scope.$apply();
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error"));}
         );
     },
 
@@ -54,13 +54,13 @@ var Order = {
         Utils.ProcessAjax("/api/OrderContactItem", "PUT", true, args,
             function (ret) {
                 if (ret.code === 1) {
-                    alert("send successful.");
+                    alert(i18next.t("swal_createSuccess")); 
                     Order.getDetailData(args.orderId);
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error"));}
         );
     },
 
@@ -77,10 +77,10 @@ var Order = {
                     $scope.contactList = ret.data.contactList;                    
                     $scope.$apply();
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error")); }
         );
     },
 };

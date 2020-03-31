@@ -38,7 +38,8 @@
         $scope.checkout.recipientTel = $scope.member.tel;
         $scope.checkout.recipientMobile = $scope.member.cellphone;
         $scope.checkout.recipientEmail = $scope.member.email;
-        $scope.checkout.recipientAddr = $scope.member.address;        
+        $scope.checkout.recipientAddr = $scope.member.address;
+        
     };
 });
 
@@ -69,10 +70,10 @@ var Checkout = {
                     Utils.SetCookie("memberData", JSON.stringify(ret.data), 1);
                     Checkout.InitView(ret.data);
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error")); }
         );
     },
 
@@ -85,10 +86,10 @@ var Checkout = {
                     $scope.Citys = ret.data;
                     $scope.$apply();
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error")); }
         );
     },
 
@@ -101,10 +102,10 @@ var Checkout = {
                     $scope.Freight = ret.data;
                     $scope.$apply();
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error")); }
         );
     },
 

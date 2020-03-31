@@ -11,8 +11,8 @@
 
    // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
     BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/",
-    BackendImageUrl:"/api/Common/DownloadImgFile?",
-
+    BackendImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantPrd/DownloadImgFile?",
+    //BackendImageUrl: "/api/Common/DownloadImgFile?",
     Initial: function async(callback) {
         Utils.InitView();
         Utils.TenantCode = Utils.GetUrlParameter("tenantCode");
@@ -292,7 +292,7 @@
                     processDone(data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert(JSON.stringify(errorThrown));
+                    console.log(JSON.stringify(errorThrown));
                     processFailed(errorThrown);
                 }
             });
@@ -324,7 +324,7 @@
                     result = ret;
                 },
                 error(ret) {
-                     alert(ret);
+                     console.log(ret);
                 }
             });
             return result;
@@ -643,7 +643,7 @@
 
     parseTextToHtml: function (text) {
         text = text.replace('\r\n', '</br>')
-            .replace('\n','</br>');
+            .replace(/\r\n|\n/g,'</br>');
         return text;
     }
 };

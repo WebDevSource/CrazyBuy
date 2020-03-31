@@ -2,6 +2,7 @@
     $scope.checkout = JSON.parse(Utils.GetCookie("order"));
     $scope.memberData = JSON.parse(Utils.GetCookie("memberData"));
     $scope.invoicePrice = 0;
+
     $scope.sendOrder = function () {
         CheckoutSuccess.sendOrder();
     };
@@ -50,34 +51,34 @@ var CheckoutSuccess = {
                     });
                     $scope.$apply();
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error"));}
         );
     },
 
     sendOrder() {
         var args = JSON.parse(Utils.GetCookie("order"));
         Utils.ProcessAjax("/api/order", "PUT", true, args,
-            function (ret) {
+            function (ret) {                
                 if (ret.code === 1) {
                     switch (ret.data.code) {
                         case -1:
-                            alert("there not item in cart.");
+                            alert(i18next("msg_cart_is_null"));
                             break;
                         case -2:
-                            alert("product not enough.");
+                            alert(i18next("msg_product_not_enough"));
                             break;
                         default:
                             window.location.href = 'order-success.html?tenantCode=' + Utils.TenantCode + '&id=' + ret.data.code + '&serialNo=' + ret.data.data.serialNo;
                             break;
                     }
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error"));}
         );
     }
 };

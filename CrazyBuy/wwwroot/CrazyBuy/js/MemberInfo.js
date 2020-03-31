@@ -10,9 +10,9 @@
     $scope.submit = function () {
         if ($scope.agree) {
 
-            if ($scope.member.password !==null) {
+            if ($scope.member.password !== null) {
                 if ($scope.checkPwd !== $scope.member.password) {
-                    alert('please check password');
+                    alert(i18next.t("mem_please_check_password"));
                     return;
                 }
             }
@@ -25,15 +25,16 @@
                 function (ret) {
                     switch (ret.code) {
                         case 1:
-                            alert('update successful.');
+                            alert(i18next.t("swal_updateSuccess") );
                             window.location = "index.html?tenantCode=" + Utils.TenantCode;
                             break;
                         case -1:
-                            alert(ret.data);
+                            console.log(ret.data);
+                            alert(i18next.t("msg_service_error"));
                             break;
                     }
                 },
-                function (error) { alert("ajax error") }
+                function (error) { alert(i18next.t("msg_service_error"));}
             );
 
         } else {
@@ -68,10 +69,13 @@ var MemberInfo = {
                     $scope.member = ret.data;
                     $scope.$apply();
                 } else {
-                    alert("service error");
+
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) {
+                alert(i18next.t("msg_service_error"));
+            }
         );
     },
     getPlaces() {
@@ -83,10 +87,13 @@ var MemberInfo = {
                     $scope.Citys = ret.data;
                     $scope.$apply();
                 } else {
-                    alert("service error");
+
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) {
+                alert(i18next.t("msg_service_error"));
+            }
         );
     }
 };

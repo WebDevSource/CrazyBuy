@@ -29,10 +29,10 @@ var OrderDetail = {
                 if (ret.code === 1) {
                     OrderDetail.getDetailData(Utils.GetUrlParameter('id'));
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error"));}
         );
     },
 
@@ -64,10 +64,10 @@ var OrderDetail = {
                     $scope.resultAmt = $scope.master.totalAmount;
                     $scope.$apply();
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error"));}
         );
     },
 };

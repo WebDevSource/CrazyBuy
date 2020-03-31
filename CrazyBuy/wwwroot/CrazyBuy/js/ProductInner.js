@@ -26,7 +26,7 @@ var ProductInner = {
             if (ret.code == "1") {
                 ProductInner.InitProductItem(ret.data);
             } else {
-                alert("system error reload Please");
+                alert(i18next.t("msg_service_error"));
             }
         });
     },
@@ -202,7 +202,7 @@ var ProductInner = {
 
     addCart() {
         if (Utils.ROLE_GUEST == Utils.getRole()) {
-            alert("register Member frist ,Thanks!");
+            alert(i18next.t("msg_register_member"));
             return;
         }
 

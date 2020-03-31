@@ -21,15 +21,16 @@
                     function (ret) {
                         switch (ret.code) {
                             case 1:
-                                alert('register successful.');
+                                alert(i18next.t("register_success"));
                                 window.location = "index.html?tenantCode=" + Utils.TenantCode;
                                 break;
                             case -1:
-                                alert(ret.data);
+                                console.log(ret.data);
+                                alert(i18next.t("msg_service_error"));
                                 break;
                         }
                     },
-                    function (error) { alert("ajax error") }
+                    function (error) { alert(i18next.t("msg_service_error"));}
                 );
             } else {
                 alert('please check password.');
@@ -71,10 +72,10 @@ var Register = {
                     }
                     $scope.$apply();
                 } else {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("msg_service_error")); }
         );
     }
 };

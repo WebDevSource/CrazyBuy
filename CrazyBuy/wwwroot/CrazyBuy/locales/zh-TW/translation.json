@@ -136,6 +136,8 @@
   "msg_cart_add_success": "加入購物車成功",
   "msg_cart_clear_success": "清除購物車成功",
   "msg_tenant_not_find": "此商成不存在",
-  "msg_service_error": "伺服器發生錯誤 請重新整理!"
-
+  "msg_service_error": "伺服器發生錯誤 請重新整理!",
+  "msg_cart_is_null": "購物車沒任何東西",
+  "msg_product_not_enough": "商品已沒有庫存",
+  "msg_register_member": "請先加入會員"
 }
