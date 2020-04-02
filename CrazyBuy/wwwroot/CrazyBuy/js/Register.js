@@ -3,7 +3,7 @@
     $scope.checkPwd = '';
     $scope.member = {};
     $scope.update = function (selectedValue) {
-       // $scope.level2 = selectedValue.areas;
+        // $scope.level2 = selectedValue.areas;
         $scope.level2 = $scope.towns[selectedValue]
     };
     $scope.submit = function () {
@@ -16,7 +16,7 @@
                 if ($scope.SelArea && $scope.SelArea.includes(':')) {
                     $scope.member.townId = parseInt($scope.SelArea.split(':')[0]);
                     $scope.member.zipCode = parseInt($scope.SelArea.split(':')[1]);
-                }
+                }                
                 Utils.ProcessAjax("/api/member/" + Utils.GetTenantId(), "PUT", true, $scope.member,
                     function (ret) {
                         switch (ret.code) {
