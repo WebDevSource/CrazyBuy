@@ -64,6 +64,17 @@ namespace CrazyBuy.DAO
             }
         }
 
+        public ShopCart getShopCartPrd(Guid tenantId, int memberId, int productId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" SELECT TOP 1 * FROM [ShopCart] c ";
+                sql += @" where c.tenantId = '{0}' and c.memberId = {1} and c.productId = {2} ";
+                var query = String.Format(sql, tenantId, memberId, productId);
+                return dbContext.Database.SqlQuery<ShopCart>(query).FirstOrDefault();
+            }
+        }
+
         public void removeItemsByMember(int memberId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())

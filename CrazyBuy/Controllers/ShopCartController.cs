@@ -88,18 +88,29 @@ namespace CrazyBuy.Controllers
                 TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(value.productId);
                 PrdPrice prdPrice = CTenantPrdManager.getPrdPrice(prd, type);
 
-                ShopCart shopCart = new ShopCart();
-                shopCart.id = itemId;
-                shopCart.memberId = memberId;
-                shopCart.productId = value.productId;
-                shopCart.createTime = DateTime.Now;
-                shopCart.count = value.count;
-                shopCart.amount = prdPrice.price * value.count;
-                shopCart.type = prdPrice.type;
-                shopCart.tenantId = tenantId;
-                shopCart.prdSepc = value.sepc;
+                ShopCart shopCart = DataManager.shopCartDao.getShopCartPrd(tenantId, memberId, value.productId);
 
-                DataManager.shopCartDao.addItem(shopCart);
+                if (shopCart == null)
+                {
+                    shopCart = new ShopCart();
+                    shopCart.id = itemId;
+                    shopCart.memberId = memberId;
+                    shopCart.productId = value.productId;
+                    shopCart.createTime = DateTime.Now;
+                    shopCart.count = value.count;
+                    shopCart.amount = prdPrice.price * value.count;
+                    shopCart.type = prdPrice.type;
+                    shopCart.tenantId = tenantId;
+                    shopCart.prdSepc = value.sepc;
+                    DataManager.shopCartDao.addItem(shopCart);
+                }
+                else
+                {
+                    itemId = shopCart.id;
+                    shopCart.count += value.count;
+                    shopCart.amount = prdPrice.price * shopCart.count;
+                    DataManager.shopCartDao.updateItem(shopCart);
+                }                
                 rm.code = MessageCode.SUCCESS;
                 rm.data = itemId;
             }

@@ -158,7 +158,7 @@
                 for (let i = 0; i < ret.data.length; i++) {
                     let item = ret.data[i];
                     html += NavBar.getCartHtml(item);
-                    amount += item.amount * item.count;
+                    amount += item.amount;
                 }
                 let data = {
                     cartList: html,
@@ -192,7 +192,7 @@
             + ' <a  href="' + url + '" class="col-sm-8 col-10 nav-cart-item-info nav-link category"> '
             + '   <div class="d-flex flex-wrap w-100">'
             + '    <p class="mb-1 w-100">' + data.name + '</p>'
-            + '    <p class="mb-0 w-100 nav-cart-item-price">' + data.count + ' <i class="fas fa-times"></i> <span class="price">$' + data.amount + '</span></p>'
+            + '    <p class="mb-0 w-100 nav-cart-item-price">' + data.count + ' <i class="fas fa-times"></i> <span class="price">$' + data.amount / data.count + '</span></p>'
             + '   </div>'
             + ' </a>'
             + ' <div class="nav-cart-close" onclick=NavBar.delCart(\'' + data.id + '\')>x</div>'
@@ -285,7 +285,7 @@
         if (NavBar.login(accountant, pwd)) {
             window.location.reload();
         } else {
- //           alert("User Authorization Error, Check  Again Accountant  Password.");
+            //           alert("User Authorization Error, Check  Again Accountant  Password.");
             alert(i18next.t("msg_login_error"));
         }
 
@@ -315,7 +315,7 @@
             Utils.SetCookie("user", JSON.stringify(result));
 
         } else {
-           // alert("User Authorization Error, Login Again Please.");
+            // alert("User Authorization Error, Login Again Please.");
             alert(i18next.t("msg_login_error"));
         }
         return result.type && (Utils.ROLE_GUEST != result.type);
