@@ -3,9 +3,10 @@
     $scope.checkPwd = '';
     $scope.member = {};
     $scope.update = function (selectedValue) {
-        $scope.level2 = selectedValue.areas;
+        console.log(selectedValue);
+        $scope.level2 = $scope.towns[selectedValue]
+        console.log($scope.level2);
     };
-
 
     $scope.submit = function () {
         if ($scope.agree) {
@@ -16,16 +17,17 @@
                     return;
                 }
             }
-            if ($scope.SelArea.includes(':')) {
-                $scope.member.townId = $scope.SelArea.split(':')[0];
+
+            if ($scope.SelArea && $scope.SelArea.includes(':')) {
+                $scope.member.townId = parseInt($scope.SelArea.split(':')[0]);
+                $scope.member.zipCode = parseInt($scope.SelArea.split(':')[1]);
             }
-            $scope.member.cityId = $scope.SelCity.id;
 
             Utils.ProcessAjax("/api/member/" + $scope.member.memberId, "POST", true, $scope.member,
                 function (ret) {
                     switch (ret.code) {
                         case 1:
-                            alert(i18next.t("swal_updateSuccess") );
+                            alert(i18next.t("swal_updateSuccess"));
                             window.location = "index.html?tenantCode=" + Utils.TenantCode;
                             break;
                         case -1:
@@ -34,7 +36,7 @@
                             break;
                     }
                 },
-                function (error) { alert(i18next.t("msg_service_error"));}
+                function (error) { alert(i18next.t("msg_service_error")); }
             );
 
         } else {
@@ -53,7 +55,6 @@ var MemberInfo = {
     InitModule() {
         NavBar.Init();
         MemberInfo.InitView();
-        MemberInfo.getPlaces();
     },
 
     InitView() {
@@ -68,6 +69,7 @@ var MemberInfo = {
                     let $scope = angular.element(appElement).scope();
                     $scope.member = ret.data;
                     $scope.$apply();
+                    MemberInfo.getPlaces();
                 } else {
 
                     alert(i18next.t("msg_service_error"));
@@ -78,6 +80,7 @@ var MemberInfo = {
             }
         );
     },
+
     getPlaces() {
         Utils.ProcessAjax("/api/Common/getPlaces", "GET", true, "",
             function (ret) {
@@ -85,16 +88,29 @@ var MemberInfo = {
                     let appElement = document.querySelector('[ng-controller=MemberCtrl]');
                     let $scope = angular.element(appElement).scope();
                     $scope.Citys = ret.data;
+                    $scope.towns = [];
+                    for (let i in ret.data) {
+                        let item = ret.data[i];
+                        $scope.towns[item.id] = item.areas;
+                    }
+                    MemberInfo.setCity();
                     $scope.$apply();
                 } else {
-
                     alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) {
-                alert(i18next.t("msg_service_error"));
-            }
+            function (error) { alert(i18next.t("msg_service_error")); }
         );
+    },
+
+    setCity() {
+        let appElement = document.querySelector('[ng-controller=MemberCtrl]');
+        let $scope = angular.element(appElement).scope();
+        $scope.level2 = $scope.towns[$scope.member.cityId];
+
+        let zipAddress = $scope.member.townId + ':' + $scope.member.zipCode;
+        $scope.SelArea = zipAddress;
+        $scope.$apply();
     }
 };
 

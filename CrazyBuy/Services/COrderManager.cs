@@ -1,6 +1,8 @@
 ﻿using CrazyBuy.Common;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -52,45 +54,54 @@ namespace CrazyBuy.Services
                 List<OrderDetail> detailList = new List<OrderDetail>();
                 Dictionary<int, TenantPrd> prdMap = new Dictionary<int, TenantPrd>();
 
-                //結算購物車價錢
+                //結算購物車價錢及規格數量
                 foreach (ShopCartPrd item in shopCartPrds)
                 {
-                    OrderDetail detail = new OrderDetail();
-                    detail.prdId = item.productId;
-                    detail.qty = item.count;
-                    detail.unitPrice = item.amount / item.count;
-                    detail.amount = item.amount;
-                    detail.status = "正常";
-                    detail.createTime = now;
-                    detail.updateTime = now;
-                    total += item.amount;
-                    detailList.Add(detail);
+                    TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.productId);
+                    prdItem = isPrdSPecEnought(prdItem, item.prdSepc, item.count);
+                    if (prdItem != null)
+                    {
+                        OrderDetail detail = new OrderDetail();
+                        detail.prdId = item.productId;
+                        detail.qty = item.count;
+                        detail.unitPrice = item.amount / item.count;
+                        detail.amount = item.amount;
+                        detail.status = "正常";
+                        detail.createTime = now;
+                        detail.updateTime = now;
+                        total += item.amount;
+                        detailList.Add(detail);
+                        if (!prdMap.ContainsKey(prdItem.id))
+                        {
+                            prdMap.Add(prdItem.id, prdItem);
+                        }
+                    }
+                    else
+                    {
+                        rm.code = MessageCode.PRD_NOT_ENOUGHT;
+                        return rm;
+                    }
                 }
 
                 //檢查是否數量足夠
                 foreach (OrderDetail item in detailList)
                 {
-                    TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.prdId);
+                    TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);
                     prdItem.stockNum = prdItem.stockNum - item.qty;
                     if (prdItem.stockNum < 0)
                     {
                         rm.code = MessageCode.PRD_NOT_ENOUGHT;
                         return rm;
-                    }
-
-                    if (!prdMap.ContainsKey(prdItem.id))
-                    {
-                        prdMap.Add(prdItem.id, prdItem);
-                    }
+                    }                    
                 }
 
                 //開始寫入價格
                 if (total != 0)
                 {
-                    orderMaster.orderAmount = total;                    
+                    orderMaster.orderAmount = total;
                     if (orderMaster.isNeedInvoice)
                     {
-                        total += Convert.ToInt32(total*0.05);
+                        total += Convert.ToInt32(total * 0.05);
                     }
                     total += orderMaster.shippingAmount;
                     orderMaster.totalAmount = total;
@@ -104,7 +115,7 @@ namespace CrazyBuy.Services
                     rm.data = master;
                     foreach (OrderDetail item in detailList)
                     {
-                        TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);
+                        TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);                       
                         DataManager.tenantPrdDao.updateTenandPrd(prdItem);
 
                         item.orderId = master.id;
@@ -129,6 +140,35 @@ namespace CrazyBuy.Services
             }
             rm.code = orderResult;
             return rm;
-        }        
+        }
+
+        public static TenantPrd isPrdSPecEnought(TenantPrd prd, string item, int buyCount)
+        {
+            if (string.IsNullOrEmpty(item) || string.IsNullOrEmpty(prd.prdSepc))
+            {
+                // 沒有商品規格不判斷
+                return prd;
+            }
+
+            dynamic itemSpec = JValue.Parse(item);
+            string code = itemSpec.code;
+
+            dynamic prdSpecs = JArray.Parse(prd.prdSepc);
+            foreach (var prdSpec in prdSpecs)
+            {
+                string prdCode = prdSpec.code;
+                if (prdCode.Equals(code))
+                {                    
+                    int num = int.Parse(Convert.ToString(prdSpec.num));                    
+                    if (num - buyCount > 0)
+                    {
+                        prdSpec.num = Convert.ToString(num - buyCount);
+                        prd.prdSepc = JsonConvert.SerializeObject(prdSpecs);
+                        return prd;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

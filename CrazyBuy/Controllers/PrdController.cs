@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CrazyBuy.Common;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 using CrazyBuy.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -63,9 +65,9 @@ namespace CrazyBuy.Controllers
             try
             {
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
-                TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(prdId);
+                TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(prdId);               
                 rm.code = MessageCode.SUCCESS;
-                rm.data = CTenantPrdManager.getPrdItem(prd, type);
+                rm.data = CTenantPrdManager.getPrdItem(prd, type);                
             }
             catch (Exception e)
             {

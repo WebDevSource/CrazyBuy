@@ -3,7 +3,6 @@
     $scope.checkPwd = '';
     $scope.member = {};
     $scope.update = function (selectedValue) {
-        // $scope.level2 = selectedValue.areas;
         $scope.level2 = $scope.towns[selectedValue]
     };
     $scope.submit = function () {

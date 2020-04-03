@@ -103,7 +103,7 @@
           </div>
           <div class="col-lg-6 col-12 mb-3 order-5">
             <p class="mb-2"><label for="">地址</label></p>
-            <select class="checkout-select"  ng-model="SelCity" ng-options="City.name for City in Citys" ng-change="update(SelCity)" required="required">
+            <select class="checkout-select"  ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="update(member.cityId)" required="required">
               <option vaule="">縣市</option>
             </select>
             <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" required="required">
