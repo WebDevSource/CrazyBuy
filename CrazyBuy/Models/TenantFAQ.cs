@@ -12,9 +12,9 @@ namespace CrazyBuy.Models
         public string question { get; set; }
         public string answer { get; set; }
         public string status { get; set; }
-        public DateTime createTime { get; set; }
-        public DateTime updateTime { get; set; }
-        public int creator { get; set; }
-        public int updater { get; set; }
+        public DateTime? createTime { get; set; }
+        public DateTime? updateTime { get; set; }
+        public int? creator { get; set; }
+        public int? updater { get; set; }
     }
 }

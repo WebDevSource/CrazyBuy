@@ -1,8 +1,7 @@
-﻿using CrazyBuy.Common;
-using CrazyBuy.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CrazyBuy.Models;
 
 namespace CrazyBuy.DAO
 {
@@ -12,9 +11,9 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                IQueryable<TenantFAQ> result = dbContext.TenantFAQ.Where(
-                m => m.tenantId == tenantId);
-                return result.ToList();
+                var sql = @"SELECT * FROM [TenantFAQ] where tenantId = '{0}' order by sort desc ";
+                sql = String.Format(sql, tenantId);
+                return dbContext.Database.SqlQuery<TenantFAQ>(sql).ToList();                
             }
         }
     }

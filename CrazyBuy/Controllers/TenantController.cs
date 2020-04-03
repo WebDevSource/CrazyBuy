@@ -1,5 +1,6 @@
 ﻿using CrazyBuy.DAO;
 using CrazyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace CrazyBuy.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult getFAQ()
         {
             ReturnMessage rm = new ReturnMessage();
@@ -53,6 +55,7 @@ namespace CrazyBuy.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult getBulletin()
         {
             ReturnMessage rm = new ReturnMessage();
