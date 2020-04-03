@@ -121,7 +121,12 @@ namespace CrazyBuy.Controllers
             try
             {
                 string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
-                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                string userType = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+                int memberId = -1;
+                if (!UserType.GUEST.Equals(userType))
+                {
+                    memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                }                
                 rm.code = MessageCode.SUCCESS;
                 rm.data = CTenantPrdCatManager.getAllCats(Guid.Parse(tenantId), memberId);
             }

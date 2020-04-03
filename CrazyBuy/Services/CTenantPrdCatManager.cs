@@ -23,8 +23,12 @@ namespace CrazyBuy.Services
         public static List<TenantPrdCatCount> getAllCats(Guid tenantId, int memberId)
         {
             TenantMember tenantMember = DataManager.tenantMemberDao.getTenantMemberByMemberId(memberId);
-            string userLvType = tenantMember.levelId == null ? UserLevelType.NORMAL : UserLevelType.ADVANCED;
 
+            string userLvType = UserLevelType.NORMAL;
+            if (tenantMember != null)
+            {
+                userLvType = tenantMember.levelId == null ? UserLevelType.NORMAL : UserLevelType.ADVANCED;
+            }
             List<TenantPrdCatCount> data = DataManager.tenantPrdCatDao.getAllPrdCats(tenantId);
             List<TenantPrdCatCount> result = new List<TenantPrdCatCount>();
             foreach (TenantPrdCatCount item in data)
