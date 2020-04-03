@@ -11,7 +11,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"SELECT * FROM [TenantFAQ] where tenantId = '{0}' order by sort desc ";
+                var sql = @"SELECT * FROM [TenantFAQ] where tenantId = '{0}' and status = N'上架' order by sort desc ";
                 sql = String.Format(sql, tenantId);
                 return dbContext.Database.SqlQuery<TenantFAQ>(sql).ToList();                
             }
