@@ -69,6 +69,7 @@ namespace CrazyBuy.Services
                         detail.status = "正常";
                         detail.createTime = now;
                         detail.updateTime = now;
+                        detail.prdSpec = item.prdSepc;
                         total += item.amount;
                         detailList.Add(detail);
                         if (!prdMap.ContainsKey(prdItem.id))

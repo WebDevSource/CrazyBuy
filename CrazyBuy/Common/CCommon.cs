@@ -20,6 +20,13 @@ namespace CrazyBuy
         public const string GUEST = "guest";
     }
 
+    public class UserLevelType
+    {
+        public const string NORMAL = "所有會員";
+        public const string ADVANCED = "進階會員";
+        public const string VIP = "特定會員";        
+    }
+
     public class LoginType
     {
         public const string LOGIN_USER = "loginUser";

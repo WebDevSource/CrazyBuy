@@ -12,6 +12,7 @@ namespace CrazyBuy.Models
         public int unitPrice { get; set; }
         public int amount { get; set; }
         public string status { get; set; }
+        public string prdSpec { get; set; }
         public DateTime createTime { get; set; }
         public DateTime updateTime { get; set; }
     }
@@ -26,6 +27,7 @@ namespace CrazyBuy.Models
         public int unitPrice { get; set; }
         public int amount { get; set; }
         public string status { get; set; }
+        public string prdSpec { get; set; }
         public DateTime createTime { get; set; }
         public DateTime updateTime { get; set; }
         public string name { get; set; }

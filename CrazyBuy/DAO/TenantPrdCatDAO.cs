@@ -52,5 +52,15 @@ namespace CrazyBuy.DAO
                 return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total;
             }
         }
+
+        public List<TenantPrdCatRead> getCatReads(int catId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @"select catId,type,tenantMemId,memLevelId from [TenantPrdCatRead] where catId = {0}";
+                string query = String.Format(sql, catId);
+                return dbContext.Database.SqlQuery<TenantPrdCatRead>(query).ToList();
+            }
+        }
     }
 }

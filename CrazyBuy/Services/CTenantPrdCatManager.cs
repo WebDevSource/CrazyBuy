@@ -20,16 +20,58 @@ namespace CrazyBuy.Services
             return data;
         }
 
-        public static List<TenantPrdCatCount> getAllCats(Guid tenantId)
+        public static List<TenantPrdCatCount> getAllCats(Guid tenantId, int memberId)
         {
+            TenantMember tenantMember = DataManager.tenantMemberDao.getTenantMemberByMemberId(memberId);
+            string userLvType = tenantMember.levelId == null ? UserLevelType.NORMAL : UserLevelType.ADVANCED;
+
             List<TenantPrdCatCount> data = DataManager.tenantPrdCatDao.getAllPrdCats(tenantId);
             List<TenantPrdCatCount> result = new List<TenantPrdCatCount>();
             foreach (TenantPrdCatCount item in data)
             {
-                item.count = item.count + item.pcount;
-                result.Add(item);
+                if (isCatCanRead(item.id, memberId, userLvType))
+                {
+                    if (item.parentId != null)
+                    {
+                        item.count = item.count + item.pcount;
+                    }
+                    else
+                    {
+                        item.count = item.pcount;
+                    }
+                    result.Add(item);
+                }
             }
             return result;
+        }
+
+        public static bool isCatCanRead(int catId, int memberId, string userLvType)
+        {
+            List<TenantPrdCatRead> list = DataManager.tenantPrdCatDao.getCatReads(catId);
+            foreach (TenantPrdCatRead item in list)
+            {
+                if (UserLevelType.NORMAL.Equals(item.type))
+                {
+                    //normal
+                    return true;
+                }
+
+                if (userLvType.Equals(item.type))
+                {
+                    // advanced
+                    return true;
+                }
+
+                if (item.tenantMemId != null)
+                {
+                    //vip
+                    if (memberId == item.tenantMemId)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
