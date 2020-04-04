@@ -57,7 +57,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"select catId,type,tenantMemId,memLevelId from [TenantPrdCatRead] where catId = {0}";
+                var sql = @"select catId,type,tenantMemId,memLevelId from [TenantPrdCatRead] where catId = {0} and status = N'正常'";
                 string query = String.Format(sql, catId);
                 return dbContext.Database.SqlQuery<TenantPrdCatRead>(query).ToList();
             }
