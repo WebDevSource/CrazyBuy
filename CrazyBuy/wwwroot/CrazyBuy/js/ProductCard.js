@@ -35,7 +35,7 @@ ProductCard = {
             let len = Object.keys(prices).length;
             for (let price in prices) {
                 i++;
-                html += '<p class="card-text product-price ' + ((i == len) ? '' : 'mb-0') + '">' + i18next.t("price_" + price) + prices[price] + '</p>';
+                html += '<p class="card-text product-price ' + ((i == len) ? '' : 'mb-0') + '">' + i18next.t(price) + prices[price] + '</p>';
             }
         }
         return html;
@@ -45,7 +45,7 @@ ProductCard = {
         let html = '';
         if (role == Utils.ROLE_ADMIN) {
             html += '    <div class="product-item-edit" data-authority="admin">                                                                                     '
-                + '      <a class="d-block mb-2" href="" onclick=" Utils.openBankend()" ><i class="fas fa-edit" ></i><span>' + i18next.t("btn_product_edit") + '</span></a>                         '
+                + '      <a class="d-block mb-2" href="" onclick="Utils.openBankend()" ><i class="fas fa-edit" ></i><span>' + i18next.t("btn_product_edit") + '</span></a>                         '
                 + '      <a class="d-block" href="" onclick=" Utils.openBankend()"><i class="fas fa-image"></i><span>' + i18next.t("btn_product_addImg") + '</span></a>                           '
                 + '    </div> ';
         }

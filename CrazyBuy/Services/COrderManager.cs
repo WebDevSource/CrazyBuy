@@ -20,19 +20,32 @@ namespace CrazyBuy.Services
             return data;
         }
 
-        public static bool isProductEnough(int userId)
+        public static ReturnMessage isProductEnough(int userId)
         {
+            ReturnMessage rm = new ReturnMessage();
             List<ShopCartPrd> shopCartPrds = DataManager.shopCartDao.getItemsByMember(userId);
+            bool isCheck = true;
+            List<int> data = new List<int>();
             foreach (ShopCartPrd item in shopCartPrds)
             {
                 TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.productId);
-                prdItem.stockNum = prdItem.stockNum - item.count;
-                if (prdItem.stockNum < 0)
+                if (prdItem.zeroStockMessage != null && prdItem.zeroStockMessage != "")
                 {
-                    return false;
+                    continue;
                 }
+
+                TenantPrd tmpPrdItem = isPrdSPecEnought(prdItem, item.prdSepc, item.count);
+                prdItem.stockNum = prdItem.stockNum - item.count;
+                if (prdItem.stockNum < 0 || tmpPrdItem == null)
+                {
+                    data.Add(prdItem.id);
+                    isCheck = false;
+                }
+
             }
-            return true;
+            rm.code = isCheck ? MessageCode.SUCCESS : MessageCode.ERROR;
+            rm.data = data;
+            return rm;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -93,7 +106,7 @@ namespace CrazyBuy.Services
                     {
                         rm.code = MessageCode.PRD_NOT_ENOUGHT;
                         return rm;
-                    }                    
+                    }
                 }
 
                 //開始寫入價格
@@ -116,7 +129,7 @@ namespace CrazyBuy.Services
                     rm.data = master;
                     foreach (OrderDetail item in detailList)
                     {
-                        TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);                       
+                        TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);
                         DataManager.tenantPrdDao.updateTenandPrd(prdItem);
 
                         item.orderId = master.id;
@@ -159,8 +172,8 @@ namespace CrazyBuy.Services
             {
                 string prdCode = prdSpec.code;
                 if (prdCode.Equals(code))
-                {                    
-                    int num = int.Parse(Convert.ToString(prdSpec.num));                    
+                {
+                    int num = int.Parse(Convert.ToString(prdSpec.num));
                     if (num - buyCount > 0)
                     {
                         prdSpec.num = Convert.ToString(num - buyCount);

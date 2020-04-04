@@ -111,6 +111,11 @@ var MemberInfo = {
         let zipAddress = $scope.member.townId + ':' + $scope.member.zipCode;
         $scope.SelArea = zipAddress;
         $scope.$apply();
+    },
+    changeType(element) {
+        let input = $(element).prev();
+        let type = input.attr("type");
+        input.attr("type", (type == "password" ? "text" : "password"));
     }
 };
 

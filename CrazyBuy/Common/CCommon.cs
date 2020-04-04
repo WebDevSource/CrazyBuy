@@ -173,6 +173,7 @@ namespace CrazyBuy
     public class CustSpcPrice
     {
         public int price { get; set; }
+        public string name { get; set; }
     }
 
     public class TenantSettingType

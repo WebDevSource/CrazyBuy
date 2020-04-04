@@ -43,7 +43,7 @@ var ProductInner = {
             }
         }
 
-        if (item.count < 1 && item.zeroStock) {
+        if (item.count < 1 && !item.zeroStock) {
             $(".soldoutCart").text(item.zeroStock);
             $(".soldoutCart").show();
         } else {
@@ -110,7 +110,7 @@ var ProductInner = {
             let i = 0;
             let len = Object.keys(item).length;
             for (let price in item) {
-                head += '<th>' + i18next.t("price_" + price) + '</th>';
+                head += '<th>' + i18next.t(price) + '</th>';
                 body += '<td>' + item[price] + '</td>';
                 i++;
             }

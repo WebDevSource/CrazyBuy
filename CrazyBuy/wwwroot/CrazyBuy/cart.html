@@ -74,7 +74,8 @@
     <section class="container-fluid px-md-30 px-15">
         <h4 class="my-20">我的購物車</h4>
         <div class="my-30 p-20 cart-hint" ng-show="prdCountCheck">
-            有商品目前無法訂購！
+            <span ng-show="carts.length < 1">購物車內無商品!</span>
+            <span ng-show="carts.length > 0">有商品目前無法訂購！</span>
             <div ng-repeat="items in errorMessages">
                 <div>
                     {{items.name}}<br />
@@ -113,11 +114,11 @@
                     <td class="table-center cart-item-delete" ng-click="delCartItem(cart.id)">x</td>
                 </tr>
                 <tr>
-                    <td class="text-right cart-all-toalprice" colspan="4" data-i18n="cart_sum_not_ship_price">(不計算運費)總計</td>
+                    <td class="text-right cart-all-toalprice" colspan="5" data-i18n="cart_sum_not_ship_price">(不計算運費)總計</td>
                     <td class="text-right" colspan="3">{{TotalAmt}}</td>
                 </tr>
                 <tr>
-                    <td class="text-right cart-all-price-hint" colspan="7"><i class="fas fa-info"></i> <span data-i18n="cart_waring_message">選擇運送方式後於結帳確認頁計算訂單總金額</span></td>
+                    <td class="text-right cart-all-price-hint" colspan="8"><i class="fas fa-info"></i> <span data-i18n="cart_waring_message">選擇運送方式後於結帳確認頁計算訂單總金額</span></td>
                 </tr>
             </tbody>
         </table>
@@ -148,6 +149,7 @@
         <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">
             <a class="cart-link-btn mr-4" href="javascript:history.back()">繼續購物</a>
             <a class="btn btn-register cart-nextpage-btn" href="./checkout.html" ng-show="canOrder">結帳</a>
+            <button type="button" class="btn btn-register cart-nextpage-btn"  ng-show="!canOrder" disabled >結帳</button>
         </div>
     </section>
 </body>

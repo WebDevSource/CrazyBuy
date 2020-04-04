@@ -101,12 +101,12 @@ namespace CrazyBuy.Services
                         prdPriceSPCMember.type = CHType.PRICE_MEMBER;
                         prices.Add(prdPriceSPCMember);
 
-                        int spc_price = DataManager.tenantPrdDao.getSpcTenantPrdPrice(prd.tenantId, prd.id, int.Parse(custGrade));
-                        if (spc_price != 0)
+                        CustSpcPrice spc_price = DataManager.tenantPrdDao.getSpcTenantPrdPrice(prd.tenantId, prd.id, int.Parse(custGrade));
+                        if (spc_price != null)
                         {
                             prdPriceSPCMember = new PrdPrice();
-                            prdPriceSPCMember.price = prd.transferPrice == null ? 0 : spc_price;
-                            prdPriceSPCMember.type = CHType.PRICE_VIPTRANS;
+                            prdPriceSPCMember.price =  spc_price.price;
+                            prdPriceSPCMember.type = spc_price.name;
                             prices.Add(prdPriceSPCMember);
                         }
                     }

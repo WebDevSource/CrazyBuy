@@ -141,8 +141,8 @@
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-1 order-2">
                         <p class="mb-2 "><label for="">輸入密碼</label></p>
-                        <input class="w-100" type="password" ng-model="member.password" required="required">
-                        <span class="register-password"></span>
+                        <input class="w-100" type="password" ng-model="member.password" ng- required="required">
+                        <span class="register-password" onclick="Register.changeType(this)"></span>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-2 order-1">
                         <p class="mb-2"><label for="">手機號碼</label></p>
@@ -152,7 +152,7 @@
                     <div class="col-md-6 col-12 mb-3 order-3">
                         <p class="mb-2 "><label for="">再次輸入密碼</label></p>
                         <input class="w-100" type="password" ng-model="checkPwd" required="required">
-                        <span class="register-password"></span>
+                        <span class="register-password" onclick="Register.changeType(this)"></span>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-4">
                         <p class="mb-2"><label for="">會員訊息</label></p>
