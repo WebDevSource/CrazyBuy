@@ -5,6 +5,7 @@
     $scope.update = function (selectedValue) {
         $scope.level2 = $scope.towns[selectedValue]
     };
+
     $scope.submit = function () {
         if ($scope.agree) {
             if ($scope.checkPwd === $scope.member.password) {
@@ -15,7 +16,7 @@
                 if ($scope.SelArea && $scope.SelArea.includes(':')) {
                     $scope.member.townId = parseInt($scope.SelArea.split(':')[0]);
                     $scope.member.zipCode = parseInt($scope.SelArea.split(':')[1]);
-                }                
+                }
                 Utils.ProcessAjax("/api/member/" + Utils.GetTenantId(), "PUT", true, $scope.member,
                     function (ret) {
                         switch (ret.code) {
@@ -29,7 +30,7 @@
                                 break;
                         }
                     },
-                    function (error) { alert(i18next.t("msg_service_error"));}
+                    function (error) { alert(i18next.t("msg_service_error")); }
                 );
             } else {
                 alert('please check password.');
@@ -76,6 +77,11 @@ var Register = {
             },
             function (error) { alert(i18next.t("msg_service_error")); }
         );
+    },
+    changeType (element) {
+        let input = $(element).prev();
+        let type = input.attr("type");
+        input.attr("type", (type == "password" ? "text" : "password"));
     }
 };
 

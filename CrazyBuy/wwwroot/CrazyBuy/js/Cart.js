@@ -1,5 +1,5 @@
 ﻿var prdCountNotEnough = false;
-var cartApp = angular.module('CartApp', []).controller('CartCtrl', function ($scope) {    
+var cartApp = angular.module('CartApp', []).controller('CartCtrl', function ($scope) {
 
     $scope.delCartItem = function (id) {
         Cart.delCartItem(id);
@@ -9,7 +9,7 @@ var cartApp = angular.module('CartApp', []).controller('CartCtrl', function ($sc
 var Cart = {
     doLoad() {
         Utils.Initial();
-        Utils.InitI18next("zh-TW", ["cart","products"], Cart.InitModule);
+        Utils.InitI18next("zh-TW", ["cart", "products"], Cart.InitModule);
 
     },
 
@@ -19,20 +19,25 @@ var Cart = {
     },
 
     checkPrdCount() {
-        Cart.InitView();
-       /* 
-        * Utils.ProcessAjax("/api/prd/isProductEnough", "GET", true, "",
+        Utils.ProcessAjax("/api/prd/isProductEnough", "GET", true, "",
             function (ret) {
-                if (ret.code === 1) {
-                    prdCountNotEnough = !ret.data;
-                    Cart.InitView();
+                if (ret.code === -1) {
+                    if (Array.isArray(ret.data)) {
+                        let appElement = document.querySelector('[ng-controller=CartCtrl]');
+                        let $scope = angular.element(appElement).scope();
+                        $scope.enoughList = ret.data;
+                        Cart.InitView();
+                    } else {
+
+                        alert("service error");
+                    }
                 } else {
-                    alert("service error");
+                    Cart.InitView();
                 }
             },
             function (error) { alert("ajax error") }
         );
-        */
+
     },
 
     delCartItem(id) {
@@ -74,18 +79,44 @@ var Cart = {
                             imageUrl = Utils.BackendImageUrl + "id=" + value.productId + "&filename=" + images[0].filename;
                         }
                         let specialRule = JSON.parse(value.specialRule);
-                        value.type = i18next.t("price_" + value.type);
+                        value.type = i18next.t(value.type);
                         $scope.carts[index].prdImages = imageUrl;
                         $scope.carts[index].type = value.type;
                         $scope.carts[index].specialRule = specialRule
                         $scope.carts[index].sepc = value.prdSepc ? JSON.parse(value.prdSepc) : null;
+                        let hasOnly = false;
+                        let tags = [];
+                        for (let tag in specialRule) {
+                            let name = specialRule[tag];
+                            if (name.indexOf(i18next.t("tag_factory")) > -1) {
+                                if (hasOnly) {
+                                    continue;
+                                } else {
+                                    hasOnly = true;
+                                    name = i18next.t("tag_only");
+                                }
+                            } else if (name.indexOf(i18next.t("tag_only")) > -1) {
+                                if (hasOnly) {
+                                    continue;
+                                } else {
+
+                                    hasOnly = true;
+                                }
+                            }
+                            tags.push(name);
+                        }
+
+
+                        $scope.carts[index].specialRule = tags;
+
+
                         let prdId = value.productId;
-                        if (value.stockNum < 1) {
+                        if (Array.isArray($scope.enoughList) && $scope.enoughList.includes(prdId)) {
                             stockZero.set(prdId, value);
-                        } 
+                        }
                         if (Array.isArray(specialRule) && (specialRule.includes(i18next.t("tag_only")) || specialRule.includes(i18next.t("tag_factory")))) {
                             onlyOrder.set(prdId, value);
-  
+
                         }
                         if (value.shipType) {
                             let shipType = JSON.parse(value.shipType);
@@ -109,6 +140,8 @@ var Cart = {
                         prdCountNotEnough = true;
                     } else if (stockZero.size > 0) {
                         prdCountNotEnough = true;
+                    } else if ($scope.carts.length < 1) {
+                        prdCountNotEnough = true;
                     }
 
                     $scope.errorMessages = [];
@@ -122,14 +155,14 @@ var Cart = {
                         $scope.errorMessages.push({ "name": i18next.t("ship_type_nomal"), "values": Array.from(shipNomal.values()) });
                         $scope.errorMessages.push({ "name": i18next.t("ship_type_cool"), "values": Array.from(shipCoole.values()) });
                     }
-                   
+
                     if (onlyOrder.size == 1 && product.size > 1) {
                         $scope.errorMessages.push({ "name": i18next.t("tag_only"), "values": Array.from(onlyOrder.values()) });
                     }
 
-                   
+
                     $scope.limitMessage = i18next.t("cart_order_limit");
-                    
+
                     $scope.canOrder = !prdCountNotEnough;
                     $scope.prdCountCheck = prdCountNotEnough;
                     $scope.$apply();

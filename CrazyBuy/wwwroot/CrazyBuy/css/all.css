@@ -2891,6 +2891,7 @@ fieldset:disabled a.btn {
         color: #fff;
         background-color: #fe584c;
         border-color: #fe584c;
+        cursor: not-allowed;
     }
 
     .btn-register:not(:disabled):not(.disabled):active, .btn-register:not(:disabled):not(.disabled).active,

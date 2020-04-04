@@ -22,8 +22,8 @@ namespace CrazyBuy.Controllers
             try
             {
                 int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
-                rm.code = MessageCode.SUCCESS;
-                rm.data = COrderManager.isProductEnough(memberId);
+
+                rm = COrderManager.isProductEnough(memberId);
             }
             catch (Exception e)
             {
