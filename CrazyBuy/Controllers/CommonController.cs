@@ -93,6 +93,45 @@ namespace CrazyBuy.Controllers
 
         [HttpGet]
         [Authorize]
+        public ActionResult getMembmerLevel()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+            TenantMemLevel level = DataManager.tenantMemberDao.getMemberLevel(memberId);
+            if (level != null)
+            {
+                rm.code = MessageCode.SUCCESS;
+                rm.data = level;
+            }
+            else
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = "not level member.";
+            }
+            return Ok(rm);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public ActionResult getMembmerLevelById(int id)
+        {
+            ReturnMessage rm = new ReturnMessage();
+            TenantMemLevel level = DataManager.tenantMemberDao.getMemberLevelById(id);
+            if (level != null)
+            {
+                rm.code = MessageCode.SUCCESS;
+                rm.data = level;
+            }
+            else
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = "not level member.";
+            }
+            return Ok(rm);
+        }
+
+        [HttpGet]
+        [Authorize]
         public ActionResult getFreight()
         {
             ReturnMessage rm = new ReturnMessage();

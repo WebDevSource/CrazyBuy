@@ -48,6 +48,7 @@ namespace CrazyBuy.Models
         public string status { get; set; }
         public DateTime? createTime { get; set; }
         public DateTime? updateTime { get; set; }
+        public int? levelId { get; set; }
 
         public string invoiceNumber { get; set; }
         public string invoiceName { get; set; }
@@ -97,6 +98,7 @@ namespace CrazyBuy.Models
         public string status { get; set; }
         public DateTime? createTime { get; set; }
         public DateTime? updateTime { get; set; }
+        public int? levelId { get; set; }
 
         public string invoiceNumber { get; set; }
         public string invoiceName { get; set; }

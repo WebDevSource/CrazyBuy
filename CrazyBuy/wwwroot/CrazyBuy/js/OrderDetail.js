@@ -3,7 +3,10 @@
     $scope.submit = function () {
         $scope.contact.orderId = parseInt($scope.id, 0);
         OrderDetail.addContactItem($scope.contact);
-    };   
+    };
+    $scope.useSample = function () {
+        $scope.contact.ContactContent = "匯款日：\n末五碼：\n備註：";
+    };
 });
 
 
@@ -32,7 +35,26 @@ var OrderDetail = {
                     alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert(i18next.t("msg_service_error"));}
+            function (error) { alert(i18next.t("msg_service_error")); }
+        );
+    },
+
+    checkLevelMember(id) {
+        Utils.ProcessAjax("/api/Common/getMembmerLevelById/" + id, "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let appElement = document.querySelector('[ng-controller=OrderCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    let disName = ret.data.levelName;
+                    let dis = ret.data.discount;
+                    let value = i18next.t("memberLevelValue");
+                    value = value.replace('{0}', disName);
+                    value = value.replace('{1}', dis);
+                    $scope.memberLevelValue = value;
+                    $scope.$apply();
+                }
+            },
+            function (error) { alert("ajax error") }
         );
     },
 
@@ -51,23 +73,24 @@ var OrderDetail = {
                         if (value.prdImages) {
                             let images = value.prdImages ? JSON.parse(value.prdImages) : "";
                             imageUrl = Utils.BackendImageUrl + "id=" + value.prdId + "&filename=" + images[0].filename;
-                            $scope.detail[index].prdImages = imageUrl;                            
-                        }                       
+                            $scope.detail[index].prdImages = imageUrl;
+                        }
                     });
                     $scope.now = new Date();
-                    $scope.contact = {};
-                    $scope.contact.ContactContent = "匯款日：\n末五碼：\n備註：";
+                    $scope.contact = {};                   
                     $scope.contactList = ret.data.contactList;
                     $scope.resultAmt = 0;
                     $scope.ShipAmt = $scope.master.shippingAmount;
-
+                    if (ret.data.master.levelId != null) {
+                        OrderDetail.checkLevelMember(ret.data.master.levelId);
+                    }
                     $scope.resultAmt = $scope.master.totalAmount;
                     $scope.$apply();
                 } else {
                     alert(i18next.t("msg_service_error"));
                 }
             },
-            function (error) { alert(i18next.t("msg_service_error"));}
+            function (error) { alert(i18next.t("msg_service_error")); }
         );
     },
 };

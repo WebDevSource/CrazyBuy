@@ -66,6 +66,16 @@ namespace CrazyBuy.Services
                 List<ShopCartPrd> shopCartPrds = DataManager.shopCartDao.getItemsByMember(userInfo.memberId);
                 List<OrderDetail> detailList = new List<OrderDetail>();
                 Dictionary<int, TenantPrd> prdMap = new Dictionary<int, TenantPrd>();
+                TenantMemLevel tenantMemLevel = DataManager.tenantMemberDao.getMemberLevel(userInfo.memberId);
+
+                //是否有高級會員折扣
+                double dis = 1;
+                int memberLevelId = MessageCode.ERROR;
+                if (tenantMemLevel != null)
+                {
+                    memberLevelId = tenantMemLevel.id;
+                    dis = tenantMemLevel.discount * 0.1;
+                }
 
                 //結算購物車價錢及規格數量
                 foreach (ShopCartPrd item in shopCartPrds)
@@ -77,13 +87,19 @@ namespace CrazyBuy.Services
                         OrderDetail detail = new OrderDetail();
                         detail.prdId = item.productId;
                         detail.qty = item.count;
-                        detail.unitPrice = item.amount / item.count;
+
                         detail.amount = item.amount;
+                        if (item.SpecialRule == null || !item.SpecialRule.Contains(UserDisType.NO_DIS))
+                        {
+                            detail.amount = (int)(detail.amount * dis);
+                        }
+
+                        detail.unitPrice = detail.amount / detail.qty;
                         detail.status = "正常";
                         detail.createTime = now;
                         detail.updateTime = now;
                         detail.prdSpec = item.prdSepc;
-                        total += item.amount;
+                        total += detail.amount;
                         detailList.Add(detail);
                         if (!prdMap.ContainsKey(prdItem.id))
                         {
@@ -122,6 +138,10 @@ namespace CrazyBuy.Services
                     orderMaster.payStatus = "等待貨款";
                     orderMaster.shippingStatus = "未出貨";
                     orderMaster.status = "新訂單";
+                    if (MessageCode.ERROR != memberLevelId)
+                    {
+                        orderMaster.levelId = memberLevelId;
+                    }
 
                     OrderMaster master = DataManager.orderDao.addOrderMaster(orderMaster);
 

@@ -16,6 +16,7 @@ var Cart = {
     InitModule() {
         NavBar.Init();
         Cart.checkPrdCount();
+        Cart.checkLevelMember();
     },
 
     checkPrdCount() {
@@ -32,6 +33,22 @@ var Cart = {
                         alert("service error");
                     }
                 } else {
+                    Cart.InitView();
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
+    },
+
+    checkLevelMember() {
+        Utils.ProcessAjax("/api/Common/getMembmerLevel", "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let appElement = document.querySelector('[ng-controller=CartCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    let disName = ret.data.levelName;
+                    let dis = ret.data.discount;
+                    $scope.disWording = '(' + disName + ' ' + dis + i18next.t("dis") + ')';
                     Cart.InitView();
                 }
             },

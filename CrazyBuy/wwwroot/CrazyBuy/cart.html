@@ -113,8 +113,9 @@
                     <td class="table-center cart-item-totalprice">{{cart.count}}</td>
                     <td class="table-center cart-item-delete" ng-click="delCartItem(cart.id)">x</td>
                 </tr>
-                <tr>
-                    <td class="text-right cart-all-toalprice" colspan="5" data-i18n="cart_sum_not_ship_price">(不計算運費)總計</td>
+                <tr>                    
+                    <td class="text-right cart-all-toalprice" colspan="4">{{disWording}}</td>
+                    <td class="text-right cart-all-toalprice" colspan="1" data-i18n="cart_sum_not_ship_price">(不計算運費){{disWording}}總計</td>
                     <td class="text-right" colspan="3">{{TotalAmt}}</td>
                 </tr>
                 <tr>

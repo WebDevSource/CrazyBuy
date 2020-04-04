@@ -197,7 +197,7 @@
                         </table>
                     </div>
                 </div>
-                <p class="member-level my-40">※ 會員等級『會員等級名稱』享8.5折</p>
+                <p class="member-level my-40">{{memberLevelValue}}</p>
                 <p class="mb-2">匯款回報 <a href="" class="btn btn-member-report" data-toggle="modal" data-target="#keeptouch">新增</a> </p>
                 <table class="table table-bordered order-detail-table">
                     <tbody>
@@ -241,6 +241,7 @@
                             </div>
                         </div>
                         <div class="text-center">
+                            <button type="button" class="btn btn-modal-submit mb-30" ng-click="useSample()">使用範本</button>
                             <button type="submit" class="btn btn-modal-submit mb-30">提交</button>
                         </div>
                         <div class="mobile-keeptouchtabel">

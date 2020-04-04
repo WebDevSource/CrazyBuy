@@ -5,5 +5,6 @@
   "cart_waring_message": "選擇運送方式後於結帳確認頁計算訂單總金額",
   "cart_sum_not_ship_price": "(不計算運費)總計",
   "cart_order_limit": "只能",
-  "cart_stock_zero": "商品數量不足"
+  "cart_stock_zero": "商品數量不足",
+  "dis": "折"
 }

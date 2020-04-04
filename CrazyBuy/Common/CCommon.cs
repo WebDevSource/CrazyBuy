@@ -27,6 +27,11 @@ namespace CrazyBuy
         public const string VIP = "特定會員";        
     }
 
+    public class UserDisType
+    {
+        public const string NO_DIS = "不適用任何優惠";
+    }
+
     public class LoginType
     {
         public const string LOGIN_USER = "loginUser";
