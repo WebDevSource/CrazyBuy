@@ -29,7 +29,7 @@ namespace CrazyBuy.Services
             foreach (ShopCartPrd item in shopCartPrds)
             {
                 TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.productId);
-                if (prdItem.zeroStockMessage != null && prdItem.zeroStockMessage != "")
+                if (prdItem.zeroStockMessage == null || prdItem.zeroStockMessage == "")
                 {
                     continue;
                 }

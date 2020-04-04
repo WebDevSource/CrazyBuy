@@ -43,7 +43,7 @@ var ProductInner = {
             }
         }
 
-        if (item.count < 1 && !item.zeroStock) {
+        if (item.count < 1 && item.zeroStock) {
             $(".soldoutCart").text(item.zeroStock);
             $(".soldoutCart").show();
         } else {
