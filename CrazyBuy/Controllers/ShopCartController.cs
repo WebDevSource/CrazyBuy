@@ -27,7 +27,7 @@ namespace CrazyBuy.Controllers
                 List<ShopCartPrd> list = DataManager.shopCartDao.getItemsByMember(memberId);
                 if (level != null)
                 {
-                    double discount = level.discount * 0.1;
+                    double discount = level.discount * 0.01;
                     foreach (ShopCartPrd item in list)
                     {
                         if (item.SpecialRule == null || !item.SpecialRule.Contains(UserDisType.NO_DIS))

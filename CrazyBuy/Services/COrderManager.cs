@@ -74,7 +74,7 @@ namespace CrazyBuy.Services
                 if (tenantMemLevel != null)
                 {
                     memberLevelId = tenantMemLevel.id;
-                    dis = tenantMemLevel.discount * 0.1;
+                    dis = tenantMemLevel.discount * 0.01;
                 }
 
                 //結算購物車價錢及規格數量
