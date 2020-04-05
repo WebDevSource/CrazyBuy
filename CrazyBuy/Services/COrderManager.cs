@@ -118,10 +118,13 @@ namespace CrazyBuy.Services
                 {
                     TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);
                     prdItem.stockNum = prdItem.stockNum - item.qty;
-                    if (prdItem.stockNum < 0)
+                    if (!string.IsNullOrEmpty(prdItem.zeroStockMessage))
                     {
-                        rm.code = MessageCode.PRD_NOT_ENOUGHT;
-                        return rm;
+                        if (prdItem.stockNum < 0)
+                        {
+                            rm.code = MessageCode.PRD_NOT_ENOUGHT;
+                            return rm;
+                        }
                     }
                 }
 
