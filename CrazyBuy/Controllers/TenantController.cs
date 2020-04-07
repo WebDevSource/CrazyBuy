@@ -72,16 +72,18 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+
         [HttpPost]
-        public ActionResult Register([FromBody]int memberId, Tenant tenant)
-        {
+        public ActionResult Register([FromBody]Tenant tenant)
+        {   
             ReturnMessage rm = new ReturnMessage();
             Guid tenantId = Guid.NewGuid();
 
             try
-            {
+            {   
                 tenant.tenantId = tenantId;
-                tenant.status = "審核中";
+                tenant.createdMemberId = 0;
+                tenant.status = "待審核";
                 tenant.createTime = DateTime.Now;
                 tenant.updateTime = DateTime.Now;
 

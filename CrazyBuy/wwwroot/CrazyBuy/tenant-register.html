@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crazyplusone</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <script src="./js/lib/jquery-3.4.1.min.js"></script>
+    <script src="./js/lib/popper.min.js"></script>
+    <script src="./js/lib/multiselect.min.js"></script>
+    <script src="./js/lib/bootstrap.min.js"></script>
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="./js/lib/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="./js/lib/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="./js/lib/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+    <script src="./js/all.min.js"></script>
+    <script src="./js/Utils.js"></script>
+    <script src="./js/NavBar.js"></script>
+
+    <!-- page lib -->
+    <script src="./js/TenantRegister.js"></script>
+
+    <link rel="stylesheet" href="./css/all.min.css">
+</head>
+<body onload="TenantRegister.DoLoad();">
+    <!-- navbar -->
+    <div class="navbar-mobile-block"></div>
+    <header class="container-fluid p-0" id="navbar">
+        <div class="text-center narbar-logo py-20">
+            <div class="d-inline-block admin-edit-content">
+                <img src="./images/logo.svg" alt="logo">
+                <!-- 管理者編輯 -->
+                <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin" style="display:none;">編輯</button>
+                <!-- 管理者編輯 -->
+            </div>
+        </div>
+        <nav class="navbar narbar-container navbar-expand-sm navbar-light">
+            <div class="box">
+                <div id="hamburger" class="hamburger">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+                <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo">
+                    <img src="./images/logo.svg" alt="logo">
+                </div>
+                <div class="input-group mobile-side-bar-item mb-3">
+                    <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+                    <div class="d-flex">
+                        <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+                    </div>
+                </div>
+                <ul class="navbar-nav mr-auto">
+                </ul>
+            </div>
+
+            <div class="navbar-status-content">
+            </div>
+        </nav>
+    </header>
+    <div class="gotop">
+        <i class="fas fa-angle-up"></i>
+    </div>
+    <!-- navbar -->
+    <section class="container-fluid px-md-30 px-15">
+        <h4 class="my-20">服務申請</h4>
+        <p class="my-30 pb-20 register-hint">
+            歡迎您提出服務申請xxxxxxxxx<br>
+        </p>
+        <form id="checkout-userinfo" ng-submit="submit()">
+            <section class="my-md-50 my-30">
+                <h5 class="my-20 order-title">基本資料</h5>
+                <hr>
+                <div class="row d-flex flex-wrap">
+                    <div class="col-md-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label for="">租戶網址</label></p>
+                        <input class="w-100" type="text" id="tenantCode">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label for="">租戶名稱</label></p>
+                        <input class="w-100" type="text" id="tenantName">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label for="">所屬公司名稱</label></p>
+                        <input class="w-100" type="text" id="enterpriseName">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label for="">所屬公司統一編號</label></p>
+                        <input class="w-100" type="text" id="enterpriseId">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label for="">所屬負責人</label></p>
+                        <input class="w-100" type="text" id="owner">
+                    </div>
+
+                    <div class="col-12 mb-3 order-5 text-center my-30">
+                        <input type="checkbox" name="" id="agree-register" ng-model="agree"> <span class="mb-2"><label for="agree-register">我已經詳閱上述會員說明</label></span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-register register-submit-btn" id="btnSubmit">提交表單</button>
+                </div>
+            </section>
+
+        </form>
+    </section>
+
+
+</body>
+</html>
