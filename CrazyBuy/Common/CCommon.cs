@@ -27,6 +27,12 @@ namespace CrazyBuy
         public const string VIP = "特定會員";        
     }
 
+    public class UserGradeType
+    {
+        public const string TRANS = "轉批價";
+        public const string CUSTOM = "自訂價";
+    }
+
     public class UserDisType
     {
         public const string NO_DIS = "不適用任何優惠";
@@ -183,9 +189,9 @@ namespace CrazyBuy
 
     public class TenantSettingType
     {
-        public const string FreeFreight = "FreeFreight";
-        public const string RoomTemperatureFreight = "RoomTemperatureFreight";
-        public const string RefrigerationFreigh = "RefrigerationFreigh";
+        public const string FreeFreight = "免運設定";
+        public const string RoomTemperatureFreight = "低溫運費";
+        public const string RefrigerationFreigh = "常溫運費";
     }
 
     public class TenantSettingTAG

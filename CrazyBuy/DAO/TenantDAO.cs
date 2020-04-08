@@ -93,7 +93,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"SELECT * FROM dbo.TenantSetting where title in  ('FreeFreight','RoomTemperatureFreight','RefrigerationFreigh') and tenantId = '{0}' ";
+                var sql = @"SELECT * FROM dbo.TenantSetting where title in  (N'免運設定',N'常溫運費',N'低溫運費') and tenantId = '{0}' ";
                 sql = string.Format(sql, tenantId);
                 return dbContext.Database.SqlQuery<TenantSetting>(sql).ToList();
             }

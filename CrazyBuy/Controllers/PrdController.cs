@@ -42,8 +42,13 @@ namespace CrazyBuy.Controllers
             {
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
                 string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
+                int memberId = -1;
+                if (!UserType.GUEST.Equals(type))
+                {
+                    memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                }
                 List<TenantPrd> data = DataManager.tenantPrdDao.getHomePrds(Guid.Parse(tenantId));
-                IEnumerable<Dictionary<string, object>> prds = CTenantPrdManager.getPrdList(data, type);
+                IEnumerable<Dictionary<string, object>> prds = CTenantPrdManager.getPrdList(data, type, memberId);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = prds;
             }
@@ -63,9 +68,14 @@ namespace CrazyBuy.Controllers
             try
             {
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+                int memberId = -1;
+                if (!UserType.GUEST.Equals(type))
+                {
+                    memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                }
                 TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(prdId);
                 rm.code = MessageCode.SUCCESS;
-                rm.data = CTenantPrdManager.getPrdItem(prd, type);
+                rm.data = CTenantPrdManager.getPrdItem(prd, type, memberId);
             }
             catch (Exception e)
             {
@@ -126,7 +136,7 @@ namespace CrazyBuy.Controllers
                 if (!UserType.GUEST.Equals(userType))
                 {
                     memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
-                }                
+                }
                 rm.code = MessageCode.SUCCESS;
                 rm.data = CTenantPrdCatManager.getAllCats(Guid.Parse(tenantId), memberId);
             }
@@ -147,7 +157,11 @@ namespace CrazyBuy.Controllers
             {
                 string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
-
+                int memberId = -1;
+                if (!UserType.GUEST.Equals(type))
+                {
+                    memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                }
                 PrdPageQuery query = new PrdPageQuery(request);
                 query.tnenatId = Guid.Parse(tenantId);
                 query.catId = id;
@@ -160,7 +174,7 @@ namespace CrazyBuy.Controllers
                 PrdPageResponse response = new PrdPageResponse();
                 response.page = request.page;
                 response.maxPage = maxPage;
-                response.result = CTenantPrdManager.getPrdListByCat(query);
+                response.result = CTenantPrdManager.getPrdListByCat(query, memberId);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = response;
             }
@@ -179,9 +193,13 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
+                int userId = -1;
                 string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
-
+                if (!UserType.GUEST.Equals(type))
+                {
+                    userId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                }
                 PrdSearchQuery query = new PrdSearchQuery(request);
                 query.tnenatId = Guid.Parse(tenantId);
                 query.catId = request.catId;
@@ -194,7 +212,7 @@ namespace CrazyBuy.Controllers
                 PrdPageResponse response = new PrdPageResponse();
                 response.page = request.page;
                 response.maxPage = maxPage;
-                response.result = CTenantPrdManager.getPrdSearchListByCat(query);
+                response.result = CTenantPrdManager.getPrdSearchListByCat(query, userId);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = response;
             }

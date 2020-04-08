@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrazyBuy.Common;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 
@@ -8,38 +7,38 @@ namespace CrazyBuy.Services
 {
     public class CTenantPrdManager
     {
-        public static IEnumerable<Dictionary<string, object>> getPrdSearchListByCat(PrdSearchQuery query)
+        public static IEnumerable<Dictionary<string, object>> getPrdSearchListByCat(PrdSearchQuery query, int userId)
         {
             List<TenantPrd> data = DataManager.tenantPrdDao.getSearchTenandPrdByCatId(query);
-            IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType);
+            IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType, userId);
             return result;
         }
 
-        public static IEnumerable<Dictionary<string, object>> getPrdListByCat(PrdPageQuery query)
+        public static IEnumerable<Dictionary<string, object>> getPrdListByCat(PrdPageQuery query, int userId)
         {
             List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(query);
-            IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType);
+            IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType, userId);
             return result;
         }
 
-        public static IEnumerable<Dictionary<string, object>> getPrdList(List<TenantPrd> prds, string userType)
+        public static IEnumerable<Dictionary<string, object>> getPrdList(List<TenantPrd> prds, string userType, int userId)
         {
             List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
             foreach (TenantPrd prd in prds)
             {
-                result.Add(getPrdItem(prd, userType));
+                result.Add(getPrdItem(prd, userType, userId));
             }
             return result;
         }
 
         //顯示獨立價格
-        public static PrdPrice getPrdPrice(TenantPrd prd, string userType)
+        public static PrdPrice getPrdPrice(TenantPrd prd, string userType, int userId)
         {
             PrdPrice prdPrice = new PrdPrice();
             string type = UserType.GUEST;
             int price = int.MaxValue;
 
-            List<PrdPrice> prices = getPrdPrices(prd, userType);
+            List<PrdPrice> prices = getPrdPrices(prd, userType, userId);
             foreach (PrdPrice itemPrice in prices)
             {
                 if (itemPrice.price < price)
@@ -54,12 +53,13 @@ namespace CrazyBuy.Services
         }
 
         //畫面呈現價格
-        public static List<PrdPrice> getPrdPrices(TenantPrd prd, string userType)
+        public static List<PrdPrice> getPrdPrices(TenantPrd prd, string userType, int userId)
         {
             List<PrdPrice> prices = new List<PrdPrice>();
             switch (userType)
             {
                 case LoginType.LOGIN_USER:
+                    TenantMember tenantMember = DataManager.tenantMemberDao.getTenantMemberByMemberId(userId);
                     PrdPrice prdPriceUser = new PrdPrice();
                     prdPriceUser.price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
                     prdPriceUser.type = CHType.PRICE_NORMAL;
@@ -70,6 +70,13 @@ namespace CrazyBuy.Services
                     prdPriceUser.type = CHType.PRICE_MEMBER;
                     prices.Add(prdPriceUser);
 
+                    if (UserGradeType.TRANS.Equals(tenantMember.gradeType))
+                    {
+                        prdPriceUser = new PrdPrice();
+                        prdPriceUser.price = prd.transferPrice == null ? 0 : (int)prd.transferPrice;
+                        prdPriceUser.type = CHType.PRICE_NTRANS;
+                        prices.Add(prdPriceUser);
+                    }
                     break;
                 case UserType.ADMIN:
                     PrdPrice prdPriceAdmin = new PrdPrice();
@@ -105,7 +112,7 @@ namespace CrazyBuy.Services
                         if (spc_price != null)
                         {
                             prdPriceSPCMember = new PrdPrice();
-                            prdPriceSPCMember.price =  spc_price.price;
+                            prdPriceSPCMember.price = spc_price.price;
                             prdPriceSPCMember.type = spc_price.name;
                             prices.Add(prdPriceSPCMember);
                         }
@@ -121,13 +128,13 @@ namespace CrazyBuy.Services
             return count;
         }
 
-        public static Dictionary<string, object> getPrdItem(TenantPrd prd, string userType)
+        public static Dictionary<string, object> getPrdItem(TenantPrd prd, string userType, int userId)
         {
             Dictionary<string, object> data = new Dictionary<string, object>();
             Dictionary<string, string> prices = new Dictionary<string, string>();
             string price;
 
-            List<PrdPrice> prdPrices = getPrdPrices(prd, userType);
+            List<PrdPrice> prdPrices = getPrdPrices(prd, userType, userId);
             foreach (PrdPrice prdPrice in prdPrices)
             {
                 price = string.Format("${0}", prdPrice.price);
