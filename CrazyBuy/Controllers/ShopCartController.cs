@@ -101,7 +101,7 @@ namespace CrazyBuy.Controllers
                 Guid itemId = Guid.NewGuid();
 
                 TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(value.productId);
-                PrdPrice prdPrice = CTenantPrdManager.getPrdPrice(prd, type);
+                PrdPrice prdPrice = CTenantPrdManager.getPrdPrice(prd, type, memberId);
 
                 ShopCart shopCart = DataManager.shopCartDao.getShopCartPrd(tenantId, memberId, value.productId);
 
