@@ -98,5 +98,14 @@ namespace CrazyBuy.DAO
                 return dbContext.Database.SqlQuery<TenantSetting>(sql).ToList();
             }
         }
+        public List<TenantSetting> getAllTenantSetting(Guid tenantId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @"SELECT * FROM dbo.TenantSetting where  tenantId = '{0}' ";
+                sql = string.Format(sql, tenantId);
+                return dbContext.Database.SqlQuery<TenantSetting>(sql).ToList();
+            }
+        }
     }
 }

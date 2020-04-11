@@ -206,6 +206,45 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+        [HttpGet]
+        [Authorize]
+        public ActionResult getBankInfo()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
+                List<TenantSetting> settings = DataManager.tenantDao.getAllTenantSetting(tenantId);
+                Dictionary<string, string> type = new Dictionary<string, string>();
+                foreach (TenantSetting setting in settings)
+                {
+                    if (!string.IsNullOrEmpty(setting.content))
+                    {
+                        type.Add(TenantSettingMapping.getType(setting.title), setting.content);
+                    }
+                }
+                var data = new
+                {
+                    bank = new
+                    {
+                        bankTitle = type.GetValueOrDefault("bankTitle"),
+                        bankCode = type.GetValueOrDefault("bankCode"),
+                        bankAccount = type.GetValueOrDefault("bankAccount")
+                    }
+                };
+
+
+                rm.code = MessageCode.SUCCESS;
+                rm.data = data;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
 
         private readonly static Dictionary<string, string> _contentTypes = new Dictionary<string, string>
         {

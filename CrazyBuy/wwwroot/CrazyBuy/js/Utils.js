@@ -139,13 +139,13 @@
     },
 
     ClearToken: function () {
-        Utils.SetCookie(Utils.TenantCode + "token", "", 0);
+        Utils.SetCookie("token", "", 0);
         Utils.SetCookie("role", Utils.ROLE_GUEST);
     },
 
     CheckToken: function async(callback) {
         var token = "";
-        token = Utils.GetCookie(Utils.TenantCode + "token");
+        token = Utils.GetCookie("token");
         if (!Utils.TenantCode) {
             //alert(i18next.t("msg_tenant_not_find"));
             location.href = "./error.html";
@@ -283,7 +283,7 @@
                 },
                 beforeSend: function (xhr) {
                     if (authToken) {
-                        let token = Utils.GetCookie(Utils.TenantCode + "token");
+                        let token = Utils.GetCookie("token");
                         xhr.setRequestHeader("Authorization", 'Bearer ' + token);
                     }
                 },
@@ -316,7 +316,7 @@
                 },
                 beforeSend: function (xhr) {
                     if (authToken != "") {
-                        let token = Utils.GetCookie(Utils.TenantCode + "token");
+                        let token = Utils.GetCookie("token");
                         xhr.setRequestHeader("Authorization", 'Bearer ' + token);
                     }
                 },
@@ -339,11 +339,11 @@
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        document.cookie = Utils.TenantCode + cname + "=" + cvalue + ";" + expires + ";path=/";
     },
 
     GetCookie: function (cname) {
-        var name = cname + "=";
+        var name = Utils.TenantCode + cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
         var ca = decodedCookie.split(';');
         for (var i = 0; i < ca.length; i++) {

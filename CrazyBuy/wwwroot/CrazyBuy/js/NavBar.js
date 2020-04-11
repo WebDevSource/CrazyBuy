@@ -264,7 +264,10 @@
     },
 
     getUserGroupButton() {
-
+        if (!Utils.GetCookie("user")) {
+            Utils.SetCookie("token", "");
+            window.location.reload();
+        }
         let user = JSON.parse(Utils.GetCookie("user"));
         let html = '<div class="btn-group">                                                                 '
             + '	<a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -302,16 +305,8 @@
         let result = Utils.AsyncProcessAjax("/api/auth/Login", "Post", "", data);
 
         if (result.code == "1") {
-            Utils.SetCookie(Utils.TenantCode + "token", result.token);
+            Utils.SetCookie("token", result.token);
 
-            if (accountant.toLowerCase() == "admin") {
-                Utils.SetCookie("role", Utils.ROLE_ADMIN);
-            } else if (Utils.ROLE_GUEST == result.type) {
-                Utils.SetCookie("role", Utils.ROLE_GUEST);
-            }
-            else {
-                Utils.SetCookie("role", Utils.ROLE_MEMBER);
-            }
             Utils.SetCookie("user", JSON.stringify(result));
 
         } else {

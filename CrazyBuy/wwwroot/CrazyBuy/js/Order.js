@@ -28,6 +28,7 @@ var Order = {
     InitModule() {
         NavBar.Init();
         Order.InitView();
+        Order.getBankInfo();
     },
 
     InitView() {
@@ -75,6 +76,21 @@ var Order = {
                     $scope.send = {};
                     $scope.send.ContactContent = "匯款日：\n末五碼：\n備註：";
                     $scope.contactList = ret.data.contactList;                    
+                    $scope.$apply();
+                } else {
+                    alert(i18next.t("msg_service_error"));
+                }
+            },
+            function (error) { alert(i18next.t("msg_service_error")); }
+        );
+    },
+    getBankInfo() {
+        Utils.ProcessAjax("/api/Common/getBankInfo", "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let appElement = document.querySelector('[ng-controller=OrderCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    $scope.bank = ret.data.bank;
                     $scope.$apply();
                 } else {
                     alert(i18next.t("msg_service_error"));

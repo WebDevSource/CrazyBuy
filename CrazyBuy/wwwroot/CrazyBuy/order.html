@@ -112,7 +112,7 @@
 
                 <section class="mobile-order" id="mobile-order-list">
                     <div class="order mb-20" ng-repeat="item in data">
-                        <a ng-click="action(item.id)"  class="row mobile-order-row mx-0">
+                        <a ng-click="action(item.id)" class="row mobile-order-row mx-0">
                             <div class="col-4 text-hint mb-1 order-emphasize px-0">{{item.serialNo}}</div>
                             <div class="col-5 px-0 pt-1 mb-1 px-0"><span>購買日期</span>  <span class="text-hint mobile-buy-date">{{item.dtOrder|date:'yyyy-MM-dd'}}</span></div>
                             <div class="col-3 pt-1 mb-1 px-0">${{item.orderAmount}}</div>
@@ -219,9 +219,11 @@
                 </div>
                 <div class="modal-body">
                     <p>匯款資訊處</p>
-                    <p>郵局代號：</p>
-                    <p>轉帳帳號：</p>
-                    <p>戶名：</p>
+                    <p>
+                        <span>銀行代號：</span> <span>{{bank.bankCode}}</span>
+                    </p>
+                    <p><span>轉帳帳號：</span> <span>{{bank.bankAccount}}</span></p>
+                    <p><span>戶名：</span> <span>{{bank.bankTitle}}</span></p>
                     <p><i class="fas fa-exclamation-triangle text-hint"></i> 請於本公司訂單處理好之後再進行匯款..謝謝合作</p>
                 </div>
             </div>
@@ -264,9 +266,9 @@
                                     <tr ng-repeat="contact in contactList">
                                         <th scope="row">{{contact.dtContact|date:'yyyy-MM-dd'}}</th>
                                         <td>
-                                            <p class="mb-0">{{contact.contactContent}}</p>                                           
+                                            <p class="mb-0">{{contact.contactContent}}</p>
                                         </td>
-                                    </tr>                                    
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

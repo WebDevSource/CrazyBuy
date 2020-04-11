@@ -1,6 +1,5 @@
 ﻿var CheckOutApp = angular.module('CheckOutApp', []).controller('CheckOutCtrl', function ($scope) {
-    $scope.checkout = JSON.parse(Utils.GetCookie("order"));
-    $scope.memberData = JSON.parse(Utils.GetCookie("memberData"));
+
     $scope.invoicePrice = 0;
 
     $scope.sendOrder = function () {
@@ -49,6 +48,8 @@ var CheckoutSuccess = {
                         }
 
                     });
+                    $scope.checkout = JSON.parse(Utils.GetCookie("order"));
+                    $scope.memberData = JSON.parse(Utils.GetCookie("memberData"));
                     $scope.$apply();
                 } else {
                     alert(i18next.t("msg_service_error"));
@@ -65,10 +66,10 @@ var CheckoutSuccess = {
                 if (ret.code === 1) {
                     switch (ret.data.code) {
                         case -1:
-                            alert(i18next("msg_cart_is_null"));
+                            alert(i18next.t("msg_cart_is_null"));
                             break;
                         case -2:
-                            alert(i18next("msg_product_not_enough"));
+                            alert(i18next.t("msg_product_not_enough"));
                             break;
                         default:
                             window.location.href = 'order-success.html?tenantCode=' + Utils.TenantCode + '&id=' + ret.data.code + '&serialNo=' + ret.data.data.serialNo;

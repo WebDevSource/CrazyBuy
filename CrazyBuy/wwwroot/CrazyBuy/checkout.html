@@ -102,15 +102,13 @@
                     </div>
                     <div class="col-lg-6 col-12 mb-3 order-5">
                         <p class="mb-2"><label for="">地址</label></p>
-                        <!--
-                        <select class="checkout-select" ng-model="SelCity" ng-options="City.name for City in Citys" ng-change="update(SelCity)">
+                        <select class="checkout-select" ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="memupdate(member.cityId)" disabled="disabled">
                             <option value="">縣市</option>
                         </select>
-                        <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" >
+                        <select class="checkout-select" ng-model="memSelArea" ng-options="memSelCity.townId+':'+memSelCity.zipCode as memSelCity.townName for memSelCity in memlevel2" disabled="disabled">
                             <option value="">鄉鎮市區</option>
                         </select>
-                            -->
-                        <input class="w-100" type="text" value="{{member.address}}" required="required" disabled="disabled">
+                        <input class="checkout-address" type="text" value="{{member.address}}" required="required" disabled="disabled">
                     </div>
                 </div>
             </section>
@@ -147,7 +145,7 @@
                     </div>
                     <div class="col-lg-6 col-12 mb-3 order-5">
                         <p class="mb-2"><label for="">地址</label></p>
-                        <select class="checkout-select" ng-model="SelCity" ng-options="City.name for City in Citys" ng-change="update(SelCity)" required="required">
+                        <select class="checkout-select" ng-model="checkout.recipientCityId" ng-options="City.id as City.name for City in Citys" ng-change="update(checkout.recipientCityId)" required="required">
                             <option value="">縣市</option>
                         </select>
                         <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" required="required">
@@ -157,7 +155,7 @@
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-6">
                         <p class="mb-2"><label for="">希望到貨時段</label></p>
-                        <select class="checkout-select checkout-select-w100" name="" id="" ng-model="checkout.hopeArrivalTime">
+                        <select class="checkout-select checkout-select-w100" name="" id="" ng-model="checkout.hopeArrivalTime" required="required">
                             <option value="">請選擇</option>
                             <option value="上午">上午</option>
                             <option value="中午">中午</option>
@@ -205,9 +203,9 @@
                         <label class="checkout-radio-label" for="atm-pay">ATM 轉帳</label>
                         <div class="transport-method-describe mt-15">
                             匯款資訊處 <br>
-                            郵局代號： <br>
-                            轉帳帳號： <br>
-                            戶名： <br><br>
+                            <span>銀行代號：</span> <span>{{bank.bankCode}}</span><br>
+                            <span>轉帳帳號：</span> <span>{{bank.bankAccount}}</span><br>
+                            <span>戶名：</span> <span>{{bank.bankTitle}}</span><br><br>
                             <span><b><i class="fas fa-exclamation-triangle text-hint"></i>請於本公司訂單處理好之後再進行匯款..謝謝合作</b></span>
                         </div>
                     </div>
@@ -219,11 +217,20 @@
                 <div class="row">
                     <div class="col-12">
                         <p>本站購物需外加5%發票稅，若選不需開發票則不需加5％發票稅</p>
-                        <input type="radio" name="receipt" id="no-receipt" value="false" ng-model="checkout.isNeedInvoice">
+                        <input type="radio" name="receipt" id="no-receipt" value="不需開發票" ng-model="checkout.invoiceType">
                         <label class="checkout-radio-label " for="no-receipt">不需開發票</label>
                         <br><br>
-                        <input type="radio" name="receipt" id="atm-pay" value="empty" ng-model="checkout.isNeedInvoice">
-                        <label class="checkout-radio-label" for="atm-pay">三聯式發票</label>
+                        <input type="radio" name="receipt" id="invoice-type-ri" value="收據" ng-model="checkout.invoiceType">
+                        <label class="checkout-radio-label" for="invoice-type-ri">收據</label>
+                        <br><br>
+                        <input type="radio" name="receipt" id="invoice-type-dn" value="捐贈" ng-model="checkout.invoiceType">
+                        <label class="checkout-radio-label" for="invoice-type-dn">捐贈</label>
+                        <br><br>
+                        <input type="radio" name="receipt" id="invoice-type-two" value="二聯" ng-model="checkout.invoiceType">
+                        <label class="checkout-radio-label" for="invoice-type-two">二聯式發票</label>
+                        <br><br>
+                        <input type="radio" name="receipt" id="invoice-type-three" value="三聯" ng-model="checkout.invoiceType">
+                        <label class="checkout-radio-label" for="invoice-type-three">三聯式發票</label>
                         <div class="transport-method-describe mt-15">
                             <div class="col-12 mb-3">
                                 <p class="mb-2"><label for="">公司統一編號</label></p>
@@ -239,7 +246,7 @@
                             </div>
                             <div class="col-12 mb-3">
                                 <p class="mb-2"><label for="">發票收件地址</label></p>
-                                <select class="checkout-select" ng-model="recSelCity" ng-options="City.name for City in Citys" ng-change="recUpdate(recSelCity)">
+                                <select class="checkout-select" ng-model="checkout.invoiceCityId" ng-options="City.id as City.name for City in Citys" ng-change="recUpdate(checkout.invoiceCityId)">
                                     <option value="">縣市</option>
                                 </select>
                                 <select class="checkout-select" ng-model="recSelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in reclevel2">

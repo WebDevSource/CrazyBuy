@@ -192,6 +192,9 @@ namespace CrazyBuy
         public const string FreeFreight = "免運設定";
         public const string RoomTemperatureFreight = "低溫運費";
         public const string RefrigerationFreigh = "常溫運費";
+        public const string BankTitle = "戶名";
+        public const string BankCode = "銀行代碼";
+        public const string BankAccount = "轉帳帳號";
     }
 
     public class TenantSettingTAG
@@ -200,6 +203,9 @@ namespace CrazyBuy
         public const string FACE = "面交自取";
         public const string COOL = "低溫宅配";
         public const string NOMAL = "常溫宅配";
+        public const string BankTitle = "bankTitle";
+        public const string BankCode = "bankCode";
+        public const string BankAccount = "bankAccount";
     }
 
     public class TenantSettingMapping
@@ -211,7 +217,10 @@ namespace CrazyBuy
             map.Add(TenantSettingType.RoomTemperatureFreight, TenantSettingTAG.COOL);
             map.Add(TenantSettingType.RefrigerationFreigh, TenantSettingTAG.NOMAL);
             map.Add(TenantSettingType.FreeFreight, TenantSettingTAG.FACE);
-            return map.GetValueOrDefault(type);
+            map.Add(TenantSettingType.BankTitle, TenantSettingTAG.BankTitle);
+            map.Add(TenantSettingType.BankCode, TenantSettingTAG.BankCode);
+            map.Add(TenantSettingType.BankAccount, TenantSettingTAG.BankAccount);
+            return map.GetValueOrDefault(type,type);
         }
     }
 
