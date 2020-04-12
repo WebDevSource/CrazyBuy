@@ -69,7 +69,7 @@
     </div>
     <!-- navbar -->
     <!-- 公告 -->
-    <section class="container-fluid announcement-bg" id="announcement">
+    <!--<section class="container-fluid announcement-bg" id="announcement" ng-style="background-image:url({{url}});">
         <div class="admin-edit-content">
             <button class="btn btn-outline-register btn-admin-edit banner-admin-edit px-3 py-0" data-i18n="btn_edit" data-Authority="admin" style="display:none;">編輯</button>
         </div>
@@ -77,12 +77,14 @@
             <div class="col-lg-6 col-md-8 col-12 mx-auto">
                 <h2 class="text-center my-3 text-white announcement-title"><b>-批發規則-</b></h2>
                 <ol>
-                    <li ng-repeat="item in data">{{item.content}}</li>                    
+                    <li ng-repeat="item in data">{{item.content}}</li>
                 </ol>
                 <h4 class="text-center announcement-bottom-title">每筆訂單請三思後再下單</h4>
             </div>
         </div>
     </section>
+        -->
+    <img class="container-fluid " ng-src="{{url}}" />
     <!-- 公告 -->
 </body>
 </html>

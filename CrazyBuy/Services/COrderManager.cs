@@ -15,6 +15,10 @@ namespace CrazyBuy.Services
         {
             OrderData data = new OrderData();
             data.master = DataManager.orderDao.getOrder(orderId);
+            data.master.recipientCityName = DataManager.cityDao.getCity(data.master.recipientCityId).cityName;
+            data.master.recipientTownName = DataManager.cityDao.getTown(data.master.recipientTownId).townName; 
+            data.master.invoiceCityName = DataManager.cityDao.getCity(data.master.invoiceCityId).cityName;
+            data.master.invoiceTownName = DataManager.cityDao.getTown(data.master.invoiceTownId).townName;
             data.detail = DataManager.orderDao.getDetailLists(orderId);
             data.contactList = DataManager.orderContactItemDAO.getListByOrderId(orderId);
             return data;
@@ -197,7 +201,7 @@ namespace CrazyBuy.Services
                 if (prdCode.Equals(code))
                 {
                     int num = int.Parse(Convert.ToString(prdSpec.num));
-                    if (num - buyCount > 0)
+                    if (string.IsNullOrEmpty(prd.zeroStockMessage) || num - buyCount > -1)
                     {
                         prdSpec.num = Convert.ToString(num - buyCount);
                         prd.prdSepc = JsonConvert.SerializeObject(prdSpecs);

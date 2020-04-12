@@ -12,12 +12,13 @@ namespace CrazyBuy.Models
         public string content { get; set; }
         public string Layout { get; set; }
         public bool isTop { get; set; }
-        public DateTime startTime { get; set; }
-        public DateTime endTime { get; set; }
+        public DateTime? startTime { get; set; }
+        public DateTime? endTime { get; set; }
         public string status { get; set; }
         public DateTime createTime { get; set; }
         public DateTime? updateTime { get; set; }
         public int? creator { get; set; }
         public int? updater { get; set; }
+        public string uplaodImg { get; set; }
     }
 }

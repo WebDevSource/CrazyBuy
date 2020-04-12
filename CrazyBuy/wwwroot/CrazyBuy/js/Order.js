@@ -16,6 +16,9 @@
         };
         Order.addContactItem(args);
     };
+    $scope.useSample = function () {
+        $scope.contact.ContactContent = "匯款日：\n末五碼：\n備註：";
+    };
 });
 
 var Order = {

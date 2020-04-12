@@ -26,7 +26,15 @@ var Announcement = {
                 } else {
                     let appElement = document.querySelector('[ng-controller=AnnoCtrl]');
                     let $scope = angular.element(appElement).scope();
-                    $scope.data = ret.data;
+                    let data = [];
+                    for (let i = 0; i < ret.data.length; i++) {
+                        let item = ret.data[i];
+                        if (i18next.t("announcement") == item.layout) {
+                            data.push(item);
+                        }
+                    }
+                    $scope.data = data;
+                    $scope.url = Utils.GetBulletinImageUrl(data[0]);
                     $scope.$apply();
                 }
             },

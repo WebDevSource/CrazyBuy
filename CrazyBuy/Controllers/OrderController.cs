@@ -4,6 +4,7 @@ using CrazyBuy.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -86,7 +87,14 @@ namespace CrazyBuy.Controllers
             {
                 int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 rm.code = MessageCode.SUCCESS;
-                rm.data = DataManager.orderDao.getOrderByMember(memberId);
+                //rm.data = DataManager.orderDao.getOrderByMember(memberId);
+                List<OrderMaster> data = DataManager.orderDao.getOrderByMember(memberId);
+
+                foreach (OrderMaster item in data)
+                {
+
+                }
+                rm.data = data;
             }
             catch (Exception e)
             {

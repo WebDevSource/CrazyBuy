@@ -23,6 +23,7 @@ namespace CrazyBuy.Models
         public string recipientZipCode { get; set; }
         public string recipientTownId { get; set; }
         public string recipientAddr { get; set; }
+        public int? recipientCityId { get; set; }
         public string hopeArrivalTime { get; set; }
         public string orderRemark { get; set; }
         public int orderAmount { get; set; }
@@ -55,6 +56,10 @@ namespace CrazyBuy.Models
         public string invoiceAddr { get; set; }
         public string invoiceZipCode { get; set; }
         public string invoiceTownId { get; set; }
+        public int? invoiceCityId { get; set; }
+
+        public string invoiceCityName { get; set; }
+
     }
 
     public class OrderMasterUser
@@ -73,6 +78,7 @@ namespace CrazyBuy.Models
         public string recipientZipCode { get; set; }
         public string recipientTownId { get; set; }
         public string recipientAddr { get; set; }
+        public int recipientCityId { get; set; }
         public string hopeArrivalTime { get; set; }
         public string orderRemark { get; set; }
         public int orderAmount { get; set; }
@@ -105,7 +111,12 @@ namespace CrazyBuy.Models
         public string invoiceAddr { get; set; }
         public string invoiceZipCode { get; set; }
         public string invoiceTownId { get; set; }
+        public int invoiceCityId { get; set; }
+        public string userName { get; set; } 
+        public string invoiceCityName { get; set; }
+        public string recipientCityName { get; set; }
 
-        public string userName { get; set; }
+        public string invoiceTownName { get; set; }
+        public string recipientTownName { get; set; }
     }
 }

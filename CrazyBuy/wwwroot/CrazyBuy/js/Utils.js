@@ -9,9 +9,10 @@
     ROLE_GUEST: 'guest',
     TenantCode: '',
 
-   // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
+    // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
     BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/",
     BackendImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantPrd/DownloadImgFile?",
+    BackendBulletinImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantBulletin/DownloadImgFile?",
     //BackendImageUrl: "/api/Common/DownloadImgFile?",
     Initial: function async(callback) {
         Utils.InitView();
@@ -24,7 +25,7 @@
     InitView() {
         $('[data-userauthority]').hide();
         $('[data-authority]').hide();
-    
+
     },
 
     InitEvent() {
@@ -64,7 +65,7 @@
     openBankend() {
         //window.open(Utils.BackendUrl + Utils.TenantCode);
         window.open(Utils.BackendUrl + "platform/login");
-        
+
     },
 
     getRole() {
@@ -324,7 +325,7 @@
                     result = ret;
                 },
                 error(ret) {
-                     console.log(ret);
+                    console.log(ret);
                 }
             });
             return result;
@@ -606,10 +607,20 @@
     GetImageUrl: function (data) {
         let imageUrl = "./images/noitem.jpg";
         if (Utils.getRole() == Utils.ROLE_GUEST) {
-            
-        }else if (data.prdImages) {
+
+        } else if (data.prdImages) {
             let images = data.prdImages ? JSON.parse(data.prdImages) : "";
-            imageUrl = Utils.BackendImageUrl + "id=" + data.id + "&filename="  + images[0].filename;
+            imageUrl = Utils.BackendImageUrl + "id=" + data.id + "&filename=" + images[0].filename;
+        }
+        return imageUrl;
+    },
+
+    GetBulletinImageUrl: function (data) {
+        let images = data.uplaodImg ? JSON.parse(data.uplaodImg) : "";
+        let imageUrl = "";
+        if (images) {
+            imageUrl = Utils.BackendBulletinImageUrl + "id=" + data.id + "&filename=" + images[0].filename;
+
         }
         return imageUrl;
     },
@@ -643,7 +654,7 @@
 
     parseTextToHtml: function (text) {
         text = text.replace('\r\n', '</br>')
-            .replace(/\r\n|\n/g,'</br>');
+            .replace(/\r\n|\n/g, '</br>');
         return text;
     }
 };
