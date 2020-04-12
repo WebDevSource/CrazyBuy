@@ -1,8 +1,12 @@
-﻿var QuestionApp = angular.module('QuestionApp', []).controller('QuestionCtrl', function ($scope) {
+﻿var QuestionApp = angular.module('QuestionApp', []).controller('QuestionCtrl', ['$scope', '$sce', function ($scope, $sce) {
+    $scope.to_trusted = function (html_code) {
+        return $sce.trustAsHtml(html_code);
+    }
+
     $scope.action = function (key) {
         $scope.value = $scope.map[key];
     };
-});
+}]);
 
 var Questions = {
     doLoad() {
@@ -41,8 +45,8 @@ var Questions = {
                         }
                         list.push(item);
                         myMap.set(type, list);
-                    });                    
-                    console.log(myMap);                    
+                    });
+                    console.log(myMap);
                     $scope.map = Questions.mapToData(myMap);
                     $scope.value = $scope.map[data[0].type];
                     $scope.$apply();

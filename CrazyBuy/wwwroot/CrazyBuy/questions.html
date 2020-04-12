@@ -111,8 +111,8 @@
                                     </h2>
                                 </div>
                                 <div id="{{item.type}}-question-{{$index+1}}" class="collapse show" data-parent="#{{item.type}}-questions-list">
-                                    <div class="card-body">
-                                        {{item.answer}}
+                                    <div class="card-body" ng-bind-html="to_trusted(item.answer)">
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -151,8 +151,8 @@
                                         </h2>
                                     </div>
                                     <div id="mobile-{{item.type}}-question-{{$index+1}}" class="collapse" data-parent="#mobile-{{item.type}}-questions">
-                                        <div class="card-body">
-                                            {{item.answer}}
+                                        <div class="card-body" ng-bind-html="to_trusted(item.answer)">
+
                                         </div>
                                     </div>
                                 </div>                                
