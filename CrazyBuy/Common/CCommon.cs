@@ -24,7 +24,7 @@ namespace CrazyBuy
     {
         public const string NORMAL = "所有會員";
         public const string ADVANCED = "進階會員";
-        public const string VIP = "特定會員";        
+        public const string VIP = "特定會員";
     }
 
     public class UserGradeType
@@ -235,5 +235,19 @@ namespace CrazyBuy
         public string filename { get; set; }
         public string filetype { get; set; }
         public int filesize { get; set; }
+    }
+
+    public class MailInfo
+    {
+        public string subject { get; set; }
+        public string content { get; set; }
+    }
+
+    public class MailSend
+    {
+        public string tenantId { get; set; }
+        public string tenantName { get; set; }
+        public string mail { get; set; }
+        public int memberId { get; set; }
     }
 }

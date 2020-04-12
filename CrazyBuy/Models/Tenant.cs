@@ -10,6 +10,8 @@ namespace CrazyBuy.Models
 
         public string tenantCode { get; set; }
 
+        public string tenantName { get; set; }
+
         public string owner { get; set; }
 
         public int createdMemberId { get; set; }

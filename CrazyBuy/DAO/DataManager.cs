@@ -14,5 +14,6 @@
         public static readonly OrderContactItemDAO orderContactItemDAO = new OrderContactItemDAO();
         public static readonly CityDao cityDao = new CityDao();
         public static readonly OrderAmountHistoryDao orderAmountHistoryDao = new OrderAmountHistoryDao();
+        public static readonly MailNoticeDao mailNoticeDao = new MailNoticeDao();
     }
 }

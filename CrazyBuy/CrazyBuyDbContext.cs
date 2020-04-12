@@ -21,6 +21,7 @@ namespace CrazyBuy
         public DbSet<City> City { get; set; }
         public DbSet<Town> Town { get; set; }
         public DbSet<OrderAmountHistory> OrderAmountHistory { get; set; }
+        public DbSet<MailNotice> MailNotice { get; set; }
 
         public CrazyBuyDbContext(string connStr) : base(new SqlConnection(connStr), true)
         {
