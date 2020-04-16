@@ -13,7 +13,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"select * from [City] where status = N'正常' order by sort asc ";               
+                var sql = @"select * from [City] where status = N'正常' order by sort asc ";
                 return dbContext.Database.SqlQuery<City>(sql).ToList();
             }
         }
@@ -29,31 +29,28 @@ namespace CrazyBuy.DAO
 
         public City getCity(int id)
         {
-            City result = cityDic.GetValueOrDefault(id, null);
-            if(result == null)
+            City result = null;
+
+            using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                using (CrazyBuyDbContext dbContext = ContextInit())
-                {
-                    var sql = @"select * from [City] where status = N'正常' and cityId = {0} ";
-                    var query = String.Format(sql, id);
-                    result = dbContext.Database.SqlQuery<City>(query).FirstOrDefault();
-                }
+                var sql = @"select * from [City] where status = N'正常' and cityId = {0} ";
+                var query = String.Format(sql, id);
+                result = dbContext.Database.SqlQuery<City>(query).FirstOrDefault();
             }
+
             return result;
         }
 
         public Town getTown(string id)
         {
-            Town result = townDic.GetValueOrDefault(id, null);
-            if (result == null)
+            Town result = null;
+            using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                using (CrazyBuyDbContext dbContext = ContextInit())
-                {
-                    var sql = @"select * from [Town] where status = N'正常' and townId = {0} ";
-                    var query = String.Format(sql, id);
-                    result = dbContext.Database.SqlQuery<Town>(query).FirstOrDefault();
-                }
+                var sql = @"select * from [Town] where status = N'正常' and townId = {0} ";
+                var query = String.Format(sql, (id == null ? "0":id));
+                result = dbContext.Database.SqlQuery<Town>(query).FirstOrDefault();
             }
+
             return result;
         }
     }

@@ -154,10 +154,16 @@ namespace CrazyBuy.Controllers
                 //step1 統整可選運費的方式
                 HashSet<string> shipList = new HashSet<string>();
                 int total = 0;
-                shipList.Add(TenantSettingTAG.FACE);
+               
                 foreach (ShopCartPrd item in items)
                 {
                     total += item.amount;
+
+                    if (item.shipType.Contains(TenantSettingTAG.FACE))
+                    {
+                        shipList.Add(TenantSettingTAG.FACE);
+                    }
+
                     if (item.shipType.Contains(TenantSettingTAG.NOMAL))
                     {
                         shipList.Add(TenantSettingTAG.NOMAL);
@@ -167,6 +173,7 @@ namespace CrazyBuy.Controllers
                     {
                         shipList.Add(TenantSettingTAG.COOL);
                     }
+
                 }
 
 

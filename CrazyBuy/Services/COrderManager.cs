@@ -15,10 +15,12 @@ namespace CrazyBuy.Services
         {
             OrderData data = new OrderData();
             data.master = DataManager.orderDao.getOrder(orderId);
-            data.master.recipientCityName = DataManager.cityDao.getCity(data.master.recipientCityId).cityName;
-            data.master.recipientTownName = DataManager.cityDao.getTown(data.master.recipientTownId).townName; 
-            data.master.invoiceCityName = DataManager.cityDao.getCity(data.master.invoiceCityId).cityName;
-            data.master.invoiceTownName = DataManager.cityDao.getTown(data.master.invoiceTownId).townName;
+            int recipientCityId = data.master.recipientCityId.GetValueOrDefault(0);
+            int invoiceCityId =  data.master.invoiceCityId.GetValueOrDefault(0);
+            data.master.recipientCityName = DataManager.cityDao.getCity(recipientCityId) == null ? "" : DataManager.cityDao.getCity(recipientCityId).cityName;
+            data.master.recipientTownName = DataManager.cityDao.getTown(data.master.recipientTownId) == null? "" : DataManager.cityDao.getTown(data.master.recipientTownId).townName;
+            data.master.invoiceCityName = DataManager.cityDao.getCity(invoiceCityId) == null ? "" : DataManager.cityDao.getCity(invoiceCityId).cityName;
+            data.master.invoiceTownName = DataManager.cityDao.getTown(data.master.invoiceTownId) == null ? "" : DataManager.cityDao.getTown(data.master.invoiceTownId).townName;
             data.detail = DataManager.orderDao.getDetailLists(orderId);
             data.contactList = DataManager.orderContactItemDAO.getListByOrderId(orderId);
             return data;
@@ -86,7 +88,7 @@ namespace CrazyBuy.Services
                 {
                     TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.productId);
                     prdItem = isPrdSPecEnought(prdItem, item.prdSepc, item.count);
-                    if (prdItem != null)
+                    if (prdItem != null && prdItem.status == "上架")
                     {
                         OrderDetail detail = new OrderDetail();
                         detail.prdId = item.productId;
@@ -128,6 +130,10 @@ namespace CrazyBuy.Services
                         {
                             rm.code = MessageCode.PRD_NOT_ENOUGHT;
                             return rm;
+                        }
+                        else if (prdItem.stockNum == 0)
+                        {
+                            prdItem.status = prdItem.zeroStockMessage;
                         }
                     }
                 }
@@ -189,6 +195,10 @@ namespace CrazyBuy.Services
             {
                 // 沒有商品規格不判斷
                 return prd;
+            }
+            else if (prd.status != "上架")
+            {
+                return null;
             }
 
             dynamic itemSpec = JValue.Parse(item);
