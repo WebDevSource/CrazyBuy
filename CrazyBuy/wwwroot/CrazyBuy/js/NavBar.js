@@ -267,7 +267,7 @@
         let user = JSON.parse(Utils.GetCookie("user"));
         let html = '<div class="btn-group">                                                                 '
             + '	<a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-            + '		<i class="far fa-user"></i> ' + decodeURI(user.name) + ' <i class="fas fa-angle-down"></i>'
+            + '		<i class="far fa-user"></i> ' + user.name + ' <i class="fas fa-angle-down"></i>'
             + '	</a>'
             + '	<div class="dropdown-menu dropdown-menu-right rounded-0"> '
             + '		<a class="nav-link" data-i18n="btn_nav_order" href="./order.html">查詢我的訂單</a> '
@@ -302,7 +302,6 @@
 
         if (result.code == "1") {
             Utils.SetCookie("token", result.token);
-            result.name = encodeURI(result.name);
             Utils.SetCookie("user", JSON.stringify(result));
         } else {
             // alert("User Authorization Error, Login Again Please.");
