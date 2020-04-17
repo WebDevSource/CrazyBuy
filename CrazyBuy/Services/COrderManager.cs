@@ -88,7 +88,7 @@ namespace CrazyBuy.Services
                 {
                     TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.productId);
                     prdItem = isPrdSPecEnought(prdItem, item.prdSepc, item.count);
-                    if (prdItem != null && prdItem.status == "上架")
+                    if (prdItem != null)
                     {
                         OrderDetail detail = new OrderDetail();
                         detail.prdId = item.productId;
@@ -196,11 +196,7 @@ namespace CrazyBuy.Services
                 // 沒有商品規格不判斷
                 return prd;
             }
-            else if (prd.status != "上架")
-            {
-                return null;
-            }
-
+          
             dynamic itemSpec = JValue.Parse(item);
             string code = itemSpec.code;
 

@@ -156,6 +156,7 @@ namespace CrazyBuy.Services
             data.Add("zeroStock", prd.zeroStockMessage);
             data.Add("count", prd.stockNum);
             data.Add("status", prd.status);
+            data.Add("isOpen", prd.isOpenOrder);
             return data;
         }
 

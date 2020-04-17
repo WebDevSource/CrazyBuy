@@ -43,7 +43,9 @@ var ProductInner = {
             }
         }
 
-        if (item.status != i18next.t("prd_status_open")) {
+        if (!isOpenOrder) {
+
+        } else if (item.count < 1 && item.zeroStock) {
             $(".soldoutCart").text(item.zeroStock);
             $(".soldoutCart").show();
         } else {
