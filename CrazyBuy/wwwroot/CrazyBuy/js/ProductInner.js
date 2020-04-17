@@ -43,7 +43,7 @@ var ProductInner = {
             }
         }
 
-        if (!isOpenOrder) {
+        if (!item.isOpenOrder) {
 
         } else if (item.count < 1 && item.zeroStock) {
             $(".soldoutCart").text(item.zeroStock);

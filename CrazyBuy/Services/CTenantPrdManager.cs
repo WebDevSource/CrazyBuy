@@ -37,7 +37,8 @@ namespace CrazyBuy.Services
             PrdPrice prdPrice = new PrdPrice();
             string type = UserType.GUEST;
             int price = int.MaxValue;
-
+            int custPriceGradeId = 0;
+            string priceGradeType = "";
             List<PrdPrice> prices = getPrdPrices(prd, userType, userId);
             foreach (PrdPrice itemPrice in prices)
             {
@@ -45,10 +46,15 @@ namespace CrazyBuy.Services
                 {
                     price = itemPrice.price;
                     type = itemPrice.type;
+                    custPriceGradeId = itemPrice.custPriceGradeId;
+                    priceGradeType = itemPrice.priceGradeType;
                 }
             }
             prdPrice.price = price;
             prdPrice.type = type;
+            prdPrice.priceGradeType = priceGradeType;
+            prdPrice.custPriceGradeId = custPriceGradeId;
+
             return prdPrice;
         }
 
@@ -63,11 +69,15 @@ namespace CrazyBuy.Services
                     PrdPrice prdPriceUser = new PrdPrice();
                     prdPriceUser.price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
                     prdPriceUser.type = CHType.PRICE_NORMAL;
+                    prdPriceUser.priceGradeType = "";
+                    prdPriceUser.custPriceGradeId= 0; 
                     prices.Add(prdPriceUser);
 
                     prdPriceUser = new PrdPrice();
                     prdPriceUser.price = prd.memberPrice == null ? 0 : (int)prd.memberPrice;
                     prdPriceUser.type = CHType.PRICE_MEMBER;
+                    prdPriceUser.priceGradeType = "";
+                    prdPriceUser.custPriceGradeId = 0;
                     prices.Add(prdPriceUser);
 
                     if (UserGradeType.TRANS.Equals(tenantMember.gradeType))
@@ -75,6 +85,8 @@ namespace CrazyBuy.Services
                         prdPriceUser = new PrdPrice();
                         prdPriceUser.price = prd.transferPrice == null ? 0 : (int)prd.transferPrice;
                         prdPriceUser.type = CHType.PRICE_NTRANS;
+                        prdPriceUser.priceGradeType = "轉批價";
+                        prdPriceUser.custPriceGradeId = 0;
                         prices.Add(prdPriceUser);
                     }
                     break;
@@ -82,16 +94,22 @@ namespace CrazyBuy.Services
                     PrdPrice prdPriceAdmin = new PrdPrice();
                     prdPriceAdmin.price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
                     prdPriceAdmin.type = CHType.PRICE_NORMAL;
+                    prdPriceAdmin.priceGradeType = "";
+                    prdPriceAdmin.custPriceGradeId = 0;
                     prices.Add(prdPriceAdmin);
 
                     prdPriceAdmin = new PrdPrice();
                     prdPriceAdmin.price = prd.memberPrice == null ? 0 : (int)prd.memberPrice;
                     prdPriceAdmin.type = CHType.PRICE_MEMBER;
+                    prdPriceAdmin.priceGradeType = "";
+                    prdPriceAdmin.custPriceGradeId = 0;
                     prices.Add(prdPriceAdmin);
 
                     prdPriceAdmin = new PrdPrice();
                     prdPriceAdmin.price = prd.transferPrice == null ? 0 : (int)prd.transferPrice;
                     prdPriceAdmin.type = CHType.PRICE_NTRANS;
+                    prdPriceAdmin.priceGradeType = "轉批價";
+                    prdPriceAdmin.custPriceGradeId = 0;
                     prices.Add(prdPriceAdmin);
                     break;
                 default:
@@ -101,11 +119,15 @@ namespace CrazyBuy.Services
                         PrdPrice prdPriceSPCMember = new PrdPrice();
                         prdPriceSPCMember.price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
                         prdPriceSPCMember.type = CHType.PRICE_NORMAL;
+                        prdPriceSPCMember.priceGradeType = "";
+                        prdPriceSPCMember.custPriceGradeId = 0;
                         prices.Add(prdPriceSPCMember);
 
                         prdPriceSPCMember = new PrdPrice();
                         prdPriceSPCMember.price = prd.memberPrice == null ? 0 : (int)prd.memberPrice;
                         prdPriceSPCMember.type = CHType.PRICE_MEMBER;
+                        prdPriceSPCMember.priceGradeType = "";
+                        prdPriceSPCMember.custPriceGradeId = 0;
                         prices.Add(prdPriceSPCMember);
 
                         CustSpcPrice spc_price = DataManager.tenantPrdDao.getSpcTenantPrdPrice(prd.tenantId, prd.id, int.Parse(custGrade));
@@ -114,6 +136,8 @@ namespace CrazyBuy.Services
                             prdPriceSPCMember = new PrdPrice();
                             prdPriceSPCMember.price = spc_price.price;
                             prdPriceSPCMember.type = spc_price.name;
+                            prdPriceSPCMember.priceGradeType = "自訂價";
+                            prdPriceSPCMember.custPriceGradeId = spc_price.id;
                             prices.Add(prdPriceSPCMember);
                         }
                     }
@@ -155,8 +179,7 @@ namespace CrazyBuy.Services
             data.Add("sepc", prd.prdSepc);
             data.Add("zeroStock", prd.zeroStockMessage);
             data.Add("count", prd.stockNum);
-            data.Add("status", prd.status);
-            data.Add("status", prd.status);
+            data.Add("isOpenOrder", prd.isOpenOrder);
             return data;
         }
 

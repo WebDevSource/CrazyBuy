@@ -105,6 +105,8 @@ namespace CrazyBuy.Services
                         detail.createTime = now;
                         detail.updateTime = now;
                         detail.prdSpec = item.prdSepc;
+                        detail.prdCustPriceId = item.prdCustPriceId;
+                        detail.priceGradeType = item.priceGradeType;
                         total += detail.amount;
                         detailList.Add(detail);
                         if (!prdMap.ContainsKey(prdItem.id))

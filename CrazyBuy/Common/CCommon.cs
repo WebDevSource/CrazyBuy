@@ -85,6 +85,8 @@ namespace CrazyBuy
     {
         public int price { get; set; }
         public string type { get; set; }
+        public int custPriceGradeId { get; set; }
+        public string priceGradeType { get; set; }
     }
 
     public class OrderData
@@ -185,6 +187,7 @@ namespace CrazyBuy
     {
         public int price { get; set; }
         public string name { get; set; }
+        public int id { get; set; }
     }
 
     public class TenantSettingType

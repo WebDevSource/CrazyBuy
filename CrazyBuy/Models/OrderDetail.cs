@@ -15,6 +15,7 @@ namespace CrazyBuy.Models
         public string prdSpec { get; set; }
         public DateTime createTime { get; set; }
         public DateTime updateTime { get; set; }
+        public string priceGradeType { get; set; }
     }
 
     public class OrderPrdDetail

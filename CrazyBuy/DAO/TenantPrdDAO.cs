@@ -121,7 +121,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @" select name,price from [TenantPrdCustPrice] s ";
+                var sql = @" select * from [TenantPrdCustPrice] s ";
                 sql += @" left join [TenantCustPriceGrade] g on g.id = s.custPriceGradeId ";
                 sql += @" where s.prdId = {0} and s.custPriceGradeId = {1} ";
                 sql += @" and g.status = N'正常' and g.tenantId = '{2}' ";

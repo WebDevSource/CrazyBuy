@@ -117,6 +117,8 @@ namespace CrazyBuy.Controllers
                     shopCart.type = prdPrice.type;
                     shopCart.tenantId = tenantId;
                     shopCart.prdSepc = value.sepc;
+                    shopCart.prdCustPriceId = prdPrice.custPriceGradeId;
+                    shopCart.priceGradeType = prdPrice.priceGradeType;
                     DataManager.shopCartDao.addItem(shopCart);
                 }
                 else

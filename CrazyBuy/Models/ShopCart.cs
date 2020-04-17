@@ -15,6 +15,9 @@ namespace CrazyBuy.Models
         public Guid tenantId { get; set; }
         public string type { get; set; }
         public string prdSepc { get; set; }
+
+        public int prdCustPriceId { get; set; }
+        public string priceGradeType { get; set; }
     }
 
     public class ShopCartPrd
@@ -34,5 +37,7 @@ namespace CrazyBuy.Models
         public string prdSepc { get; set; }
         public string shipType { get; set; }
         public int stockNum { get; set; }
+        public int prdCustPriceId { get; set; }
+        public string priceGradeType { get; set; }
     }
 }
