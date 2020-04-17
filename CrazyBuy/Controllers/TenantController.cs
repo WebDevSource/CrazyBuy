@@ -74,23 +74,88 @@ namespace CrazyBuy.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register([FromBody]Tenant tenant)
+        public ActionResult Register([FromBody]TenantRegister tenantRegister)
         {   
             ReturnMessage rm = new ReturnMessage();
             Guid tenantId = Guid.NewGuid();
 
+            //Tenant tenant = new Tenant();
+
             try
-            {   
-                tenant.tenantId = tenantId;
-                tenant.createdMemberId = 0;
-                tenant.status = "待審核";
-                tenant.createTime = DateTime.Now;
-                tenant.updateTime = DateTime.Now;
+            {
+                Tenant tenant = DataManager.tenantDao.getTenantByTenantCode(tenantRegister.tenantCode);
+                if (tenant == null)
+                {
+					
+					Member member = new Member()
+                    {
+                        memberCode = DateTime.Now.ToString("yyyyMMddHHmmssfff"),
+                        password = tenantRegister.memberPwd,
+                        name = tenantRegister.memberName,
+                        cellphone = tenantRegister.cellphone,
+                        email = tenantRegister.email,
+                        address = tenantRegister.address,
+                        lineId = tenantRegister.lineId,
+                        tenantType = tenantRegister.tenantType,
+                        status = "正常",
+                        creator = 0,
+                        cityId = int.Parse(tenantRegister.cityId),
+                        townId = int.Parse(tenantRegister.townId),
+                        zipCode = int.Parse(tenantRegister.zipCode),
+                        createTime = DateTime.Now,
+                    };
+                    int memberId = DataManager.memberDao.addMember(member);
+                    Console.WriteLine("memberId = {0}", memberId);
 
-                DataManager.tenantDao.addTenant(tenant);
+                    Tenant addTenant = new Tenant()
+                    {
+                        tenantId = tenantId,
+                        createdMemberId = memberId,
+                        tenantCode = tenantRegister.tenantCode,
+                        tenantName = tenantRegister.tenantName,
+                        enterpriseName = tenantRegister.enterpriseName,
+                        enterpriseId = tenantRegister.enterpriseId,
+                        language = "zn-TW",
+                        owner = tenantRegister.owner,
+                        FBCommunity = tenantRegister.FBCommunity,
+                        FBFan = tenantRegister.FBFan,
+                        sortIndex = 1,
+                        hasCustPriceGrade = false,
+                        status = "待審核",
+                        creator = memberId,
+                        createTime = DateTime.Now
+                    };
+                    DataManager.tenantDao.addTenant(addTenant);
 
-                rm.code = MessageCode.SUCCESS;
-                rm.data = tenantId;
+                    TenantMember tenantMember = new TenantMember()
+                    { 
+                        tenantId = tenantId,
+                        memberId = memberId,
+                        isBlockade = false,
+                        status = "待審核",
+                        createTime = DateTime.Now,
+                        creator = memberId
+                    };
+                    DataManager.tenantMemberDao.addTenantMember(tenantMember);
+
+
+                    //tenant.tenantId = tenantId;
+                    //tenant.createdMemberId = 0;
+                    //tenant.status = "待審核";
+                    //tenant.createTime = DateTime.Now;
+                    //tenant.updateTime = DateTime.Now;
+
+                    //DataManager.tenantDao.addTenant(tenant);
+
+                    rm.code = MessageCode.SUCCESS;
+                    rm.data = tenantId;
+                }
+                else
+                {
+                    rm.code = MessageCode.ERROR;
+                    rm.data = "tenantCode already exist.";
+                    return Ok(rm);
+                }
             }
             catch (Exception e)
             {

@@ -52,7 +52,6 @@ namespace CrazyBuy.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult getPlaces()
         {
             ReturnMessage rm = new ReturnMessage();
@@ -154,7 +153,7 @@ namespace CrazyBuy.Controllers
                 //step1 統整可選運費的方式
                 HashSet<string> shipList = new HashSet<string>();
                 int total = 0;
-               
+
                 foreach (ShopCartPrd item in items)
                 {
                     total += item.amount;

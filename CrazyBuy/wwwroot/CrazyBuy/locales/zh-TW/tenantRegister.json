@@ -1,0 +1,10 @@
+﻿{
+    "tenantRegister_title": "商店服務申請",
+
+    "data-title": "商店基本資料",
+
+    "err_tenantCode_existed": "此商店網址已存在，請重新輸入",
+    "err_checkPassword": "密碼不一致，請重新輸入",
+
+    "register_success": "申請成功!!"
+}
