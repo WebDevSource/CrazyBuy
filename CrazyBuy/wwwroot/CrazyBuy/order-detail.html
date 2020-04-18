@@ -77,7 +77,7 @@
                 <table class="table table-bordered order-detail-table order-text-center">
                     <tbody>
                         <tr>
-                            <th scope="col">訂購單號</th>
+                            <th scope="col">訂購編號</th>
                             <td class="text-hint table-order-status">{{master.serialNo}}</td>
                         </tr>
                         <tr>
@@ -101,11 +101,11 @@
                             <td>{{master.hopeArrivalTime}}</td>
                         </tr>
                         <tr>
-                            <th scope="col">備註</th>
+                            <th scope="col">買方備註</th>
                             <td>{{master.orderRemark}}</td>
                         </tr>
                         <tr>
-                            <th scope="col">發票資料</th>
+                            <th scope="col">發票資訊</th>
                             <td>{{master.invoiceType}}
                                 <p ng-show="master.isNeedInvoice">
                                     <span>公司統一編號:</span><span>{{master.invoiceNumber}}</span></br>
@@ -150,11 +150,12 @@
                     <thead>
                         <tr>
                             <th scope="col">商品圖</th>
+                            <th scope="col">商品代碼</th>
                             <th scope="col">商品資訊</th>
                             <th scope="col">商品備註</th>
                             <th scope="col">單價</th>
                             <th scope="col">訂購數量</th>
-                            <th scope="col">金額</th>
+                            <th scope="col">小計</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -162,6 +163,7 @@
                             <td scope="row">
                                 <div class="mx-auto cart-item-img" style="background-image: url('{{item.prdImages}}');"></div>
                             </td>
+                            <td class="cart-item-title">{{item.prdCode}}</td>
                             <td class="cart-item-title">{{item.name}}</td>
                             <td class="table-center table-badge"></td>
                             <td class="table-center cart-price">
@@ -188,7 +190,7 @@
                         </div>
                         <div class="col-7 mobile-cart-info py-1 px-2">
                             <p class="mobile-cart-item-title text-hint">{{item.name}}</p>
-                            <p class="mb-1"><span class="text-hint">會員價</span> ${{item.unitPrice}}</p>
+                            <p class="mb-1"><span class="text-hint">{{item.priceType}}</span> ${{item.unitPrice}}</p>
                             <p class="mb-1 text-right">x{{item.qty}}</p>
                             <div><span class="badge badge-no-discount">需獨立下單</span></div>
                         </div>
