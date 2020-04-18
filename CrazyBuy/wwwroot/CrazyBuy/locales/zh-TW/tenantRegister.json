@@ -1,10 +1,36 @@
 ﻿{
-    "tenantRegister_title": "商店服務申請",
+    "tenantRegister_title": "商店系統/公告機器人服務申請頁",
 
-    "data-title": "商店基本資料",
+    "label_basic_title": "基本資料",
+    "label_service_title": "服務申請",
 
+    "label_memberName": "姓名",
+    "label_enterpriseName": "所屬公司名稱",
+    "label_enterpriseId": "所屬公司統一編號",
+    "label_owner": "所屬負責人",
+    "lablel_address": "聯絡地址",
+    "label_select_city": "縣市",
+    "label_select_town": "鄉鎮市區",
+
+    "label_tenantType": "申請服務項目",
+    "label_tenantCode": "商店網址",
+    "label_tenantCode_note": "(備註：僅能輸入30字以內英文與數字)",
+    "label_tenantName": "商店名稱",
+    "label_cellphone": "手機號碼",
+    "label_email_note": "(備註：Email或手機即是以後登入的會員帳號)",
+    "label_memberPwd": "設置平台密碼",
+    "label_checkPwd": "再次輸入密碼",
+    "label_FBCommunity": "Facebook社團名稱",
+    "label_FBFan": "Facebook粉絲專頁名稱",
+    "label_Line": "Line官方帳號(@XXXXX)",
+
+    "btn_addService": "新增服務",
+    "btn_submit": "提交表單",
+
+    "err_not_select": "請選取一個清單中的項目。",
     "err_tenantCode_existed": "此商店網址已存在，請重新輸入",
     "err_checkPassword": "密碼不一致，請重新輸入",
+    "err_checkRepeat": "重複，請重新輸入",
 
     "register_success": "申請成功!!"
 }

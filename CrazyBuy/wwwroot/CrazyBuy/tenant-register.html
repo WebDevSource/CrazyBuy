@@ -80,91 +80,19 @@
         <i class="fas fa-angle-up"></i>
     </div>
     <!-- navbar -->
-    <section class="container-fluid px-md-30 px-15">
-        <h4 class="my-20" data-i18n="tenantRegister_title">商店服務申請</h4>
+    <section class="container-fluid px-15">
+        <h4 class="my-20 font-weight-bold" data-i18n="tenantRegister_title">商店服務申請</h4>
         <p class="my-30 pb-20 register-hint">
             歡迎您提出服務申請xxxxxxxxx<br>
         </p>
         <form id="checkout-userinfo" data-toggle="validator" role="form" action="javascript:void(0);">
-            <section class="my-md-50 my-30">
-                <h5 class="my-20 order-title" data-i18n="data-title">商店基本資料</h5>
-                <hr>
-                <div class="row d-flex flex-wrap">
+            <section class="my-md-30 my-30 border">
+                <hr class="m-0 border-danger" style="border-width: 2px;" />
+                <h5 class="my-20 px-md-15 order-title font-weight-bold" data-i18n="label_basic_title">客戶基本資料</h5>
+                <div class="row d-flex flex-wrap px-md-30">
                     <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2">
-                            <label class="required" for="" data-i18n="data-tenantCode">商店網址</label>
-                            <span style="font-size:14px;">&nbsp;(備註：僅能輸入英文+數字)</span>
-                        </p>
-                        <input class="w-100" type="text" id="tenantCode" name="tenantCode" pattern="^[A-Za-z0-9]+$" required="required" maxlength="30" onblur="TenantRegister.CheckTenantCode()">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label class="required" for="" data-i18n="data_tenantName">商店名稱</label></p>
-                        <input class="w-100" type="text" id="tenantName" name="tenantName" required="required">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label for="" data-i18n="data_enterpriseName">所屬公司名稱</label></p>
-                        <input class="w-100" type="text" id="enterpriseName">
-                    </div>
-                    <div class="col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label for="" data-i18n="data-enterpriseId">所屬公司統一編號</label></p>
-                        <input class="w-100" type="text" id="enterpriseId">
-                    </div>
-                    <div class="col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label for="" data-i18n="data-enterpriseId">所屬負責人</label></p>
-                        <input class="w-100" type="text" id="owner">
-                    </div>
-                    <div class="form-group col-lg-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label class="required" for="">聯絡地址</label></p>
-                        <select class="checkout-select" id="city" onchange="TenantRegister.UpdateTown(this.value)" required="required">
-                            <option vaule="">縣市</option>
-                        </select>
-                        <select class="checkout-select" id="town" required="required">
-                            <option vaule="">鄉鎮市區</option>
-                        </select>
-                        <input class="checkout-address" type="text" id="address" required="required">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group col-12 mb-3 order-0 text-left">
-                        <p class="mb-2"><label class="required" for="" data-i18n="">服務項目</label></p>
-                        <input type="radio" name="tenantType" id="tenantType1" value="團媽" required="required" checked> <span class="mb-2"><label for="tenantType1">團媽系統</label></span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="tenantType" id="tenantType2" value="轉批媽" required="required"> <span class="mb-2"><label for="tenantType2">轉批媽系統</label></span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="tenantType" id="tenantType3" value="批發商" required="required"> <span class="mb-2"><label for="tenantType3">批發商系統</label></span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="tenantType" id="tenantType4" value="LineNotify" required="required"> <span class="mb-2"><label for="tenantType4">LINE 公告系統</label></span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label class="required" for="" data-i18n="data_owner">姓名</label></p>
+                        <p class="mb-2"><label class="required" for="" data-i18n="label_memberName">姓名</label></p>
                         <input class="w-100" type="text" id="memberName" required="required">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <!---------------------------->
-                    <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label class="required" for="">手機號碼</label></p>
-                        <input class="w-100" type="text" id="cellphone" pattern="^[09]{2}[0-9]{8}$" required="required">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label class="required" for="">登入管理平台密碼</label></p>
-                        <input class="w-100" type="password" id="memberPwd" required="required">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2">
-                            <label class="required" for="">Email</label>
-                            <span style="font-size:14px;" data-i18n="">&nbsp;(備註：您的Email或手機即是後續登入平台的管理員帳號)</span>
-                        </p>
-                        <input class="w-100" type="email" id="email" required="required">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label class="required" for="">再次輸入密碼</label></p>
-                        <input class="w-100" type="password" id="checkPwd" data-match="#memberPwd" data-match-error="err_checkPassword" required="required">
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group col-md-6 col-12 mb-3 order-0">
@@ -172,27 +100,117 @@
                         <input class="w-100" type="text" id="lineId" required="required">
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label class="required" for="">FB社團名稱</label></p>
-                        <input class="w-100" type="text" id="FBCommunity" required="required">
+                    <div class="col-md-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label for="" data-i18n="label_enterpriseName">所屬公司名稱</label></p>
+                        <input class="w-100" type="text" id="enterpriseName">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label for="" data-i18n="label_enterpriseId">所屬公司統一編號</label></p>
+                        <input class="w-100" type="number" id="enterpriseId">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label for="" data-i18n="label_owner">所屬負責人</label></p>
+                        <input class="w-100" type="text" id="owner">
+                    </div>
+                    <div class="form-group col-lg-6 col-12 mb-3 order-0">
+                        <p class="mb-2"><label class="required" for="" data-i18n="lablel_address">聯絡地址</label></p>
+                        <select class="checkout-select" id="city" onchange="TenantRegister.UpdateTown(this.value)" data-error="err_not_select" required="required">
+                            <!--<option vaule="" data-i18n="label_select_city"></option>-->
+                        </select>
+                        <select class="checkout-select" id="town" required="required">
+                            <!--<option vaule="" data-i18n="label_select_town"></option>-->
+                        </select>
+                        <input class="checkout-address" type="text" id="address" required="required">
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div class="form-group col-md-6 col-12 mb-3 order-0">
-                        <p class="mb-2"><label class="required" for="">粉絲專頁名稱</label></p>
-                        <input class="w-100" type="text" id="FBFan" required="required">
-                        <div class="help-block with-errors"></div>
+                </div>
+            </section>
+            <div id="serviceItem"></div>
+            <!----------------------------------------------->
+            <!--
+    <section id="Item" class="my-md-30 my-30 border">
+        <hr class="m-0 border-danger" style="border-width: 2px;" />
+        <div class="my-20 px-md-15 d-flex flex-nowrap justify-content-between">
+            <h5 class=" order-title font-weight-bold" data-i18n="label_service_title">服務申請</h5>
+            <div class="justify-content-end">
+                <button type="button" class="btn btn-outline-danger btn-sm" id="addServiceItem" data-i18n="btn_addService" onclick="TenantRegister.AddServiceItem();">新增服務</button>
+                <button type="button" class="btn btn-outline-secondary rounded-circle btn-sm" id="removeServiceItem" onclick="TenantRegister.RemoveServiceItem();" >X</button>
+            </div>
+        </div>
+        <div class="row d-flex flex-wrap px-md-30">
+            <div class="form-group col-md-6 col-12 mb-3 order-0">
+                <p class="mb-2"><label class="required" for="" data-i18n="label_tenantType">申請服務項目</label></p>
+                <select class="checkout-select w-100" id="tenantType" name="tenantType" onchange="TenantRegister.SetServiceContent()">
+                    <option vaule="團媽" selected>團媽系統</option>
+                    <option vaule="轉批媽">轉批媽系統</option>
+                    <option vaule="批發商">批發商系統</option>
+                    <option vaule="LINE公告系統">LINE 公告系統</option>
+                </select>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div  id="ItemContent" class="row d-flex flex-wrap px-md-15">
+                <div class="form-group col-md-6 col-12 mb-3 order-0">
+                    <p class="mb-2">
+                        <label class="required" for="" data-i18n="label_tenantCode">商店網址</label>&nbsp;&nbsp;
+                        <span style="font-size:14px; color:red;" data-i18n="label_tenantCode_note">(備註：僅能輸入英文+數字)</span>
+                    </p>
+                    <div class="d-flex">
+                        <label style="margin-top:5px;">https://crazybuy.winpower365.com/</label>
+                        <input class="w-100" type="text" id="tenantCode" name="tenantCode" pattern="^[A-Za-z0-9]+$" required="required" maxlength="30">
                     </div>
-
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-md-6 col-12 mb-3 order-0">
+                    <p class="mb-2"><label class="required" for="" data-i18n="label_tenantName">商店名稱</label></p>
+                    <input class="w-100" type="text" id="tenantName" name="tenantName" required="required">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-md-6 col-12 mb-3 order-0">
+                    <p class="mb-2"><label class="required" for="" data-i18n="label_cellphone">手機號碼</label></p>
+                    <input class="w-100" type="text" id="cellphone" name="cellphone" pattern="^[09]{2}[0-9]{8}$" required="required">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-md-6 col-12 mb-3 order-0">
+                    <p class="mb-2">
+                        <label class="required" for="">Email</label>&nbsp;&nbsp;
+                        <span style="font-size:14px; color:red;" data-i18n="label_email_note">(備註：您的Email或手機即是後續登入平台的管理員帳號)</span>
+                    </p>
+                    <input class="w-100" type="email" id="email" name="email" required="required">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-md-6 col-12 mb-3 order-0">
+                    <p class="mb-2"><label class="required" for="" data-i18n="label_memberPwd">登入管理平台密碼</label></p>
+                    <input class="w-100" type="password" id="memberPwd" name="memberPwd" required="required">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-md-6 col-12 mb-3 order-0">
+                    <p class="mb-2"><label class="required" for="" data-i18n="label_checkPwd">再次輸入密碼</label></p>
+                    <input class="w-100" type="password" id="checkPwd" name="checkPwd" data-match="#memberPwd" data-match-error="err_checkPassword" required="required">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-md-6 col-12 mb-3 order-0">
+                    <p class="mb-2"><label for="" data-i18n="label_FBCommunity">FB社團名稱</label></p>
+                    <input class="w-100" type="text" id="FBCommunity" name="FBCommunity">
+                </div>
+                <div class="form-group col-md-6 col-12 mb-3 order-0">
+                    <p class="mb-2"><label for="" data-i18n="label_FBFan">粉絲專頁名稱</label></p>
+                    <input class="w-100" type="text" id="FBFan" name="FBFan">
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+            <section class="my-md-50 my-30">
+                <div>
                     <div class="form-group col-12 mb-3 order-5 text-center my-30">
                         <input type="checkbox" name="" id="agree-register" ng-model="agree" required="required"> <span class="mb-2"><label class="required" for="agree-register">我已經詳閱上述會員說明</label></span>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center align-items-center">
-                    <button type="submit" class="btn btn-register register-submit-btn" id="btnSubmit">提交表單</button>
+                    <button type="submit" class="btn btn-register register-submit-btn" id="btnSubmit" data-i18n="btn_submit">提交表單</button>
                 </div>
             </section>
-
         </form>
     </section>
 
