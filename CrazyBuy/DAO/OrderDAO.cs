@@ -68,7 +68,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @" SELECT d.*,p.name,p.summary,p.prdImages,p.prdSepc,(case when d.priceGradeType = N'自訂價' then tcpg.name  when d.priceGradeType = N'轉批價' then d.priceGradeType else  N'會員價'  end) as priceType FROM [OrderDetail] d ";
+                var sql = @" SELECT d.*,p.name,p.summary,p.prdImages,p.prdSepc,p.prdCode,(case when d.priceGradeType = N'自訂價' then tcpg.name  when d.priceGradeType = N'轉批價' then d.priceGradeType else  N'會員價'  end) as priceType FROM [OrderDetail] d ";
                 sql += @" LEFT JOIN [TenantPrd] p on p.id = d.prdId ";
                 sql += @" LEFT JOIN [TenantPrdCustPrice] pcp on pcp.id = d.prdCustPriceId ";
                 sql += @" LEFT JOIN [TenantCustPriceGrade] tcpg on tcpg.id = pcp.custPriceGradeId ";

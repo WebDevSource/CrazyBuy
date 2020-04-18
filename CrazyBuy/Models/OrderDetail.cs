@@ -36,6 +36,6 @@ namespace CrazyBuy.Models
         public string prdImages { get; set; }
         public string prdSepc { get; set; }
         public string priceType { get; set; }
-
+        public string prdCode { get; set; }
     }
 }

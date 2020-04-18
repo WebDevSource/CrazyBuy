@@ -143,6 +143,16 @@
                                 -->
                             </td>
                         </tr>
+                        <tr>
+                            <td class="text-center">出貨日期</td>
+                            <td class="table-order-status">{{master.dtShipping|date:'yyyy-MM-dd HH:mm'}}</td>
+                            <td>
+                                <!--
+                                    <p class="mb-0">貨運方式：<a class="order-link" href="#">大榮貨運</a></p>
+                                    <p class="mb-0">單號追蹤：<a class="order-link" href="#">20191230102938</a></p>
+                                -->
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <p>商品明細</p>
@@ -189,7 +199,7 @@
                             <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-1.png');"></div>
                         </div>
                         <div class="col-7 mobile-cart-info py-1 px-2">
-                            <p class="mobile-cart-item-title text-hint">{{item.name}}</p>
+                            <p class="mobile-cart-item-title text-hint">{{item.prdCode}}<br>{{item.name}}</p>
                             <p class="mb-1"><span class="text-hint">{{item.priceType}}</span> ${{item.unitPrice}}</p>
                             <p class="mb-1 text-right">x{{item.qty}}</p>
                             <div><span class="badge badge-no-discount">需獨立下單</span></div>
