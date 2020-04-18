@@ -118,5 +118,17 @@ namespace CrazyBuy.DAO
                 return dbContext.Database.SqlQuery<TenantSetting>(sql).SingleOrDefault();
             }
         }
+
+        public List<string> checkTenantCodeIsExist(List<string> tenantCodes)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                string strTenantCodes = string.Join("',N'", tenantCodes);
+                var sql = @"SELECT DISTINCT tenantCode FROM dbo.Tenant where tenantCode IN (N'{0}')";
+                sql = string.Format(sql, strTenantCodes);
+                return dbContext.Database.SqlQuery<string>(sql).ToList();
+            }
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CrazyBuy.Common;
 using CrazyBuy.Models;
@@ -88,6 +89,28 @@ namespace CrazyBuy.DAO
                 Member model = dbContext.Member.Where(
                               m => m.memberId == id).SingleOrDefault();
                 return model;
+            }
+        }
+
+        public List<string> checkMemberCellPhoneIsExist(List<string> cellPhones)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                string strCellPhones = string.Join("',N'", cellPhones);
+                var sql = @"SELECT DISTINCT cellphone FROM dbo.Member where cellphone IN (N'{0}')";
+                sql = string.Format(sql, strCellPhones);
+                return dbContext.Database.SqlQuery<string>(sql).ToList();
+            }
+        }
+
+        public List<string> checkMemberEmailIsExist(List<string> emails)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                string strEmails = string.Join("',N'", emails);
+                var sql = @"SELECT DISTINCT email FROM dbo.Member where email IN (N'{0}')";
+                sql = string.Format(sql, strEmails);
+                return dbContext.Database.SqlQuery<string>(sql).ToList();
             }
         }
     }
