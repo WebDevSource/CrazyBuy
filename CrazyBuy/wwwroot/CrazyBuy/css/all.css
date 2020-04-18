@@ -15188,4 +15188,5 @@ a.text-hint:hover, a.text-hint:focus {
 .narbar-logo div img {
     width:255px;
     height:57px;
+    display:none;
 }

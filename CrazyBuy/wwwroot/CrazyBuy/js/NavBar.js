@@ -331,6 +331,7 @@
                         if (i18next.t("navbar_logo") == item.layout) {
                             NavBar.logoUrl = url;
                             $('img[alt=logo]').attr('src', url);
+                            $('img[alt=logo]').show();
                             break;
                         }
 
