@@ -35,5 +35,6 @@ namespace CrazyBuy.Models
         public int? updater { get; set; }
         public int? count { get; set; }
         public int? pcount { get; set; }
+        public int? ccount { get; set; }
     }
 }

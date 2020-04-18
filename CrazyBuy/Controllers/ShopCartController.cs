@@ -46,7 +46,7 @@ namespace CrazyBuy.Controllers
                 rm.data = e.Message;
             }
             return Ok(rm);
-        }
+        }        
 
         // GET api/<controller>/5
         [HttpGet("{id}")]

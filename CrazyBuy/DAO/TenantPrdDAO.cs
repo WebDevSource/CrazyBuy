@@ -54,12 +54,35 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @" select count(p.id) as total from [TenantPrd] p ";
-                sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                sql += @" where p.tenantId = '{0}' and r.catId = {1} and p.status = N'上架' ";
-                string query = String.Format(sql, tenantId, catId);
+                var sql = "";
+                if (isParent(catId))
+                {
+                    sql = @" select count(*) as total from dbo.TenantPrd p ";
+                    sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
+                    sql += @" where a.ancestorId = {0} and  ";
+                    sql += @" p.tenantId = '{1}' and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                }
+                else
+                {
+                    sql = @" select count(*) as total  from dbo.TenantPrd p ";
+                    sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    sql += @" where r.catId = {0} and  ";
+                    sql += @" p.tenantId = '{1}' and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                }
+                string query = String.Format(sql, catId, tenantId);
                 MDebugLog.debug("[getCountByCatId] > " + query);
                 return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total;
+            }
+        }
+
+        public bool isParent(long catId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" select count(*) as total from TenantPrdCatAd a where a.ancestorId = {0} ";
+                string query = String.Format(sql, catId);                
+                return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total > 0;
             }
         }
 
@@ -72,17 +95,38 @@ namespace CrazyBuy.DAO
                 string tenantId = pageQuery.tnenatId.ToString();
                 long catId = pageQuery.catId;
 
-                var notInsql = @" select TOP {0} p.id from [TenantPrd] p ";
-                notInsql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and p.status = N'上架' ";
-                notInsql += SortType.getOrderBy(pageQuery.sortType);
-                notInsql = String.Format(notInsql, pageCount, tenantId, catId);
+                var sql = "";
+                var notInsql = "";
+                if (isParent(catId))
+                {
+                    notInsql = @" select TOP {0} p.id from dbo.TenantPrd p ";
+                    notInsql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    notInsql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
+                    notInsql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    notInsql += SortType.getOrderBy(pageQuery.sortType);
+                    notInsql = String.Format(notInsql, pageCount, tenantId, catId);
 
-                var sql = @" select TOP {0} p.* from [TenantPrd] p ";
-                sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                sql += @" where p.tenantId = '{1}' and r.catId = {2} and p.status = N'上架' ";
-                sql += @" and p.id not in ( {3} ) ";
-                sql += SortType.getOrderBy(pageQuery.sortType);
+                    sql = @" select TOP {0} p.* from dbo.TenantPrd p ";
+                    sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
+                    sql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    sql += @" and p.id not in ( {3} ) ";
+                    sql += SortType.getOrderBy(pageQuery.sortType);
+                }
+                else
+                {
+                    notInsql = @" select TOP {0} p.id from dbo.TenantPrd p ";
+                    notInsql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";                    
+                    notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    notInsql += SortType.getOrderBy(pageQuery.sortType);
+                    notInsql = String.Format(notInsql, pageCount, tenantId, catId);
+
+                    sql = @" select TOP {0} p.* from dbo.TenantPrd p ";
+                    sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";                    
+                    sql += @" where p.tenantId = '{1}' and r.catId = {2} and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    sql += @" and p.id not in ( {3} ) ";
+                    sql += SortType.getOrderBy(pageQuery.sortType);
+                }
                 sql = String.Format(sql, top, tenantId, catId, notInsql);
 
                 MDebugLog.debug("[getTenandPrdByCatId] >" + sql);
@@ -127,7 +171,7 @@ namespace CrazyBuy.DAO
                 sql += @" and g.status = N'正常' and g.tenantId = '{2}' ";
                 sql = string.Format(sql, prdId, gradeId, tenantId);
                 CustSpcPrice spc = dbContext.Database.SqlQuery<CustSpcPrice>(sql).SingleOrDefault();
-                return spc ;
+                return spc;
             }
         }
     }

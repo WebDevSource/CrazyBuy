@@ -252,6 +252,27 @@ namespace CrazyBuy.Controllers
             return Ok(rm);
         }
 
+        // GET: api/<controller>
+        [HttpGet]
+        [Authorize]
+        public ActionResult getTimeOutItems()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);                
+                rm.code = MessageCode.SUCCESS;
+                rm.data = DataManager.shopCartDao.getTimeOutItem(memberId);
+                DataManager.shopCartDao.deleteTimeOutItem(memberId);
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
         private readonly static Dictionary<string, string> _contentTypes = new Dictionary<string, string>
         {
             {".png", "image/png"},

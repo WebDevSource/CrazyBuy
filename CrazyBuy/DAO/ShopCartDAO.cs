@@ -52,6 +52,31 @@ namespace CrazyBuy.DAO
             }
         }
 
+        public void deleteTimeOutItem(int memberId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" delete s from dbo.ShopCart s left join dbo.TenantPrd p ";
+                sql += @" on p.id = s.productId where s.memberId = {0}  ";
+                sql += @" and (p.dtSellStart > getdate() or p.dtSellEnd < getdate()); ";                
+                var query = string.Format(sql, memberId);
+                dbContext.Database.ExecuteSqlCommand(query);
+            }
+        }
+
+        public List<ShopCartPrd> getTimeOutItem(int memberId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" select s.*,p.name,p.prdImages,p.summary,p.SpecialRule, p.shipType , p.stockNum from dbo.TenantPrd p ";
+                sql += @" left join dbo.ShopCart s on s.productId = p.id ";
+                sql += @" where s.memberId = {0} ";
+                sql += @" and (p.dtSellStart > getdate() or p.dtSellEnd < getdate()) ";
+                var query = string.Format(sql, memberId);
+                return dbContext.Database.SqlQuery<ShopCartPrd>(query).ToList();
+            }
+        }
+
         public List<ShopCartPrd> getItemsByMember(int memberId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
