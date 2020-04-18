@@ -15,7 +15,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @"SELECT tp.* FROM [TenantPrd] tp";
                 sql += @" left join [TenantHomePrd] hp on hp.prdId = tp.id";
-                sql += @" where tp.[isOpenOrder] = 1 and tp.status = N'上架' ";
+                sql += @" where tp.[isOpenOrder] = 1 and tp.status = N'上架' and tp.dtSellStart <= getdate() and tp.dtSellEnd >= getdate() ";
                 sql += @" and hp.[tenantId] ='{0}' ";
 
 
