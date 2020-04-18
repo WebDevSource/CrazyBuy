@@ -68,7 +68,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @" SELECT d.*,p.name,p.summary,p.prdImages,p.prdSepc FROM [OrderDetail] d ";
+                var sql = @" SELECT d.*,p.name,p.summary,p.prdImages,p.prdSepc,p.prdCode FROM [OrderDetail] d ";
                 sql += @" LEFT JOIN [TenantPrd] p on p.id = d.prdId ";
                 sql += @" where d.orderId = {0} and d.status = N'正常' ";
                 var query = String.Format(sql, id);
