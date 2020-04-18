@@ -1,10 +1,12 @@
 ﻿var NavBar = {
     navbarBotton: { "btn_nav_home": "./index.html", "btn_nav_product": "./products.html", "btn_nav_statement": "./announcement.html", "btn_nav_FQA": "questions.html" },
-
+    logoUrl: "./images/logo.svg",
     Init() {
         let role = Utils.getRole();
         NavBar.InitHeaderButtons();
         NavBar.InitToolButtons(role);
+        NavBar.GetLogoImage();
+
         $('[data-userauthority]').hide();
         $('[data-authority]').hide();
         $('[data-userauthority="' + role + '"]').show()
@@ -51,10 +53,11 @@
     },
 
     InitLoginModel() {
-        let html = '<div class="alert alert-primary fade" role="alert">'
-            + '  A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.'
-            + '</div>'
-            + '<div class="modal" id="register-modal" tabindex="-1" role="dialog"  aria-hidden="true">           '
+        /*       let html ='<div class="alert alert-primary fade" role="alert">'
+                   + '  A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.'
+                   + '</div>'
+       */
+        let html = '<div class="modal" id="register-modal" tabindex="-1" role="dialog"  aria-hidden="true">           '
             + '  <div class="modal-dialog modal-dialog-centered" role="document">                                '
             + '    <div class="modal-content">                                                                   '
             + '      <div class="modal-header justify-content-center border-0 mb-20">                            '
@@ -207,7 +210,7 @@
         let html = '<a  class="nav-link pl-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
             + '        <i class="fas fa-shopping-cart"></i>' + i18next.t("btn_nav_cart") + "(" + data.count + ")"
             + '      </a>'
-            + '      <div class="dropdown-menu rounded-0 nav-cart-items px-2"> '
+            + '      <div class="dropdown-menu rounded-0 nav-cart-items px-2" style="z-index:99999;"> '
             + data.cartList
             + '       <div class="ml-auto my-2 col-6">'
             + '         <div class="row"> '
@@ -314,9 +317,28 @@
     doLogout() {
         Utils.ClearToken();
         window.location.reload();
+    },
+
+    GetLogoImage() {
+        Utils.ProcessAjax("/api/tenant/getBulletin", "GET", true, "",
+            function (ret) {
+                if (ret.code === -1) {
+                    alert("service error");
+                } else {
+                    for (let i = 0; i < ret.data.length; i++) {
+                        let item = ret.data[i];
+                        let url = Utils.GetBulletinImageUrl(item);
+                        if (i18next.t("navbar_logo") == item.layout) {
+                            NavBar.logoUrl = url;
+                            $('img[alt=logo]').attr('src', url);
+                            break;
+                        }
+
+                    }
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
     }
-
-
-
 
 };

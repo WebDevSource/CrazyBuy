@@ -173,7 +173,7 @@ var ProductInner = {
         }
         if (items[0].type == i18next.t("prd_sepc_type_radius")) {
             for (let i in items) {
-                html += "<input type='radio' value='" + JSON.stringify(items[i]) + "' name='sepc'/> "
+                html += "<input type='radio' value='" + JSON.stringify(items[i]) + "' name='sepc' "+ (i == 0 ? 'checked':'') +"/> "
                     + "<label>" + items[i].name + "</label> &nbsp;";
             }
             ProductInner.isRadio = true;

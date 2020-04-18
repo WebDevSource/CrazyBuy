@@ -77,12 +77,12 @@
             <thead>
                 <tr>
                     <th scope="col">商品圖</th>
-                    <th scope="col">商品資訊</th>
-                    <th scope="col">商品備註</th>
-                    <th scope="col">單價</th>
-                    <th scope="col">訂購數量</th>
-                    <th scope="col">金額</th>
-                    <th class="text-center" scope="col"><i class="fas fa-trash-alt"></i></th>
+                    <th scope="col" data-i18n="prd_summary">商品資訊</th>
+                    <th scope="col" data-i18n="prd_sepc">商品規格</th>
+                    <th scope="col" data-i18n="prd_specialRule">商品備註</th>
+                    <th scope="col" data-i18n="cart_price">單價</th>
+                    <th scope="col" data-i18n="cart_sum">訂購數量</th>
+                    <th scope="col" data-i18n="cart_order_count">金額</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,15 +91,17 @@
                         <div class="mx-auto cart-item-img" style="background-image: url('{{cart.prdImages}}');"></div>
                     </td>
                     <td class="cart-item-title" ng-init="CalculateSum(cart)">{{cart.name}}</td>
-                    <td class="table-center table-badge"></td>
+                    <td class="table-center"> {{cart.sepc.name}}</td>
+                    <td class="table-center table-badge"><span ng-repeat="specia in cart.specialRule" class="badge badge-no-discount"> {{specia}}</span></td>
                     <td class="table-center cart-price">
-                        <p class="mb-0 table-member-price">會員價</p>
+                        <p class="mb-0 table-member-price">{{cart.type}}</p>
                         <p class="mb-0">{{cart.amount/cart.count}}</p>
                     </td>
-                    <td class="table-center cart-num">{{cart.count}}</td>
-                    <td class="table-center cart-item-totalprice">{{cart.amount}}</td>
-                    <td class="table-center"></td>
+
+                    <td class="table-center cart-item-totalprice">{{cart.count}}</td>
+                    <td class="table-center cart-num">{{cart.amount}}</td>
                 </tr>
+
                 <tr>
                     <td class="table-border-3" rowspan="3" colspan="2"></td>
                     <td class="text-right table-border-top-3 cart-all-toalprice" colspan="3">發票稅</td>
@@ -169,7 +171,7 @@
             </div>
             <div class="row mb-15">
                 <div class="col-lg-2 col-md-3 col-4 text-center">地址</div>
-                <div class="col-8">{{memberData.address}}</div>
+                <div class="col-8">{{checkout.memberCityName}}{{checkout.memberTownName}}{{memberData.address}}</div>
             </div>
         </section>
         <section class="order-info mb-md-50 mb-30">
@@ -193,7 +195,7 @@
             </div>
             <div class="row mb-15">
                 <div class="col-lg-2 col-md-3 col-4 text-center">地址</div>
-                <div class="col-8">{{checkout.recipientAddr}}</div>
+                <div class="col-8">{{checkout.recipientCityName}}{{checkout.recipientTownName}}{{checkout.recipientAddr}}</div>
             </div>
             <div class="row mb-15">
                 <div class="col-lg-2 col-md-3 col-4 text-center">希望送達時段</div>
@@ -245,7 +247,7 @@
             </div>
             <div class="row mb-15">
                 <div class="col-lg-2 col-md-3 col-4 text-center">發票收件地址</div>
-                <div class="col-8">{{checkout.invoiceAddr}}</div>
+                <div class="col-8">{{checkout.invoiceCityName}}{{checkout.invoiceTownName}}{{checkout.invoiceAddr}}</div>
             </div>
         </section>
         <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">

@@ -24,7 +24,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" SELECT m.*,r.name as userName FROM [OrderMaster] m ";
                 sql += @" LEFT JOIN [Member] r on r.memberId = m.memberId ";
-                sql += @" WHERE m.Id = {0} ";
+                sql += @" WHERE m.Id = {0} and m.status <> N'刪除'";
                 var query = String.Format(sql, id);
                 return dbContext.Database.SqlQuery<OrderMasterUser>(query).FirstOrDefault();
             }
@@ -70,7 +70,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" SELECT d.*,p.name,p.summary,p.prdImages,p.prdSepc FROM [OrderDetail] d ";
                 sql += @" LEFT JOIN [TenantPrd] p on p.id = d.prdId ";
-                sql += @" where d.orderId = {0} ";
+                sql += @" where d.orderId = {0} and d.status = N'正常' ";
                 var query = String.Format(sql, id);
                 return (List<OrderPrdDetail>)dbContext.Database.SqlQuery<OrderPrdDetail>(query).ToList();
             }

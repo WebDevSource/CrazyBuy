@@ -56,6 +56,8 @@
   "ship_type_nomal1": "常溫宅配",
   "ship_type_cool1": "低溫宅配",
 
+  "navbar_logo": "商店Logo",
+
 
   "pleaseSelect": "請選擇",
 
@@ -139,5 +141,6 @@
   "msg_service_error": "伺服器發生錯誤 請重新整理!",
   "msg_cart_is_null": "購物車沒任何東西",
   "msg_product_not_enough": "商品已沒有庫存",
-  "msg_register_member": "請先加入會員"
+  "msg_register_member": "請先加入會員",
+  "msg_error_loginFrist": "請先登入會員!"
 }

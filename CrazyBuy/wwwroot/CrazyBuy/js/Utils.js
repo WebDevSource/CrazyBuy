@@ -55,11 +55,16 @@
         }
         $(".navbar-nav").html(html);
         let role = Utils.getRole();
-
         $('[data-userauthority="' + role + '"]').show()
         $('[data-authority="' + role + '"]').show();
+    },
 
-
+    checkRole() {
+        let role = Utils.getRole();
+        if (role == Utils.ROLE_GUEST) {
+            alert(i18next.t("msg_error_loginFrist"));
+            location.href = "./index.html?tenantCode=" + Utils.TenantCode;
+        }
     },
 
     openBankend() {

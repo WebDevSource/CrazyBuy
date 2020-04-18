@@ -13,6 +13,7 @@ var OrderSuccess = {
 
     InitModule() {
         NavBar.Init();
+        Utils.checkRole();
         OrderSuccess.InitView();
     },
 

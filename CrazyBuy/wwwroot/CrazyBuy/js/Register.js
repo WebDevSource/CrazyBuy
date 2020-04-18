@@ -1,11 +1,13 @@
-﻿var RegApp = angular.module('RegApp', []).controller('RegCtrl', function ($scope) {
+﻿var RegApp = angular.module('RegApp', []).controller('RegCtrl', ['$scope', '$sce', function ($scope, $sce) {
     $scope.agree = false;
     $scope.checkPwd = '';
     $scope.member = {};
     $scope.update = function (selectedValue) {
         $scope.level2 = $scope.towns[selectedValue]
     };
-
+    $scope.to_trusted = function (html_code) {
+        return $sce.trustAsHtml(html_code);
+    }
     $scope.submit = function () {
         if ($scope.agree) {
             if ($scope.checkPwd === $scope.member.password) {
@@ -39,9 +41,24 @@
             alert('not agree.');
         }
     };
-});
+}]);
+
 
 var Register = {
+
+    columnMapping: {
+        "姓名": "name",
+        "性別": "gender",
+        "電話": "phone",
+        "Line ID": "lineId",
+        "密碼": "password",
+        "手機號碼": "mobile",
+        "地址": "addr",
+        "Email": "Email",
+        "傳真": "fax",
+
+    },
+
     doLoad() {
         Utils.Initial();
         Utils.InitI18next("zh-TW", "register", Register.InitModule);
@@ -52,11 +69,44 @@ var Register = {
         NavBar.Init();
         Register.InitView();
 
-        Register.getPlaces();
     },
 
     InitView() {
+        Register.getTenantSetting();
+        Register.getPlaces();
+        Register.getBulletin();
+    },
 
+    getTenantSetting() {
+        Utils.ProcessAjax("/api/tenant/getTenantSetting", "GET", true, "",
+            function (ret) {
+                if (ret.code === -1) {
+                    alert("service error");
+                } else {
+                    let appElement = document.querySelector('[ng-controller=RegCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    let setting = [];
+                    $scope.setting = {};
+                    for (let i = 0; i < ret.data.length; i++) {
+
+                        let item = ret.data[i];
+                        if (item.title == "MemberColumnSetting") {
+                            if (item.content) {
+                                setting = JSON.parse(item.content);
+                                break;
+                            }
+                        }
+                    }
+                    for (let i in setting) {
+                        let item = setting[i];
+                        let key = Register.columnMapping[item.name];
+                        $scope.setting[key] = item;
+                    }
+                    $scope.$apply();
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
     },
     getPlaces() {
         Utils.ProcessAjax("/api/Common/getPlaces", "GET", true, "",
@@ -78,11 +128,33 @@ var Register = {
             function (error) { alert(i18next.t("msg_service_error")); }
         );
     },
-    changeType (element) {
+    changeType(element) {
         let input = $(element).prev();
         let type = input.attr("type");
         input.attr("type", (type == "password" ? "text" : "password"));
-    }
+    },
+
+    getBulletin() {
+        Utils.ProcessAjax("/api/tenant/getBulletin", "GET", true, "",
+            function (ret) {
+                if (ret.code === -1) {
+                    alert("service error");
+                } else {
+                    let appElement = document.querySelector('[ng-controller=RegCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    $scope.bulletins = [];
+                    for (let i = 0; i < ret.data.length; i++) {
+                        let item = ret.data[i];
+                        if (i18next.t("register_bulletin") == item.layout) {
+                            $scope.bulletins.push(item.content);
+                        }
+                    }
+                    $scope.$apply();
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
+    },
 };
 
 window.onload = Register.doLoad;

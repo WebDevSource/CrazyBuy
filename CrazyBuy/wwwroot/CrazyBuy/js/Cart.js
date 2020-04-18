@@ -15,6 +15,7 @@ var Cart = {
 
     InitModule() {
         NavBar.Init();
+        Utils.checkRole();
         Cart.checkPrdCount();
         Cart.checkLevelMember();
     },

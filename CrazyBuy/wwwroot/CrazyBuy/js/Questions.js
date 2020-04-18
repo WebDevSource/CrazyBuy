@@ -35,6 +35,9 @@ var Questions = {
 
                     let myMap = new Map();
                     let data = ret.data;
+                    if (data.length == 0) {
+                        return;
+                    }
                     data.forEach(function (item, index, array) {
                         let type = item.type;
                         let list;

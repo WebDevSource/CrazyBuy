@@ -30,6 +30,7 @@ var Order = {
 
     InitModule() {
         NavBar.Init();
+        Utils.checkRole();
         Order.InitView();
         Order.getBankInfo();
     },

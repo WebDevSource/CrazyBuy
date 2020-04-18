@@ -54,6 +54,7 @@ var MemberInfo = {
 
     InitModule() {
         NavBar.Init();
+        Utils.checkRole();
         MemberInfo.InitView();
     },
 

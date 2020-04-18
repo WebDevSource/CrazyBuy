@@ -16,6 +16,7 @@ var CheckoutSuccess = {
 
     InitModule() {
         NavBar.Init();
+        Utils.checkRole();
         CheckoutSuccess.InitView();
     },
 
@@ -46,6 +47,9 @@ var CheckoutSuccess = {
                             imageUrl = Utils.BackendImageUrl + "id=" + value.productId + "&filename=" + images[0].filename;
                             $scope.carts[index].prdImages = imageUrl;
                         }
+                        let specialRule = JSON.parse(value.specialRule);
+                        $scope.carts[index].specialRule = specialRule
+                        $scope.carts[index].sepc = value.prdSepc ? JSON.parse(value.prdSepc) : null;
 
                     });
                     $scope.checkout = JSON.parse(Utils.GetCookie("order"));

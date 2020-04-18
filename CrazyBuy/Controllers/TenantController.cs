@@ -164,5 +164,24 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+
+        [Authorize]
+        public ActionResult getTenantSetting()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
+                rm.code = MessageCode.SUCCESS;
+                rm.data = DataManager.tenantDao.getAllTenantSetting(tenantId);
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
     }
 }
