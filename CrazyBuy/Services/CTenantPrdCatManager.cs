@@ -41,7 +41,7 @@ namespace CrazyBuy.Services
                     }
                     else
                     {
-                        item.count = item.pcount;
+                        item.count = item.pcount + item.ccount;
                     }
                     result.Add(item);
                 }

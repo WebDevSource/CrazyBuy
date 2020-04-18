@@ -16,6 +16,7 @@ var Cart = {
     InitModule() {
         NavBar.Init();
         Utils.checkRole();
+        Cart.checkTimeOut();
         Cart.checkPrdCount();
         Cart.checkLevelMember();
     },
@@ -35,6 +36,22 @@ var Cart = {
                     }
                 } else {
                     Cart.InitView();
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
+    },
+
+    checkTimeOut() {
+        Utils.ProcessAjax("/api/Common/getTimeOutItems", "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let data = ret.data;
+                    if (data.length > 0) {
+                        let msg = '以下商品已經超過上架時間，\n'
+                        data.forEach(element => msg += element.name + '\n');
+                        alert(msg);
+                    }
                 }
             },
             function (error) { alert("ajax error") }

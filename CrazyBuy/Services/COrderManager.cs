@@ -16,14 +16,20 @@ namespace CrazyBuy.Services
             OrderData data = new OrderData();
             data.master = DataManager.orderDao.getOrder(orderId);
             int recipientCityId = data.master.recipientCityId.GetValueOrDefault(0);
-            int invoiceCityId =  data.master.invoiceCityId.GetValueOrDefault(0);
+            int invoiceCityId = data.master.invoiceCityId.GetValueOrDefault(0);
             data.master.recipientCityName = DataManager.cityDao.getCity(recipientCityId) == null ? "" : DataManager.cityDao.getCity(recipientCityId).cityName;
-            data.master.recipientTownName = DataManager.cityDao.getTown(data.master.recipientTownId) == null? "" : DataManager.cityDao.getTown(data.master.recipientTownId).townName;
+            data.master.recipientTownName = DataManager.cityDao.getTown(data.master.recipientTownId) == null ? "" : DataManager.cityDao.getTown(data.master.recipientTownId).townName;
             data.master.invoiceCityName = DataManager.cityDao.getCity(invoiceCityId) == null ? "" : DataManager.cityDao.getCity(invoiceCityId).cityName;
             data.master.invoiceTownName = DataManager.cityDao.getTown(data.master.invoiceTownId) == null ? "" : DataManager.cityDao.getTown(data.master.invoiceTownId).townName;
             data.detail = DataManager.orderDao.getDetailLists(orderId);
             data.contactList = DataManager.orderContactItemDAO.getListByOrderId(orderId);
             return data;
+        }
+
+        public static ReturnMessage checkCartOutTime(int userId)
+        {
+            ReturnMessage rm = new ReturnMessage();
+            return rm;
         }
 
         public static ReturnMessage isProductEnough(int userId)
@@ -69,6 +75,7 @@ namespace CrazyBuy.Services
                 orderMaster.createTime = now;
                 orderMaster.updateTime = now;
                 int total = 0;
+                DataManager.shopCartDao.deleteTimeOutItem(userInfo.memberId); //防止購入超時商品
                 List<ShopCartPrd> shopCartPrds = DataManager.shopCartDao.getItemsByMember(userInfo.memberId);
                 List<OrderDetail> detailList = new List<OrderDetail>();
                 Dictionary<int, TenantPrd> prdMap = new Dictionary<int, TenantPrd>();
