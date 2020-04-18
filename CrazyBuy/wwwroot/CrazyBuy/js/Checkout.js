@@ -66,8 +66,8 @@ var Checkout = {
     },
 
     InitModule() {
-        NavBar.Init();
         Utils.checkRole();
+        NavBar.Init();
         Checkout.getPlaces();
         Checkout.getFreight();
         Checkout.getBankInfo();

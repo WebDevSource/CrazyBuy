@@ -18,8 +18,8 @@ var OrderDetail = {
 
 
     InitModule() {
-        NavBar.Init();
         Utils.checkRole();
+        NavBar.Init();
         OrderDetail.InitView();
     },
 

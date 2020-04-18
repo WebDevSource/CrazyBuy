@@ -108,6 +108,7 @@ var Register = {
             function (error) { alert("ajax error") }
         );
     },
+
     getPlaces() {
         Utils.ProcessAjax("/api/Common/getPlaces", "GET", true, "",
             function (ret) {

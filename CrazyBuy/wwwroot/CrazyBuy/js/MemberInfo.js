@@ -46,6 +46,19 @@
 });
 
 var MemberInfo = {
+    columnMapping: {
+        "姓名": "name",
+        "性別": "gender",
+        "電話": "phone",
+        "Line ID": "lineId",
+        "密碼": "password",
+        "手機號碼": "mobile",
+        "地址": "addr",
+        "Email": "Email",
+        "傳真": "fax",
+
+    },
+
     doLoad() {
         Utils.Initial();
         Utils.InitI18next("zh-TW", "memberInfo", MemberInfo.InitModule);
@@ -53,8 +66,8 @@ var MemberInfo = {
 
 
     InitModule() {
-        NavBar.Init();
         Utils.checkRole();
+        NavBar.Init();
         MemberInfo.InitView();
     },
 
@@ -117,6 +130,37 @@ var MemberInfo = {
         let input = $(element).prev();
         let type = input.attr("type");
         input.attr("type", (type == "password" ? "text" : "password"));
+    },
+    getTenantSetting() {
+        Utils.ProcessAjax("/api/tenant/getTenantSetting", "GET", true, "",
+            function (ret) {
+                if (ret.code === -1) {
+                    alert("service error");
+                } else {
+                    let appElement = document.querySelector('[ng-controller=MemberCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    let setting = [];
+                    $scope.setting = {};
+                    for (let i = 0; i < ret.data.length; i++) {
+
+                        let item = ret.data[i];
+                        if (item.title == "MemberColumnSetting") {
+                            if (item.content) {
+                                setting = JSON.parse(item.content);
+                                break;
+                            }
+                        }
+                    }
+                    for (let i in setting) {
+                        let item = setting[i];
+                        let key = MemberInfo.columnMapping[item.name];
+                        $scope.setting[key] = item;
+                    }
+                    $scope.$apply();
+                }
+            },
+            function (error) { alert("ajax error") }
+        );
     }
 };
 

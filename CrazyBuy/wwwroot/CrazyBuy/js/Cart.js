@@ -14,8 +14,8 @@ var Cart = {
     },
 
     InitModule() {
-        NavBar.Init();
         Utils.checkRole();
+        NavBar.Init();
         Cart.checkTimeOut();
         Cart.checkPrdCount();
         Cart.checkLevelMember();

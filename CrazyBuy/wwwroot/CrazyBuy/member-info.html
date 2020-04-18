@@ -30,138 +30,140 @@
     <link rel="stylesheet" href="./css/all.min.css">
 </head>
 <body ng-controller="MemberCtrl">
-<!-- navbar -->
-  <div class="navbar-mobile-block"></div>
-  <header class="container-fluid p-0" id="navbar">
-    <div class="text-center narbar-logo py-20">
-      <div class="d-inline-block admin-edit-content">
-        <img src="./images/logo.svg" alt="logo">
-        <!-- 管理者編輯 -->
-        <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin" style="display:none;">編輯</button>
-        <!-- 管理者編輯 -->
-      </div>
-    </div>
-    <nav class="navbar narbar-container navbar-expand-sm navbar-light" >
-      <div class="box">
-        <div id="hamburger" class="hamburger" >
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
+    <!-- navbar -->
+    <div class="navbar-mobile-block"></div>
+    <header class="container-fluid p-0" id="navbar">
+        <div class="text-center narbar-logo py-20">
+            <div class="d-inline-block admin-edit-content">
+                <img src="./images/logo.svg" alt="logo">
+                <!-- 管理者編輯 -->
+                <button class="btn btn-outline-register btn-admin-edit logo-admin-edit p-1" data-i18n="btn_edit" data-Authority="admin" style="display:none;">編輯</button>
+                <!-- 管理者編輯 -->
+            </div>
         </div>
-      </div>
-      <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
-        <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo"> 
-          <img src="./images/logo.svg" alt="logo">
-        </div>
-        <div class="input-group mobile-side-bar-item mb-3">
-          <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
-          <div class="d-flex">
-            <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
-          </div>
-        </div>
-        <ul class="navbar-nav mr-auto">
-        </ul>
-      </div>
+        <nav class="navbar narbar-container navbar-expand-sm navbar-light">
+            <div class="box">
+                <div id="hamburger" class="hamburger">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse mobile-side-bar" id="navbar_collapse">
+                <div class="text-center py-20  mobile-side-bar-item mobile-side-bar-logo">
+                    <img src="./images/logo.svg" alt="logo">
+                </div>
+                <div class="input-group mobile-side-bar-item mb-3">
+                    <input type="text" class="input-search-bar form-control rounded-0" placeholder="搜尋商品">
+                    <div class="d-flex">
+                        <span class="input-group-text input-search-bar-bg rounded-0"><i class="fas fa-search"></i></span>
+                    </div>
+                </div>
+                <ul class="navbar-nav mr-auto">
+                </ul>
+            </div>
 
-      <div class="navbar-status-content">
-      </div> 
-    </nav>
-  </header>
-  <div class="gotop">
-    <i class="fas fa-angle-up"></i>
-  </div>
-<!-- navbar -->
-  <section class="container-fluid px-md-30 px-15">
-    <h4 class="my-20">會員資料維護</h4>
-    <form id="checkout-userinfo" ng-submit="submit()">
-      <section class="my-md-50 my-30">
-        <h5 class="my-20 order-title">基本資料</h5>
-        <hr>
-        <div class="row d-flex flex-wrap">
-          <div class="col-md-6 col-12 mb-3 order-0">
-            <p class="mb-2"><label for="">姓名</label></p>
-            <input class="w-100" type="text"  ng-model="member.name" required="required">
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-1">
-            <p class="mb-2"><label for="">性別</label></p>
-            <input  type="radio" name="gender" id="gender-man" value="男" ng-model="member.gender" ng-true-value="'男'" required="required">
-            <label class="checkout-radio-label" for="gender-man">男</label>
-            <input  type="radio" name="gender" id="gender-woman" value="女"  ng-model="member.gender" ng-true-value="'女'" required="required">
-            <label class="checkout-radio-label" for="gender-woman">女</label>
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-2">
-            <p class="mb-2"><label for="">聯絡電話</label></p>
-            <input class="w-100" type="text" ng-model="member.tel" required="required">
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-md-3 order-4">
-            <p class="mb-2"><label for="">Lind ID</label></p>
-            <input class="w-100" type="text" ng-model="member.lineId" required="required">
-          </div>
-          <div class="col-md-6 col-12 mb-3 order-md-4 order-3">
-            <p class="mb-2"><label for="">傳真</label></p>
-            <input class="w-100" type="text" ng-model="member.fax" required="required">
-          </div>
-          <div class="col-lg-6 col-12 mb-3 order-5">
-            <p class="mb-2"><label for="">地址</label></p>
-            <select class="checkout-select"  ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="update(member.cityId)" required="required">
-              <option value="">縣市</option>
-            </select>
-            <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" required="required">
-              <option  value="">鄉鎮市區</option>
-            </select>
-            <input class="checkout-address" type="text" ng-model="member.address" required="required">
-          </div>
-        </div>
-      </section>
-      <section class="mb-md-50 mb-30">
-        <h5 class="my-20 order-title">帳號密碼</h5>
-        <hr>
-        <div class="row d-flex flex-wrap">
-            <div class="col-md-6 col-12 mb-3 order-0">
-                <p class="mb-2"><label for="">Email</label></p>
-                <input class="w-100" type="email" ng-model="member.email" required="required">
+            <div class="navbar-status-content">
             </div>
-            <div class="col-md-6 col-12 mb-3 order-md-1 order-2">
-                <p class="mb-2 "><label for="">輸入新密碼</label></p>
-                <input class="w-100" type="password" ng-model="member.password">
-                <span class="register-password" onclick="MemberInfo.changeType(this)"></span>
-            </div>
-            <div class="col-md-6 col-12 mb-3 order-md-2 order-1">
-                <p class="mb-2"><label for="">手機號碼</label></p>
-                <input class="w-100" type="text" ng-model="member.cellphone" required="required">
-                <p class="register-ps mb-0">註：Email或手機即是以後登入的會員帳號</p>
-            </div>
-            <div class="col-md-6 col-12 mb-3 order-3">
-                <p class="mb-2 "><label for="">再次輸入密碼</label></p>
-                <input class="w-100" type="password" ng-model="checkPwd">
-                <span class="register-password" onclick="MemberInfo.changeType(this)"></span>
-            </div>
-            <!--
-    <div class="col-md-6 col-12 mb-3 order-4">
-      <p class="mb-2"><label for="">會員訊息</label></p>
-      <input  type="radio" name="member-msg" id="receive-msg">
-      <label class="checkout-radio-label" for="receive-msg">寄給我</label>
-      <input  type="radio" name="member-msg" id="norecive-mg">
-      <label class="checkout-radio-label" for="norecive-mg">不要寄給我</label>
+        </nav>
+    </header>
+    <div class="gotop">
+        <i class="fas fa-angle-up"></i>
     </div>
-    <div class="col-md-6 col-12 mb-3 order-5">
-      <p class="mb-2"><label for="">訂閱電子報</label></p>
-      <input  type="radio" name="subscribe-edm" id="subscribe">
-      <label class="checkout-radio-label" for="subscribe">訂閱</label>
-      <input  type="radio" name="subscribe-edm" id="no-subscribe">
-      <label class="checkout-radio-label" for="no-subscribe">不要訂閱</label>
-    </div>
-    <div class="col-12 mb-3 order-5 text-center my-30">
-      <input  type="checkbox" name="" id="agree-register" ng-model="agree"> <span class="mb-2"><label for="agree-register">我已經詳閱上述會員說明</label></span>
-    </div>
-          -->
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-          <button class="btn btn-register register-submit-btn">提交表單</button>
-        </div>
-      </section>
+    <!-- navbar -->
+    <section class="container-fluid px-md-30 px-15">
+        <h4 class="my-20">會員資料維護</h4>
+        <form id="checkout-userinfo" ng-submit="submit()">
+            <section class="my-md-50 my-30">
+                <h5 class="my-20 order-title">基本資料</h5>
+                <hr>
+                <div class="row d-flex flex-wrap">
+                    <div class="col-md-6 col-12 mb-3 order-0" ng-show="setting.name.isShow">
+                        <p class="mb-2"><label for="">姓名</label></p>
+                        <input class="w-100" type="text" ng-model="member.name" ng-required="setting.name.isRequired" ng-disabled="setting.name.isEditable?null:true">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-1" ng-show="setting.gender.isShow">
+                        <p class="mb-2"><label for="">性別</label></p>
+                        <input type="radio" name="gender" id="gender-man" value="男" ng-model="member.gender" ng-required="setting.gender.isRequired" ng-disabled="setting.gender.isEditable?null:true">
+                        <label class="checkout-radio-label" for="gender-man">男</label>
+                        <input type="radio" name="gender" id="gender-woman" value="女" ng-model="member.gender" ng-required="setting.gender.isRequired" ng-disabled="setting.gender.isEditable?null:true">
+                        <label class="checkout-radio-label" for="gender-woman">女</label>
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-2" ng-show="setting.phone.isShow">
+                        <p class="mb-2"><label for="">聯絡電話</label></p>
+                        <input class="w-100" type="text" ng-model="member.tel" ng-required="setting.phone.isRequired" ng-disabled="setting.phone.isEditable?null:true">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-md-3 order-4" ng-show="setting.lineId.isShow">
+                        <p class="mb-2"><label for="">Lind ID</label></p>
+                        <input class="w-100" type="text" ng-model="member.lineId" ng-required="setting.lineId.isRequired" ng-disabled="setting.lineId.isEditable?null:true">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-md-4 order-3" ng-show="setting.fax.isShow">
+                        <p class="mb-2"><label for="">傳真</label></p>
+                        <input class="w-100" type="text" ng-model="member.fax" ng-required="setting.fax.isRequired" ng-disabled="setting.fax.isEditable?null:true">
+                    </div>
+                    <div class="col-lg-6 col-12 mb-3 order-5" ng-show="setting.addr.isShow">
+                        <p class="mb-2"><label for="">地址</label></p>
+                        <select class="checkout-select" ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="update(member.cityId)" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">
+                            <option value="">縣市</option>
+                        </select>
+                        <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">
+                            <option value="">鄉鎮市區</option>
+                        </select>
 
-    </form>
-  </section>
+                        <input class="checkout-address" type="text" ng-model="member.address" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">
+                    </div>
+                </div>
+            </section>
+            <section class="mb-md-50 mb-30">
+                <h5 class="my-20 order-title">帳號密碼</h5>
+                <hr>
+                <div class="row d-flex flex-wrap">
+                    <div class="col-md-6 col-12 mb-3 order-0" ng-show="setting.Email.isShow">
+                        <p class="mb-2"><label for="">Email</label></p>
+                        <input class="w-100" type="email" ng-model="member.email" ng-required="setting.Email.isRequired" ng-disabled="setting.Email.isEditable?null:true">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-md-1 order-2" ng-show="setting.password.isShow">
+                        <p class="mb-2 "><label for="">輸入新密碼</label></p>
+                        <input class="w-100" type="password" ng-model="member.password" ng-disabled="setting.password.isEditable?null:true">
+                        <span class="register-password" onclick="MemberInfo.changeType(this)"></span>
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-md-2 order-1" ng-show="setting.mobile.isShow">
+                        <p class="mb-2"><label for="">手機號碼</label></p>
+                        <input class="w-100" type="text" ng-model="member.cellphone" ng-required="setting.mobile.isRequired" ng-disabled="setting.mobile.isEditable?null:true">
+                        <p class="register-ps mb-0">註：Email或手機即是以後登入的會員帳號</p>
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-3" ng-show="setting.password.isShow">
+                        <p class="mb-2 "><label for="">再次輸入密碼</label></p>
+                        <input class="w-100" type="password" ng-model="checkPwd" ng-disabled="setting.password.isEditable?null:true">
+                        <span class="register-password" onclick="MemberInfo.changeType(this)"></span>
+                    </div>
+
+                    <!--
+                    <div class="col-md-6 col-12 mb-3 order-4">
+                      <p class="mb-2"><label for="">會員訊息</label></p>
+                      <input  type="radio" name="member-msg" id="receive-msg">
+                      <label class="checkout-radio-label" for="receive-msg">寄給我</label>
+                      <input  type="radio" name="member-msg" id="norecive-mg">
+                      <label class="checkout-radio-label" for="norecive-mg">不要寄給我</label>
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-5">
+                      <p class="mb-2"><label for="">訂閱電子報</label></p>
+                      <input  type="radio" name="subscribe-edm" id="subscribe">
+                      <label class="checkout-radio-label" for="subscribe">訂閱</label>
+                      <input  type="radio" name="subscribe-edm" id="no-subscribe">
+                      <label class="checkout-radio-label" for="no-subscribe">不要訂閱</label>
+                    </div>
+                    <div class="col-12 mb-3 order-5 text-center my-30">
+                      <input  type="checkbox" name="" id="agree-register" ng-model="agree"> <span class="mb-2"><label for="agree-register">我已經詳閱上述會員說明</label></span>
+                    </div>
+                          -->
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-register register-submit-btn">提交表單</button>
+                </div>
+            </section>
+
+        </form>
+    </section>
 </body>
 </html>

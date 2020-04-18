@@ -15,8 +15,8 @@ var CheckoutSuccess = {
 
 
     InitModule() {
-        NavBar.Init();
         Utils.checkRole();
+        NavBar.Init();
         CheckoutSuccess.InitView();
     },
 

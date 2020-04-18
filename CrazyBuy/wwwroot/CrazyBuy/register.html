@@ -72,7 +72,7 @@
     <section class="container-fluid px-md-30 px-15">
         <h4 class="my-20">註冊會員</h4>
         <p class="my-30 pb-20 register-hint" ng-repeat="bulletin in bulletins" ng-bind-html="to_trusted(bulletin)">
-            
+
         </p>
         <form id="checkout-userinfo" ng-submit="submit()">
             <section class="my-md-50 my-30">
@@ -119,13 +119,13 @@
                 <h5 class="my-20 order-title">帳號密碼</h5>
                 <hr>
                 <div class="row d-flex flex-wrap">
-                    <div class="col-md-6 col-12 mb-3 order-0" ng-show="setting.Email.isShow" >
+                    <div class="col-md-6 col-12 mb-3 order-0" ng-show="setting.Email.isShow">
                         <p class="mb-2"><label for="">Email</label></p>
-                        <input class="w-100" type="email" ng-model="member.email" ng-required="setting.Email.isRequired" ng-disabled="setting.Email.isEditable?null:true" >
+                        <input class="w-100" type="email" ng-model="member.email" ng-required="setting.Email.isRequired" ng-disabled="setting.Email.isEditable?null:true">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-1 order-2" ng-show="setting.password.isShow">
                         <p class="mb-2 "><label for="">輸入密碼</label></p>
-                        <input class="w-100" type="password" ng-model="member.password"  ng-required="setting.password.isRequired" ng-disabled="setting.password.isEditable?null:true">
+                        <input class="w-100" type="password" ng-model="member.password" ng-required="setting.password.isRequired" ng-disabled="setting.password.isEditable?null:true">
                         <span class="register-password" onclick="Register.changeType(this)"></span>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-2 order-1" ng-show="setting.mobile.isShow">

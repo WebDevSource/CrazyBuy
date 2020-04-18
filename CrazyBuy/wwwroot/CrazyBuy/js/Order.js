@@ -29,8 +29,8 @@ var Order = {
 
 
     InitModule() {
-        NavBar.Init();
         Utils.checkRole();
+        NavBar.Init();
         Order.InitView();
         Order.getBankInfo();
     },
