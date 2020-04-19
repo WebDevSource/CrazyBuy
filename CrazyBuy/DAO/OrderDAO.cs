@@ -59,7 +59,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @" SELECT * FROM [OrderMaster] WHERE memberId = {0} order by id desc ";
+                var sql = @" SELECT * FROM [OrderMaster] WHERE memberId = {0} and status <> N'刪除' order by id desc ";
                 var query = String.Format(sql, memberId);
                 return (List<OrderMaster>)dbContext.Database.SqlQuery<OrderMaster>(query).ToList();
             }

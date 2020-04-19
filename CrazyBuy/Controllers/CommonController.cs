@@ -178,15 +178,13 @@ namespace CrazyBuy.Controllers
 
                 //step2 整理運費方式及運費
                 List<ShipMethod> methods = new List<ShipMethod>();
-                int freePrice = 0;
+                int freePrice = type.GetValueOrDefault(TenantSettingTAG.FACE);
                 foreach (string method in shipList)
                 {
                     if (type.ContainsKey(method))
                     {
                         if (method.Equals(TenantSettingTAG.FACE))
                         {
-                            freePrice = type.GetValueOrDefault(method);
-
                             ShipMethod shipMethod = new ShipMethod();
                             shipMethod.method = method;
                             shipMethod.price = 0;

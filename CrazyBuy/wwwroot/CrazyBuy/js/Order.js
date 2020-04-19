@@ -12,7 +12,7 @@
     $scope.submit = function () {
         let args = {
             orderId: $scope.sendId,
-            ContactContent: $scope.send.ContactContent
+            ContactContent: $scope.contact.ContactContent
         };
         Order.addContactItem(args);
     };
