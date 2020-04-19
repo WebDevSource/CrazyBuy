@@ -27,12 +27,12 @@ namespace CrazyBuy.DAO
                 sql += @" ( select count(cr.id) from TenantPrdCatRel cr  ";
                 sql += @"   left join TenantPrd prd on prd.id = cr.prdId ";
                 sql += @"   where cr.catId  = c.id and cr.status = N'正常' ";
-                sql += @"   and prd.status = N'上架' and prd.dtSellStart <= getdate() and prd.dtSellEnd >= getdate()) as pcount ,";
+                sql += @"   and prd.status = N'上架' and (prd.dtSellEnd >= getdate() or (prd.dtSellEnd <= getdate() and prd.takeOffMethod = N'隱藏訂購鈕'))) as pcount ,";
                 sql += @" (select count(*) as total from dbo.TenantPrd p ";
                 sql += @" inner join TenantPrdCatRel r on r.prdId = p.id ";
                 sql += @" inner join TenantPrdCatAd a on r.catId = a.descendantId ";
                 sql += @" where a.ancestorId = c.id ";
-                sql += @" and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate()) as ccount ";
+                sql += @" and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))) as ccount ";
                 sql += @" from [TenantPrdCat] c where tenantId = '{0}' and status = N'{1}'  order by parentId asc ";
                 string query = String.Format(sql, tenantId.ToString(), "正常");
                 MDebugLog.debug("@" + query);
