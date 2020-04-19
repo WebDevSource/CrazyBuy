@@ -180,6 +180,8 @@ namespace CrazyBuy.Services
             data.Add("zeroStock", prd.zeroStockMessage);
             data.Add("count", prd.stockNum);
             data.Add("isOpenOrder", prd.isOpenOrder);
+            data.Add("isTakeOff", DateTime.Now > prd.dtSellEnd);
+            data.Add("takeOffMessage",prd.takeOffMessage);
             return data;
         }
 

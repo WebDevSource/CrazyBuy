@@ -72,6 +72,7 @@ var MemberInfo = {
     },
 
     InitView() {
+        MemberInfo.getTenantSetting();
         MemberInfo.GetMemberData();
     },
 

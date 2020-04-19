@@ -15,7 +15,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @"SELECT tp.* FROM [TenantPrd] tp";
                 sql += @" left join [TenantHomePrd] hp on hp.prdId = tp.id";
-                sql += @" where tp.[isOpenOrder] = 1 and tp.status = N'上架' and tp.dtSellStart <= getdate() and tp.dtSellEnd >= getdate() ";
+                sql += @" where tp.[isOpenOrder] = 1 and tp.status = N'上架' and hp.dtStart <= getdate() and hp.dtEnd >= getdate() ";
                 sql += @" and hp.[tenantId] ='{0}' ";
 
 
@@ -55,22 +55,36 @@ namespace CrazyBuy.DAO
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 var sql = "";
+                var notInsql = "";
                 if (isParent(catId))
                 {
-                    sql = @" select count(*) as total from dbo.TenantPrd p ";
+                    //sql = @" select count(*) as total from dbo.TenantPrd p ";
+                    //sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    //sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
+                    //sql += @" where a.ancestorId = {0} and  ";
+                    //sql += @" p.tenantId = '{1}' and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
+
+                    sql = @" select count(*) from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
-                    sql += @" where a.ancestorId = {0} and  ";
-                    sql += @" p.tenantId = '{1}' and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    sql += @" where p.tenantId = '{0}' and a.ancestorId = {1} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
+
                 }
                 else
                 {
-                    sql = @" select count(*) as total  from dbo.TenantPrd p ";
+                    //    sql = @" select count(*) as total  from dbo.TenantPrd p ";
+                    //    sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    //    sql += @" where r.catId = {0} and  ";
+                    //    sql += @" p.tenantId = '{1}' and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))  ";
+
+                    sql = @" select count(*) from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
-                    sql += @" where r.catId = {0} and  ";
-                    sql += @" p.tenantId = '{1}' and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    sql += @" where p.tenantId = '{0}' and r.catId = {1} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
+
+
                 }
-                string query = String.Format(sql, catId, tenantId);
+            //sql = String.Format(sql, top, tenantId, catId, notInsql);
+            string query = String.Format(sql,tenantId, catId, notInsql);
                 MDebugLog.debug("[getCountByCatId] > " + query);
                 return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total;
             }
@@ -102,14 +116,14 @@ namespace CrazyBuy.DAO
                     notInsql = @" select TOP {0} p.id from dbo.TenantPrd p ";
                     notInsql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     notInsql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
-                    notInsql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    notInsql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))  ";
                     notInsql += SortType.getOrderBy(pageQuery.sortType);
                     notInsql = String.Format(notInsql, pageCount, tenantId, catId);
 
                     sql = @" select TOP {0} p.* from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
-                    sql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    sql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
                     sql += @" and p.id not in ( {3} ) ";
                     sql += SortType.getOrderBy(pageQuery.sortType);
                 }
@@ -117,13 +131,13 @@ namespace CrazyBuy.DAO
                 {
                     notInsql = @" select TOP {0} p.id from dbo.TenantPrd p ";
                     notInsql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";                    
-                    notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
                     notInsql += SortType.getOrderBy(pageQuery.sortType);
                     notInsql = String.Format(notInsql, pageCount, tenantId, catId);
 
                     sql = @" select TOP {0} p.* from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";                    
-                    sql += @" where p.tenantId = '{1}' and r.catId = {2} and r.status = N'正常' and p.status = N'上架' and p.dtSellStart <= getdate() and p.dtSellEnd >= getdate() ";
+                    sql += @" where p.tenantId = '{1}' and r.catId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
                     sql += @" and p.id not in ( {3} ) ";
                     sql += SortType.getOrderBy(pageQuery.sortType);
                 }
@@ -145,13 +159,13 @@ namespace CrazyBuy.DAO
 
                 var notInsql = @" select TOP {0} p.id from [TenantPrd] p ";
                 notInsql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and p.status = N'上架' and p.name like N'%{3}%' ";
+                notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and p.status = N'上架' and p.name like N'%{3}%' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))  ";
                 notInsql += SortType.getOrderBy(searchQuery.sortType);
                 notInsql = String.Format(notInsql, pageCount, tenantId, catId, searchQuery.name);
 
                 var sql = @" select TOP {0} p.* from [TenantPrd] p ";
                 sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
-                sql += @" where p.tenantId = '{1}' and r.catId = {2} and  p.status = N'上架' and p.name like N'%{3}%' ";
+                sql += @" where p.tenantId = '{1}' and r.catId = {2} and  p.status = N'上架' and p.name like N'%{3}%' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
                 sql += @" and p.id not in ( {4} ) ";
                 sql += SortType.getOrderBy(searchQuery.sortType);
                 sql = String.Format(sql, top, tenantId, catId, searchQuery.name, notInsql);

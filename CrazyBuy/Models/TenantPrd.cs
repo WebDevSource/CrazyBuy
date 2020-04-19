@@ -37,5 +37,6 @@ namespace CrazyBuy.Models
         public int? creator { get; set; }
         public int? updater { get; set; }
         public string remark { get; set; }
+ 
     }
 }

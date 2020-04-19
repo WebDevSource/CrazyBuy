@@ -48,7 +48,7 @@ namespace CrazyBuy.Services
 
                 TenantPrd tmpPrdItem = isPrdSPecEnought(prdItem, item.prdSepc, item.count);
                 prdItem.stockNum = prdItem.stockNum - item.count;
-                if (prdItem.stockNum < 0 || tmpPrdItem == null)
+                if (prdItem.stockNum < 0 || tmpPrdItem == null || prdItem.dtSellEnd < DateTime.Now)
                 {
                     data.Add(prdItem.id);
                     isCheck = false;

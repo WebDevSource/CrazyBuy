@@ -45,7 +45,11 @@ var ProductInner = {
 
         if (!item.isOpenOrder) {
 
-        } else if (item.count < 1 && item.zeroStock) {
+        } else if (item.isTakeOff){
+            $(".soldoutCart").text(item.takeOffMessage);
+            $(".soldoutCart").show();
+        }
+        else if (item.count < 1 && item.zeroStock) {
             $(".soldoutCart").text(item.zeroStock);
             $(".soldoutCart").show();
         } else {
@@ -173,7 +177,7 @@ var ProductInner = {
         }
         if (items[0].type == i18next.t("prd_sepc_type_radius")) {
             for (let i in items) {
-                html += "<input type='radio' value='" + JSON.stringify(items[i]) + "' name='sepc' "+ (i == 0 ? 'checked':'') +"/> "
+                html += "<input type='radio' value='" + JSON.stringify(items[i]) + "' name='sepc' " + (i == 0 ? 'checked' : '') + "/> "
                     + "<label>" + items[i].name + "</label> &nbsp;";
             }
             ProductInner.isRadio = true;

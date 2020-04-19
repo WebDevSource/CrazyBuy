@@ -50,6 +50,7 @@ var CheckoutSuccess = {
                         let specialRule = JSON.parse(value.specialRule);
                         $scope.carts[index].specialRule = specialRule
                         $scope.carts[index].sepc = value.prdSepc ? JSON.parse(value.prdSepc) : null;
+                        $scope.carts[index].type = i18next.t($scope.carts[index].type);
 
                     });
                     $scope.checkout = JSON.parse(Utils.GetCookie("order"));

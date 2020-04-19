@@ -81,37 +81,46 @@
                 <div class="row d-flex flex-wrap">
                     <div class="col-md-6 col-12 mb-3 order-0" ng-show="setting.name.isShow">
                         <p class="mb-2"><label for="">姓名</label></p>
-                        <input class="w-100" type="text" ng-model="member.name" ng-required="setting.name.isRequired" ng-disabled="setting.name.isEditable?null:true">
+                        <!--<input class="w-100" type="text" ng-model="member.name" ng-required="setting.name.isRequired" ng-disabled="setting.name.isEditable?null:true">-->
+                        <input class="w-100" type="text" ng-model="member.name" ng-required="setting.name.isRequired">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-1" ng-show="setting.gender.isShow">
                         <p class="mb-2"><label for="">性別</label></p>
-                        <input type="radio" name="gender" id="gender-man" value="男" ng-model="member.gender" ng-required="setting.gender.isRequired" ng-disabled="setting.gender.isEditable?null:true">
+                        <!--<input type="radio" name="gender" id="gender-man" value="男" ng-model="member.gender" ng-required="setting.gender.isRequired" ng-disabled="setting.gender.isEditable?null:true">-->
+                        <input type="radio" name="gender" id="gender-man" value="男" ng-model="member.gender" ng-required="setting.gender.isRequired">
                         <label class="checkout-radio-label" for="gender-man">男</label>
-                        <input type="radio" name="gender" id="gender-woman" value="女" ng-model="member.gender" ng-required="setting.gender.isRequired" ng-disabled="setting.gender.isEditable?null:true">
+                        <!--<input type="radio" name="gender" id="gender-woman" value="女" ng-model="member.gender" ng-required="setting.gender.isRequired" ng-disabled="setting.gender.isEditable?null:true">-->
+                        <input type="radio" name="gender" id="gender-woman" value="女" ng-model="member.gender" ng-required="setting.gender.isRequired" >
                         <label class="checkout-radio-label" for="gender-woman">女</label>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-2" ng-show="setting.phone.isShow">
                         <p class="mb-2"><label for="">聯絡電話</label></p>
-                        <input class="w-100" type="text" ng-model="member.tel" ng-required="setting.phone.isRequired" ng-disabled="setting.phone.isEditable?null:true">
+                        <!--<input class="w-100" type="text" ng-model="member.tel" ng-required="setting.phone.isRequired" ng-disabled="setting.phone.isEditable?null:true">-->
+                        <input class="w-100" type="text" ng-model="member.tel" ng-required="setting.phone.isRequired">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-3 order-4" ng-show="setting.lineId.isShow">
                         <p class="mb-2"><label for="">Lind ID</label></p>
-                        <input class="w-100" type="text" ng-model="member.lineId" ng-required="setting.lineId.isRequired" ng-disabled="setting.lineId.isEditable?null:true">
+                        <!--<input class="w-100" type="text" ng-model="member.lineId" ng-required="setting.lineId.isRequired" ng-disabled="setting.lineId.isEditable?null:true">-->
+                        <input class="w-100" type="text" ng-model="member.lineId" ng-required="setting.lineId.isRequired" >
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-4 order-3" ng-show="setting.fax.isShow">
                         <p class="mb-2"><label for="">傳真</label></p>
-                        <input class="w-100" type="text" ng-model="member.fax" ng-required="setting.fax.isRequired" ng-disabled="setting.fax.isEditable?null:true">
+                        <!--<input class="w-100" type="text" ng-model="member.fax" ng-required="setting.fax.isRequired" ng-disabled="setting.fax.isEditable?null:true">-->
+                        <input class="w-100" type="text" ng-model="member.fax" ng-required="setting.fax.isRequired">
                     </div>
                     <div class="col-lg-6 col-12 mb-3 order-5" ng-show="setting.addr.isShow">
                         <p class="mb-2"><label for="">地址</label></p>
-                        <select class="checkout-select" ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="update(member.cityId)" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">
+                        <!--<select class="checkout-select" ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="update(member.cityId)" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">-->
+                        <select class="checkout-select" ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="update(member.cityId)" ng-required="setting.addr.isRequired">
                             <option value="">縣市</option>
                         </select>
-                        <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">
+                        <!--<select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">-->
+                        <select class="checkout-select" ng-model="SelArea" ng-options="SelCity.townId+':'+SelCity.zipCode as SelCity.townName for SelCity in level2" ng-required="setting.addr.isRequired">
                             <option value="">鄉鎮市區</option>
                         </select>
 
-                        <input class="checkout-address" type="text" ng-model="member.address" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">
+                        <!--<input class="checkout-address" type="text" ng-model="member.address" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">-->
+                        <input class="checkout-address" type="text" ng-model="member.address" ng-required="setting.addr.isRequired" >
                     </div>
                 </div>
             </section>
@@ -121,21 +130,25 @@
                 <div class="row d-flex flex-wrap">
                     <div class="col-md-6 col-12 mb-3 order-0" ng-show="setting.Email.isShow">
                         <p class="mb-2"><label for="">Email</label></p>
-                        <input class="w-100" type="email" ng-model="member.email" ng-required="setting.Email.isRequired" ng-disabled="setting.Email.isEditable?null:true">
+                        <!--<input class="w-100" type="email" ng-model="member.email" ng-required="setting.Email.isRequired" ng-disabled="setting.Email.isEditable?null:true">-->
+                        <input class="w-100" type="email" ng-model="member.email" ng-required="setting.Email.isRequired" >
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-1 order-2" ng-show="setting.password.isShow">
                         <p class="mb-2 "><label for="">輸入密碼</label></p>
-                        <input class="w-100" type="password" ng-model="member.password" ng-required="setting.password.isRequired" ng-disabled="setting.password.isEditable?null:true">
+                        <!--<input class="w-100" type="password" ng-model="member.password" ng-required="setting.password.isRequired" ng-disabled="setting.password.isEditable?null:true">-->
+                        <input class="w-100" type="password" ng-model="member.password" ng-required="setting.password.isRequired">
                         <span class="register-password" onclick="Register.changeType(this)"></span>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-2 order-1" ng-show="setting.mobile.isShow">
                         <p class="mb-2"><label for="">手機號碼</label></p>
-                        <input class="w-100" type="text" ng-model="member.cellphone" ng-required="setting.mobile.isRequired" ng-disabled="setting.mobile.isEditable?null:true">
+                        <!--<input class="w-100" type="text" ng-model="member.cellphone" ng-required="setting.mobile.isRequired" ng-disabled="setting.mobile.isEditable?null:true">-->
+                        <input class="w-100" type="text" ng-model="member.cellphone" ng-required="setting.mobile.isRequired" >
                         <p class="register-ps mb-0">註：Email或手機即是以後登入的會員帳號</p>
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-3" ng-show="setting.password.isShow">
                         <p class="mb-2 "><label for="">再次輸入密碼</label></p>
-                        <input class="w-100" type="password" ng-model="checkPwd" ng-required="setting.password.isRequired" ng-disabled="setting.password.isEditable?null:true">
+                        <!--<input class="w-100" type="password" ng-model="checkPwd" ng-required="setting.password.isRequired" ng-disabled="setting.password.isEditable?null:true">-->
+                        <input class="w-100" type="password" ng-model="checkPwd" ng-required="setting.password.isRequired">
                         <span class="register-password" onclick="Register.changeType(this)"></span>
                     </div>
                     <!--                   <div class="col-md-6 col-12 mb-3 order-4">
