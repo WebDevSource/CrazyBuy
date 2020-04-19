@@ -21,10 +21,12 @@ var OrderDetail = {
         Utils.checkRole();
         NavBar.Init();
         OrderDetail.InitView();
+
     },
 
     InitView() {
         OrderDetail.getDetailData(Utils.GetUrlParameter('id'));
+        OrderDetail.getBankInfo();
     },
 
     addContactItem(args) {
@@ -86,6 +88,21 @@ var OrderDetail = {
                         OrderDetail.checkLevelMember(ret.data.master.levelId);
                     }
                     $scope.resultAmt = $scope.master.totalAmount;
+                    $scope.$apply();
+                } else {
+                    alert(i18next.t("msg_service_error"));
+                }
+            },
+            function (error) { alert(i18next.t("msg_service_error")); }
+        );
+    },
+    getBankInfo() {
+        Utils.ProcessAjax("/api/Common/getBankInfo", "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let appElement = document.querySelector('[ng-controller=OrderCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    $scope.bank = ret.data.bank;
                     $scope.$apply();
                 } else {
                     alert(i18next.t("msg_service_error"));
