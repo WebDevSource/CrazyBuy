@@ -58,7 +58,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" delete s from dbo.ShopCart s left join dbo.TenantPrd p ";
                 sql += @" on p.id = s.productId where s.memberId = {0}  ";
-                sql += @" and  p.dtSellEnd < getdate()); ";                
+                sql += @" and  p.dtSellEnd < getdate(); ";                
                 var query = string.Format(sql, memberId);
                 dbContext.Database.ExecuteSqlCommand(query);
             }

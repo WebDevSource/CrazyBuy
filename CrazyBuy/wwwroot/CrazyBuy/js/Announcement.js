@@ -30,11 +30,11 @@ var Announcement = {
                     for (let i = 0; i < ret.data.length; i++) {
                         let item = ret.data[i];
                         if (i18next.t("announcement") == item.layout) {
-                            data.push(item);
+                            data.push(Utils.GetBulletinImageUrl(item));
                         }
                     }
                     $scope.data = data;
-                    $scope.url = Utils.GetBulletinImageUrl(data[0]);
+                    //$scope.url = Utils.GetBulletinImageUrl(data[0]);
                     $scope.$apply();
                 }
             },

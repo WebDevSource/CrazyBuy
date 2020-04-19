@@ -94,7 +94,7 @@
 		let collapseId = driver + item.id;
 		let html = '<div  style="cursor:pointer;" onClick="Products.getCatalogProducts(this)" class="nav-link category" data-toggle="collapse" data-value="' + item.id + '" data-toggle="collapse" data-target="#' + collapseId + '">'
 			+ item.name
-			+ ((role != Utils.ROLE_GUEST) ? '<span data-userAuthority="member" >(' + item.count + ')</span > ' : '')
+			+ ((role != Utils.ROLE_GUEST) ? '<span data-userAuthority="member" >(' + item.ccount + ')</span > ' : '')
 			+ '</div>'
 			+ '  <div id="' + collapseId + '" class="collapse" data-parent="#' + (item.parentId ? collapseId : rootId) + '">'
 			+ '</div> ';
