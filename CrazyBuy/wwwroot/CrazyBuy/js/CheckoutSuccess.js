@@ -44,7 +44,7 @@ var CheckoutSuccess = {
                     $.each($scope.carts, function (index, value) {
                         if (value.prdImages) {
                             let images = value.prdImages ? JSON.parse(value.prdImages) : "";
-                            imageUrl = Utils.BackendImageUrl + "id=" + value.productId + "&filename=" + images[0].filename;
+                            imageUrl = Utils.BackendImageUrl + "&id=" + value.productId + "&filename=" + images[0].filename;
                             $scope.carts[index].prdImages = imageUrl;
                         }
                         let specialRule = JSON.parse(value.specialRule);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using CrazyBuy.DAO;
@@ -24,29 +25,47 @@ namespace CrazyBuy.Controllers
         }
 
         [HttpGet]
-        public IActionResult DownloadImgFile([FromQuery]int id, [FromQuery]string filename)
+        public IActionResult DownloadImgFile([FromQuery]int id, [FromQuery]string filename, [FromQuery]string type)
         {
-            string strFileRootPath = _config["PrdPath"];
-            string filePath = string.Empty;
-            TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(id);
+      
+            //TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(id);
             try
             {
-                List<UploadFileModel> lstlogofile = JsonConvert.DeserializeObject<List<UploadFileModel>>(prd.prdImages);
-                if (lstlogofile != null && lstlogofile.Count > 0)
+                string strFileRootPath = string.Empty;
+                if (type == "prd")
                 {
-                    UploadFileModel logofile = lstlogofile.Where(x => x.filename == filename).FirstOrDefault();
-                    filePath = strFileRootPath + "/" + prd.id.ToString() + "/" + logofile.filename;
-                    var memoryStream = System.IO.File.OpenRead(filePath);
-                    return new FileStreamResult(memoryStream, _contentTypes[Path.GetExtension(filePath).ToLowerInvariant()]);
+                    strFileRootPath = _config["PrdPath"];
+                }
+                else if (type == "bulletin")
+                {
+                    strFileRootPath = _config["BulletinPath"];
                 }
                 else
                 {
-                    return Ok();
+                    throw new Exception("type Error");
                 }
+                //string filePath = string.Empty;
+                string filePath = strFileRootPath + "/" + id + "/" + filename;
+                var memoryStream = System.IO.File.OpenRead(filePath);
+                return new FileStreamResult(memoryStream, _contentTypes[Path.GetExtension(filePath).ToLowerInvariant()]);
+                //if (lstlogofile != null && lstlogofile.Count > 0)
+                //{
+                //    UploadFileModel logofile = lstlogofile.Where(x => x.filename == filename).FirstOrDefault();
+                //    filePath = strFileRootPath + "/" + prd.id.ToString() + "/" + logofile.filename;
+                //    var memoryStream = System.IO.File.OpenRead(filePath);
+                //    return new FileStreamResult(memoryStream, _contentTypes[Path.GetExtension(filePath).ToLowerInvariant()]);
+                //}
+                //else
+                //{
+                //    return Ok();
+                //}
 
             }
             catch (Exception ex)
             {
+                Debug.WriteLine("[CMemberManager-addMember] error:" + ex);
+                Console.WriteLine("[CMemberManager-addMember] error:" + ex);
+
                 return NotFound();
             }
         }

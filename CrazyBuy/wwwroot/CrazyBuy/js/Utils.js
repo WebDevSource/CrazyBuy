@@ -11,8 +11,13 @@
 
     // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
     BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/",
-    BackendImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantPrd/DownloadImgFile?",
-    BackendBulletinImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantBulletin/DownloadImgFile?",
+    //BackendImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantPrd/DownloadImgFile?type=prd",
+    //BackendBulletinImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantBulletin/DownloadImgFile?type=bulletin",
+
+
+    BackendImageUrl: "/api/Common/DownloadImgFile?type=prd",
+    BackendBulletinImageUrl: "/api/Common/DownloadImgFile?type=bulletin",
+
     //BackendImageUrl: "/api/Common/DownloadImgFile?",
     Initial: function async(callback) {
         Utils.InitView();
@@ -615,7 +620,7 @@
 
         } else if (data.prdImages) {
             let images = data.prdImages ? JSON.parse(data.prdImages) : "";
-            imageUrl = Utils.BackendImageUrl + "id=" + data.id + "&filename=" + images[0].filename;
+            imageUrl = Utils.BackendImageUrl + "&id=" + data.id + "&filename=" + images[0].filename;
         }
         return imageUrl;
     },
@@ -624,7 +629,7 @@
         let images = data.uplaodImg ? JSON.parse(data.uplaodImg) : "";
         let imageUrl = "";
         if (images) {
-            imageUrl = Utils.BackendBulletinImageUrl + "id=" + data.id + "&filename=" + images[0].filename;
+            imageUrl = Utils.BackendBulletinImageUrl + "&id=" + data.id + "&filename=" + images[0].filename;
 
         }
         return imageUrl;

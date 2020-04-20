@@ -15,5 +15,6 @@
         public static readonly CityDao cityDao = new CityDao();
         public static readonly OrderAmountHistoryDao orderAmountHistoryDao = new OrderAmountHistoryDao();
         public static readonly MailNoticeDao mailNoticeDao = new MailNoticeDao();
+        public static readonly TenantBillDAO tenantBillDAO = new TenantBillDAO();
     }
 }

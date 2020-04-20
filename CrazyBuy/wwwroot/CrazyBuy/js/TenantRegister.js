@@ -6,6 +6,7 @@
         //Utils.Initial();
         Utils.InitI18next("zh-TW", "tenantRegister", TenantRegister.InitModule);
         //TenantRegister.AddServiceItem(TenantRegister.serviceItemNumber);
+        $('img[alt=logo]').show();
     },
 
     InitModule: function () {
@@ -41,13 +42,10 @@
             if (e.isDefaultPrevented()) { // 未驗證通過 則不處理
                 return;
             } else { // 通过后，送出表单
-                //alert(TenantRegister.CheckValue());
-                //alert(e.isDefaultPrevented());
                 //console.log(TenantRegister.GetInputValue());
                 if (TenantRegister.CheckValue()) {
                     TenantRegister.Register(TenantRegister.GetInputValue());
                 }
-
             }
             e.preventDefault(); // 防止原始 form 提交表单
         });
@@ -90,21 +88,21 @@
                     }
                 }
 
-                //手機號碼重複判斷
-                if (findcellphone == undefined) {
-                    cellphone.push($("#cellphone" + i).val().trim());
-                }
-                else {
-                    errString += findcellphone + " " + i18next.t("label_cellphone") + i18next.t("err_checkRepeat") + "\n";
-                }
+                ////手機號碼重複判斷
+                //if (findcellphone == undefined) {
+                //    cellphone.push($("#cellphone" + i).val().trim());
+                //}
+                //else {
+                //    errString += findcellphone + " " + i18next.t("label_cellphone") + i18next.t("err_checkRepeat") + "\n";
+                //}
 
-                //Email重複判斷
-                if (findemail == undefined) {
-                    email.push($("#email" + i).val().trim());
-                }
-                else {
-                    errString += findemail + " Email" + i18next.t("err_checkRepeat") + "\n";
-                }
+                ////Email重複判斷
+                //if (findemail == undefined) {
+                //    email.push($("#email" + i).val().trim());
+                //}
+                //else {
+                //    errString += findemail + " Email" + i18next.t("err_checkRepeat") + "\n";
+                //}
             }
         }
 
@@ -133,7 +131,7 @@
         };
 
         for (i = 1; i <= TenantRegister.serviceItemNumber; i++) {
-            console.log($("#Item" + i).length);
+            //console.log($("#Item" + i).length);
             if ($("#Item" + i).length > 0) {
                 let item = {
                     tenantType: $("#tenantType" + i).val(),
@@ -182,7 +180,12 @@
                         alert(ret.data);
                         break;
                 }
-                if (ret.code == 1) window.location = "index.html";
+                //if (ret.code == 1) window.location = "index.html";
+                if (ret.code == 1) {
+                    window.opener = null;
+                    window.open("", "_self");
+                    window.close();
+                } 
             },
             function (error) { alert(i18next.t("msg_service_error")); }
         );

@@ -39,7 +39,7 @@ var ProductInner = {
             let urls = JSON.parse(item.prdImages);
             for (let key in urls) {
                 //urlItems.push(baseUrl + urls[key].filename);
-                urlItems.push(baseUrl + "id=" + item.id + "&filename=" + urls[key].filename);
+                urlItems.push(baseUrl + "&id=" + item.id + "&filename=" + urls[key].filename);
             }
         }
 

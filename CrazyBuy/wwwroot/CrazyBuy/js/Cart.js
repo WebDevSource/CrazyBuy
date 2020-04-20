@@ -111,7 +111,7 @@ var Cart = {
                         let imageUrl = "./images/noitem.jpg";
                         if (value.prdImages) {
                             let images = value.prdImages ? JSON.parse(value.prdImages) : "";
-                            imageUrl = Utils.BackendImageUrl + "id=" + value.productId + "&filename=" + images[0].filename;
+                            imageUrl = Utils.BackendImageUrl + "&id=" + value.productId + "&filename=" + images[0].filename;
                         }
                         let specialRule = JSON.parse(value.specialRule);
                         value.type = i18next.t(value.type);

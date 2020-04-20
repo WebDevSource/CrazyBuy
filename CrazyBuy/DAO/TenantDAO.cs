@@ -119,6 +119,16 @@ namespace CrazyBuy.DAO
             }
         }
 
+        public List<TenantSetting> GetDefaultTenantSettings()
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @"SELECT * FROM dbo.TenantSetting where  tenantId is null ";
+                //sql = string.Format(sql, tenantId);
+                return dbContext.Database.SqlQuery<TenantSetting>(sql).ToList();
+            }
+        }
+
         public List<string> checkTenantCodeIsExist(List<string> tenantCodes)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
