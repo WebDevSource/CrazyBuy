@@ -167,7 +167,7 @@ namespace CrazyBuy.Controllers
                 query.catId = id;
                 query.userType = type;
 
-                int totalCount = CTenantPrdManager.getTenantPrdCount(Guid.Parse(tenantId), id);
+                int totalCount = CTenantPrdManager.getTenantPrdCount(Guid.Parse(tenantId), id, memberId);
                 int maxPage = totalCount % request.count == 0 ? totalCount / request.count : totalCount / request.count + 1;
                 maxPage = totalCount <= request.count ? 1 : maxPage;
 
@@ -205,7 +205,7 @@ namespace CrazyBuy.Controllers
                 query.catId = request.catId;
                 query.userType = type;
 
-                int totalCount = CTenantPrdManager.getTenantPrdCount(Guid.Parse(tenantId), request.catId);
+                int totalCount = CTenantPrdManager.getTenantPrdCount(Guid.Parse(tenantId), request.catId, userId);
                 int maxPage = totalCount % request.count == 0 ? totalCount / request.count : totalCount / request.count + 1;
                 maxPage = totalCount <= request.count ? 1 : maxPage;
 

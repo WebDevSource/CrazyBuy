@@ -1,5 +1,6 @@
 ﻿using CrazyBuy.Common;
 using CrazyBuy.Models;
+using CrazyBuy.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,23 +19,44 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public List<TenantPrdCatCount> getAllPrdCats(Guid tenantId)
+        public List<TenantPrdCatCount> getAllPrdCats(Guid tenantId, int memberId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
+                bool isUserAdvances = CTenantPrdManager.isUserAdvanced(memberId);
                 var sql = @" select c.* ,  ";
                 sql += @" (select count(id) from TenantPrdCatAd tpca where tpca.ancestorId  = c.id) as count , ";
                 sql += @" ( select count(cr.id) from TenantPrdCatRel cr  ";
                 sql += @"   left join TenantPrd prd on prd.id = cr.prdId ";
+                sql += @"   left join TenantPrdRead pr on pr.prdId = prd.id ";
                 sql += @"   where cr.catId  = c.id and cr.status = N'正常' ";
+                if (isUserAdvances)
+                {
+                    sql += @" and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {0} ";
+                    sql += @" or pr.type = N'進階會員')";
+                }
+                else
+                {
+                    sql += @" and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {0})";
+                }
                 sql += @"   and prd.status = N'上架' and (prd.dtSellEnd >= getdate() or (prd.dtSellEnd <= getdate() and prd.takeOffMethod = N'隱藏訂購鈕'))) as pcount ,";
                 sql += @" (select count(*) as total from dbo.TenantPrd p ";
                 sql += @" inner join TenantPrdCatRel r on r.prdId = p.id ";
+                sql += @" inner join TenantPrdRead pr on pr.prdId = p.id ";
                 sql += @" inner join TenantPrdCatAd a on r.catId = a.descendantId ";
                 sql += @" where a.ancestorId = c.id ";
+                if (isUserAdvances)
+                {
+                    sql += @" and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {1} ";
+                    sql += @" or pr.type = N'進階會員')";
+                }
+                else
+                {
+                    sql += @" and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {1})";
+                }
                 sql += @" and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))) as ccount ";
-                sql += @" from [TenantPrdCat] c where tenantId = '{0}' and status = N'{1}'  order by parentId asc ";
-                string query = String.Format(sql, tenantId.ToString(), "正常");
+                sql += @" from [TenantPrdCat] c where tenantId = '{2}' and status = N'{3}'  order by parentId asc ";
+                string query = String.Format(sql, memberId, memberId, tenantId.ToString(), "正常");
                 MDebugLog.debug("@" + query);
                 return dbContext.Database.SqlQuery<TenantPrdCatCount>(query).ToList();
             }

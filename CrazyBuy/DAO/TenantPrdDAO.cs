@@ -1,5 +1,6 @@
 ﻿using CrazyBuy.Common;
 using CrazyBuy.Models;
+using CrazyBuy.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,12 +51,12 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public int getCountByCatId(Guid tenantId, long catId)
+        public int getCountByCatId(Guid tenantId, long catId, int memberId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 var sql = "";
-                var notInsql = "";
+                bool isUserAdvances = CTenantPrdManager.isUserAdvanced(memberId);
                 if (isParent(catId))
                 {
                     //sql = @" select count(*) as total from dbo.TenantPrd p ";
@@ -67,8 +68,9 @@ namespace CrazyBuy.DAO
                     sql = @" select count(*) from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
+                    sql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
                     sql += @" where p.tenantId = '{0}' and a.ancestorId = {1} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
-
+                    sql += @" and pr.status = N'正常' and pr.type = N'所有會員' or pr.tenantMemId = {2} ";
                 }
                 else
                 {
@@ -79,12 +81,16 @@ namespace CrazyBuy.DAO
 
                     sql = @" select count(*) from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    sql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
                     sql += @" where p.tenantId = '{0}' and r.catId = {1} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
-
-
+                    sql += @" and pr.status = N'正常' and pr.type = N'所有會員' or pr.tenantMemId = {2} ";
                 }
-            //sql = String.Format(sql, top, tenantId, catId, notInsql);
-            string query = String.Format(sql,tenantId, catId, notInsql);
+                if (isUserAdvances)
+                {
+                    sql += @" or pr.type = N'進階會員' ";
+                }
+                //sql = String.Format(sql, top, tenantId, catId, notInsql);
+                string query = String.Format(sql, tenantId, catId, memberId);
                 MDebugLog.debug("[getCountByCatId] > " + query);
                 return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total;
             }
@@ -95,12 +101,12 @@ namespace CrazyBuy.DAO
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 var sql = @" select count(*) as total from TenantPrdCatAd a where a.ancestorId = {0} ";
-                string query = String.Format(sql, catId);                
+                string query = String.Format(sql, catId);
                 return dbContext.Database.SqlQuery<SqlQueryTotal>(query).SingleOrDefault().total > 0;
             }
         }
 
-        public List<TenantPrd> getTenandPrdByCatId(PrdPageQuery pageQuery)
+        public List<TenantPrd> getTenandPrdByCatId(PrdPageQuery pageQuery, int userId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
@@ -111,44 +117,69 @@ namespace CrazyBuy.DAO
 
                 var sql = "";
                 var notInsql = "";
+                bool isUserAdvances = CTenantPrdManager.isUserAdvanced(userId);
                 if (isParent(catId))
                 {
                     notInsql = @" select TOP {0} p.id from dbo.TenantPrd p ";
                     notInsql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     notInsql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
+                    notInsql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
                     notInsql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))  ";
+                    notInsql += @" and pr.status = N'正常' and pr.type = N'所有會員' or pr.tenantMemId = {3} ";
+                    if (isUserAdvances)
+                    {
+                        notInsql += @" or pr.type = N'進階會員' ";
+                    }
                     notInsql += SortType.getOrderBy(pageQuery.sortType);
-                    notInsql = String.Format(notInsql, pageCount, tenantId, catId);
+                    notInsql = String.Format(notInsql, pageCount, tenantId, catId, userId);
 
                     sql = @" select TOP {0} p.* from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
+                    sql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
                     sql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
-                    sql += @" and p.id not in ( {3} ) ";
+                    sql += @" and pr.status = N'正常' and pr.type = N'所有會員' or pr.tenantMemId = {3} ";
+                    if (isUserAdvances)
+                    {
+                        sql += @" or pr.type = N'進階會員' ";
+                    }
+                    sql += @" and p.id not in ( {4} ) ";
                     sql += SortType.getOrderBy(pageQuery.sortType);
                 }
                 else
                 {
                     notInsql = @" select TOP {0} p.id from dbo.TenantPrd p ";
-                    notInsql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";                    
+                    notInsql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    notInsql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
                     notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
+                    notInsql += @" and pr.status = N'正常' and pr.type = N'所有會員' or pr.tenantMemId = {3} ";
+                    if (isUserAdvances)
+                    {
+                        notInsql += @" or pr.type = N'進階會員' ";
+                    }
                     notInsql += SortType.getOrderBy(pageQuery.sortType);
-                    notInsql = String.Format(notInsql, pageCount, tenantId, catId);
+                    notInsql = String.Format(notInsql, pageCount, tenantId, catId, userId);
 
                     sql = @" select TOP {0} p.* from dbo.TenantPrd p ";
-                    sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";                    
+                    sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
+                    sql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
                     sql += @" where p.tenantId = '{1}' and r.catId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
-                    sql += @" and p.id not in ( {3} ) ";
+                    sql += @" and pr.status = N'正常' and pr.type = N'所有會員' or pr.tenantMemId = {3} ";
+                    if (isUserAdvances)
+                    {
+                        sql += @" or pr.type = N'進階會員' ";
+                    }
+                    sql += @" and p.id not in ( {4} ) ";
                     sql += SortType.getOrderBy(pageQuery.sortType);
                 }
-                sql = String.Format(sql, top, tenantId, catId, notInsql);
+                sql = String.Format(sql, top, tenantId, catId, userId, notInsql);
 
                 MDebugLog.debug("[getTenandPrdByCatId] >" + sql);
                 return dbContext.Database.SqlQuery<TenantPrd>(sql).ToList();
             }
         }
 
-        public List<TenantPrd> getSearchTenandPrdByCatId(PrdSearchQuery searchQuery)
+        public List<TenantPrd> getSearchTenandPrdByCatId(PrdSearchQuery searchQuery, int userId)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
@@ -156,19 +187,31 @@ namespace CrazyBuy.DAO
                 int pageCount = top * searchQuery.page;
                 string tenantId = searchQuery.tnenatId.ToString();
                 long catId = searchQuery.catId;
-
+                bool isUserAdvances = CTenantPrdManager.isUserAdvanced(userId);
                 var notInsql = @" select TOP {0} p.id from [TenantPrd] p ";
                 notInsql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
+                notInsql += @" left join [TenantPrdRead] pr on pr.prdId = p.id ";
                 notInsql += @" where p.tenantId = '{1}' and r.catId = {2} and p.status = N'上架' and p.name like N'%{3}%' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))  ";
+                notInsql += @" and pr.status = N'正常' and pr.type = N'所有會員' or pr.tenantMemId = {3} ";
+                if (isUserAdvances)
+                {
+                    notInsql += @" or pr.type = N'進階會員' ";
+                }
                 notInsql += SortType.getOrderBy(searchQuery.sortType);
-                notInsql = String.Format(notInsql, pageCount, tenantId, catId, searchQuery.name);
+                notInsql = String.Format(notInsql, pageCount, tenantId, catId, searchQuery.name, userId);
 
                 var sql = @" select TOP {0} p.* from [TenantPrd] p ";
                 sql += @" left join [TenantPrdCatRel] r on r.prdId = p.id ";
+                sql += @" left join [TenantPrdRead] pr on pr.prdId = p.id ";
                 sql += @" where p.tenantId = '{1}' and r.catId = {2} and  p.status = N'上架' and p.name like N'%{3}%' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
+                sql += @" and pr.status = N'正常' and pr.type = N'所有會員' or pr.tenantMemId = {3} ";
+                if (isUserAdvances)
+                {
+                    sql += @" or pr.type = N'進階會員' ";
+                }
                 sql += @" and p.id not in ( {4} ) ";
                 sql += SortType.getOrderBy(searchQuery.sortType);
-                sql = String.Format(sql, top, tenantId, catId, searchQuery.name, notInsql);
+                sql = String.Format(sql, top, tenantId, catId, searchQuery.name, userId, notInsql);
 
                 MDebugLog.debug("[getSearchTenandPrdByCatId] >" + sql);
                 return dbContext.Database.SqlQuery<TenantPrd>(sql).ToList();
