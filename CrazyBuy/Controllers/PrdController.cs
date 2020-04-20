@@ -47,7 +47,7 @@ namespace CrazyBuy.Controllers
                 {
                     memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 }
-                List<TenantPrd> data = DataManager.tenantPrdDao.getHomePrds(Guid.Parse(tenantId));
+                List<TenantPrd> data = DataManager.tenantPrdDao.getHomePrds(Guid.Parse(tenantId), memberId);
                 IEnumerable<Dictionary<string, object>> prds = CTenantPrdManager.getPrdList(data, type, memberId);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = prds;
