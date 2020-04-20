@@ -29,7 +29,7 @@ namespace CrazyBuy.Services
             {
                 userLvType = tenantMember.levelId == null ? UserLevelType.NORMAL : UserLevelType.ADVANCED;
             }
-            List<TenantPrdCatCount> data = DataManager.tenantPrdCatDao.getAllPrdCats(tenantId);
+            List<TenantPrdCatCount> data = DataManager.tenantPrdCatDao.getAllPrdCats(tenantId, memberId);
             List<TenantPrdCatCount> result = new List<TenantPrdCatCount>();
             foreach (TenantPrdCatCount item in data)
             {

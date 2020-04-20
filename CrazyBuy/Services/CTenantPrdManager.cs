@@ -9,14 +9,14 @@ namespace CrazyBuy.Services
     {
         public static IEnumerable<Dictionary<string, object>> getPrdSearchListByCat(PrdSearchQuery query, int userId)
         {
-            List<TenantPrd> data = DataManager.tenantPrdDao.getSearchTenandPrdByCatId(query);
+            List<TenantPrd> data = DataManager.tenantPrdDao.getSearchTenandPrdByCatId(query, userId);
             IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType, userId);
             return result;
         }
 
         public static IEnumerable<Dictionary<string, object>> getPrdListByCat(PrdPageQuery query, int userId)
         {
-            List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(query);
+            List<TenantPrd> data = DataManager.tenantPrdDao.getTenandPrdByCatId(query, userId);
             IEnumerable<Dictionary<string, object>> result = getPrdList(data, query.userType, userId);
             return result;
         }
@@ -70,7 +70,7 @@ namespace CrazyBuy.Services
                     prdPriceUser.price = prd.fixedprice == null ? 0 : (int)prd.fixedprice;
                     prdPriceUser.type = CHType.PRICE_NORMAL;
                     prdPriceUser.priceGradeType = "";
-                    prdPriceUser.custPriceGradeId= 0; 
+                    prdPriceUser.custPriceGradeId = 0;
                     prices.Add(prdPriceUser);
 
                     prdPriceUser = new PrdPrice();
@@ -146,10 +146,21 @@ namespace CrazyBuy.Services
             return prices;
         }
 
-        public static int getTenantPrdCount(Guid tenantId, long catId)
+        public static int getTenantPrdCount(Guid tenantId, long catId, int memberId)
         {
-            int count = DataManager.tenantPrdDao.getCountByCatId(tenantId, catId);
+            int count = DataManager.tenantPrdDao.getCountByCatId(tenantId, catId, memberId);
             return count;
+        }
+
+        public static bool isUserAdvanced(int memberId)
+        {
+            bool isV = false;
+            TenantMember tenantMember = DataManager.tenantMemberDao.getTenantMemberByMemberId(memberId);
+            if (tenantMember != null)
+            {
+                isV = tenantMember.levelId != null;
+            }
+            return isV;
         }
 
         public static Dictionary<string, object> getPrdItem(TenantPrd prd, string userType, int userId)
@@ -181,7 +192,7 @@ namespace CrazyBuy.Services
             data.Add("count", prd.stockNum);
             data.Add("isOpenOrder", prd.isOpenOrder);
             data.Add("isTakeOff", DateTime.Now > prd.dtSellEnd);
-            data.Add("takeOffMessage",prd.takeOffMessage);
+            data.Add("takeOffMessage", prd.takeOffMessage);
             return data;
         }
 
