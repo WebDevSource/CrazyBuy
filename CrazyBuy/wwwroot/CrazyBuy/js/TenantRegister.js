@@ -240,7 +240,7 @@
                         </select>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div  id="ItemContent${itemNumber}" class="row d-flex flex-wrap px-md-15"></div>
+                    <div  id="ItemContent${itemNumber}" class="d-flex flex-wrap"></div>
                 </div>
             </section>`;
 

@@ -152,9 +152,9 @@ namespace CrazyBuy.Controllers
 
                     //租戶
                     string notes = "";
-                    notes += (string.IsNullOrEmpty(serviceItem.FBCommunity)) ? "" : string.Format(@"Facebook社團名稱：{0} \n", serviceItem.FBCommunity);
-                    notes += (string.IsNullOrEmpty(serviceItem.FBFan)) ? "" : string.Format(@"Facebook粉絲專頁：{0} \n", serviceItem.FBFan);
-                    notes += (string.IsNullOrEmpty(serviceItem.LineOfficialAccount)) ? "" : string.Format(@"Line官方帳號：{0} \n", serviceItem.LineOfficialAccount);
+                    notes += (string.IsNullOrEmpty(serviceItem.FBCommunity)) ? "" : string.Format("Facebook社團名稱：{0} \n", serviceItem.FBCommunity);
+                    notes += (string.IsNullOrEmpty(serviceItem.FBFan)) ? "" : string.Format("Facebook粉絲專頁：{0} \n", serviceItem.FBFan);
+                    notes += (string.IsNullOrEmpty(serviceItem.LineOfficialAccount)) ? "" : string.Format("Line官方帳號：{0} \n", serviceItem.LineOfficialAccount);
 
                     Tenant addTenant = new Tenant()
                     {

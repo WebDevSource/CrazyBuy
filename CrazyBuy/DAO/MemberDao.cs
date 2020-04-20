@@ -97,7 +97,9 @@ namespace CrazyBuy.DAO
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 string strCellPhones = string.Join("',N'", cellPhones);
-                var sql = @"SELECT DISTINCT cellphone FROM dbo.Member where cellphone IN (N'{0}')";
+                var sql = @"SELECT DISTINCT cellphone FROM dbo.Member m ";
+                sql += @" INNER JOIN Tenant t on m.memberId = t.createdMemberId ";
+                sql += @" WHERE m.cellphone IN (N'{0}')";
                 sql = string.Format(sql, strCellPhones);
                 return dbContext.Database.SqlQuery<string>(sql).ToList();
             }
@@ -108,7 +110,9 @@ namespace CrazyBuy.DAO
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 string strEmails = string.Join("',N'", emails);
-                var sql = @"SELECT DISTINCT email FROM dbo.Member where email IN (N'{0}')";
+                var sql = @"SELECT DISTINCT email FROM dbo.Member m ";
+                sql += @" INNER JOIN Tenant t on m.memberId = t.createdMemberId ";
+                sql += @" WHERE m.email IN (N'{0}')";
                 sql = string.Format(sql, strEmails);
                 return dbContext.Database.SqlQuery<string>(sql).ToList();
             }
