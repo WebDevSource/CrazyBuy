@@ -40,9 +40,7 @@ namespace CrazyBuy.Controllers
                 DateTime now = DateTime.Now;
                 args.dtContact = now;
                 args.createTime = now;
-                args.updateTime = now;
                 args.creator = memberId;
-                args.updater = memberId;
                 args.status = "正常";
                 DataManager.orderContactItemDAO.add(args);
                 rm.code = MessageCode.SUCCESS;

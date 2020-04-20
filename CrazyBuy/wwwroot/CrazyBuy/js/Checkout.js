@@ -62,7 +62,7 @@
 var Checkout = {
     doLoad() {
         Utils.Initial();
-        Utils.InitI18next("zh-TW", "Checkout", Checkout.InitModule);
+        Utils.InitI18next("zh-TW", "checkout", Checkout.InitModule);
     },
 
     InitModule() {
