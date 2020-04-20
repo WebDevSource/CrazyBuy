@@ -207,7 +207,7 @@
                 <div id="mobile-cart">
                     <div class="row mobile-cart-item mx-0 mb-15" ng-repeat="item in detail">
                         <div class="col-5 px-0">
-                            <div class="mx-auto mobile-cart-item-img" style="background-image: url('./images/item-1.png');"></div>
+                            <div class="mx-auto mobile-cart-item-img" style="background-image: url('{{item.prdImages}}');"></div>
                         </div>
                         <div class="col-7 mobile-cart-info py-1 px-2">
                             <p class="mobile-cart-item-title text-hint">{{item.prdCode}}<br>{{item.name}}</p>
@@ -217,12 +217,16 @@
                         </div>
                         <table class="table table-bordered order-detail-table mb-0">
                             <tr>
-                                <td class="p-0">數量</td>
-                                <td class="p-0">{{item.qty}}</td>
+                                <td class="p-0">發票稅</td>
+                                <td class="p-0">{{invoicePrice}}</td>
                             </tr>
                             <tr>
-                                <td class="p-0">金額</td>
-                                <td class="p-0">{{item.amount}}</td>
+                                <td class="p-0">運費</td>
+                                <td class="p-0">{{ShipAmt}}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-0">訂單金額</td>
+                                <td class="p-0">{{resultAmt}}</td>
                             </tr>
                         </table>
                     </div>

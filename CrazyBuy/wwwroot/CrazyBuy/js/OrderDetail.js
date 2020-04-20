@@ -86,7 +86,7 @@ var OrderDetail = {
                     $scope.resultAmt = 0;
                     $scope.ShipAmt = $scope.master.shippingAmount;
                     if ($scope.master.isNeedInvoice) {
-                        $scope.invoicePrice = parseInt(($scope.master.totalAmount * 0.05).toFixed(0), 0);
+                        $scope.invoicePrice = parseInt((($scope.master.orderAmount + $scope.ShipAmt) * 0.05).toFixed(0), 0);
                     }
                     if (ret.data.master.levelId != null) {
                         OrderDetail.checkLevelMember(ret.data.master.levelId);

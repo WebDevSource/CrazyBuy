@@ -44,6 +44,10 @@ namespace CrazyBuy.DAO
         public Town getTown(string id)
         {
             Town result = null;
+            if (string.IsNullOrEmpty(id))
+            {
+                return result;
+            }
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 var sql = @"select * from [Town] where status = N'正常' and townId = {0} ";
