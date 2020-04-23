@@ -94,17 +94,17 @@ namespace CrazyBuy.DAO
                     }
                     sql += string.Format(@" and m.shippingStatus in ({0}) ", searchStatus);
                 }
-                if (search.type != 0)
+                if (!string.IsNullOrEmpty(search.type) && !string.IsNullOrEmpty(search.value))
                 {
                     switch (search.type)
                     {
-                        case 1:
+                        case "1": //訂單編號
                             sql += string.Format(@" and m.serialNo = '{0}' ", search.value);
                             break;
-                        case 2:
+                        case "2": //商品名稱
                             sql += string.Format(@" and p.name like N'%{0}%' ", search.value);
                             break;
-                        case 3:
+                        case "3": //商品代碼
                             sql += string.Format(@" and p.prdCode = '{0}' ", search.value);
                             break;
                     }

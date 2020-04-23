@@ -24,7 +24,15 @@
     <script src="./js/ProductCard.js"></script>
 
     <!-- page lib -->
+    <link rel="stylesheet" href="./js/lib/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="./js/lib/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="./js/lib/bootstrap-select-1.13.14/dist/js/i18n/defaults-*.min.js"></script>
     <script src="./js/lib/angular.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all" href="./js/lib/DatePicker/daterangepicker.css" />
+    <script type="text/javascript" src="./js/lib/DatePicker/moment.min.js"></script>
+    <script type="text/javascript" src="./js/lib/DatePicker/daterangepicker.js"></script>
+
     <script src="./js/Order.js"></script>
 
     <link rel="stylesheet" href="./css/all.min.css">
@@ -163,43 +171,43 @@
                                     <form class="row mx-0" id="filters-form">
                                         <div class="col-12 mb-3 multiple-filters-row">
                                             <label for="" class="mr-2">訂單狀態</label>
-                                            <select id="multiple-filters" multiple="multiple">
-                                                <option value="未出貨">未出貨</option>
-                                                <option value="缺貨中">缺貨中</option>
-                                                <option value="處理中">處理中</option>
-                                                <option value="備貨中">備貨中</option>
-                                                <option value="已出貨">已出貨</option>
-                                                <option value="已先出貨">已先出貨</option>
-                                                <option value="已斷貨">已斷貨</option>
-                                                <option value="優先處理">優先處理</option>
-                                                <option value="交易完成">交易完成</option>
-                                                <option value="交易取消">交易取消</option>
-                                                <option value="細目狀態不為空">細目狀態不為空</option>
-                                                <option value="細目狀態全數已到貨">細目狀態全數已到貨</option>
+                                            <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.status">
+                                                <option>未出貨</option>
+                                                <option>缺貨中</option>
+                                                <option>處理中</option>
+                                                <option>備貨中</option>
+                                                <option>已出貨</option>
+                                                <option>已先出貨</option>
+                                                <option>已斷貨</option>
+                                                <option>優先處理</option>
+                                                <option>交易完成</option>
+                                                <option>交易取消</option>
+                                                <option>細目狀態不為空</option>
+                                                <option>細目狀態全數已到貨</option>
                                             </select>
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="" class="mr-2">日期區間</label>
-                                            <input type="date" class="filter-date-range filter-w100">               
+                                            <input type="text" name="daterange" class="filter-date-range filter-w100" value="">
                                         </div>
                                         <div class="col-4 text-lg-center text-left pr-0 mb-2">
-                                            <input type="radio" name="filters" id="order-num">
+                                            <input type="radio" name="filters" id="order-num" value="1" ng-model="search.type">
                                             <label class="checkout-radio-label mb-0" for="order-num">訂單單號</label>
                                         </div>
                                         <div class="col-4 text-lg-center text-left px-0 mb-2">
-                                            <input type="radio" name="filters" id="order-item-name">
+                                            <input type="radio" name="filters" id="order-item-name" value="2" ng-model="search.type">
                                             <label class="checkout-radio-label mb-0" for="order-item-name">商品名稱</label>
                                         </div>
                                         <div class="col-4 text-lg-center text-left px-0 mb-2">
-                                            <input type="radio" name="filters" id="item-num">
+                                            <input type="radio" name="filters" id="item-num" value="3" ng-model="search.type">
                                             <label class="checkout-radio-label mb-0" for="item-num">商品代碼</label>
                                         </div>
                                         <div class="col-12">
-                                            <input type="text" class="filter-date-range w-100">
+                                            <input type="text" class="filter-date-range w-100" ng-model="search.value">
                                         </div>
                                         <div class="col-12 d-flex justify-content-end align-items-center mt-40">
-                                            <a class="mr-3" href="javascript:;" id="filters-allclear">清空條件</a>
-                                            <button type="submit" class="btn btn-register filter-search-btn">查詢</button>
+                                            <a class="mr-3" href="javascript:Order.doClearSearch();" id="filters-allclear">清空條件</a>
+                                            <button type="button" class="btn btn-register filter-search-btn" ng-click="searchQuery()">查詢</button>
                                         </div>
                                     </form>
                                 </div>

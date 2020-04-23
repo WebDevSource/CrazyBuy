@@ -259,7 +259,7 @@ namespace CrazyBuy
         public List<string> status { get; set; }
         public string startDate { get; set; }
         public string endDate { get; set; }
-        public int type { get; set; }
+        public string type { get; set; }
         public string value { get; set; }
     }
 }
