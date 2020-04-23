@@ -39,7 +39,7 @@ namespace CrazyBuy.Controllers
                 rm.data = e.Message;
             }
             return Ok(rm);
-        }        
+        }
 
         [HttpGet("{id}")]
         [Authorize]
@@ -87,13 +87,7 @@ namespace CrazyBuy.Controllers
             {
                 int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 rm.code = MessageCode.SUCCESS;
-                //rm.data = DataManager.orderDao.getOrderByMember(memberId);
                 List<OrderMaster> data = DataManager.orderDao.getOrderByMember(memberId);
-
-                foreach (OrderMaster item in data)
-                {
-
-                }
                 rm.data = data;
             }
             catch (Exception e)
@@ -103,5 +97,26 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult getOrderByMemberSearch([FromBody]OrderSearch orderSearch)
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                rm.code = MessageCode.SUCCESS;
+                List<OrderMaster> data = DataManager.orderDao.getOrderByMemberSearch(memberId, orderSearch);
+                rm.data = data;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
     }
 }

@@ -253,4 +253,13 @@ namespace CrazyBuy
         public string mail { get; set; }
         public int memberId { get; set; }
     }
+
+    public class OrderSearch
+    {
+        public List<string> status { get; set; }
+        public string startDate { get; set; }
+        public string endDate { get; set; }
+        public int type { get; set; }
+        public string value { get; set; }
+    }
 }

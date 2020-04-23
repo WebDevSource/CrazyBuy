@@ -34,7 +34,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @" SELECT m.* FROM [OrderMaster] m ";                
+                var sql = @" SELECT m.* FROM [OrderMaster] m ";
                 sql += @" WHERE m.Id = {0} ";
                 var query = String.Format(sql, id);
                 return dbContext.Database.SqlQuery<OrderMaster>(query).FirstOrDefault();
@@ -64,6 +64,57 @@ namespace CrazyBuy.DAO
                 return (List<OrderMaster>)dbContext.Database.SqlQuery<OrderMaster>(query).ToList();
             }
         }
+
+        public List<OrderMaster> getOrderByMemberSearch(int memberId, OrderSearch search)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @" SELECT * FROM [OrderMaster] m ";
+                sql += @" left join dbo.OrderDetail d on d.orderId = m.id ";
+                sql += @" left join dbo.TenantPrd p on p.id = d.prdId ";
+                sql += @" WHERE m.memberId = {0} ";
+                if (!string.IsNullOrEmpty(search.startDate))
+                {
+                    sql += string.Format(@" and m.dtOrder >= '{0}'", search.startDate);
+                }
+                if (!string.IsNullOrEmpty(search.endDate))
+                {
+                    sql += string.Format(@" and m.dtOrder <= '{0}'", search.endDate);
+                }
+                if (search.status != null)
+                {
+                    string searchStatus = "";
+                    for (int i = 0; i < search.status.Count; i++)
+                    {
+                        searchStatus += string.Format("N'{0}'", search.status[i]);
+                        if (i != search.status.Count - 1)
+                        {
+                            searchStatus += ",";
+                        }
+                    }
+                    sql += string.Format(@" and m.shippingStatus in ({0}) ", searchStatus);
+                }
+                if (search.type != 0)
+                {
+                    switch (search.type)
+                    {
+                        case 1:
+                            sql += string.Format(@" and m.serialNo = '{0}' ", search.value);
+                            break;
+                        case 2:
+                            sql += string.Format(@" and p.name like N'%{0}%' ", search.value);
+                            break;
+                        case 3:
+                            sql += string.Format(@" and p.prdCode = '{0}' ", search.value);
+                            break;
+                    }
+                }
+                sql += @" and m.status <> N'刪除' order by m.dtOrder desc  ";
+                var query = String.Format(sql, memberId);
+                return (List<OrderMaster>)dbContext.Database.SqlQuery<OrderMaster>(query).ToList();
+            }
+        }
+
         public List<OrderPrdDetail> getDetailLists(int id)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())

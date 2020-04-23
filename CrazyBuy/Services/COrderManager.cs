@@ -192,7 +192,7 @@ namespace CrazyBuy.Services
             }
             rm.code = orderResult;
             return rm;
-        }
+        }             
 
         public static TenantPrd isPrdSPecEnought(TenantPrd prd, string item, int buyCount)
         {
