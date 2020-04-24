@@ -69,7 +69,6 @@ var OrderDetail = {
                     let $scope = angular.element(appElement).scope();
                     $scope.TotalAmt = 0;
                     $scope.ShipAmt = 0;
-                    $scope.invoicePrice = 0;
                     $scope.master = ret.data.master;
                     $scope.detail = ret.data.detail;
                     $.each($scope.detail, function (index, value) {
@@ -83,11 +82,9 @@ var OrderDetail = {
                     $scope.now = new Date();
                     $scope.contact = {};
                     $scope.contactList = ret.data.contactList;
+                    $scope.contactItem = ret.data.contactList[0];
                     $scope.resultAmt = 0;
                     $scope.ShipAmt = $scope.master.shippingAmount;
-                    if ($scope.master.isNeedInvoice) {
-                        $scope.invoicePrice = parseInt((($scope.master.orderAmount + $scope.ShipAmt) * 0.05).toFixed(0), 0);
-                    }
                     if (ret.data.master.levelId != null) {
                         OrderDetail.checkLevelMember(ret.data.master.levelId);
                     }

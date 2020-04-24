@@ -126,12 +126,10 @@
                             <td class="text-center">貨款狀態</td>
                             <td class="table-order-status">{{master.payStatus}}</td>
                             <td>
-                                <!--
-                                <p class="mb-0">@ATM轉帳</p>
-                                <p class="mb-0">匯款日：2019/12/20</p>
-                                <p class="mb-0 d-flex justify-content-between"><span>末五碼：74445 </span> <a href="#" class="order-link" data-toggle="modal" data-target="#keeptouch">匯款回報</a> </p>
-                                <p class="mb-0">備註：</p>
-                                    -->
+                                <p class="mb-0">回報日：{{contactItem.dtContact|date:'yyyy-MM-dd'}}</p>
+                                <p class="mb-0">內容：{{contactItem.contactContent}}</p>
+                                <p class="mb-0 d-flex justify-content-between"><a href="#" class="order-link" data-toggle="modal" data-target="#keeptouch">匯款回報</a> </p>
+
                             </td>
                         </tr>
                         <tr>
@@ -192,7 +190,7 @@
                         </tr>
                         <tr>
                             <td class="text-right cart-all-toalprice" colspan="5">發票稅</td>
-                            <td class="text-right" colspan="2">{{invoicePrice}}</td>
+                            <td class="text-right" colspan="2">{{master.taxAmount}}</td>
                         </tr>
                         <tr>
                             <td class="text-right cart-all-toalprice" colspan="5">運費</td>
@@ -218,7 +216,7 @@
                         <table class="table table-bordered order-detail-table mb-0">
                             <tr>
                                 <td class="p-0">發票稅</td>
-                                <td class="p-0">{{invoicePrice}}</td>
+                                <td class="p-0">{{master.taxAmount}}</td>
                             </tr>
                             <tr>
                                 <td class="p-0">運費</td>

@@ -53,7 +53,12 @@ var CheckoutSuccess = {
                         $scope.carts[index].type = i18next.t($scope.carts[index].type);
 
                     });
-                    $scope.checkout = JSON.parse(Utils.GetCookie("order"));
+                    let order = Utils.GetCookie("order");
+                    if (!order) {
+                        alert("請由購物車結帳");
+                        location.href = "./cart.html?tenantCode=" + Utils.TenantCode;
+                    }
+                    $scope.checkout = JSON.parse(order);
                     $scope.memberData = JSON.parse(Utils.GetCookie("memberData"));
                     $scope.$apply();
                 } else {
@@ -77,6 +82,7 @@ var CheckoutSuccess = {
                             alert(i18next.t("msg_product_not_enough"));
                             break;
                         default:
+                            Utils.SetCookie("order", "");
                             window.location.href = 'order-success.html?tenantCode=' + Utils.TenantCode + '&id=' + ret.data.code + '&serialNo=' + ret.data.data.serialNo;
                             break;
                     }

@@ -68,14 +68,21 @@ namespace CrazyBuy.Controllers
             try
             {
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
+                string tenantId = User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value;
                 int memberId = -1;
                 if (!UserType.GUEST.Equals(type))
                 {
                     memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 }
+                TenantGrade tenantGrade = DataManager.tenantDao.GetTenantGrade(Guid.Parse(tenantId));
+                string tenantGradeType = "團媽";
+                if (tenantGrade != null)
+                {
+                    tenantGradeType = tenantGrade.tenantGrade;
+                }
                 TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(prdId);
                 rm.code = MessageCode.SUCCESS;
-                rm.data = CTenantPrdManager.getPrdItem(prd, type, memberId);
+                rm.data = CTenantPrdManager.getPrdItem(prd, type, memberId, tenantGradeType);
             }
             catch (Exception e)
             {

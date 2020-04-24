@@ -50,7 +50,7 @@ var Register = {
         "姓名": "name",
         "性別": "gender",
         "電話": "phone",
-        "Line ID": "lineId",
+        "LINE ID": "lineId",
         "密碼": "password",
         "手機號碼": "mobile",
         "地址": "addr",
@@ -86,15 +86,18 @@ var Register = {
                     let appElement = document.querySelector('[ng-controller=RegCtrl]');
                     let $scope = angular.element(appElement).scope();
                     let setting = [];
+                    $scope.successMessage = i18next.t("register_success");
                     $scope.setting = {};
                     for (let i = 0; i < ret.data.length; i++) {
-
                         let item = ret.data[i];
+                        if (!item.content) {
+                            continue;
+                        }
                         if (item.title == "MemberColumnSetting") {
-                            if (item.content) {
-                                setting = JSON.parse(item.content);
-                                break;
-                            }
+                            setting = JSON.parse(item.content);
+
+                        } else if (item.title == "MemJoinDescPage") {
+                            $scope.successMessage = item.content;
                         }
                     }
                     for (let i in setting) {

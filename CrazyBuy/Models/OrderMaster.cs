@@ -58,7 +58,8 @@ namespace CrazyBuy.Models
         public string invoiceTownId { get; set; }
         public int? invoiceCityId { get; set; }
 
-       // public string invoiceCityName { get; set; }
+        // public string invoiceCityName { get; set; }
+        public int taxAmount { get; set; }
 
     }
 
@@ -118,5 +119,6 @@ namespace CrazyBuy.Models
 
         public string invoiceTownName { get; set; }
         public string recipientTownName { get; set; }
+        public int taxAmount { get; set; }
     }
 }

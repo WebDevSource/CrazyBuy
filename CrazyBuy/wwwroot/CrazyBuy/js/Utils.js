@@ -163,8 +163,8 @@
             return;
         } else {
             let ret = Utils.AsyncProcessAjax("/api/tenant/isExist/" + Utils.TenantCode, "GET", "", "");
-            if (!ret.data) {
-                //alert(i18next.t("msg_tenant_not_find"));
+            if (ret.code != 1) {
+                alert(i18next.t("msg_tenant_not_find"));
                 location.href = "./error.html";
                 return;
             }

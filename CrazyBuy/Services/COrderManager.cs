@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace CrazyBuy.Services
@@ -41,7 +42,7 @@ namespace CrazyBuy.Services
             foreach (ShopCartPrd item in shopCartPrds)
             {
                 TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.productId);
-                if (prdItem.zeroStockMessage == null || prdItem.zeroStockMessage == "")
+                if (String.IsNullOrEmpty(prdItem.zeroStockMessage) && prdItem.dtSellEnd > DateTime.Now)
                 {
                     continue;
                 }
@@ -75,6 +76,7 @@ namespace CrazyBuy.Services
                 orderMaster.createTime = now;
                 orderMaster.updateTime = now;
                 int total = 0;
+                int taxAmount = 0;
                 DataManager.shopCartDao.deleteTimeOutItem(userInfo.memberId); //防止購入超時商品
                 List<ShopCartPrd> shopCartPrds = DataManager.shopCartDao.getItemsByMember(userInfo.memberId);
                 List<OrderDetail> detailList = new List<OrderDetail>();
@@ -121,11 +123,6 @@ namespace CrazyBuy.Services
                             prdMap.Add(prdItem.id, prdItem);
                         }
                     }
-                    else
-                    {
-                        rm.code = MessageCode.PRD_NOT_ENOUGHT;
-                        return rm;
-                    }
                 }
 
                 //檢查是否數量足夠
@@ -133,7 +130,7 @@ namespace CrazyBuy.Services
                 {
                     TenantPrd prdItem = prdMap.GetValueOrDefault(item.prdId);
                     prdItem.stockNum = prdItem.stockNum - item.qty;
-                    if (!string.IsNullOrEmpty(prdItem.zeroStockMessage))
+                    if (!string.IsNullOrEmpty(prdItem.zeroStockMessage) && prdItem.dtSellEnd > DateTime.Now)
                     {
                         if (prdItem.stockNum < 0)
                         {
@@ -149,13 +146,15 @@ namespace CrazyBuy.Services
                     orderMaster.orderAmount = total;
                     if (orderMaster.isNeedInvoice)
                     {
-                        total += Convert.ToInt32(total * 0.05);
+                         taxAmount = Convert.ToInt32(total * 0.05);
                     }
+                    total += taxAmount;
                     total += orderMaster.shippingAmount;
                     orderMaster.totalAmount = total;
                     orderMaster.payStatus = "等待貨款";
                     orderMaster.shippingStatus = "未出貨";
                     orderMaster.status = "新訂單";
+                    orderMaster.taxAmount = taxAmount;
                     if (MessageCode.ERROR != memberLevelId)
                     {
                         orderMaster.levelId = memberLevelId;
@@ -196,7 +195,10 @@ namespace CrazyBuy.Services
 
         public static TenantPrd isPrdSPecEnought(TenantPrd prd, string item, int buyCount)
         {
-            if (string.IsNullOrEmpty(item) || string.IsNullOrEmpty(prd.prdSepc))
+            if(prd.dtSellEnd < DateTime.Now) {
+                return null;
+            }
+            else if (string.IsNullOrEmpty(item) || string.IsNullOrEmpty(prd.prdSepc))
             {
                 // 沒有商品規格不判斷
                 return prd;

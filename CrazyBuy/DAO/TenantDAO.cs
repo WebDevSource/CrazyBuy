@@ -140,5 +140,15 @@ namespace CrazyBuy.DAO
             }
         }
 
+        public TenantGrade GetTenantGrade(Guid tenantId)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+                var sql = @"SELECT * FROM dbo.TenantGrade where tenantId = '{0}'  and status = N'正常' ";
+                sql = string.Format(sql, tenantId);
+                return dbContext.Database.SqlQuery<TenantGrade>(sql).SingleOrDefault();
+            }
+        }
+
     }
 }
