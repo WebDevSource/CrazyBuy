@@ -1,5 +1,7 @@
 ﻿{
   "register_success": "註冊成功!!",
-  "register_bulletin": "會員註冊文字"
+  "register_bulletin": "會員註冊文字",
+  "member_exist_cellphone": "手機已被註冊",
+  "mail already exist.": "郵件已被註冊"
 
 }

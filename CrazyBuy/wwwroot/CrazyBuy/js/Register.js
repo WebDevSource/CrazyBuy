@@ -23,12 +23,19 @@
                     function (ret) {
                         switch (ret.code) {
                             case 1:
-                                alert(i18next.t("register_success"));
+                                alert($scope.successMessage);
                                 window.location = "index.html?tenantCode=" + Utils.TenantCode;
                                 break;
                             case -1:
                                 console.log(ret.data);
-                                alert(i18next.t("msg_service_error"));
+                                let data = ret.data;
+                                if (data == "cellphone already exist.") {
+                                    alert(i18next.t("member_exist_cellphone"));
+                                } else if (data == "mail already exist.") {
+                                    alert(i18next.t("member_exist_mail"));
+                                } else {
+                                    alert(i18next.t("msg_service_error"));
+                                }
                                 break;
                         }
                     },
