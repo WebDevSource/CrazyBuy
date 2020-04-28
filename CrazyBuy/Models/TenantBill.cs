@@ -39,7 +39,7 @@ namespace CrazyBuy.Models
 		public int id { get; set; }
 		public Guid tenantId { get; set; }
 		public string tenantGrade { get; set; }
-		public DateTime dtStart { get; set; }
+		public DateTime? dtStart { get; set; }
 		public Boolean isLoop { get; set; }
 		public string status { get; set; }
 		public DateTime createTime { get; set; }

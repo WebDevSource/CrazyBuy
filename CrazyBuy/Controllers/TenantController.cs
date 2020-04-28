@@ -237,42 +237,43 @@ namespace CrazyBuy.Controllers
                             break;
                     }
 
+                    //租戶等級紀錄
                     TenantGrade tenantGrade = new TenantGrade()
                     {
                         tenantId = addTenant.tenantId,
                         tenantGrade = member.tenantType,
-                        dtStart = dtNow.Date,
+                        //dtStart = dtNow.Date,
                         isLoop = false,
                         status = "正常",
                         createTime = dtNow
                     };
-                    int tenantGradeId = DataManager.tenantBillDAO.addTenantGrade(tenantGrade);
+                    DataManager.tenantBillDAO.addTenantGrade(tenantGrade);
 
-                    TenantBill tenantBill = new TenantBill()
-                    {
-                        tenantId = addTenant.tenantId,
-                        tenantGradeId = tenantGradeId,
-                        name = string.Format("{0}~{1} 區間的帳單", dtNow.ToString("yyyy/MM/dd"), dtNow.AddDays(30).ToString("yyyy/MM/dd")),
-                        dtStart = dtNow.Date,
-                        dtDeadline = dtNow.Date.AddDays(30),
-                        dtDue = dtNow.Date.AddDays(10),
-                        dueAmount = amount,
-                        status = "等待繳費",
-                        createTime = dtNow
-                    };
-                    int billId = DataManager.tenantBillDAO.addTenantBill(tenantBill);
+                    //TenantBill tenantBill = new TenantBill()
+                    //{
+                    //    tenantId = addTenant.tenantId,
+                    //    tenantGradeId = tenantGradeId,
+                    //    name = string.Format("{0}~{1} 區間的帳單", dtNow.ToString("yyyy/MM/dd"), dtNow.AddDays(30).ToString("yyyy/MM/dd")),
+                    //    dtStart = dtNow.Date,
+                    //    dtDeadline = dtNow.Date.AddDays(10),
+                    //    dtDue = dtNow.Date.AddDays(30),
+                    //    dueAmount = amount,
+                    //    status = "等待繳費",
+                    //    createTime = dtNow
+                    //};
+                    //int billId = DataManager.tenantBillDAO.addTenantBill(tenantBill);
 
-                    TenantBillDetail tenantBillDetail = new TenantBillDetail()
-                    { 
-                        billId = billId,
-                        name = tenantBill.name,
-                        unitPrice = amount,
-                        qty = 1,
-                        amount = amount * 1,
-                        status = "正常",
-                        createTime = dtNow
-                    };
-                    DataManager.tenantBillDAO.addTenantBillDetail(tenantBillDetail);
+                    //TenantBillDetail tenantBillDetail = new TenantBillDetail()
+                    //{ 
+                    //    billId = billId,
+                    //    name = tenantBill.name,
+                    //    unitPrice = amount,
+                    //    qty = 1,
+                    //    amount = amount * 1,
+                    //    status = "正常",
+                    //    createTime = dtNow
+                    //};
+                    //DataManager.tenantBillDAO.addTenantBillDetail(tenantBillDetail);
 
                 }
                 #endregion
