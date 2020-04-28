@@ -32,13 +32,13 @@ var Cart = {
                         Cart.InitView();
                     } else {
 
-                        alert("service error");
+                        alert(i18next.t("msg_service_error"));
                     }
                 } else {
                     Cart.InitView();
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
     },
 
@@ -54,7 +54,7 @@ var Cart = {
                     }
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
     },
 
@@ -70,7 +70,7 @@ var Cart = {
                     Cart.InitView();
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
 
     },

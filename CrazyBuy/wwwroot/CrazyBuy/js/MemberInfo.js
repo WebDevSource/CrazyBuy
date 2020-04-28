@@ -136,7 +136,7 @@ var MemberInfo = {
         Utils.ProcessAjax("/api/tenant/getTenantSetting", "GET", true, "",
             function (ret) {
                 if (ret.code === -1) {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 } else {
                     let appElement = document.querySelector('[ng-controller=MemberCtrl]');
                     let $scope = angular.element(appElement).scope();
@@ -160,7 +160,7 @@ var MemberInfo = {
                     $scope.$apply();
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
     }
 };

@@ -10,6 +10,7 @@ namespace CrazyBuy.Services
 {
     public class CMemberManager
     {
+
         public static bool addMember(Member member, Guid tenantId)
         {
             bool isV = false;
@@ -53,13 +54,13 @@ namespace CrazyBuy.Services
                             tenantName = tenant.tenantName
                         };
                         sendList.Add(mailSend);
-
+                        Debug.WriteLine("asdsada" + mail.content.Replace("\n", "</br>"));
                         MailNotice mailNotice = new MailNotice
                         {
                             tenantId = tenantId,
                             type = type,
                             title = mail.subject,
-                            content = mail.content,
+                            content = mail.content.Replace("\n", "</br>"),
                             sendTo = JsonConvert.SerializeObject(sendList),
                             isAuto = true,
                             dtSend = DateTime.Now.AddMinutes(10),

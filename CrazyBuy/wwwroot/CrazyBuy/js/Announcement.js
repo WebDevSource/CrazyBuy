@@ -22,7 +22,7 @@ var Announcement = {
         Utils.ProcessAjax("/api/tenant/getBulletin", "GET", true, "",
             function (ret) {
                 if (ret.code === -1) {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 } else {
                     let appElement = document.querySelector('[ng-controller=AnnoCtrl]');
                     let $scope = angular.element(appElement).scope();
@@ -38,7 +38,7 @@ var Announcement = {
                     $scope.$apply();
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
     },
 

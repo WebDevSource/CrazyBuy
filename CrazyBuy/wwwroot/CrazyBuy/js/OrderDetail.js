@@ -57,7 +57,7 @@ var OrderDetail = {
                     $scope.$apply();
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
     },
 

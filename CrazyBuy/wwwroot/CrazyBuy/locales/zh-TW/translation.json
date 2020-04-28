@@ -142,5 +142,6 @@
   "msg_cart_is_null": "購物車沒任何東西",
   "msg_product_not_enough": "商品已沒有庫存",
   "msg_register_member": "請先加入會員",
-  "msg_error_loginFrist": "請先登入會員!"
+  "msg_error_loginFrist": "請先登入會員!",
+  "ajax error": "請重新整理!"
 }

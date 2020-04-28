@@ -323,7 +323,7 @@
         Utils.ProcessAjax("/api/tenant/getBulletin", "GET", true, "",
             function (ret) {
                 if (ret.code === -1) {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 } else {
                     for (let i = 0; i < ret.data.length; i++) {
                         let item = ret.data[i];
@@ -338,7 +338,7 @@
                     }
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
     }
 

@@ -144,7 +144,7 @@ namespace CrazyBuy.DAO
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
-                var sql = @"SELECT * FROM dbo.TenantGrade where tenantId = '{0}'  and status = N'正常' ";
+                var sql = @"SELECT Top 1 * FROM dbo.TenantGrade where tenantId = '{0}'  and status = N'正常'  order by dtStart desc";
                 sql = string.Format(sql, tenantId);
                 return dbContext.Database.SqlQuery<TenantGrade>(sql).SingleOrDefault();
             }

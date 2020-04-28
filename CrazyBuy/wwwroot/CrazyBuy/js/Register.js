@@ -88,7 +88,7 @@ var Register = {
         Utils.ProcessAjax("/api/tenant/getTenantSetting", "GET", true, "",
             function (ret) {
                 if (ret.code === -1) {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 } else {
                     let appElement = document.querySelector('[ng-controller=RegCtrl]');
                     let $scope = angular.element(appElement).scope();
@@ -115,7 +115,7 @@ var Register = {
                     $scope.$apply();
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
     },
 
@@ -149,7 +149,7 @@ var Register = {
         Utils.ProcessAjax("/api/tenant/getBulletin", "GET", true, "",
             function (ret) {
                 if (ret.code === -1) {
-                    alert("service error");
+                    alert(i18next.t("msg_service_error"));
                 } else {
                     let appElement = document.querySelector('[ng-controller=RegCtrl]');
                     let $scope = angular.element(appElement).scope();
@@ -157,13 +157,13 @@ var Register = {
                     for (let i = 0; i < ret.data.length; i++) {
                         let item = ret.data[i];
                         if (i18next.t("register_bulletin") == item.layout) {
-                            $scope.bulletins.push(item.content);
+                            $scope.bulletins.push(Utils.parseTextToHtml(item.content));
                         }
                     }
                     $scope.$apply();
                 }
             },
-            function (error) { alert("ajax error") }
+            function (error) { alert(i18next.t("ajax error")) }
         );
     },
 };
