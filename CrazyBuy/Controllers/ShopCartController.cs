@@ -3,6 +3,7 @@ using CrazyBuy.Models;
 using CrazyBuy.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace CrazyBuy.Controllers
                 rm.data = e.Message;
             }
             return Ok(rm);
-        }        
+        }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
@@ -97,13 +98,18 @@ namespace CrazyBuy.Controllers
             {
                 string type = User.Claims.FirstOrDefault(p => p.Type == "type").Value;
                 int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                string sepc = value.sepc;
                 Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
                 Guid itemId = Guid.NewGuid();
 
                 TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(value.productId);
                 PrdPrice prdPrice = CTenantPrdManager.getPrdPrice(prd, type, memberId);
 
-                ShopCart shopCart = DataManager.shopCartDao.getShopCartPrd(tenantId, memberId, value.productId);
+                if (!string.IsNullOrEmpty(sepc))
+                {
+                    sepc = (string)JObject.Parse(sepc).GetValue("code");
+                }
+                ShopCart shopCart = DataManager.shopCartDao.getShopCartPrd(tenantId, memberId, value.productId, sepc);
 
                 if (shopCart == null)
                 {

@@ -1,4 +1,5 @@
-﻿using CrazyBuy.Models;
+﻿using CrazyBuy.Common;
+using CrazyBuy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace CrazyBuy.DAO
             {
                 var sql = @" delete s from dbo.ShopCart s left join dbo.TenantPrd p ";
                 sql += @" on p.id = s.productId where s.memberId = {0}  ";
-                sql += @" and  p.dtSellEnd < getdate(); ";                
+                sql += @" and  p.dtSellEnd < getdate(); ";
                 var query = string.Format(sql, memberId);
                 dbContext.Database.ExecuteSqlCommand(query);
             }
@@ -89,13 +90,18 @@ namespace CrazyBuy.DAO
             }
         }
 
-        public ShopCart getShopCartPrd(Guid tenantId, int memberId, int productId)
+        public ShopCart getShopCartPrd(Guid tenantId, int memberId, int productId, string sepc)
         {
             using (CrazyBuyDbContext dbContext = ContextInit())
             {
                 var sql = @" SELECT TOP 1 * FROM [ShopCart] c ";
                 sql += @" where c.tenantId = '{0}' and c.memberId = {1} and c.productId = {2} ";
+                if (!string.IsNullOrEmpty(sepc))
+                {
+                    sql += string.Format(" and c.prdSepc like '%{0}%' ", sepc);
+                }                
                 var query = String.Format(sql, tenantId, memberId, productId);
+                MDebugLog.debug(query);
                 return dbContext.Database.SqlQuery<ShopCart>(query).FirstOrDefault();
             }
         }
