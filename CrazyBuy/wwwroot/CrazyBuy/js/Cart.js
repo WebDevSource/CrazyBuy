@@ -16,7 +16,7 @@ var Cart = {
     InitModule() {
         Utils.checkRole();
         NavBar.Init();
-       // Cart.checkTimeOut();
+        // Cart.checkTimeOut();
         Cart.checkPrdCount();
         Cart.checkLevelMember();
     },
@@ -86,6 +86,11 @@ var Cart = {
             },
             function (error) { alert(i18next.t("msg_service_error")) }
         );
+    },
+
+    goBackIndex() {
+        let index = 'index.html?tenantCode=' + Utils.GetUrlParameter('tenantCode');
+        window.location.href = index;
     },
 
     InitView() {
