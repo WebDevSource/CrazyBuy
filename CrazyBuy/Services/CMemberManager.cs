@@ -19,6 +19,7 @@ namespace CrazyBuy.Services
                 DateTime now = DateTime.Now;
                 member.createTime = now;
                 member.updateTime = now;
+                member.memberCode = getMemberCode();
                 member.password = Utils.ConverToMD5(member.password);
                 int memberId = DataManager.memberDao.addMember(member);
                 Tenant tenant = DataManager.tenantDao.getTenant(tenantId);
@@ -87,9 +88,15 @@ namespace CrazyBuy.Services
             }
             catch (Exception e)
             {
-                Debug.WriteLine("[CMemberManager-addMember] error:" + e);
+                Debug.WriteLine("[CMemberManager-addMember] error:" + e.StackTrace);
             }
             return isV;
+        }
+
+        private static string getMemberCode()
+        {
+            DateTime dt = DateTime.Now;
+            return string.Format("{0:yyyyMMddHHmmssfff}", dt);
         }
     }
 }
