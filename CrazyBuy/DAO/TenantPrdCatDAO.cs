@@ -44,7 +44,7 @@ namespace CrazyBuy.DAO
                 sql += @"   and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {1} or pr.memLevelId = mr.levelId) ";
 
                 sql += @" and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))) as ccount ";
-                sql += @" from [TenantPrdCat] c where tenantId = '{2}' and status = N'{3}'  order by parentId asc ";
+                sql += @" from [TenantPrdCat] c where tenantId = '{2}' and status = N'{3}'  order by parentId asc, c.sort asc ";
                 string query = String.Format(sql, memberId, memberId, tenantId.ToString(), "正常");
                 MDebugLog.debug("@" + query);
                 return dbContext.Database.SqlQuery<TenantPrdCatCount>(query).ToList();

@@ -74,7 +74,8 @@
 
     openBankend() {
         //window.open(Utils.BackendUrl + Utils.TenantCode);
-        window.open(Utils.BackendUrl + "platform/login");
+
+        window.open(Utils.BackendUrl + "manager/login");
 
     },
 

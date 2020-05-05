@@ -183,7 +183,7 @@ var ProductInner = {
             ProductInner.isRadio = true;
         } else {
 
-            html += "<select class='checkout-select' name='sepc'>";
+            html += "<select class='checkout-select' name='sepc' style='width:150px;'>";
             for (let i in items) {
                 html += "<option value='" + JSON.stringify(items[i]) + "'> " + items[i].name + "</option>";
             }

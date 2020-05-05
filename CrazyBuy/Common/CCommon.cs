@@ -252,6 +252,7 @@ namespace CrazyBuy
         public string tenantName { get; set; }
         public string mail { get; set; }
         public int memberId { get; set; }
+        public string CC { get; set; }
     }
 
     public class OrderSearch

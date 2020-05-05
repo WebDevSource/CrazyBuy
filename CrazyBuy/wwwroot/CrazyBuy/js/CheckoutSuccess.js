@@ -52,6 +52,29 @@ var CheckoutSuccess = {
                         $scope.carts[index].sepc = value.prdSepc ? JSON.parse(value.prdSepc) : null;
                         $scope.carts[index].type = i18next.t($scope.carts[index].type);
 
+                        let hasOnly = false;
+                        let tags = [];
+                        for (let tag in specialRule) {
+                            let name = specialRule[tag];
+                            if (name.indexOf(i18next.t("tag_factory")) > -1) {
+                                if (hasOnly) {
+                                    continue;
+                                } else {
+                                    hasOnly = true;
+                                    name = i18next.t("tag_only");
+                                }
+                            } else if (name.indexOf(i18next.t("tag_only")) > -1) {
+                                if (hasOnly) {
+                                    continue;
+                                } else {
+
+                                    hasOnly = true;
+                                }
+                            }
+                            tags.push(name);
+                        }
+                        $scope.carts[index].specialRule = tags;
+
                     });
                     let order = Utils.GetCookie("order");
                     if (!order) {

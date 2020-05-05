@@ -23,6 +23,7 @@ namespace CrazyBuy.Services
                 member.password = Utils.ConverToMD5(member.password);
                 int memberId = DataManager.memberDao.addMember(member);
                 Tenant tenant = DataManager.tenantDao.getTenant(tenantId);
+                Member admin = DataManager.memberDao.getMember(tenant.createdMemberId);
 
                 //判斷是否需要寄送mailNotice
                 TenantSetting setting = DataManager.tenantDao.getTenantSetting(tenantId, "MemCheckType");
@@ -52,7 +53,9 @@ namespace CrazyBuy.Services
                             memberId = memberId,
                             tenantId = tenantId.ToString(),
                             mail = member.email,
-                            tenantName = tenant.tenantName
+                            tenantName = tenant.tenantName,
+                            CC = admin.email
+
                         };
                         sendList.Add(mailSend);
                         Debug.WriteLine("asdsada" + mail.content.Replace("\n", "</br>"));

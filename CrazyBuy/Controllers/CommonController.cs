@@ -172,10 +172,12 @@ namespace CrazyBuy.Controllers
                 //step1 統整可選運費的方式
                 HashSet<string> shipList = new HashSet<string>();
                 int total = 0;
+                bool hasOnlyFree = false;
 
                 foreach (ShopCartPrd item in items)
                 {
                     total += item.amount;
+                    hasOnlyFree = hasOnlyFree || item.SpecialRule.Contains("單一件免運");
 
                     if (item.shipType.Contains(TenantSettingTAG.FACE))
                     {
@@ -213,7 +215,7 @@ namespace CrazyBuy.Controllers
                         {
                             ShipMethod shipMethod = new ShipMethod();
                             shipMethod.method = method;
-                            shipMethod.price = total > freePrice ? 0 : type.GetValueOrDefault(method);
+                            shipMethod.price = total > freePrice || hasOnlyFree ? 0 : type.GetValueOrDefault(method);
                             methods.Add(shipMethod);
                         }
                     }
