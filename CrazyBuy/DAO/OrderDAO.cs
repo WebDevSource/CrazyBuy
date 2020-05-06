@@ -94,6 +94,19 @@ namespace CrazyBuy.DAO
                     }
                     sql += string.Format(@" and m.shippingStatus in ({0}) ", searchStatus);
                 }
+                if (search.payStatus != null)
+                {
+                    string searchStatus = "";
+                    for (int i = 0; i < search.payStatus.Count; i++)
+                    {
+                        searchStatus += string.Format("N'{0}'", search.payStatus[i]);
+                        if (i != search.payStatus.Count - 1)
+                        {
+                            searchStatus += ",";
+                        }
+                    }
+                    sql += string.Format(@" and m.payStatus in ({0}) ", searchStatus);
+                }
                 if (!string.IsNullOrEmpty(search.type) && !string.IsNullOrEmpty(search.value))
                 {
                     switch (search.type)

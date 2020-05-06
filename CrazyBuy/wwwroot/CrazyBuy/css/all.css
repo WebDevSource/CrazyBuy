@@ -13261,7 +13261,9 @@ a.text-hint:hover, a.text-hint:focus {
 }
 
 .mobile-side-bar-logo img {
-    width: 140px;
+    /*width: 140px;*/
+    width: 150px;
+    height: 150px;
 }
 
 @media (min-width: 600px) {
@@ -14354,6 +14356,10 @@ a.text-hint:hover, a.text-hint:focus {
     display: block;
 }
 
+.mobile-product-describe {
+    width: 100%;
+}
+
 @media (max-width: 992px) {
     .desktop-product-infolist,
     .desktop-product-describe {
@@ -15186,7 +15192,9 @@ a.text-hint:hover, a.text-hint:focus {
 }
 
 .narbar-logo div img {
-    width:255px;
-    height:57px;
-    display:none;
+    width: 150px;
+    height: 150px;
+    /*width: 255px;
+    height: 57px;*/
+    display: none;
 }

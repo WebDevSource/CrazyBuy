@@ -170,20 +170,17 @@
                                 <div class="dropdown-menu desktop-filters">
                                     <form class="row mx-0" id="filters-form">
                                         <div class="col-12 mb-3 multiple-filters-row">
-                                            <label for="" class="mr-2">訂單狀態</label>
+                                            <label for="" class="mr-2">出貨狀態</label>
                                             <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.status">
                                                 <option>未出貨</option>
-                                                <option>缺貨中</option>
-                                                <option>處理中</option>
-                                                <option>備貨中</option>
                                                 <option>已出貨</option>
-                                                <option>已先出貨</option>
-                                                <option>已斷貨</option>
-                                                <option>優先處理</option>
-                                                <option>交易完成</option>
-                                                <option>交易取消</option>
-                                                <option>細目狀態不為空</option>
-                                                <option>細目狀態全數已到貨</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 mb-3 multiple-filters-row">
+                                            <label for="" class="mr-2">貨款狀態</label>
+                                            <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.payStatus">
+                                                <option>等待貨款</option>
+                                                <option>已收到貨款</option>
                                             </select>
                                         </div>
                                         <div class="col-12 mb-3">

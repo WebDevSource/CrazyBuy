@@ -40,6 +40,7 @@ var Order = {
         let $scope = angular.element(appElement).scope();
         $scope.search = {};
         $('.selectpicker').selectpicker('deselectAll');
+        Order.InitView()
     },
 
     InitModule() {

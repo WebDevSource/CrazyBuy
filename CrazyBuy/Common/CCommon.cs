@@ -269,6 +269,7 @@ namespace CrazyBuy
     public class OrderSearch
     {
         public List<string> status { get; set; }
+        public List<string> payStatus { get; set; }
         public string startDate { get; set; }
         public string endDate { get; set; }
         public string type { get; set; }

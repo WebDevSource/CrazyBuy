@@ -42,8 +42,9 @@ namespace CrazyBuy.Services
             foreach (ShopCartPrd item in shopCartPrds)
             {
                 TenantPrd prdItem = DataManager.tenantPrdDao.getTenandPrd(item.productId);
-                if (String.IsNullOrEmpty(prdItem.zeroStockMessage) && prdItem.dtSellEnd > DateTime.Now)
+                if (String.IsNullOrEmpty(prdItem.zeroStockMessage) && (prdItem.dtSellEnd == null || prdItem.dtSellEnd > DateTime.Now))
                 {
+                    Debug.Write("success");
                     continue;
                 }
 
@@ -51,6 +52,7 @@ namespace CrazyBuy.Services
                 prdItem.stockNum = prdItem.stockNum - item.count;
                 if (prdItem.stockNum < 0 || tmpPrdItem == null || prdItem.dtSellEnd < DateTime.Now)
                 {
+                    Debug.Write("faild");
                     data.Add(prdItem.id);
                     isCheck = false;
                 }
@@ -146,7 +148,7 @@ namespace CrazyBuy.Services
                     orderMaster.orderAmount = total;
                     if (orderMaster.isNeedInvoice)
                     {
-                         taxAmount = Convert.ToInt32(total * 0.05);
+                        taxAmount = Convert.ToInt32(total * 0.05);
                     }
                     total += taxAmount;
                     total += orderMaster.shippingAmount;
@@ -191,11 +193,12 @@ namespace CrazyBuy.Services
             }
             rm.code = orderResult;
             return rm;
-        }             
+        }
 
         public static TenantPrd isPrdSPecEnought(TenantPrd prd, string item, int buyCount)
         {
-            if(prd.dtSellEnd < DateTime.Now) {
+            if (prd.dtSellEnd != null && prd.dtSellEnd < DateTime.Now)
+            {
                 return null;
             }
             else if (string.IsNullOrEmpty(item) || string.IsNullOrEmpty(prd.prdSepc))
