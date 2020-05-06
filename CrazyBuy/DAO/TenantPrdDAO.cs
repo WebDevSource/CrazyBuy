@@ -66,7 +66,7 @@ namespace CrazyBuy.DAO
                     //sql += @" where a.ancestorId = {0} and  ";
                     //sql += @" p.tenantId = '{1}' and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
 
-                    sql = @" select count(*) from dbo.TenantPrd p ";
+                    sql = @" select count(distinct p.Id) from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
                     sql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
@@ -81,7 +81,7 @@ namespace CrazyBuy.DAO
                     //    sql += @" where r.catId = {0} and  ";
                     //    sql += @" p.tenantId = '{1}' and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))  ";
 
-                    sql = @" select count(*) from dbo.TenantPrd p ";
+                    sql = @" select count(distinct p.Id) from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     sql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
                     sql += @" left join dbo.TenantMember mr on mr.memberId = " + memberId;
@@ -128,15 +128,15 @@ namespace CrazyBuy.DAO
                     notInsql += SortType.getOrderBy(pageQuery.sortType);
                     notInsql = String.Format(notInsql, pageCount, tenantId, catId, userId);
 
-                    sql = @" select TOP {0} p.* from dbo.TenantPrd p ";
+                    sql = @" select distinct tb.* from ( select TOP {0} p.* from dbo.TenantPrd p ";
                     sql += @" left join dbo.TenantPrdCatRel r on r.prdId = p.id ";
                     sql += @" left join dbo.TenantPrdCatAd a on a.descendantId = r.catId ";
                     sql += @" left join dbo.TenantPrdRead pr on pr.prdId = p.id ";
                     sql += @" left join dbo.TenantMember mr on mr.memberId = " + userId;
                     sql += @" where p.tenantId = '{1}' and a.ancestorId = {2} and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕')) ";
                     sql += @" and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {3} or pr.memLevelId = mr.levelId) ";
-                    sql += @" and p.id not in ( {4} ) ";
-                    sql += SortType.getOrderBy(pageQuery.sortType);
+                    sql += @" and p.id not in ( {4} ) ) tb";
+                    sql += SortType.getOrderDistBy(pageQuery.sortType);
                 }
                 else
                 {

@@ -34,7 +34,7 @@ namespace CrazyBuy.DAO
                 sql += @"   and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {0} or pr.memLevelId = mr.levelId) ";
 
                 sql += @"   and prd.status = N'上架' and (prd.dtSellEnd >= getdate() or (prd.dtSellEnd <= getdate() and prd.takeOffMethod = N'隱藏訂購鈕'))) as pcount ,";
-                sql += @" (select count(*) as total from dbo.TenantPrd p ";
+                sql += @" (select count(distinct p.id) as total from dbo.TenantPrd p ";
                 sql += @" inner join TenantPrdCatRel r on r.prdId = p.id ";
                 sql += @" inner join TenantPrdRead pr on pr.prdId = p.id ";
                 sql += @" inner join TenantMember mr on mr.memberId = " + memberId;

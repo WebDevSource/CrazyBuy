@@ -114,6 +114,17 @@ namespace CrazyBuy
             return map.GetValueOrDefault(type);
         }
 
+        public static string getOrderDistBy(int type)
+        {
+            Dictionary<int, string> map = new Dictionary<int, string>();
+            map.Add(DATE_ASC, @" order by tb.createTime asc ");
+            map.Add(NAME_ASC, @" order by tb.name asc ");
+            map.Add(NAME_DESC, @" order by tb.name desc ");
+            map.Add(PRICE_ASC, @" order by tb.memberPrice asc ");
+            map.Add(PRICE_DESC, @" order by tb.memberPrice desc ");
+            return map.GetValueOrDefault(type);
+        }
+
     }
 
     public class SortTypeRequest
