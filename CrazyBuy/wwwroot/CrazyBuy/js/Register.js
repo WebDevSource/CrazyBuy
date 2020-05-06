@@ -11,7 +11,7 @@
     $scope.submit = function () {
         if ($scope.agree) {
             if ($scope.checkPwd === $scope.member.password) {
-                //$scope.member.memberCode = Utils.FormatDate(new Date(), "yyyyMMddHHmmssSSS");
+                $scope.member.memberCode = Utils.FormatDate(new Date(), "yyyyMMddHHmmssSSS");
                 $scope.member.tenantType = '批發商';
                 $scope.member.status = '正常';
                 $scope.member.creator = 1;

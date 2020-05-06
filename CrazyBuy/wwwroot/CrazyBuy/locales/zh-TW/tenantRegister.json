@@ -23,6 +23,7 @@
     "label_FBCommunity": "Facebook社團名稱",
     "label_FBFan": "Facebook粉絲專頁名稱",
     "label_Line": "Line官方帳號(@XXXXX)",
+    "label_notes": "備註",
     "label_agree_register": "我已確認上述資料無誤",
 
     "btn_addService": "新增服務",

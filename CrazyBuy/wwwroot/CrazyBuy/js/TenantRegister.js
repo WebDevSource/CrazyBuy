@@ -138,6 +138,7 @@
                     cellphone: $("#cellphone" + i).val().trim(),
                     email: $("#email" + i).val().trim(),
                     memberPwd: $("#memberPwd" + i).val().trim(),
+                    notes: $("#notes" + i).val().trim(),
                     tenantCode: "",
                     tenantName: "",
                     FBCommunity: "",
@@ -332,6 +333,10 @@
                         <div class="form-group col-md-6 col-12 mb-3 order-0">
                             <p class="mb-2"><label for="">${i18next.t("label_FBFan")}</label></p>
                             <input class="w-100" type="text" id="FBFan${itemNumber}" name="FBFan">
+                        </div>
+                        <div class="form-group col-md-12 col-12 mb-3 order-0">
+                            <p class="mb-2"><label for="">${i18next.t("label_notes")}</label></p>
+                            <textarea class="w-100" id="notes${itemNumber}" rows="3"></textarea>
                         </div>`;
 
         $("#ItemContent" + itemNumber).empty();
@@ -370,6 +375,10 @@
                         <div class="form-group col-md-6 col-12 mb-3 order-0">
                             <p class="mb-2"><label for="">${i18next.t("label_Line")}</label></p>
                             <input class="w-100" type="text" id="LineOfficialAccount${itemNumber}" name="LineOfficialAccount" placeholder="@XXXXX">
+                        </div>
+                        <div class="form-group col-md-12 col-12 mb-3 order-0">
+                            <p class="mb-2"><label for="">${i18next.t("label_notes")}</label></p>
+                            <textarea class="w-100" id="notes${itemNumber}" rows="3"></textarea>
                         </div>`;
 
         $("#ItemContent" + itemNumber).empty();

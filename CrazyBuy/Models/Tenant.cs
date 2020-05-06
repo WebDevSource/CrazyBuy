@@ -58,6 +58,7 @@ namespace CrazyBuy.Models
         public string FBCommunity { get; set; }
         public string FBFan { get; set; }
         public string LineOfficialAccount { get; set; }
+        public string notes { get; set; }
     }
 
 
