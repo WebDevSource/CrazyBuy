@@ -16,6 +16,11 @@
     <script type="text/javascript" src="./js/lib/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
     <script type="text/javascript" src="./js/lib/jquery-i18next/js/jquery-i18next.min.js"></script>
 
+
+    <link rel="stylesheet" type="text/css" media="all" href="./js/lib/DatePicker/daterangepicker.css" />
+    <script type="text/javascript" src="./js/lib/DatePicker/moment.min.js"></script>
+    <script type="text/javascript" src="./js/lib/DatePicker/daterangepicker.js"></script>
+
     <script src="./js/all.min.js"></script>
     <script src="./js/Utils.js"></script>
     <script src="./js/NavBar.js"></script>
@@ -90,25 +95,38 @@
                         <input type="radio" name="gender" id="gender-man" value="男" ng-model="member.gender" ng-required="setting.gender.isRequired">
                         <label class="checkout-radio-label" for="gender-man">男</label>
                         <!--<input type="radio" name="gender" id="gender-woman" value="女" ng-model="member.gender" ng-required="setting.gender.isRequired" ng-disabled="setting.gender.isEditable?null:true">-->
-                        <input type="radio" name="gender" id="gender-woman" value="女" ng-model="member.gender" ng-required="setting.gender.isRequired" >
+                        <input type="radio" name="gender" id="gender-woman" value="女" ng-model="member.gender" ng-required="setting.gender.isRequired">
                         <label class="checkout-radio-label" for="gender-woman">女</label>
                     </div>
-                    <div class="col-md-6 col-12 mb-3 order-2" ng-show="setting.phone.isShow">
+                    <div class="col-md-6 col-12 mb-3 order-2" ng-show="setting.birthday.isShow">
+                        <p class="mb-2"><label for="">生日</label></p>
+                        <input class="w-100" type="text" name="daterange" ng-model="member.birthday" ng-required="setting.birthday.isRequired">
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3 order-3" ng-show="setting.phone.isShow">
                         <p class="mb-2"><label for="">聯絡電話</label></p>
                         <!--<input class="w-100" type="text" ng-model="member.tel" ng-required="setting.phone.isRequired" ng-disabled="setting.phone.isEditable?null:true">-->
                         <input class="w-100" type="text" ng-model="member.tel" ng-required="setting.phone.isRequired">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-3 order-4" ng-show="setting.lineId.isShow">
-                        <p class="mb-2"><label for="">Lind ID</label></p>
+                        <p class="mb-2"><label for="">Line ID</label></p>
                         <!--<input class="w-100" type="text" ng-model="member.lineId" ng-required="setting.lineId.isRequired" ng-disabled="setting.lineId.isEditable?null:true">-->
-                        <input class="w-100" type="text" ng-model="member.lineId" ng-required="setting.lineId.isRequired" >
+                        <input class="w-100" type="text" ng-model="member.lineId" ng-required="setting.lineId.isRequired">
                     </div>
-                    <div class="col-md-6 col-12 mb-3 order-md-4 order-3" ng-show="setting.fax.isShow">
+
+                    <div class="col-md-6 col-12 mb-3 order-md-3 order-5" ng-show="setting.fbId.isShow">
+                        <p class="mb-2"><label for="">Facebook ID</label></p>
+                        <!--<input class="w-100" type="text" ng-model="member.lineId" ng-required="setting.lineId.isRequired" ng-disabled="setting.lineId.isEditable?null:true">-->
+                        <input class="w-100" type="text" ng-model="member.fbId" ng-required="setting.fbId.isRequired">
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3 order-md-4 order-6" ng-show="setting.fax.isShow">
                         <p class="mb-2"><label for="">傳真</label></p>
                         <!--<input class="w-100" type="text" ng-model="member.fax" ng-required="setting.fax.isRequired" ng-disabled="setting.fax.isEditable?null:true">-->
                         <input class="w-100" type="text" ng-model="member.fax" ng-required="setting.fax.isRequired">
                     </div>
-                    <div class="col-lg-6 col-12 mb-3 order-5" ng-show="setting.addr.isShow">
+
+                    <div class="col-lg-6 col-12 mb-3 order-md-4 order-7" ng-show="setting.addr.isShow">
                         <p class="mb-2"><label for="">地址</label></p>
                         <!--<select class="checkout-select" ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="update(member.cityId)" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">-->
                         <select class="checkout-select" ng-model="member.cityId" ng-options="City.id as City.name for City in Citys" ng-change="update(member.cityId)" ng-required="setting.addr.isRequired">
@@ -120,7 +138,12 @@
                         </select>
 
                         <!--<input class="checkout-address" type="text" ng-model="member.address" ng-required="setting.addr.isRequired" ng-disabled="setting.addr.isEditable?null:true">-->
-                        <input class="checkout-address" type="text" ng-model="member.address" ng-required="setting.addr.isRequired" >
+                        <input class="checkout-address" type="text" ng-model="member.address" ng-required="setting.addr.isRequired">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3 order-md-4 order-8" ng-show="setting.Notes.isShow">
+                        <p class="mb-2"><label for="">備註</label></p>
+                        <!--<input class="w-100" type="text" ng-model="member.fax" ng-required="setting.fax.isRequired" ng-disabled="setting.fax.isEditable?null:true">-->
+                        <input class="w-100" type="text" ng-model="member.Notes" ng-required="setting.Notes.isRequired">
                     </div>
                 </div>
             </section>

@@ -126,6 +126,7 @@ var Cart = {
                         $scope.carts[index].sepc = value.prdSepc ? JSON.parse(value.prdSepc) : null;
                         let hasOnly = false;
                         let tags = [];
+                        let prdId = value.productId;
                         for (let tag in specialRule) {
                             let name = specialRule[tag];
                             if (name.indexOf(i18next.t("tag_factory")) > -1) {
@@ -134,6 +135,7 @@ var Cart = {
                                 } else {
                                     hasOnly = true;
                                     name = i18next.t("tag_only");
+                                    onlyOrder.set(prdId, value);
                                 }
                             } else if (name.indexOf(i18next.t("tag_only")) > -1) {
                                 if (hasOnly) {
@@ -141,6 +143,7 @@ var Cart = {
                                 } else {
 
                                     hasOnly = true;
+                                    onlyOrder.set(prdId, value);
                                 }
                             }
                             tags.push(name);
@@ -150,15 +153,14 @@ var Cart = {
                         $scope.carts[index].specialRule = tags;
 
 
-                        let prdId = value.productId;
                         if (Array.isArray($scope.enoughList) && $scope.enoughList.includes(prdId)) {
                             stockZero.set(prdId, value);
                         }
-                        if (Array.isArray(specialRule) && (specialRule.includes(i18next.t("tag_only")) || specialRule.includes(i18next.t("tag_factory")))) {
+              /*          if (Array.isArray(specialRule) && (specialRule.includes(i18next.t("tag_only")) || specialRule.includes(i18next.t("tag_factory")))) {
                             onlyOrder.set(prdId, value);
 
                         }
-                        if (value.shipType) {
+                */        if (value.shipType) {
                             let shipType = JSON.parse(value.shipType);
                             if (shipType.includes(i18next.t("ship_type_nomal")) && shipType.includes(i18next.t("ship_type_cool"))) {
                                 //

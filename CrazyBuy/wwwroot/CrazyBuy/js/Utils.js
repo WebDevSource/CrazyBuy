@@ -9,6 +9,7 @@
     ROLE_GUEST: 'guest',
     TenantCode: '',
 
+
     // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
     BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/",
     //BackendImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantPrd/DownloadImgFile?type=prd",
@@ -168,6 +169,10 @@
                 alert(i18next.t("msg_tenant_not_find"));
                 location.href = "./error.html";
                 return;
+            } else {
+                if (ret.data.isExist) {
+                    $("title").html(ret.data.name);
+                }
             }
         }
 
@@ -309,7 +314,7 @@
                 }
             });
         }
-        catch (e) { alert(e); }
+        catch (e) { console.log(e); }
     },
 
     AsyncProcessAjax: function (url, method, authToken, data) {

@@ -40,7 +40,7 @@
             );
 
         } else {
-            alert('not agree.');
+            alert(i18next.t("msg_error_member_not_agree"));
         }
     };
 });
@@ -50,12 +50,16 @@ var MemberInfo = {
         "姓名": "name",
         "性別": "gender",
         "電話": "phone",
-        "Line ID": "lineId",
+        "LINE ID": "lineId",
         "密碼": "password",
         "手機號碼": "mobile",
         "地址": "addr",
         "Email": "Email",
         "傳真": "fax",
+
+        "生日": "birthday",
+        "FB帳號": "fbId",
+        "備註": "Notes"
 
     },
 
@@ -164,5 +168,21 @@ var MemberInfo = {
         );
     }
 };
+
+$(function () {
+    $('input[name="daterange"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true, // 月份、年份有下拉選單可選擇
+        autoUpdateInput: false,
+        locale: {
+            format: "YYYY-MM-DD"
+        }
+    }, function (start, label) {
+        let appElement = document.querySelector('[ng-controller=MemberCtrl]');
+        let $scope = angular.element(appElement).scope();
+        $scope.member.birthday = start.format('YYYY-MM-DD');
+        $scope.$apply();
+    });
+});
 
 window.onload = MemberInfo.doLoad;

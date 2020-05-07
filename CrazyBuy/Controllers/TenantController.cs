@@ -28,7 +28,11 @@ namespace CrazyBuy.Controllers
                     isExist = true;
                 }
                 rm.code = MessageCode.SUCCESS;
-                rm.data = isExist;
+                rm.data = new
+                {
+                    isExist = isExist,
+                    name = tenant.tenantName
+                };
             }
             catch (Exception e)
             {
