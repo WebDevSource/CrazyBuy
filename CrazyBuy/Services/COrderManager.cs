@@ -134,8 +134,10 @@ namespace CrazyBuy.Services
                     prdItem.stockNum = prdItem.stockNum - item.qty;
                     if (!string.IsNullOrEmpty(prdItem.zeroStockMessage) && prdItem.dtSellEnd > DateTime.Now)
                     {
+
                         if (prdItem.stockNum < 0)
                         {
+                            Debug.WriteLine(prdItem.name);
                             rm.code = MessageCode.PRD_NOT_ENOUGHT;
                             return rm;
                         }
@@ -146,14 +148,15 @@ namespace CrazyBuy.Services
                 if (total != 0)
                 {
                     orderMaster.orderAmount = total;
-                    if (orderMaster.isNeedInvoice)
+                    if (orderMaster.isNeedInvoice || orderMaster.invoiceType.Equals("捐贈"))
                     {
                         taxAmount = Convert.ToInt32(total * 0.05);
                     }
                     total += taxAmount;
                     total += orderMaster.shippingAmount;
                     orderMaster.totalAmount = total;
-                    orderMaster.payStatus = "等待貨款";
+                    // 5/14有需求說先將等待貨款拿掉
+                    //orderMaster.payStatus = "等待貨款";
                     orderMaster.shippingStatus = "未出貨";
                     orderMaster.status = "新訂單";
                     orderMaster.taxAmount = taxAmount;

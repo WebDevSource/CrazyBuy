@@ -264,6 +264,8 @@
                             <div class="col-lg-3 col-4 mb-3">聯絡日期</div>
                             <div class="col-lg-9 col-8 keeptouch-date mb-3 px-0 py-1">{{now|date:'yyyy-MM-dd'}}</div>
                             <div class="col-lg-3 col-4 mb-3">聯絡內容</div>
+                            <button type="button" class="col-lg-7 col-6 px-0 mb-3 btn " ng-click="useSample()" style="color: #01a9ac;border: 1px solid #01a9ac;"><b>帶入匯款回報資訊</b></button>
+                            <div class="col-lg-3 col-4 mb-3"></div>
                             <div class="col-lg-9 col-8 px-0 mb-3">
                                 <textarea name="" id="" ng-model="contact.ContactContent" required="required">
     匯款日：
@@ -273,7 +275,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button type="button" class="btn btn-modal-submit mb-30" ng-click="useSample()">回報範本</button>
+                            <!--<button type="button" class="btn btn-modal-submit mb-30" ng-click="useSample()">回報範本</button>-->
                             <button type="submit" class="btn btn-modal-submit mb-30">提交</button>
                         </div>
                         <div class="mobile-keeptouchtabel">

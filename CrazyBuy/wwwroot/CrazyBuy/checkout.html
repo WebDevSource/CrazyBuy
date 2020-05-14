@@ -133,7 +133,7 @@
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-2">
                         <p class="mb-2"><label for="">聯絡電話</label></p>
-                        <input class="w-100" type="text" ng-model="checkout.recipientTel" >
+                        <input class="w-100" type="text" ng-model="checkout.recipientTel">
                     </div>
                     <div class="col-md-6 col-12 mb-3 order-md-3 order-4">
                         <p class="mb-2"><label for="">手機號碼</label></p>
@@ -203,6 +203,8 @@
                         <label class="checkout-radio-label" for="atm-pay">ATM 轉帳</label>
                         <div class="transport-method-describe mt-15">
                             匯款資訊處 <br>
+                            <span>銀行名稱：</span> <span>{{bank.bankName}}</span><br>
+                            <span>分行名稱：</span> <span>{{bank.subBankName}}</span><br>
                             <span>銀行代號：</span> <span>{{bank.bankCode}}</span><br>
                             <span>轉帳帳號：</span> <span>{{bank.bankAccount}}</span><br>
                             <span>戶名：</span> <span>{{bank.bankTitle}}</span><br><br>
@@ -223,9 +225,10 @@
                         <input type="radio" name="receipt" id="invoice-type-ri" value="收據" ng-model="checkout.invoiceType">
                         <label class="checkout-radio-label" for="invoice-type-ri">收據</label>
                         <br><br>
-                        <input type="radio" name="receipt" id="invoice-type-dn" value="捐贈" ng-model="checkout.invoiceType">
+                        <!--5/14 有需求將其隱藏-->
+                        <!--<input type="radio" name="receipt" id="invoice-type-dn" value="捐贈" ng-model="checkout.invoiceType">
                         <label class="checkout-radio-label" for="invoice-type-dn">捐贈</label>
-                        <br><br>
+                        <br><br>-->
                         <input type="radio" name="receipt" id="invoice-type-two" value="二聯式" ng-model="checkout.invoiceType">
                         <label class="checkout-radio-label" for="invoice-type-two">二聯式</label>
                         <br><br>
@@ -259,7 +262,7 @@
                 </div>
             </section>
             <div class="my-md-50 my-30 d-flex justify-content-end align-items-center">
-                <a class="cart-link-btn mr-4" href="#">回上一頁</a>
+                <a class="cart-link-btn mr-4" href="javascript:history.back()">回上一頁</a>
                 <input class="btn btn-register cart-nextpage-btn" type="submit" value="確認資料" />
                 <!--<a class="btn btn-register cart-nextpage-btn" href="./checkout-success.html">確認資料</a>-->
             </div>

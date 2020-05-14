@@ -21,16 +21,18 @@
 
     //BackendImageUrl: "/api/Common/DownloadImgFile?",
     Initial: function async(callback) {
-        Utils.InitView();
-        Utils.TenantCode = Utils.GetUrlParameter("tenantCode");
-        Utils.CheckToken();
-        Utils.InitEvent();
+        Utils.InitI18next("zh-TW", [], Utils.InitView());
+       
+      
         //        Backend.SetupMessageConnect(callback);
     },
 
     InitView() {
         $('[data-userauthority]').hide();
         $('[data-authority]').hide();
+        Utils.TenantCode = Utils.GetUrlParameter("tenantCode");
+        Utils.CheckToken();
+        Utils.InitEvent();
 
     },
 

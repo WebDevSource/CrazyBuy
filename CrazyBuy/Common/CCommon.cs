@@ -209,6 +209,8 @@ namespace CrazyBuy
         public const string BankTitle = "戶名";
         public const string BankCode = "銀行代碼";
         public const string BankAccount = "轉帳帳號";
+        public const string BankName = "銀行名稱";
+        public const string SubBankName = "分行名稱";
     }
 
     public class TenantSettingTAG
@@ -220,6 +222,8 @@ namespace CrazyBuy
         public const string BankTitle = "bankTitle";
         public const string BankCode = "bankCode";
         public const string BankAccount = "bankAccount";
+        public const string BankName = "bankName";
+        public const string SubBankName = "subBankName";
     }
 
     public class TenantSettingMapping
@@ -234,6 +238,8 @@ namespace CrazyBuy
             map.Add(TenantSettingType.BankTitle, TenantSettingTAG.BankTitle);
             map.Add(TenantSettingType.BankCode, TenantSettingTAG.BankCode);
             map.Add(TenantSettingType.BankAccount, TenantSettingTAG.BankAccount);
+            map.Add(TenantSettingType.BankName, TenantSettingTAG.BankName);
+            map.Add(TenantSettingType.SubBankName, TenantSettingTAG.SubBankName);
             return map.GetValueOrDefault(type,type);
         }
     }

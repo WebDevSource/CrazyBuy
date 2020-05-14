@@ -31,7 +31,7 @@ var CheckoutSuccess = {
                     $scope.ResultAmt = 0;
                     $scope.CalculateSum = function (cart) {
                         $scope.TotalAmt += cart.amount;
-                        if ($scope.checkout.isNeedInvoice) {
+                        if ($scope.checkout.isNeedInvoice || $scope.checkout.invoiceType == i18next.t("invoice_type_donate")) {
                             $scope.invoicePrice = parseInt(($scope.TotalAmt * 0.05).toFixed(0), 0);
                             $scope.ResultAmt = $scope.TotalAmt + $scope.invoicePrice;
                         } else {

@@ -255,7 +255,9 @@ namespace CrazyBuy.Controllers
                     {
                         bankTitle = type.GetValueOrDefault("bankTitle"),
                         bankCode = type.GetValueOrDefault("bankCode"),
-                        bankAccount = type.GetValueOrDefault("bankAccount")
+                        bankAccount = type.GetValueOrDefault("bankAccount"),
+                        bankName = type.GetValueOrDefault("bankName"),
+                        subBankName = type.GetValueOrDefault("subBankName")
                     }
                 };
 

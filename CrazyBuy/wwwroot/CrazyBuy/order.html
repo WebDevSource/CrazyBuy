@@ -89,14 +89,14 @@
                 <table class="table table-bordered order-table">
                     <thead>
                         <tr>
-                            <th class="table-order-num table-order-soft">訂單編號 <i class="fas fa-sort text-hint"></i></th>
-                            <th class="table-buy-date table-order-soft">購買日期 <i class="fas fa-sort text-hint"></i></th>
+                            <th class="table-order-num table-order-soft">訂單編號 <!--<i class="fas fa-sort text-hint"></i>--></th>
+                            <th class="table-buy-date table-order-soft">購買日期 <!--<i class="fas fa-sort text-hint"></i>--></th>
                             <th>收貨人</th>
                             <th>送貨地址</th>
-                            <th class="table-pay-status table-order-soft">貨款狀態 <i class="fas fa-sort text-hint"></i></th>
-                            <th class="table-ship-status table-order-soft">出貨狀態 <i class="fas fa-sort text-hint"></i></th>
+                            <th class="table-pay-status table-order-soft">貨款狀態 <!--<i class="fas fa-sort text-hint"></i>--> </th>
+                            <th class="table-ship-status table-order-soft">出貨狀態 <!--<i class="fas fa-sort text-hint"></i>--> </th>
                             <th>備註</th>
-                            <th class="table-order-price table-order-soft">訂單金額 <i class="fas fa-sort text-hint"></i></th>
+                            <th class="table-order-price table-order-soft">訂單金額 <!--<i class="fas fa-sort text-hint"></i>--> </th>
                             <th>詳情</th>
                         </tr>
                     </thead>
@@ -122,168 +122,176 @@
                     <div class="order mb-20" ng-repeat="item in data">
                         <a ng-click="action(item.id)" class="row mobile-order-row mx-0">
                             <!--<div class="col-5 text-hint mb-1 order-emphasize px-0">{{item.serialNo}}</div>-->
-                                <div class="col-12 text-hint mb-1 order-emphasize px-0">{{item.serialNo}}</div>
-                                <div class="col-5 px-0 pt-1 mb-1 px-0"><span>購買日期</span>  <span class="text-hint mobile-buy-date">{{item.dtOrder|date:'yyyy-MM-dd'}}</span></div>
-                                <div class="col-2 pt-1 mb-1 px-0">${{item.orderAmount}}</div>
-                                <div class="col-12 mb-2 px-0"><span>貨款狀態</span> <span class="text-hint order-emphasize">{{item.payStatus}}</span></div>
-                                <div class="col-12 mb-2 px-0"><span>出貨狀態</span> <span class="text-hint order-emphasize">{{item.shippingStatus}}</span></div>
-                            </a>
-                            <button class="btn btn-report transfer-report py-0 px-2 mb-1" data-toggle="modal" data-target="#keeptouch" ng-click="contact(item.id)">匯款回報</button>
-                            <div class="accordion order-accordion">
-                                <div class="card">
-                                    <div class="card-header p-0">
-                                        <button class="btn btn-link w-100 h-100 text-right p-0 pr-2 order-collapse-btn collapsed" type="button" data-toggle="collapse" data-target="#order-item-1">
-                                            <i class="fas fa-angle-down"></i>
-                                            <i class="fas fa-angle-up"></i>
-                                        </button>
-                                    </div>
-                                    <div id="order-item-1" class="collapse" data-parent="#mobile-order-list">
-                                        <div class="card-body p-2">
-                                            <div class="row">
-                                                <div class="col-3 mb-2">收貨人</div>
-                                                <div class="col-9 px-0 mb-2">{{item.recipientName}}</div>
-                                                <div class="col-3 mb-2">送貨地址</div>
-                                                <div class="col-9 px-0 mb-2">{{item.recipientAddr}}</div>
-                                                <div class="col-12">備註</div>
-                                                <div class="col-9 px-0 mb-2">{{item.orderRemark}}</div>
-                                            </div>
+                            <div class="col-12 text-hint mb-1 order-emphasize px-0">{{item.serialNo}}</div>
+                            <div class="col-5 px-0 pt-1 mb-1 px-0"><span>購買日期</span>  <span class="text-hint mobile-buy-date">{{item.dtOrder|date:'yyyy-MM-dd'}}</span></div>
+                            <div class="col-2 pt-1 mb-1 px-0">${{item.orderAmount}}</div>
+                            <div class="col-12 mb-2 px-0"><span>貨款狀態</span> <span class="text-hint order-emphasize">{{item.payStatus}}</span></div>
+                            <div class="col-12 mb-2 px-0"><span>出貨狀態</span> <span class="text-hint order-emphasize">{{item.shippingStatus}}</span></div>
+                        </a>
+                        <button class="btn btn-report transfer-report py-0 px-2 mb-1" data-toggle="modal" data-target="#keeptouch" ng-click="contact(item.id)">匯款回報</button>
+                        <div class="accordion order-accordion">
+                            <div class="card">
+                                <div class="card-header p-0">
+                                    <button class="btn btn-link w-100 h-100 text-right p-0 pr-2 order-collapse-btn collapsed" type="button" data-toggle="collapse" data-target="#order-item-1">
+                                        <i class="fas fa-angle-down"></i>
+                                        <i class="fas fa-angle-up"></i>
+                                    </button>
+                                </div>
+                                <div id="order-item-1" class="collapse" data-parent="#mobile-order-list">
+                                    <div class="card-body p-2">
+                                        <div class="row">
+                                            <div class="col-3 mb-2">收貨人</div>
+                                            <div class="col-9 px-0 mb-2">{{item.recipientName}}</div>
+                                            <div class="col-3 mb-2">送貨地址</div>
+                                            <div class="col-9 px-0 mb-2">{{item.recipientAddr}}</div>
+                                            <div class="col-12">備註</div>
+                                            <div class="col-9 px-0 mb-2">{{item.orderRemark}}</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                </section>
 
 
-                </div>
-                <div class="col-lg-3 col-12 order-lg-1 order-0 filters-col px-sm-15 px-1">
-                    <div class="products-tool mb-md-30 mb-20">
-                        <div class="products-search-bar filter-bar">
-                            <form class="products-search d-inline-block filter-search-bar mr-2">
-                                <input type="text" class="navbar-search-text" placeholder="搜尋單號">
-                                <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
-                            </form>
-                            <div class="btn-group d-block filters-group">
-                                <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="order-filter">
-                                    <i class="fas fa-filter"></i> 篩選條件
-                                </button>
-                                <div class="dropdown-menu desktop-filters">
-                                    <form class="row mx-0" id="filters-form">
-                                        <div class="col-12 mb-3 multiple-filters-row">
-                                            <label for="" class="mr-2">出貨狀態</label>
-                                            <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.status">
-                                                <option>未出貨</option>
-                                                <option>已出貨</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 mb-3 multiple-filters-row">
-                                            <label for="" class="mr-2">貨款狀態</label>
-                                            <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.payStatus">
-                                                <option>等待貨款</option>
-                                                <option>已收到貨款</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="" class="mr-2">日期區間</label>
-                                            <input type="text" name="daterange" class="filter-date-range filter-w100" value="">
-                                        </div>
-                                        <div class="col-4 text-lg-center text-left pr-0 mb-2">
-                                            <input type="radio" name="filters" id="order-num" value="1" ng-model="search.type">
-                                            <label class="checkout-radio-label mb-0" for="order-num">訂單單號</label>
-                                        </div>
-                                        <div class="col-4 text-lg-center text-left px-0 mb-2">
-                                            <input type="radio" name="filters" id="order-item-name" value="2" ng-model="search.type">
-                                            <label class="checkout-radio-label mb-0" for="order-item-name">商品名稱</label>
-                                        </div>
-                                        <div class="col-4 text-lg-center text-left px-0 mb-2">
-                                            <input type="radio" name="filters" id="item-num" value="3" ng-model="search.type">
-                                            <label class="checkout-radio-label mb-0" for="item-num">商品代碼</label>
-                                        </div>
-                                        <div class="col-12">
-                                            <input type="text" class="filter-date-range w-100" ng-model="search.value">
-                                        </div>
-                                        <div class="col-12 d-flex justify-content-end align-items-center mt-40">
-                                            <a class="mr-3" href="javascript:Order.doClearSearch();" id="filters-allclear">清空條件</a>
-                                            <button type="button" class="btn btn-register filter-search-btn" ng-click="searchQuery()">查詢</button>
-                                        </div>
-                                    </form>
-                                </div>
+            </div>
+            <div class="col-lg-3 col-12 order-lg-1 order-0 filters-col px-sm-15 px-1">
+                <div class="products-tool mb-md-30 mb-20">
+                    <div class="products-search-bar filter-bar">
+                        <form class="products-search d-inline-block filter-search-bar mr-2">
+                            <input type="text" class="navbar-search-text" placeholder="搜尋單號">
+                            <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
+                        </form>
+                        <div class="btn-group d-block filters-group">
+                            <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="order-filter">
+                                <i class="fas fa-filter"></i> 篩選條件
+                            </button>
+                            <div class="dropdown-menu desktop-filters">
+                                <form class="row mx-0" id="filters-form">
+                                    <div class="col-12 mb-3 multiple-filters-row">
+                                        <label for="" class="mr-2">出貨狀態</label>
+                                        <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.status">
+                                            <option>未出貨</option>
+                                            <option>已出貨</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mb-3 multiple-filters-row">
+                                        <label for="" class="mr-2">貨款狀態</label>
+                                        <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.payStatus">
+                                            <option>等待貨款</option>
+                                            <option>已收到貨款</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="" class="mr-2">日期區間</label>
+                                        <input type="text" name="daterange" class="filter-date-range filter-w100" value="">
+                                    </div>
+                                    <div class="col-4 text-lg-center text-left pr-0 mb-2">
+                                        <input type="radio" name="filters" id="order-num" value="1" ng-model="search.type">
+                                        <label class="checkout-radio-label mb-0" for="order-num">訂單單號</label>
+                                    </div>
+                                    <div class="col-4 text-lg-center text-left px-0 mb-2">
+                                        <input type="radio" name="filters" id="order-item-name" value="2" ng-model="search.type">
+                                        <label class="checkout-radio-label mb-0" for="order-item-name">商品名稱</label>
+                                    </div>
+                                    <div class="col-4 text-lg-center text-left px-0 mb-2">
+                                        <input type="radio" name="filters" id="item-num" value="3" ng-model="search.type">
+                                        <label class="checkout-radio-label mb-0" for="item-num">商品代碼</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" class="filter-date-range w-100" ng-model="search.value">
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end align-items-center mt-40">
+                                        <a class="mr-3" href="javascript:Order.doClearSearch();" id="filters-allclear">清空條件</a>
+                                        <button type="button" class="btn btn-register filter-search-btn" ng-click="searchQuery()">查詢</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <div class="modal fade" id="money-transfer" tabindex="-1" role="dialog">
+        </div>
+    </section>
+    <div class="modal fade" id="money-transfer" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="money-transferLabel">匯款資訊</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>匯款資訊處</p>
+                    <p>
+                        <span>銀行名稱：</span> <span>{{bank.bankName}}</span>
+                    </p>
+                    <p>
+                        <span>分行名稱：</span> <span>{{bank.subBankName}}</span>
+                    </p>
+                    <p>
+                        <span>銀行代號：</span> <span>{{bank.bankCode}}</span>
+                    </p>
+                    <p><span>轉帳帳號：</span> <span>{{bank.bankAccount}}</span></p>
+                    <p><span>戶名：</span> <span>{{bank.bankTitle}}</span></p>
+                    <p><i class="fas fa-exclamation-triangle text-hint"></i> 請於本公司訂單處理好之後再進行匯款..謝謝合作</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade mobile-order-modal" id="keeptouch" tabindex="-1" role="dialog">
+        <form ng-submit="submit()">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="money-transferLabel">匯款資訊</h5>
+                        <h5 class="modal-title" id="keeptouchLabel">匯款回報</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>匯款資訊處</p>
-                        <p>
-                            <span>銀行代號：</span> <span>{{bank.bankCode}}</span>
-                        </p>
-                        <p><span>轉帳帳號：</span> <span>{{bank.bankAccount}}</span></p>
-                        <p><span>戶名：</span> <span>{{bank.bankTitle}}</span></p>
-                        <p><i class="fas fa-exclamation-triangle text-hint"></i> 請於本公司訂單處理好之後再進行匯款..謝謝合作</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade mobile-order-modal" id="keeptouch" tabindex="-1" role="dialog">
-            <form ng-submit="submit()">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="keeptouchLabel">匯款回報</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row mr-0">
-                                <div class="col-lg-3 col-4 mb-3">聯絡日期</div>
-                                <div class="col-lg-9 col-8 keeptouch-date mb-3 px-0 py-1">{{now|date:'yyyy-MM-dd'}}</div>
-                                <div class="col-lg-3 col-4 mb-3">聯絡內容</div>
-                                <div class="col-lg-9 col-8 px-0 mb-3">
-                                    <textarea name="" id="" ng-model="contact.ContactContent" required="required">
+                        <div class="row mr-0">
+                            <div class="col-lg-3 col-4 mb-3">聯絡日期</div>
+                            <div class="col-lg-9 col-8 keeptouch-date mb-3 px-0 py-1">{{now|date:'yyyy-MM-dd'}}</div>
+                            <div class="col-lg-3 col-4 mb-3">聯絡內容</div>
+                            <button type="button" class="col-lg-7 col-6 px-0 mb-3 btn " ng-click="useSample()" style="color: #01a9ac;border: 1px solid #01a9ac;"><b>帶入匯款回報資訊</b></button>
+                            <div class="col-lg-3 col-4 mb-3"></div>
+                            <div class="col-lg-9 col-8 px-0 mb-3">
+                                <textarea name="" id="" ng-model="contact.ContactContent" required="required">
         匯款日：
         末五碼：
         備註：
                         </textarea>
-                                </div>
                             </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-modal-submit mb-30" ng-click="useSample()">回報範本</button>
-                                <button type="submit" class="btn btn-modal-submit mb-30">提交</button>
-                            </div>
-                            <div class="mobile-keeptouchLabel">
-                                <p class="mb-2">匯款回報</p>
-                                <table class="table table-bordered order-detail-table">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">聯絡日期</th>
-                                            <td>訊息</td>
-                                        </tr>
-                                        <tr ng-repeat="contact in contactList">
-                                            <th scope="row">{{contact.dtContact|date:'yyyy-MM-dd'}}</th>
-                                            <td>
-                                                <p class="mb-0">{{contact.contactContent}}</p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
                         </div>
+                        <div class="text-center">
+                            <!--<button type="button" class="btn btn-modal-submit mb-30" ng-click="useSample()">回報範本</button>-->
+                            <button type="submit" class="btn btn-modal-submit mb-30">提交</button>
+                        </div>
+                        <div class="mobile-keeptouchLabel">
+                            <p class="mb-2">匯款回報</p>
+                            <table class="table table-bordered order-detail-table">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">聯絡日期</th>
+                                        <td>訊息</td>
+                                    </tr>
+                                    <tr ng-repeat="contact in contactList">
+                                        <th scope="row">{{contact.dtContact|date:'yyyy-MM-dd'}}</th>
+                                        <td>
+                                            <p class="mb-0">{{contact.contactContent}}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
-            </form>
-        </div>
-    </body>
-    </html>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
