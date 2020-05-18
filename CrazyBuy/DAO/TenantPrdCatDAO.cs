@@ -33,7 +33,7 @@ namespace CrazyBuy.DAO
 
                 sql += @"   and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {0} or pr.memLevelId = mr.levelId) ";
 
-                sql += @"   and prd.status = N'上架' and (prd.dtSellEnd >= getdate() or (prd.dtSellEnd <= getdate() and prd.takeOffMethod = N'隱藏訂購鈕'))) as pcount ,";
+                sql += @"   and prd.status = N'上架' and (prd.dtSellEnd is null or prd.dtSellEnd >= getdate() or (prd.dtSellEnd <= getdate() and prd.takeOffMethod = N'隱藏訂購鈕'))) as pcount ,";
                 sql += @" (select count(distinct p.id) as total from dbo.TenantPrd p ";
                 sql += @" inner join TenantPrdCatRel r on r.prdId = p.id ";
                 sql += @" inner join TenantPrdRead pr on pr.prdId = p.id ";
@@ -43,7 +43,7 @@ namespace CrazyBuy.DAO
 
                 sql += @"   and pr.status = N'正常' and (pr.type = N'所有會員' or pr.tenantMemId = {1} or pr.memLevelId = mr.levelId) ";
 
-                sql += @" and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))) as ccount ";
+                sql += @" and r.status = N'正常' and p.status = N'上架' and (p.dtSellEnd is null or p.dtSellEnd >= getdate() or (p.dtSellEnd <= getdate() and takeOffMethod = N'隱藏訂購鈕'))) as ccount ";
                 sql += @" from [TenantPrdCat] c where tenantId = '{2}' and status = N'{3}'  order by parentId asc, c.sort asc ";
                 string query = String.Format(sql, memberId, memberId, tenantId.ToString(), "正常");
                 MDebugLog.debug("@" + query);
