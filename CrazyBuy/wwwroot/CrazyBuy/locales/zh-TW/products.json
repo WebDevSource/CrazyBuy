@@ -10,6 +10,7 @@
   "prd_count": "購買數量",
   "prd_sepc": "商品規格",
   "prd_sepc_type_radius": "單選",
-  "prd_status_open": "上架"
+  "prd_status_open": "上架",
+  "prd_face2faceRule": "面交規定"
 
 }

@@ -14291,8 +14291,11 @@ a.text-hint:hover, a.text-hint:focus {
 }
 
 .product-inner-infolist {
-    color: #7F7F7F;
-    font-size: 20px;
+    /*color: #7F7F7F;
+    font-size: 20px;*/
+    color: #f5344b;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .num-minus-btn,

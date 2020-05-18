@@ -214,6 +214,7 @@ namespace CrazyBuy.Services
             data.Add("isOpenOrder", prd.isOpenOrder);
             data.Add("isTakeOff", DateTime.Now > prd.dtSellEnd);
             data.Add("takeOffMessage", prd.takeOffMessage);
+            data.Add("face2faceRule", prd.face2faceRule);
             return data;
         }
 

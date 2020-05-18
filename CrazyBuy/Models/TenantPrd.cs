@@ -37,6 +37,9 @@ namespace CrazyBuy.Models
         public int? creator { get; set; }
         public int? updater { get; set; }
         public string remark { get; set; }
- 
+        public string face2faceSet { get; set; }
+        public string face2faceRule { get; set; }
+
+
     }
 }

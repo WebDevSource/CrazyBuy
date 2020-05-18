@@ -179,6 +179,11 @@ namespace CrazyBuy.Controllers
                     total += item.amount;
                     hasOnlyFree = hasOnlyFree || item.SpecialRule.Contains("單一件免運");
 
+                    //if (item.face2faceSet.Contains(TenantSettingTAG.FACE))
+                    //{
+                    //    shipList.Add(TenantSettingTAG.FACE);
+                    //}
+
                     if (item.shipType.Contains(TenantSettingTAG.FACE))
                     {
                         shipList.Add(TenantSettingTAG.FACE);
@@ -231,6 +236,7 @@ namespace CrazyBuy.Controllers
             }
             return Ok(rm);
         }
+
         [HttpGet]
         [Authorize]
         public ActionResult getBankInfo()

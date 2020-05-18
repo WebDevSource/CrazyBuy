@@ -47,7 +47,7 @@ namespace CrazyBuy.Controllers
                 rm.data = "add success.";
 
                 OrderMaster master = DataManager.orderDao.getOrderMaster(args.orderId);
-                if(master.payStatus == "等待貨款")
+                if(master.payStatus != "已收到貨款")
                 {
                     master.payStatus = "貨款確認中";
                     DataManager.orderDao.updateOrderMaster(master);
