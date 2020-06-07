@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using CrazyBuy.Common;
 using CrazyBuy.DAO;
 using CrazyBuy.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +28,7 @@ namespace CrazyBuy.Controllers
         [HttpGet]
         public IActionResult DownloadImgFile([FromQuery]int id, [FromQuery]string filename, [FromQuery]string type)
         {
-      
+
             //TenantPrd prd = DataManager.tenantPrdDao.getTenandPrd(id);
             try
             {
@@ -161,6 +162,7 @@ namespace CrazyBuy.Controllers
                 List<ShopCartPrd> items = DataManager.shopCartDao.getItemsByMember(memberId);
                 List<TenantSetting> settings = DataManager.tenantDao.getTenantSetting(tenantId);
                 Dictionary<string, int> type = new Dictionary<string, int>();
+                TenantMemLevel level = DataManager.tenantMemberDao.getMemberLevel(memberId);
                 foreach (TenantSetting setting in settings)
                 {
                     if (!string.IsNullOrEmpty(setting.content))
@@ -200,8 +202,13 @@ namespace CrazyBuy.Controllers
                     }
 
                 }
+                double discount = 1;
+                if (level != null)
+                {
+                    discount = level.discount * 0.01;
+                }
 
-
+                double totalPrice = Math.Round(Convert.ToDouble(total) * discount, 0);
                 //step2 整理運費方式及運費
                 List<ShipMethod> methods = new List<ShipMethod>();
                 int freePrice = type.GetValueOrDefault(TenantSettingTAG.FACE);
@@ -220,7 +227,7 @@ namespace CrazyBuy.Controllers
                         {
                             ShipMethod shipMethod = new ShipMethod();
                             shipMethod.method = method;
-                            shipMethod.price = total > freePrice || hasOnlyFree ? 0 : type.GetValueOrDefault(method);
+                            shipMethod.price = totalPrice > freePrice || hasOnlyFree ? 0 : type.GetValueOrDefault(method);
                             methods.Add(shipMethod);
                         }
                     }
@@ -228,6 +235,97 @@ namespace CrazyBuy.Controllers
 
                 rm.code = MessageCode.SUCCESS;
                 rm.data = methods;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+
+            }
+            return Ok(rm);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult getPaymentType()
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
+                Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
+
+                List<ShopCartPrd> items = DataManager.shopCartDao.getItemsByMember(memberId);
+
+                List<String> methods = new List<String>();
+                foreach (ShopCartPrd item in items)
+                {
+
+
+
+                    if (item.paymentType.Contains(TenantSettingTAG.PaymentType_ATM))
+                    {
+                        methods.Add(TenantSettingType.PaymentType_ATM);
+                    }
+
+                    if (item.shipType.Contains(TenantSettingTAG.PaymentType_Face))
+                    {
+                        methods.Add(TenantSettingType.PaymentType_Face);
+                    }
+
+
+                }
+
+                if (methods.Count == 0)
+                {
+                    methods.Add(TenantSettingType.PaymentType_Face);
+                }
+
+                rm.code = MessageCode.SUCCESS;
+                rm.data = methods;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult checkMember([FromQuery] VerifyMemberReqest request)
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                Guid tenantId = Guid.Parse(User.Claims.FirstOrDefault(p => p.Type == "tenantId").Value);
+                Member member = DataManager.memberDao.VerifyMemberIsExist(tenantId, request.phone, request.email);
+                rm.code = MessageCode.SUCCESS;
+                rm.data = member;
+            }
+            catch (Exception e)
+            {
+                rm.code = MessageCode.ERROR;
+                rm.data = e.Message;
+            }
+            return Ok(rm);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult RePassWord([FromQuery] RePassMemberReqest request)
+        {
+            ReturnMessage rm = new ReturnMessage();
+            try
+            {
+                Member member = DataManager.memberDao.getMember(request.memberId);
+                member.password = Utils.ConverToMD5(request.password);
+                DataManager.memberDao.updateMember(member);
+                rm.code = MessageCode.SUCCESS;
+                rm.data = member.memberId + " update success.";
+                //rm.code = MessageCode.SUCCESS;
+                //rm.data = member;
             }
             catch (Exception e)
             {
@@ -287,7 +385,7 @@ namespace CrazyBuy.Controllers
             ReturnMessage rm = new ReturnMessage();
             try
             {
-                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);                
+                int memberId = int.Parse(User.Claims.FirstOrDefault(p => p.Type == "jti").Value);
                 rm.code = MessageCode.SUCCESS;
                 rm.data = DataManager.shopCartDao.getTimeOutItem(memberId);
                 DataManager.shopCartDao.deleteTimeOutItem(memberId);
@@ -297,6 +395,17 @@ namespace CrazyBuy.Controllers
                 rm.code = MessageCode.ERROR;
                 rm.data = e.Message;
             }
+            return Ok(rm);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult getBackendUrl()
+        {
+            ReturnMessage rm = new ReturnMessage();
+
+            rm.code = MessageCode.SUCCESS;
+            rm.data = _config["BackendUrl"];
             return Ok(rm);
         }
 

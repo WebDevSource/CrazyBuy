@@ -11,7 +11,7 @@
 
 
     // BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/api/S_TenantPrd/DownloadImgFile?id=7&filename=",
-    BackendUrl: "http://crazybuyadmin-dev.orangeinfo.tw/",
+    BackendUrl: "http://buy-dev.winpower365.com/",
     //BackendImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantPrd/DownloadImgFile?type=prd",
     //BackendBulletinImageUrl: "http://crazybuyadmin-dev.orangeinfo.tw/" + "api/S_TenantBulletin/DownloadImgFile?type=bulletin",
 
@@ -28,10 +28,13 @@
     },
 
     InitView() {
+
+        $('.input-group').hide();
         $('[data-userauthority]').hide();
         $('[data-authority]').hide();
         Utils.TenantCode = Utils.GetUrlParameter("tenantCode");
         Utils.CheckToken();
+        Utils.InitBackendUrl();
         Utils.InitEvent();
 
     },
@@ -73,6 +76,17 @@
             alert(i18next.t("msg_error_loginFrist"));
             location.href = "./index.html?tenantCode=" + Utils.TenantCode;
         }
+    },
+
+    InitBackendUrl() {
+        Utils.ProcessAjax("/api/common/getBackendUrl", "GET", true, "",
+            function (result) {
+                Utils.BackendUrl = result.data;
+            },
+            function (result) {
+                console.log(result);
+            });
+    
     },
 
     openBankend() {
@@ -308,11 +322,15 @@
                 },
                 success: function (data) {
                     //alert(JSON.stringify(result));
-                    processDone(data);
+                    if (processDone) {
+                        processDone(data);
+                    }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(JSON.stringify(errorThrown));
-                    processFailed(errorThrown);
+                    if (processFailed) {
+                        processFailed(errorThrown);
+                    }
                 }
             });
         }

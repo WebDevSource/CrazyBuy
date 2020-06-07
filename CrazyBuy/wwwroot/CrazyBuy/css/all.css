@@ -13328,7 +13328,8 @@ a.text-hint:hover, a.text-hint:focus {
     }
 
 #register-modal,
-#forget-password-modal {
+#forget-password-modal,
+#reset-password-modal {
     top: -15%;
 }
 
@@ -15200,4 +15201,9 @@ a.text-hint:hover, a.text-hint:focus {
     /*width: 255px;
     height: 57px;*/
     display: none;
+}
+
+#category-accordion-m {
+    max-height: 250px;
+    overflow-y: auto;
 }

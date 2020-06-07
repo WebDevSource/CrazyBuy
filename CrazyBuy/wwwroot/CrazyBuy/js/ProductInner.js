@@ -32,8 +32,9 @@ var ProductInner = {
     },
 
     InitProductItem(item) {
+        let role = Utils.getRole();
         let urlItems = ["./images/noitem.jpg"];
-        if (item.prdImages && Utils.getRole() != Utils.ROLE_GUEST) {
+        if (item.prdImages && role != Utils.ROLE_GUEST) {
             let baseUrl = Utils.BackendImageUrl;
             urlItems = [];
             let urls = JSON.parse(item.prdImages);
@@ -56,7 +57,6 @@ var ProductInner = {
             $(".addCart").show();
         }
 
-        let role = Utils.getRole();
         ProductInner.InitImages(urlItems);
         item.tags = ProductInner.getTagsHtml(item.tags, role);
         item.prices = ProductInner.getPricesHtml(item.prices, role);
@@ -65,11 +65,28 @@ var ProductInner = {
         item.summary = Utils.parseTextToHtml(item.summary);
         item.desc = Utils.parseTextToHtml(item.desc);
         item.sepc = ProductInner.getSepcHtml(item.sepc);
-
+        ProductInner.setFBSEOContent(urlItems[0],item);
         for (let key in item) {
             $("[data-name=" + key + "]").append(item[key]);
         }
 
+    },
+
+    setFBSEOContent(imageUrl, item) {
+        let html = "<meta property='og:title' content='" + item.name + "'/>";
+        html += "<meta property='og:description' content='" + item.summary + "' />";
+        html += "<meta property='og:image' content='" + imageUrl + "'/>";
+        html += "<meta property='og:url' content='" + location.href + "'/>";
+        html += "<meta property='og:type' content='website'/>";
+        html += "<meta property='og:site_name' content='" + $('title').text() + "'/>";
+
+        //let html = "<meta property='og:title' content='Apple'/>";
+        //html += "<meta property='og:description' content='Discover the innovative world of Apple and shop everything iPhone, iPad, Apple Watch, Mac, and Apple TV, plus explore accessories, entertainment, and expert device support.'/>";
+        //html += "<meta property='og:image' content='https://www.apple.com/ac/structured-data/images/open_graph_logo.png?201703170823'/>";
+        //html += "<meta property='og:url' content='https://www.apple.com/'/>";
+        //html += "<meta property='og:type' content='website'/>";
+        //html += "<meta property='og:site_name' content='Apple'/>";
+        $("head").append(html);
     },
 
     getTagsHtml(item, role) {

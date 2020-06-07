@@ -177,17 +177,17 @@
                         <label class="checkout-radio-label" for="face-to-face">{{item.method}}:{{item.price}}元</label>
                         <!--
 
-                        <div class="transport-method-describe mt-15">
-                            面交地點說明：
-                        </div>
-                        <input type="radio" name="transport-method" id="express" value="快遞送貨" ng-model="checkout.shippingMethod" required="required">
-                        <label class="checkout-radio-label" for="express">快遞送貨</label> <span class="text-hint">運費 $180</span>
-                        <div class="transport-method-describe mt-15">
-                            本公司會依照下單順序、匯款回壓順序進行出貨 <br>
-                            下單完成之後，請於狀態變成『等待貨款』後趕快匯款回壓，避免影響你的出貨權益。<br><br>
-                            <span class="text-hint"><b><i class="fas fa-exclamation-triangle"></i>常溫商品與冷凍商品無法合併出貨！</b></span>
-                        </div>
-                            -->
+                <div class="transport-method-describe mt-15">
+                    面交地點說明：
+                </div>
+                <input type="radio" name="transport-method" id="express" value="快遞送貨" ng-model="checkout.shippingMethod" required="required">
+                <label class="checkout-radio-label" for="express">快遞送貨</label> <span class="text-hint">運費 $180</span>
+                <div class="transport-method-describe mt-15">
+                    本公司會依照下單順序、匯款回壓順序進行出貨 <br>
+                    下單完成之後，請於狀態變成『等待貨款』後趕快匯款回壓，避免影響你的出貨權益。<br><br>
+                    <span class="text-hint"><b><i class="fas fa-exclamation-triangle"></i>常溫商品與冷凍商品無法合併出貨！</b></span>
+                </div>
+                    -->
                     </div>
                 </div>
             </section>
@@ -195,10 +195,14 @@
                 <h5 class="my-20 order-title">4.選擇付款方式</h5>
                 <hr>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12" ng-show="PaymentType.indexOf('face') > -1">
                         <input type="radio" name="pay-method" id="face-to-face-pay" value="面交付款" ng-model="checkout.payType" required="required">
                         <label class="checkout-radio-label " for="face-to-face-pay">面交付款</label>
-                        <br><br>
+                        <br /><br />
+                    </div>
+
+                    <div class="col-12" ng-show="PaymentType.indexOf('ATM') > -1">
+
                         <input type="radio" name="pay-method" id="atm-pay" value="ATM 轉帳" ng-model="checkout.payType" required="required">
                         <label class="checkout-radio-label" for="atm-pay">ATM 轉帳</label>
                         <div class="transport-method-describe mt-15">
@@ -227,8 +231,8 @@
                         <br><br>
                         <!--5/14 有需求將其隱藏-->
                         <!--<input type="radio" name="receipt" id="invoice-type-dn" value="捐贈" ng-model="checkout.invoiceType">
-                        <label class="checkout-radio-label" for="invoice-type-dn">捐贈</label>
-                        <br><br>-->
+                <label class="checkout-radio-label" for="invoice-type-dn">捐贈</label>
+                <br><br>-->
                         <input type="radio" name="receipt" id="invoice-type-two" value="二聯式" ng-model="checkout.invoiceType">
                         <label class="checkout-radio-label" for="invoice-type-two">二聯式</label>
                         <br><br>
@@ -265,6 +269,9 @@
                 <a class="cart-link-btn mr-4" href="javascript:history.back()">回上一頁</a>
                 <input class="btn btn-register cart-nextpage-btn" type="submit" value="確認資料" />
                 <!--<a class="btn btn-register cart-nextpage-btn" href="./checkout-success.html">確認資料</a>-->
+            </div>
+            <div style="height:6em">
+              
             </div>
         </form>
     </section>

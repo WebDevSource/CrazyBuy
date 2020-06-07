@@ -107,7 +107,7 @@
                     <td class="table-center table-badge"><span ng-repeat="specia in cart.specialRule" class="badge badge-no-discount"> {{specia}}</span></td>
                     <td class="table-center cart-price">
                         <p class="mb-0 table-member-price">{{cart.type}}</p>
-                        <p class="mb-0">{{cart.amount/cart.count}}</p>
+                        <p class="mb-0">{{cart.amount/cart.count | number:1}}</p>
                     </td>
                     <td class="table-center cart-num">{{cart.amount}}</td>
                     <td class="table-center cart-item-totalprice">{{cart.count}}</td>

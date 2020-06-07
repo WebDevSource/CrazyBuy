@@ -34,10 +34,15 @@ namespace CrazyBuy.Services
                     type = tenantGrade.tenantGrade;
                 }
             }
-
+            List<int> duplicate = new List<int>();
             foreach (TenantPrd prd in prds)
             {
-                result.Add(getPrdItem(prd, userType, userId, type));
+                if (!duplicate.Contains(prd.id))
+                {
+                    result.Add(getPrdItem(prd, userType, userId, type));
+                    duplicate.Add(prd.id);
+                }
+                
             }
             return result;
         }
@@ -193,6 +198,10 @@ namespace CrazyBuy.Services
             List<PrdPrice> prdPrices = getPrdPrices(prd, userType, userId, type);
             foreach (PrdPrice prdPrice in prdPrices)
             {
+                if(prdPrice.price <= 0)
+                {
+                    continue;
+                }
                 price = string.Format("${0}", prdPrice.price);
                 prices.Add(prdPrice.type, price);
             }

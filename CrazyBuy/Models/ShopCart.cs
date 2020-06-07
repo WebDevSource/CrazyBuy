@@ -39,5 +39,6 @@ namespace CrazyBuy.Models
         public int stockNum { get; set; }
         public int prdCustPriceId { get; set; }
         public string priceGradeType { get; set; }
+        public string paymentType { get; set; }
     }
 }

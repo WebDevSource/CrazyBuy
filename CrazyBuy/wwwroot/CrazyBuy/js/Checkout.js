@@ -70,6 +70,7 @@ var Checkout = {
         NavBar.Init();
         Checkout.getPlaces();
         Checkout.getFreight();
+        Checkout.getPaymentType();
         Checkout.getBankInfo();
     },
 
@@ -137,6 +138,22 @@ var Checkout = {
                     let appElement = document.querySelector('[ng-controller=CheckOutCtrl]');
                     let $scope = angular.element(appElement).scope();
                     $scope.Freight = ret.data;
+                    $scope.$apply();
+                } else {
+                    alert(i18next.t("msg_service_error"));
+                }
+            },
+            function (error) { alert(i18next.t("msg_service_error")); }
+        );
+    },
+
+    getPaymentType() {
+        Utils.ProcessAjax("/api/Common/getPaymentType", "GET", true, "",
+            function (ret) {
+                if (ret.code === 1) {
+                    let appElement = document.querySelector('[ng-controller=CheckOutCtrl]');
+                    let $scope = angular.element(appElement).scope();
+                    $scope.PaymentType = ret.data;
                     $scope.$apply();
                 } else {
                     alert(i18next.t("msg_service_error"));

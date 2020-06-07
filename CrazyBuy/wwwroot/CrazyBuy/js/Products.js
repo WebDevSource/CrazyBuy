@@ -22,10 +22,12 @@
 	},
 
 	getProductData() {
+		
 		let data = {
 			"sortType": parseInt(Products.sortType),
 			"count": 12,
-			"page": parseInt(Products.pageIndex)
+			"page": parseInt(Products.pageIndex),
+			"keyWord": $("#mobile-search").val() || $("#search").val() 
 		}
 		let url = "/api/prd/getPrdByCatId/" + Products.currentCat;
 

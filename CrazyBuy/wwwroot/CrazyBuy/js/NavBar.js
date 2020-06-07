@@ -97,30 +97,75 @@
             + '    </div>                                                                                        '
             + '  </div>                                                                                          '
             + '</div>                                                                                            '
+
+
             + '<div class="modal" id="forget-password-modal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">                   '
             + '  <div class="modal-dialog modal-dialog-centered" role="document">                                                                     '
             + '    <div class="modal-content">                                                                                                        '
             + '      <div class="modal-header justify-content-center border-0 mb-20">                                                                 '
             + '        <h5 class="modal-title text-center" id="register-modal-title">忘記密碼</h5>                                                    '
             + '      </div>                                                                                                                           '
+           
             + '      <form class="col-11 mx-auto modal-body">                                                                                         '
-            + '        <label for="exist-accountant" class="col-12 col-form-label pl-0">輸入會員帳號</label>                                          '
+            + '        <label for="exist-accountant" class="col-12 col-form-label pl-0">會員手機:</label>                                          '
             + '        <div class="form-group row">                                                                                                   '
-            + '          <div class="col-9">                                                                                                          '
-            + '            <input type="text" class="form-control" id="exist-accountant">                                                             '
-            + '          </div>                                                                                                                       '
-            + '          <div class="col-3 px-0">                                                                                                     '
-            + '            <button class="w-100 btn btn-register btn-signin register-btn-size">送出</button>                                          '
+            + '          <div class="col-12">                                                                                                          '
+            + '            <input type="text" class="form-control" id="phone">                                                             '
             + '          </div>                                                                                                                       '
             + '        </div>                                                                                                                         '
+            + '        <label for="exist-accountant" class="col-12 col-form-label pl-0">會員Email:</label>                                          '
+            + '        <div class="form-group row">                                                                                                   '
+            + '          <div class="col-12">                                                                                                          '
+            + '            <input type="text" class="form-control" id="email">                                                             '
+            + '          </div>                                                                                                                       '
+            + '        </div>                                                                                                                         '
+
             + '      </form>                                                                                                                          '
             + '                                                                                                                                       '
             + '      <div class="modal-footer justify-content-center border-0">                                                                       '
+            + '        <button onclick="NavBar.checkAccount()" class="btn btn-register btn-signin register-btn-size">驗證</button>                             '
+            + '        <button class="register-modal-link btn btn-outline-register register-btn-size">回登入畫面</button>                             '
+            + '      </div>                                                                                                                           '
+            + '    </div>                                                                                                                             '
+            + '  </div>                                                                                                                               '
+            + '</div>                                                                                                                                 '
+
+
+            + '<div class="modal" id="reset-password-modal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">                   '
+            + '  <div class="modal-dialog modal-dialog-centered" role="document">                                                                     '
+            + '    <div class="modal-content">                                                                                                        '
+            + '      <div class="modal-header justify-content-center border-0 mb-20">                                                                 '
+            + '        <h5 class="modal-title text-center" id="register-modal-title">重設密碼</h5>                                                    '
+            + '      </div>                                                                                                                           '
+
+            + '      <form class="col-11 mx-auto modal-body">                                                                                         '
+            + '        <label for="exist-accountant" class="col-12 col-form-label pl-0">輸入密碼</label>                                          '
+            + '        <div class="form-group row">                                                                                                   '
+            + '          <div class="col-12">                                                                                                          '
+            + '            <input type="password" class="form-control" id="reset-password">                                                             '
+            + '          </div>                                                                                                                       '
+            + '        </div>                                                                                                                         '
+            + '        <label for="exist-accountant" class="col-12 col-form-label pl-0">再次輸入密碼</label>                                          '
+            + '        <div class="form-group row">                                                                                                   '
+            + '          <div class="col-12">                                                                                                          '
+            + '            <input type="password" class="form-control" id="reset-password2">                                                             '
+            + '          </div>                                                                                                                       '
+            + '        </div>                                                                                                                         '
+
+            //+ '          <div class="col-3 px-0">                                                                                                     '
+            //+ '            <button onclick="NavBar.checkAccount()" class="w-100 btn btn-register btn-signin register-btn-size">送出</button>                                          '
+            //+ '          </div>                                                                                                                       '
+
+            + '      </form>                                                                                                                          '
+            + '                                                                                                                                       '
+            + '      <div class="modal-footer justify-content-center border-0">                                                                       '
+            + '        <button onclick="NavBar.ResetPassword()" class="btn btn-register btn-signin register-btn-size">送出</button>                             '
             + '        <button class="register-modal-link btn btn-outline-register register-btn-size">回登入畫面</button>                             '
             + '      </div>                                                                                                                           '
             + '    </div>                                                                                                                             '
             + '  </div>                                                                                                                               '
             + '</div>                                                                                                                                 ';
+
 
         $('body').prepend(html);
         $("body").on("click", '.register-modal-link', function () {
@@ -134,6 +179,7 @@
             event.stopPropagation();
             $("#register-modal").modal('show');
             $('#forget-password-modal').modal('hide');
+            $('#reset-password-modal').modal('hide');
         } else {
             event.stopPropagation();
             $('#forget-password-modal').modal('show');
@@ -195,7 +241,7 @@
             + ' <a  href="' + url + '" class="col-sm-8 col-10 nav-cart-item-info nav-link category"> '
             + '   <div class="d-flex flex-wrap w-100">'
             + '    <p class="mb-1 w-100">' + data.name + '</p>'
-            + '    <p class="mb-0 w-100 nav-cart-item-price">' + data.count + ' <i class="fas fa-times"></i> <span class="price">$' + data.amount / data.count + '</span></p>'
+            + '    <p class="mb-0 w-100 nav-cart-item-price">' + data.count + ' <i class="fas fa-times"></i> <span class="price">$' + Math.round((data.amount / data.count) * 100) / 100 + '</span></p>'
             + '   </div>'
             + ' </a>'
             + ' <div class="nav-cart-close" onclick=NavBar.delCart(\'' + data.id + '\')>x</div>'
@@ -340,6 +386,61 @@
             },
             function (error) { alert(i18next.t("ajax error")) }
         );
-    }
+    },
+
+    checkAccount: function () {
+        //let data = {
+        //    "phone":"09522356689",
+        //    "email": "leigo831024@gmail.com",
+        //}
+        let data = {
+            "phone": $("#phone").val().toString(),
+            "email": $("#email").val().toString()
+        }
+        let url = "/api/common/checkMember";
+
+        Utils.ProcessAjax(url, "GET", true, data,
+            function (ret) {
+                if (ret.data.memberId) {
+                    NavBar.memberId = ret.data.memberId;
+                    $("#reset-password-modal").modal('show');
+                    $('#forget-password-modal').modal('hide');
+                } else {
+                    alert("查無此會員");
+                }
+            }
+        );
+    },
+
+    ResetPassword: function () {
+        //let data = {
+        //    "phone":"09522356689",
+        //    "email": "leigo831024@gmail.com",
+        //}
+        let pd = $("#reset-password").val().toString();
+        if (!pd) {
+            alert("請輸入密碼");
+            return;
+        } else if (pd != $("#reset-password2").val().toString()) {
+            alert("輸入密碼不一致");
+            return;
+        }
+
+        let data = {
+            "memberId": NavBar.memberId,
+            "password": pd
+        }
+        let url = "/api/common/RePassWord";
+
+        Utils.ProcessAjax(url, "GET", true, data,
+            function (ret) {
+                if (ret.code == 1) {
+                    alert("修改成功 請改用新密碼登入");
+                    NavBar.switchLoginModelStatus(true);
+                } 
+            }
+        );
+    },
+
 
 };

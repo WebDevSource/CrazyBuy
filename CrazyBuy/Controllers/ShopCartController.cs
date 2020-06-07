@@ -33,7 +33,7 @@ namespace CrazyBuy.Controllers
                     {
                         if (item.SpecialRule == null || !item.SpecialRule.Contains(UserDisType.NO_DIS))
                         {
-                            item.amount = (int)(item.amount * discount);
+                            item.amount = (int)Math.Round(item.amount * discount,0);
                         }
                     }
                 }

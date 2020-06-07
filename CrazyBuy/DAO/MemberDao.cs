@@ -117,5 +117,19 @@ namespace CrazyBuy.DAO
                 return dbContext.Database.SqlQuery<string>(sql).ToList();
             }
         }
+
+        public Member VerifyMemberIsExist(Guid tenantId, string phone, string email)
+        {
+            using (CrazyBuyDbContext dbContext = ContextInit())
+            {
+
+                var sql = @"SELECT *  FROM dbo.Member m ";
+                sql += @" inner join TenantMember tm on m.memberId = tm.memberId ";
+                sql += @" WHERE m.cellphone = N'{0}' and m.email = N'{1}' and tenantId = '{2}'";
+                sql = string.Format(sql, phone, email, tenantId);
+                MDebugLog.debug("[VerifyMemberIsExist] >" + sql);
+                return dbContext.Database.SqlQuery<Member>(sql).SingleOrDefault();
+            }
+        }
     }
 }

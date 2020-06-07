@@ -88,8 +88,8 @@
             <div class="col-md-8 col-12 product-row">
                 <!-- 商品功能 -->
                 <form class="products-search d-inline-block" id="products-list-search-m">
-                    <input type="text" class="navbar-search-text" placeholder="搜尋商品">
-                    <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
+                    <input type="text" class="navbar-search-text" placeholder="搜尋商品" id="mobile-search">
+                    <button type="submit" class="navbar-search-btn border-0"  onclick="Products.getProductData()"><i class="fas fa-search"></i></button>
                 </form>
                 <div class="products-tool mb-md-30 mb-20">
                     <div class="product-list-types nav nav-tabs" id="nav-tab" role="tablist">
@@ -98,8 +98,8 @@
                     </div>
                     <div class="products-search-bar">
                         <form class="products-search d-inline-block" id="products-list-search">
-                            <input type="text" class="navbar-search-text" placeholder="搜尋商品">
-                            <button type="submit" class="navbar-search-btn border-0"><i class="fas fa-search"></i></button>
+                            <input type="text" class="navbar-search-text" placeholder="搜尋商品" id="search">
+                            <button type="submit" class="navbar-search-btn border-0" onclick="Products.getProductData()"><i class="fas fa-search"></i></button>
                         </form>
                         <div class="btn-group" id="mobile-nav-product-category">
                             <button type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" id="category-dropdown-m">

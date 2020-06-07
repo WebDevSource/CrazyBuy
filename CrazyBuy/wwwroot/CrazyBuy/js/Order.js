@@ -33,13 +33,24 @@ var Order = {
     doLoad() {
         Utils.Initial();
         Utils.InitI18next("zh-TW", "order", Order.InitModule);
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2({
+                placeholder: "請選擇",
+                theme: "classic",
+                width: 'resolve'
+
+            });
+        });
+        
     },
 
     doClearSearch() {
         let appElement = document.querySelector('[ng-controller=OrderCtrl]');
         let $scope = angular.element(appElement).scope();
         $scope.search = {};
-        $('.selectpicker').selectpicker('deselectAll');
+        //$('.selectpicker').selectpicker('deselectAll');
+        $('.js-example-basic-multiple').val(null).trigger('change');
+
         Order.InitView()
     },
 
@@ -51,6 +62,8 @@ var Order = {
     },
 
     InitView() {
+
+
         Utils.ProcessAjax("/api/order", "GET", true, "",
             function (ret) {
                 if (ret.code === 1) {

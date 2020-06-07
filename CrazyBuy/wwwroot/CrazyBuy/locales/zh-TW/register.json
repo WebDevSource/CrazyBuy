@@ -2,7 +2,7 @@
   "register_success": "註冊成功!!",
   "register_bulletin": "會員註冊文字",
   "member_exist_cellphone": "手機已被註冊",
-  "mail already exist.": "郵件已被註冊",
+  "mail_already_exist.": "郵件已被註冊",
   "msg_error_member_not_agree": "未同意",
   "mem_please_check_password": "密碼與輸入密碼不一致"
 

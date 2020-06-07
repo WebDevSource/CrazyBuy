@@ -127,11 +127,23 @@ namespace CrazyBuy
 
     }
 
+    public class VerifyMemberReqest
+    {
+        public string phone { get; set; }
+        public string email { get; set; }
+    }
+    public class RePassMemberReqest
+    {
+        public int memberId { get; set; }
+        public string password { get; set; }
+    }
+
     public class SortTypeRequest
     {
         public int sortType { get; set; }
         public int count { get; set; }
         public int page { get; set; }
+        public string keyword { get; set; }
     }
 
     public class SearchRequest
@@ -155,6 +167,7 @@ namespace CrazyBuy
             count = value.count;
             page = value.page - 1;
             sortType = value.sortType;
+            keyword = value.keyword;
         }
         public Guid tnenatId { get; set; }
         public long catId { get; set; }
@@ -162,6 +175,7 @@ namespace CrazyBuy
         public int sortType { get; set; }
         public int count { get; set; }
         public int page { get; set; }
+        public string keyword { get; set; }
         public string getKey()
         {
             return tnenatId.ToString() + userType + catId + sortType + count + page;
@@ -211,6 +225,8 @@ namespace CrazyBuy
         public const string BankAccount = "轉帳帳號";
         public const string BankName = "銀行名稱";
         public const string SubBankName = "分行名稱";
+        public const string PaymentType_Face = "face";
+        public const string PaymentType_ATM = "ATM";
     }
 
     public class TenantSettingTAG
@@ -224,6 +240,8 @@ namespace CrazyBuy
         public const string BankAccount = "bankAccount";
         public const string BankName = "bankName";
         public const string SubBankName = "subBankName";
+        public const string PaymentType_Face = "面交付款";
+        public const string PaymentType_ATM = "ATM轉帳";
     }
 
     public class TenantSettingMapping

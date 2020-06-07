@@ -174,6 +174,7 @@ namespace CrazyBuy.Controllers
                 query.catId = id;
                 query.userType = type;
 
+
                 int totalCount = CTenantPrdManager.getTenantPrdCount(Guid.Parse(tenantId), id, memberId);
                 int maxPage = totalCount % request.count == 0 ? totalCount / request.count : totalCount / request.count + 1;
                 maxPage = totalCount <= request.count ? 1 : maxPage;

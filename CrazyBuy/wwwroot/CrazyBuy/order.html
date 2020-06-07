@@ -6,10 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Crazyplusone</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <link href="./css/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="./css/select2-bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="./js/lib/jquery-3.4.1.min.js"></script>
     <script src="./js/lib/popper.min.js"></script>
-    <script src="./js/lib/multiselect.min.js"></script>
+    <!--<script src="./js/lib/multiselect.min.js"></script>-->
     <script src="./js/lib/bootstrap.min.js"></script>
+    <script src="./js/lib/select2.full.min.js"></script>
 
     <!-- i18next.min.js -->
     <script type="text/javascript" src="./js/lib/i18next/js/i18next.min.js"></script>
@@ -24,9 +27,9 @@
     <script src="./js/ProductCard.js"></script>
 
     <!-- page lib -->
-    <link rel="stylesheet" href="./js/lib/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css">
-    <script src="./js/lib/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js"></script>
-    <script src="./js/lib/bootstrap-select-1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+    <!--<link rel="stylesheet" href="./js/lib/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css">-->
+    <!--<script src="./js/lib/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="./js/lib/bootstrap-select-1.13.14/dist/js/i18n/defaults-*.min.js"></script>-->
     <script src="./js/lib/angular.min.js"></script>
 
     <link rel="stylesheet" type="text/css" media="all" href="./js/lib/DatePicker/daterangepicker.css" />
@@ -171,14 +174,14 @@
                                 <form class="row mx-0" id="filters-form">
                                     <div class="col-12 mb-3 multiple-filters-row">
                                         <label for="" class="mr-2">出貨狀態</label>
-                                        <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.status">
+                                        <select class="js-example-basic-multiple col-8" multiple="multiple" title="請選擇(多個)"" ng-model="search.status">
                                             <option>未出貨</option>
                                             <option>已出貨</option>
                                         </select>
                                     </div>
                                     <div class="col-12 mb-3 multiple-filters-row">
                                         <label for="" class="mr-2">貨款狀態</label>
-                                        <select class="selectpicker" multiple title="請選擇(多個)" ng-model="search.payStatus">
+                                        <select class="js-example-basic-multiple col-8" multiple="multiple" title="請選擇(多個)" ng-model="search.payStatus"  >
                                             <option>等待貨款</option>
                                             <option>已收到貨款</option>
                                         </select>

@@ -81,7 +81,7 @@ namespace CrazyBuy.DAO
                 {
                     sql += string.Format(@" and m.dtOrder <= '{0}'", search.endDate);
                 }
-                if (search.status != null)
+                if (search.status != null && search.status.Count > 0)
                 {
                     string searchStatus = "";
                     for (int i = 0; i < search.status.Count; i++)
@@ -94,7 +94,7 @@ namespace CrazyBuy.DAO
                     }
                     sql += string.Format(@" and m.shippingStatus in ({0}) ", searchStatus);
                 }
-                if (search.payStatus != null)
+                if (search.payStatus != null && search.payStatus.Count > 0)
                 {
                     string searchStatus = "";
                     for (int i = 0; i < search.payStatus.Count; i++)
